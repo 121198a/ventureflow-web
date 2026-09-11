@@ -1,0 +1,51 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import "./globals.css";
+import { ViewTransitions } from "@/components/motion/ViewTransitions";
+import { SmoothScrollProvider } from "@/providers/SmoothScrollProvider";
+import { TopProgressBar } from "@/components/layout/TopProgressBar";
+import { site, SITE_URL } from "@/lib/constants";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: { default: site.name + " — " + site.tagline, template: "%s — " + site.name },
+  description: site.description,
+  openGraph: { title: site.name + " — " + site.tagline, description: site.description, type: "website" },
+  twitter: { card: "summary_large_image", title: site.name + " — " + site.tagline, description: site.description },
+  icons: {
+    icon: [
+      { url: "/icon.png" },
+      { url: "/favicon.ico" },
+      { url: "/favicon-256.png", sizes: "256x256", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+};
+
+/**
+ * Document shell ONLY — no nav/footer here. This wraps every route in the
+ * project, including:
+ *   - app/(marketing)/**  (adds its own SiteNav/SiteFooter — see that layout)
+ *   - app/platform/**     (adds its own PlatformShell header/footer)
+ *   - app/legal/**        (self-contained LegalShell, its own header/footer)
+ * Putting marketing chrome here as well would stack it underneath each of
+ * those route-specific shells — that was a real, live bug (every
+ * /platform/* page rendered with the marketing nav+footer AND the
+ * platform header+footer at once) that this split fixes.
+ */
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className="scroll-smooth">
+      <body id="top" className="font-sans antialiased bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+        <Suspense fallback={null}>
+          <TopProgressBar />
+        </Suspense>
+        <SmoothScrollProvider>
+          <ViewTransitions>{children}</ViewTransitions>
+        </SmoothScrollProvider>
+      </body>
+    </html>
+  );
+}

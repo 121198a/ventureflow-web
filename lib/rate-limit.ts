@@ -1,0 +1,50 @@
+interface RateLimitEntry {
+  count: number;
+  resetTime: number;
+}
+
+// In-memory rate limiting map for sliding window
+const attemptsMap = new Map<string, RateLimitEntry>();
+
+// Clean up stale entries every 10 minutes to prevent memory leaks
+if (typeof setInterval !== "undefined") {
+  setInterval(() => {
+    const now = Date.now();
+    for (const [key, entry] of attemptsMap.entries()) {
+      if (now > entry.resetTime) {
+        attemptsMap.delete(key);
+      }
+    }
+  }, 10 * 60 * 1000);
+}
+
+export function checkRateLimit(
+  identifier: string,
+  maxAttempts: number = 5,
+  windowMs: number = 15 * 60 * 1000 // 15 minutes
+): { allowed: boolean; remaining: number; retryAfter?: number; error?: string } {
+  const now = Date.now();
+  const entry = attemptsMap.get(identifier);
+
+  if (!entry || now > entry.resetTime) {
+    attemptsMap.set(identifier, { count: 1, resetTime: now + windowMs });
+    return { allowed: true, remaining: maxAttempts - 1 };
+  }
+
+  if (entry.count >= maxAttempts) {
+    const retryAfter = Math.ceil((entry.resetTime - now) / 1000);
+    return {
+      allowed: false,
+      remaining: 0,
+      retryAfter,
+      error: "Too many login attempts. Please try again later.",
+    };
+  }
+
+  entry.count += 1;
+  return { allowed: true, remaining: maxAttempts - entry.count };
+}
+
+export function resetRateLimit(identifier: string) {
+  attemptsMap.delete(identifier);
+}

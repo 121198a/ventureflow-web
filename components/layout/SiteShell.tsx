@@ -1,0 +1,502 @@
+"use client";
+
+import Image from "next/image";
+import { TransitionLink } from "@/components/ui/TransitionLink";
+import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+import { nav, site, socialLinks } from "@/lib/constants";
+import { AuthButton } from "@/components/ui/AuthButton";
+import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { FaTwitter, FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa";
+
+export default function SiteShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isAuthPage = pathname?.startsWith("/login");
+  const isPlatformRoute = pathname?.startsWith("/platform");
+  const isLegalRoute = pathname?.startsWith("/legal");
+
+  if (isPlatformRoute || isLegalRoute) {
+    return <>{children}</>;
+  }
+
+  if (isAuthPage) {
+    return (
+      <main className="min-h-dvh w-full bg-[#f8fafc] flex flex-col justify-center items-center relative overflow-hidden">
+        {children}
+      </main>
+    );
+  }
+
+  return (
+    <div className="min-h-dvh flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+      <SiteNav />
+      <main className="flex-1 w-full">{children}</main>
+      <SiteFooter />
+    </div>
+  );
+}
+
+export function SiteNav() {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 15);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Auto-close mobile menu on desktop resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 640) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
+
+  // The Login page must never render the shared navbar
+  if (pathname === "/login" || pathname?.startsWith("/login")) {
+    return null;
+  }
+
+  return (
+    <>
+      <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
+        <motion.div
+          animate={{
+            maxWidth: scrolled ? 900 : 1080,
+            borderRadius: 9999,
+            backgroundColor: scrolled ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.78)",
+            borderColor: scrolled ? "rgba(226, 232, 240, 0.95)" : "rgba(226, 232, 240, 0.7)",
+            boxShadow: scrolled
+              ? "0 12px 35px -8px rgba(15, 23, 42, 0.12)"
+              : "0 4px 20px -4px rgba(15, 23, 42, 0.05)",
+          }}
+          transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1.0] }}
+          className="pointer-events-auto mx-auto flex h-[54px] sm:h-[58px] w-full items-center justify-between px-4 sm:px-7 border backdrop-blur-md backdrop-saturate-[180%]"
+        >
+          {/* Brand Logo */}
+          <TransitionLink href="/" className="flex items-center gap-2.5 font-display text-sm sm:text-base font-bold text-slate-900 group">
+            <div className="relative h-7 w-7 sm:h-8 sm:w-8 overflow-hidden rounded-full flex items-center justify-center shadow-2xs">
+              <Image
+                src="/logo/unboundx-mark.png"
+                width={32}
+                height={32}
+                alt={site.name}
+                className="h-full w-full object-cover rounded-full transition-transform group-hover:scale-105"
+                priority
+              />
+            </div>
+            <UnboundXBrand className="text-base sm:text-lg" />
+          </TransitionLink>
+
+          {/* Desktop Nav Items */}
+          <nav className="hidden items-center gap-8 text-sm font-medium sm:flex">
+            {nav.map(([label, href]) => {
+              const isActive = pathname === href || (href !== "/" && pathname?.startsWith(href));
+              return (
+                <TransitionLink
+                  key={href}
+                  href={href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`relative py-1 transition-colors duration-200 hover:text-blue-600 ${
+                    isActive ? "text-blue-600 font-semibold" : "text-slate-600"
+                  }`}
+                >
+                  {label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeNavTab"
+                      className="absolute inset-x-0 -bottom-1 h-[2px] rounded-pill bg-blue-600"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </TransitionLink>
+              );
+            })}
+          </nav>
+
+          {/* Desktop CTA & Mobile Toggle */}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <AuthButton
+              flow="signup"
+              icon={false}
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-pill bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-xs sm:text-sm font-semibold px-5 py-2.5 shadow-sm transition-all duration-200"
+            >
+              <span>Get started</span>
+              <ArrowRight size={14} />
+            </AuthButton>
+
+            <button
+              aria-label="Toggle navigation menu"
+              onClick={() => setOpen(true)}
+              className="grid h-9 w-9 place-items-center rounded-pill border border-slate-200/90 bg-white/90 text-slate-800 transition-transform active:scale-95 sm:hidden cursor-pointer shadow-2xs"
+            >
+              <Menu size={18} />
+            </button>
+          </div>
+        </motion.div>
+      </header>
+
+      {/* Responsive Full-Screen Gradient Mobile Drawer Overlay */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[100] flex flex-col justify-between bg-gradient-to-b from-[#8f3282] via-[#5a2e7c] to-[#1d5089] p-4 sm:p-6 text-white sm:hidden overflow-y-auto"
+          >
+            {/* Ambient Background Circles */}
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+              <div className="absolute top-[18%] left-1/2 -translate-x-1/2 w-[min(90vw,480px)] h-[min(90vw,480px)] rounded-pill border border-white/10 opacity-60" />
+              <div className="absolute top-[28%] left-1/2 -translate-x-1/2 w-[min(70vw,340px)] h-[min(70vw,340px)] rounded-pill border border-white/10 opacity-40" />
+            </div>
+
+            {/* Top Bar inside Overlay */}
+            <div className="relative z-10 mx-auto flex h-[54px] sm:h-[58px] w-full max-w-lg items-center justify-between px-4 sm:px-5 rounded-pill bg-white/95 text-slate-900 shadow-xl backdrop-blur-md">
+              <div className="flex items-center gap-2 font-bold text-sm sm:text-base">
+                <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center shadow-2xs">
+                  <Image
+                    src="/logo/unboundx-mark.png"
+                    width={28}
+                    height={28}
+                    alt={site.name}
+                    className="h-full w-full object-cover rounded-full"
+                  />
+                </div>
+                <UnboundXBrand className="text-base sm:text-lg" />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  aria-label="Close menu"
+                  onClick={() => setOpen(false)}
+                  className="grid h-8 w-8 place-items-center rounded-pill bg-slate-100 text-slate-800 transition-transform active:scale-90 cursor-pointer"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Centered Navigation Links */}
+            <nav className="relative z-10 flex flex-col items-center justify-center gap-5 sm:gap-7 py-6 sm:my-auto sm:py-8 min-h-0">
+              {nav.map(([label, href]) => {
+                const isActive = pathname === href || (href !== "/" && pathname?.startsWith(href));
+                return (
+                  <TransitionLink
+                    key={href}
+                    onClick={() => setOpen(false)}
+                    href={href}
+                    className={`text-[clamp(1.4rem,4.5vw,2rem)] font-bold tracking-tight transition-all duration-200 ${
+                      isActive
+                        ? "text-white font-extrabold scale-105"
+                        : "text-white/60 hover:text-white"
+                    }`}
+                  >
+                    {label}
+                  </TransitionLink>
+                );
+              })}
+
+              <div className="mt-3 sm:mt-5">
+                <AuthButton
+                  flow="signup"
+                  icon={false}
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center gap-2 rounded-pill bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 text-white text-xs sm:text-sm font-semibold px-6 py-2.5 sm:px-7 sm:py-3 shadow-lg transition-transform active:scale-95"
+                >
+                  <span>Get started</span>
+                  <ArrowRight size={14} />
+                </AuthButton>
+              </div>
+            </nav>
+
+            {/* Bottom Social Icons */}
+            <div className="relative z-10 flex items-center justify-center gap-6 pb-2 text-white/70 text-sm">
+              <a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on X" className="p-1 hover:text-white transition-colors">
+                <FaTwitter size={15} />
+              </a>
+              <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on LinkedIn" className="p-1 hover:text-white transition-colors">
+                <FaLinkedinIn size={15} />
+              </a>
+              <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Facebook" className="p-1 hover:text-white transition-colors">
+                <FaFacebookF size={15} />
+              </a>
+              <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Instagram" className="p-1 hover:text-white transition-colors">
+                <FaInstagram size={15} />
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+const footerColumns = [
+  {
+    heading: "Product",
+    links: [
+      ["Thesis", "/#thesis"],
+      ["Spaces", "/#spaces"],
+      ["Beyond the feed", "/#beyond-the-feed"],
+    ],
+  },
+  {
+    heading: "UBverse",
+    links: [
+      ["Startup Investing", "/ubverse#the-company-space"],
+      ["Ventures", "/ubverse#raising"],
+      ["How It Works", "/ubverse#beyond-the-raise"],
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      ["About Us", "/about#top"],
+      ["Careers", "/careers"],
+      ["Blog", "/blog"],
+      ["Press", "/press"],
+    ],
+  },
+  {
+    heading: "Resources",
+    links: [
+      ["Legal Hub", "/legal"],
+      ["Support", "/legal/support"],
+      ["Community", "/legal/community-guidelines"],
+      ["Contact Us", "/legal/contact-us"],
+    ],
+  },
+] as const;
+
+export function SiteFooter() {
+  const [showTop, setShowTop] = useState(false);
+  const pathname = usePathname();
+
+  const showRecordCard = pathname === "/";
+  const hasOwnOverlapCard = pathname === "/ubverse" || pathname === "/about";
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 450);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // The Login page must never render the shared footer
+  if (pathname === "/login" || pathname?.startsWith("/login")) {
+    return null;
+  }
+
+  return (
+    <>
+      <footer
+        className={`relative bg-[#0a1226] pb-10 text-slate-300 ${
+          hasOwnOverlapCard ? "mt-0 pt-24 sm:pt-28" : "mt-24 pt-0 sm:mt-32"
+        }`}
+      >
+        {showRecordCard && (
+        <div className="relative z-20 mx-auto -mb-24 -translate-y-1/2 px-4 sm:-mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="mx-auto flex max-w-[1120px] flex-col items-center gap-8 rounded-lg border border-slate-200/90 bg-white p-6 md:p-10 shadow-[0_25px_60px_rgba(10,18,38,0.2)] backdrop-blur-xl md:flex-row md:justify-between"
+          >
+            <div className="w-full max-w-[280px] shrink-0 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm">
+              <div className="flex items-center justify-between text-sm font-semibold text-slate-900">
+                <span>NVDA</span>
+                <span className="rounded-pill bg-blue-50 px-2 py-0.5 text-micro font-bold text-blue-600">
+                  LONG
+                </span>
+              </div>
+              <dl className="mt-3 space-y-1.5 text-xs md:text-sm">
+                <div className="flex justify-between">
+                  <dt className="text-slate-600">Entered</dt>
+                  <dd className="font-semibold text-slate-800">$219.86</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-slate-600">Target</dt>
+                  <dd className="font-semibold text-slate-800">$260.00</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-slate-600">By</dt>
+                  <dd className="font-semibold text-slate-800">Dec 2026</dd>
+                </div>
+              </dl>
+              <div className="mt-4" aria-hidden="true">
+                <div className="relative mx-1 h-[2px] rounded-pill bg-[#E4EAEF]">
+                  <span className="absolute -left-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-pill bg-blue-600" />
+                  <span className="absolute -right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-pill border-[1.5px] border-slate-400/60 bg-white" />
+                </div>
+              </div>
+              <div className="mt-2 flex justify-between text-micro font-medium">
+                <span className="text-blue-600">Published</span>
+                <span className="text-slate-600">Settled</span>
+              </div>
+            </div>
+
+            <div className="text-center md:text-left flex-1 max-w-lg">
+              <h3 className="text-2xl font-bold text-slate-900 sm:text-3xl tracking-tight">
+                Put your market ideas on the record.
+              </h3>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                Write down what you think and see how it holds up when the market decides.
+              </p>
+              <AuthButton
+                flow="signup"
+                icon={false}
+                className="mt-5 inline-flex items-center gap-2 rounded-pill bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-blue-700 active:scale-[0.98]"
+              >
+                <span>Start your record</span>
+                <ArrowRight size={15} />
+              </AuthButton>
+            </div>
+
+            {/* QR code and its caption are one unit — only shown together at
+                lg+, so mobile/tablet never see "scan to get started" text
+                without the QR code to actually scan. */}
+            <div className="hidden shrink-0 items-center gap-3.5 rounded-lg border border-slate-200/80 bg-white/30 p-4 lg:flex backdrop-blur-sm">
+              <Image
+                src="/image/QR.webp"
+                width={64}
+                height={64}
+                alt="Scan QR code"
+                className="h-18 w-18 object-contain shadow-xs"
+              />
+              <div className="text-xs">
+                <p className="font-semibold text-slate-900 text-lg">Take UnBound X with you.</p>
+                <p className="text-slate-600 mt-0.5 text-sm">Scan to get started on your phone.</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+        )}
+
+        <div className="mx-auto grid max-w-[1180px] gap-x-8 gap-y-10 px-6 pt-16 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="relative h-8 w-8 overflow-hidden rounded-full shadow-sm flex items-center justify-center">
+                <Image
+                  src="/logo/unboundx-mark.png"
+                  width={32}
+                  height={32}
+                  alt={site.name}
+                  className="h-full w-full object-cover rounded-full"
+                />
+              </div>
+              <div>
+                <UnboundXBrand className="text-lg font-bold" />
+                <p className="text-xs text-blue-400 font-medium">{site.brandLine}</p>
+              </div>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed max-w-[220px]">
+              Where investment ideas build a verified record.
+            </p>
+            <div className="flex gap-2.5 pt-1">
+              <a
+                href={socialLinks.x}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="UnBound X on X"
+                className="grid h-8 w-8 place-items-center rounded-pill border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white"
+              >
+                <FaTwitter size={13} />
+              </a>
+              <a
+                href={socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="UnBound X on LinkedIn"
+                className="grid h-8 w-8 place-items-center rounded-pill border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white"
+              >
+                <FaLinkedinIn size={13} />
+              </a>
+              <a
+                href={socialLinks.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="UnBound X on Facebook"
+                className="grid h-8 w-8 place-items-center rounded-pill border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white"
+              >
+                <FaFacebookF size={13} />
+              </a>
+              <a
+                href={socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="UnBound X on Instagram"
+                className="grid h-8 w-8 place-items-center rounded-pill border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white"
+              >
+                <FaInstagram size={13} />
+              </a>
+            </div>
+          </div>
+
+          {footerColumns.map((col) => (
+            <div key={col.heading}>
+              <h3 className="mb-3.5 text-sm font-semibold text-white">{col.heading}</h3>
+              <ul className="space-y-2 text-xs">
+                {col.links.map(([label, href]) => (
+                  <li key={label}>
+                    <TransitionLink href={href} className="text-slate-400 transition-colors hover:text-white">
+                      {label}
+                    </TransitionLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-12 flex max-w-[1180px] flex-col gap-3 border-t border-slate-900/80 px-6 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <span>&copy; 2026 {site.name}. All rights reserved.</span>
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            <TransitionLink href="/legal/privacy-policy" className="hover:text-slate-300 transition-colors">Privacy Policy</TransitionLink>
+            <TransitionLink href="/legal/terms-condition" className="hover:text-slate-300 transition-colors">Terms &amp; Condition</TransitionLink>
+            <TransitionLink href="/legal/investment-disclaimers" className="hover:text-slate-300 transition-colors">Disclaimers</TransitionLink>
+          </div>
+        </div>
+      </footer>
+
+      <AnimatePresence>
+        {showTop && (
+          <motion.a
+            href="#top"
+            aria-label="Back to top"
+            initial={{ opacity: 0, scale: 0.6, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.6, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-6 right-6 z-40 grid h-10 w-10 place-items-center rounded-pill bg-white text-slate-800 shadow-xl border border-slate-200/80 transition-transform hover:-translate-y-0.5 active:scale-95"
+          >
+            <ArrowUpRight size={16} className="-rotate-45" />
+          </motion.a>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
