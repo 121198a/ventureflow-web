@@ -47,6 +47,21 @@ export type Database = {
         }
         Relationships: []
       }
+      newsletter_subscribers: {
+        Row: {
+          email: string
+          subscribed_at: string
+        }
+        Insert: {
+          email: string
+          subscribed_at?: string
+        }
+        Update: {
+          email?: string
+          subscribed_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

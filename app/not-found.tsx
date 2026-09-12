@@ -8,7 +8,7 @@ export default function NotFound() {
           404
         </h1>
         <h2 className="mt-6 text-xl sm:text-2xl font-extrabold text-[#475569] tracking-wider uppercase">
-          OPPS! PAGE NOT FOUND
+          OOPS! PAGE NOT FOUND
         </h2>
         <p className="mt-4 text-sm sm:text-base text-slate-600 max-w-md mx-auto leading-relaxed">
           Sorry, the page you&apos;re looking for doesn&apos;t exist. If you think something is broken, report a problem.

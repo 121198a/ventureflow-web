@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Info, Loader2 } from "lucide-react";
 import { PasswordField } from "./password-field";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { Button } from "@/components/ui/button";
 const PASSWORD_RULE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
 
 export function SignupForm({ role = "founder" }: { role?: "founder" | "investor" }) {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -70,7 +72,23 @@ export function SignupForm({ role = "founder" }: { role?: "founder" | "investor"
         return;
       }
 
+      if (data.session) {
+        try {
+          const { supabase } = await import("@/lib/supabase/client");
+          await supabase.auth.setSession({
+            access_token: data.session.access_token,
+            refresh_token: data.session.refresh_token,
+          });
+        } catch (sessionErr) {
+          console.error("Session persistence error:", sessionErr);
+        }
+      }
+
       setSubmitted(true);
+      if (data.session) {
+        const destination = role === "founder" ? "/for-founders" : "/platform";
+        router.push(destination);
+      }
     } catch {
       setErrorMessage("Network error. Please try again later.");
     } finally {

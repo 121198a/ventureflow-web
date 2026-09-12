@@ -183,7 +183,7 @@ export default async function NewsletterArticle({
           <>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-[0.8rem] text-muted-foreground">
               <Image
-                src="/images/ubverse-logo.png"
+                src="/logo/unboundx-mark.png"
                 alt=""
                 width={28}
                 height={28}

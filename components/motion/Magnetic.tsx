@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react";
+import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import type { ReactNode, MouseEvent } from "react";
 
 export function Magnetic({

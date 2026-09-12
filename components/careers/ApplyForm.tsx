@@ -2,7 +2,6 @@
 
 import { useRef, useState, type FormEvent } from "react";
 import { z } from "zod";
-import { supabase } from "@/lib/supabase/client";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB, matches bucket limit
 const ACCEPTED_TYPES = [
@@ -71,23 +70,26 @@ export function ApplyForm({
     setMessage("");
 
     try {
-      const ext = file.name.split(".").pop() ?? "pdf";
-      const path = `${roleSlug}/${crypto.randomUUID()}.${ext}`;
+      const formData = new FormData();
+      formData.append("name", parsed.data.name);
+      formData.append("email", parsed.data.email);
+      formData.append("coverLetter", parsed.data.coverLetter);
+      formData.append("roleSlug", roleSlug);
+      formData.append("roleTitle", roleTitle);
+      formData.append("resume", file);
 
-      const { error: uploadError } = await supabase.storage
-        .from("resumes")
-        .upload(path, file, { contentType: file.type });
-      if (uploadError) throw uploadError;
-
-      const { error: insertError } = await supabase.from("applications").insert({
-        role_slug: roleSlug,
-        role_title: roleTitle,
-        name: parsed.data.name,
-        email: parsed.data.email,
-        cover_letter: parsed.data.coverLetter,
-        resume_path: path,
+      const res = await fetch("/api/careers/apply", {
+        method: "POST",
+        body: formData,
       });
-      if (insertError) throw insertError;
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setMessage(data.error || "Something went wrong while submitting. Please try again.");
+        setStatus("error");
+        return;
+      }
 
       setStatus("success");
     } catch (err) {

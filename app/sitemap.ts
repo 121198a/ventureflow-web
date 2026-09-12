@@ -5,6 +5,7 @@ import { articles } from "@/lib/newsletter-data";
 import { offerings } from "@/lib/offerings-data";
 import { roles } from "@/data/careers";
 import { LEGAL_PAGES } from "@/lib/cms";
+import { pressReleases } from "@/lib/press-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -79,12 +80,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [
+  // Press release briefings
+  const pressRoutes = pressReleases
+    .filter((pr) => pr.href.startsWith("/"))
+    .map((pr) => ({
+      url: `${SITE_URL}${pr.href}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
+
+  const allEntries = [
     ...staticRoutes,
     ...offeringRoutes,
     ...blogRoutes,
     ...newsletterRoutes,
     ...careerRoutes,
     ...legalRoutes,
+    ...pressRoutes,
   ];
+
+  const seen = new Set<string>();
+  return allEntries.filter((item) => {
+    if (seen.has(item.url)) return false;
+    seen.add(item.url);
+    return true;
+  });
 }

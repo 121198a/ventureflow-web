@@ -9,17 +9,32 @@ export function NewsletterCTA() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@")) return;
 
     setLoading(true);
-    // Simulate brief network latency
-    setTimeout(() => {
-      setLoading(false);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setErrorMessage(data.error || "Unable to subscribe. Please try again.");
+        return;
+      }
       setSubmitted(true);
-    }, 600);
+    } catch {
+      setErrorMessage("Network error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -95,6 +110,11 @@ export function NewsletterCTA() {
                   </motion.form>
                 )}
               </AnimatePresence>
+              {errorMessage && (
+                <p className="mt-2 text-center text-xs font-semibold text-red-600">
+                  {errorMessage}
+                </p>
+              )}
             </div>
 
             <p className="mt-4 text-xs text-slate-500">

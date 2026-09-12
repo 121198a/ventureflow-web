@@ -27,31 +27,62 @@ function BriefCard({ a }: { a: Article }) {
 function SubscribeForm() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const trimmed = email.trim();
+    if (!trimmed || !trimmed.includes("@")) {
+      setError("Please enter a valid email.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmed }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setError(data.error || "Subscription failed. Please try again.");
+        return;
+      }
+      setSent(true);
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <form
-      className="mt-7 space-y-3"
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-      }}
-    >
+    <form className="mt-7 space-y-3" onSubmit={handleSubmit}>
       <input
         type="email"
         required
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          if (error) setError(null);
+        }}
         placeholder="you@company.com"
         className="w-full rounded-md border border-hairline bg-background px-4 py-3 text-[0.9rem] outline-none focus:border-brand"
         style={{ fontWeight: 500 }}
       />
       <button
         type="submit"
-        className="w-full rounded-md bg-brand px-4 py-3 text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong"
+        disabled={loading}
+        className="w-full rounded-md bg-brand px-4 py-3 text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong disabled:opacity-60"
         style={{ fontWeight: 800 }}
       >
-        {sent ? "Subscribed" : "Subscribe"}
+        {loading ? "Subscribing..." : sent ? "Subscribed" : "Subscribe"}
       </button>
+      {error && <p className="text-xs text-destructive">{error}</p>}
       <p className="text-[0.75rem] text-muted-foreground">
         {sent
           ? "You're on the list — the next briefing lands weekly."
@@ -64,7 +95,7 @@ function SubscribeForm() {
 function Sidebar() {
   return (
     <aside>
-      <Image src="/images/ubverse-logo.png" alt="" width={44} height={44} className="size-11 rounded-full object-cover shadow-xs" />
+      <Image src="/logo/unboundx-mark.png" alt="" width={44} height={44} className="size-11 rounded-full object-cover shadow-xs" />
       <h2 className="mt-5 font-editorial text-[1.5rem] leading-tight">The Fundraising Playbook</h2>
       <p className="mt-4 text-[0.9rem] leading-[1.75] text-ink/70">
         A weekly playbook on the mechanics of private raises — closes, data rooms, investor

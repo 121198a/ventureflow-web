@@ -111,6 +111,7 @@ export async function POST(request: Request) {
           success: true,
           message: "Account created successfully.",
           user: { id: data.user?.id, email: data.user?.email, role },
+          session: data.session,
         });
       } catch {
         return NextResponse.json(

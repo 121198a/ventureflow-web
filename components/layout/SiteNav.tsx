@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "motion/react";
+import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { scrollToTarget } from "@/components/motion/SmoothScroll";
@@ -63,7 +63,7 @@ export function SiteNav() {
           <Link href="/careers" className="flex min-w-0 shrink-0 items-center gap-2.5">
             <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg shadow-sm">
               <Image
-                src="/logo.png"
+                src="/logo/unboundx-mark.png"
                 alt="UnBound X"
                 fill
                 sizes="32px"

@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { departments, locations, roles } from "@/data/careers";

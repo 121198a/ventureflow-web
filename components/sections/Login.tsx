@@ -11,7 +11,10 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
   const [mode, setMode] = useState<"signup" | "login">(initialFlow);
   const [emailMode, setEmailMode] = useState(false);
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +33,21 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
       setEmailError("Enter a valid email address.");
       return;
     }
+    if (!password) {
+      setPasswordError("Enter your password.");
+      return;
+    }
+    if (isSignup && password.length < 8) {
+      setPasswordError("Password must be at least 8 characters.");
+      return;
+    }
+    if (isSignup && password !== confirmPassword) {
+      setPasswordError("Passwords do not match.");
+      return;
+    }
+
     setEmailError(null);
+    setPasswordError(null);
     setSuccessMessage(null);
     setLoading(true);
 
@@ -41,8 +58,8 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: trimmed,
-          password: isSignup ? "SecurePass123!" : "TemporaryPassword123!",
-          confirmPassword: isSignup ? "SecurePass123!" : undefined,
+          password,
+          confirmPassword: isSignup ? confirmPassword : undefined,
           agreed: true,
           role: "founder",
         }),
@@ -59,21 +76,35 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
         return;
       }
 
+      if (data.session) {
+        try {
+          const { supabase } = await import("@/lib/supabase/client");
+          await supabase.auth.setSession({
+            access_token: data.session.access_token,
+            refresh_token: data.session.refresh_token,
+          });
+        } catch {
+          // Session persistence fallback
+        }
+      }
+
       setSuccessMessage(
         isSignup
-          ? "Verification link has been sent to your email."
-          : "Sign-in confirmation sent to your email."
+          ? "Account created! Please check your email for confirmation."
+          : "Sign-in successful! Redirecting..."
       );
+
+      if (!isSignup) {
+        setTimeout(() => {
+          window.location.href = "/for-founders";
+        }, 800);
+      }
     } catch {
       setEmailError("Network error. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
-
-  const handleGoogle = () => {};
-
-  const handleApple = () => {};
 
   return (
     <main className="min-h-screen w-full bg-gradient-to-br from-[#fdf2fa] via-[#f3f7ff] to-[#eaf6ff] text-slate-900 flex flex-col justify-between p-4 sm:p-10 relative overflow-hidden">
@@ -148,20 +179,22 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                 <div className="mt-8 space-y-3">
                   <button
                     type="button"
-                    onClick={handleGoogle}
-                    className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-800 shadow-xs transition-all hover:bg-slate-50 hover:border-slate-300 hover:shadow-md active:scale-[0.99] cursor-pointer"
+                    disabled
+                    title="Google authentication coming soon"
+                    className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-slate-50 text-xs sm:text-sm font-semibold text-slate-500 opacity-70 cursor-not-allowed shadow-xs"
                   >
                     <GoogleIcon />
-                    Continue with Google
+                    Continue with Google (Coming soon)
                   </button>
 
                   <button
                     type="button"
-                    onClick={handleApple}
-                    className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-800 shadow-xs transition-all hover:bg-slate-50 hover:border-slate-300 hover:shadow-md active:scale-[0.99] cursor-pointer"
+                    disabled
+                    title="Apple authentication coming soon"
+                    className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-slate-50 text-xs sm:text-sm font-semibold text-slate-500 opacity-70 cursor-not-allowed shadow-xs"
                   >
                     <AppleIcon />
-                    Continue with Apple
+                    Continue with Apple (Coming soon)
                   </button>
                 </div>
 
@@ -238,64 +271,125 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                   &larr; Back
                 </button>
 
-                <h1 className="text-2xl font-bold tracking-tight text-slate-900">Enter your email</h1>
+                <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+                  {isSignup ? "Create your account" : "Sign in with password"}
+                </h1>
                 <p className="mt-1.5 text-xs sm:text-sm text-slate-500 leading-relaxed">
-                  We&apos;ll use this to securely {isSignup ? "create your account" : "sign you in"}.
+                  {isSignup
+                    ? "Enter your credentials to create your UnBound X account."
+                    : "Enter your registered email and password."}
                 </p>
 
                 {successMessage ? (
                   <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-center">
                     <p className="text-sm font-semibold text-emerald-800">{successMessage}</p>
                     <p className="mt-1 text-xs text-emerald-600">
-                      Please check your inbox to complete the authentication step.
+                      {isSignup
+                        ? "Please check your inbox to confirm your account."
+                        : "Redirecting to your founder dashboard..."}
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleEmailSubmit} className="mt-6">
-                    <label htmlFor="email" className="mb-2 block text-xs font-bold text-slate-700">
-                      Email address
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      autoComplete="email"
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        if (emailError) setEmailError(null);
-                      }}
-                      placeholder="you@example.com"
-                      required
-                      maxLength={254}
-                      aria-invalid={!!emailError}
-                      aria-describedby={emailError ? "email-error" : undefined}
-                      className={`h-12 w-full rounded-xl border bg-white px-4 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:ring-4 ${
-                        emailError
-                          ? "border-red-400 focus:border-red-500 focus:ring-red-500/10"
-                          : "border-slate-200 focus:border-blue-600 focus:ring-blue-600/10"
-                      }`}
-                    />
-                    {emailError && (
-                      <p id="email-error" className="mt-1.5 text-xs font-medium text-red-600">
-                        {emailError}
-                      </p>
+                  <form onSubmit={handleEmailSubmit} className="mt-6 space-y-4">
+                    <div>
+                      <label htmlFor="email" className="mb-1.5 block text-xs font-bold text-slate-700">
+                        Email address
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          if (emailError) setEmailError(null);
+                        }}
+                        placeholder="you@example.com"
+                        required
+                        maxLength={254}
+                        aria-invalid={!!emailError}
+                        aria-describedby={emailError ? "email-error" : undefined}
+                        className={`h-11 w-full rounded-xl border bg-white px-4 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:ring-4 ${
+                          emailError
+                            ? "border-red-400 focus:border-red-500 focus:ring-red-500/10"
+                            : "border-slate-200 focus:border-blue-600 focus:ring-blue-600/10"
+                        }`}
+                      />
+                      {emailError && (
+                        <p id="email-error" className="mt-1 text-xs font-medium text-red-600">
+                          {emailError}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label htmlFor="password" className="mb-1.5 block text-xs font-bold text-slate-700">
+                        Password
+                      </label>
+                      <input
+                        id="password"
+                        type="password"
+                        autoComplete={isSignup ? "new-password" : "current-password"}
+                        value={password}
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                          if (passwordError) setPasswordError(null);
+                        }}
+                        placeholder="••••••••"
+                        required
+                        className={`h-11 w-full rounded-xl border bg-white px-4 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:ring-4 ${
+                          passwordError
+                            ? "border-red-400 focus:border-red-500 focus:ring-red-500/10"
+                            : "border-slate-200 focus:border-blue-600 focus:ring-blue-600/10"
+                        }`}
+                      />
+                    </div>
+
+                    {isSignup && (
+                      <div>
+                        <label htmlFor="confirmPassword" className="mb-1.5 block text-xs font-bold text-slate-700">
+                          Confirm password
+                        </label>
+                        <input
+                          id="confirmPassword"
+                          type="password"
+                          autoComplete="new-password"
+                          value={confirmPassword}
+                          onChange={(e) => {
+                            setConfirmPassword(e.target.value);
+                            if (passwordError) setPasswordError(null);
+                          }}
+                          placeholder="••••••••"
+                          required
+                          className="h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        />
+                      </div>
                     )}
+
+                    {passwordError && (
+                      <p className="text-xs font-medium text-red-600">{passwordError}</p>
+                    )}
+
                     <button
                       type="submit"
                       disabled={loading}
-                      className="mt-3.5 flex h-12 w-full items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white shadow-md shadow-blue-500/20 transition-all hover:bg-blue-700 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
+                      className="mt-2 flex h-11 w-full items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white shadow-md shadow-blue-500/20 transition-all hover:bg-blue-700 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
                     >
                       {loading ? (
                         <span className="flex items-center gap-2">
-                          <Spinner /> Sending link...
+                          <Spinner /> Processing...
                         </span>
+                      ) : isSignup ? (
+                        "Create Account"
                       ) : (
-                        "Continue"
+                        "Sign In"
                       )}
                     </button>
                   </form>
                 )}
-                <p className="mt-4 text-center text-xs text-slate-400">No password required.</p>
+                <p className="mt-4 text-center text-xs text-slate-400">
+                  Protected with encrypted session tokens.
+                </p>
               </motion.div>
             )}
           </AnimatePresence>

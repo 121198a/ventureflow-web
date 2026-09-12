@@ -13,7 +13,7 @@ const config: Config = {
         display: ["Figtree", "Arial", "sans-serif"],
         "about-display": ["Figtree", "Arial", "sans-serif"],
         mono: ["Figtree", "Arial", "sans-serif"],
-        editorial: ["Source Serif 4", "Georgia", "Times New Roman", "serif"],
+        editorial: ["var(--font-source-serif)", "Source Serif 4", "Georgia", "Times New Roman", "serif"],
       },
       fontSize: {
         micro: ["0.6875rem", { lineHeight: "1rem" }],      // 11px

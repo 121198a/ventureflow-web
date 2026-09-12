@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { ViewTransitions } from "@/components/motion/ViewTransitions";
 import { SmoothScrollProvider } from "@/providers/SmoothScrollProvider";
 import { TopProgressBar } from "@/components/layout/TopProgressBar";
 import { site, SITE_URL } from "@/lib/constants";
+
+const sourceSerif4 = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-source-serif",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -38,7 +46,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body id="top" className="font-sans antialiased bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+      <body id="top" className={`font-sans antialiased bg-white text-slate-900 selection:bg-blue-600 selection:text-white ${sourceSerif4.variable}`}>
         <Suspense fallback={null}>
           <TopProgressBar />
         </Suspense>

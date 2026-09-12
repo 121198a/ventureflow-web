@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import { LaptopFrame } from "@/components/ui/LaptopFrame";
 import { ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -107,13 +107,9 @@ export default function ForFounders() {
           </div>
 
           <Reveal delay={120}>
-            <Image
-              src="/images/hero-laptop.jpg"
-              alt="UBverse founder dashboard shown on a laptop with an open capital raise and featured start-ups"
-              width={1408}
-              height={1008}
-              className="w-full"
+            <LaptopFrame
               priority
+              alt="UBverse founder dashboard shown on a laptop with an open capital raise and featured start-ups"
             />
           </Reveal>
         </div>

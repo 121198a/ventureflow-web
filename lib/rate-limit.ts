@@ -8,7 +8,7 @@ const attemptsMap = new Map<string, RateLimitEntry>();
 
 // Clean up stale entries every 10 minutes to prevent memory leaks
 if (typeof setInterval !== "undefined") {
-  setInterval(() => {
+  const cleanupTimer = setInterval(() => {
     const now = Date.now();
     for (const [key, entry] of attemptsMap.entries()) {
       if (now > entry.resetTime) {
@@ -16,6 +16,9 @@ if (typeof setInterval !== "undefined") {
       }
     }
   }, 10 * 60 * 1000);
+  if (typeof cleanupTimer === "object" && "unref" in cleanupTimer) {
+    cleanupTimer.unref();
+  }
 }
 
 export function checkRateLimit(
