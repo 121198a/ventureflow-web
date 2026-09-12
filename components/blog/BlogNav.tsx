@@ -133,10 +133,10 @@ export function BlogNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[100] flex flex-col justify-between bg-slate-900/95 p-4 sm:p-6 text-white sm:hidden overflow-y-auto backdrop-blur-xl"
+            className="fixed inset-0 z-[100] flex flex-col justify-between bg-[#0f172a] p-4 sm:p-6 text-white sm:hidden overflow-y-auto backdrop-blur-xl"
           >
             {/* Top Bar inside Overlay */}
-            <div className="relative z-10 mx-auto flex h-[54px] sm:h-[58px] w-full max-w-lg items-center justify-between px-4 sm:px-5 rounded-full bg-white/10 border border-white/15 text-white shadow-xl backdrop-blur-md">
+            <div className="relative z-10 mx-auto flex h-[54px] sm:h-[58px] w-full max-w-lg items-center justify-between px-4 sm:px-5 rounded-full bg-[#1e293b]/90 border border-slate-700/60 text-white shadow-xl backdrop-blur-md">
               <div className="flex items-center gap-2.5">
                 <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center">
                   <Image
@@ -153,39 +153,50 @@ export function BlogNav() {
               <button
                 aria-label="Close menu"
                 onClick={() => setOpen(false)}
-                className="grid h-8 w-8 place-items-center rounded-full bg-white/15 text-white transition-transform active:scale-90 cursor-pointer"
+                className="grid h-8 w-8 place-items-center rounded-full bg-slate-800 hover:bg-slate-700 text-white transition-transform active:scale-90 cursor-pointer"
               >
                 <X size={16} />
               </button>
             </div>
 
             {/* Mobile Nav Links */}
-            <nav className="relative z-10 flex flex-col items-center justify-center gap-6 py-8">
-              {blogNavLinks.map((item) => (
-                <Link
+            <nav className="relative z-10 flex flex-col items-center justify-center gap-6 sm:gap-7 py-8 my-auto">
+              {blogNavLinks.map((item, i) => (
+                <motion.div
                   key={item.label}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="text-xl font-bold tracking-tight text-white/80 hover:text-white transition-colors"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.06 * i + 0.08, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {item.label}
-                </Link>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="text-2xl sm:text-3xl font-bold tracking-tight text-white/90 hover:text-white transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
               ))}
 
-              <div className="mt-4">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-4"
+              >
                 <AuthButton
                   flow="signup"
                   icon={false}
                   onClick={() => setOpen(false)}
-                  className="inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-7 py-3 shadow-lg"
+                  className="inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base font-semibold px-8 py-3.5 shadow-lg shadow-blue-500/25 transition-all active:scale-95"
                 >
                   <span>Get started</span>
                   <ArrowRight size={14} />
                 </AuthButton>
-              </div>
+              </motion.div>
             </nav>
 
-            <div className="text-center text-xs text-slate-400 pb-2">
+            <div className="text-center text-xs font-medium text-slate-400 tracking-wide pb-4">
               UnBound X Editorial & Market Intelligence
             </div>
           </motion.div>

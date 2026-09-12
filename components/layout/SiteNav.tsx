@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import { scrollToTarget } from "@/components/motion/SmoothScroll";
 import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
 
@@ -124,31 +124,67 @@ export function SiteNav() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 overflow-y-auto bg-background/97 backdrop-blur-2xl lg:hidden"
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[100] flex flex-col justify-between bg-white/95 p-4 sm:p-6 text-slate-900 lg:hidden overflow-y-auto backdrop-blur-2xl"
           >
-            <div className="flex min-h-full flex-col justify-center gap-1 px-7 py-20">
+            {/* Top Bar inside Overlay */}
+            <div className="relative z-10 mx-auto flex h-[54px] sm:h-[58px] w-full max-w-lg items-center justify-between px-4 sm:px-5 rounded-full bg-white border border-slate-200/80 text-slate-900 shadow-xl backdrop-blur-md">
+              <Link
+                href="/careers"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2.5 font-display text-sm sm:text-base font-bold text-slate-900"
+              >
+                <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center shadow-2xs">
+                  <Image
+                    src="/logo/unboundx-mark.png"
+                    width={28}
+                    height={28}
+                    alt="UnBound X"
+                    className="h-full w-full object-cover rounded-full"
+                  />
+                </div>
+                <UnboundXBrand className="text-base" />
+              </Link>
+
+              <button
+                aria-label="Close menu"
+                onClick={() => setOpen(false)}
+                className="grid h-8 w-8 place-items-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 transition-transform active:scale-90 cursor-pointer"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Centered Navigation Links List */}
+            <div className="relative z-10 my-auto flex flex-col w-full max-w-lg mx-auto py-8">
               {links.map((l, i) => (
                 <motion.button
                   key={l.hash}
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.06 * i + 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: 0.05 * i + 0.08, ease: [0.16, 1, 0.3, 1] }}
                   onClick={() => go(l.hash)}
-                  className="display border-b border-border py-3.5 sm:py-5 text-left text-2xl sm:text-4xl"
+                  className="w-full border-b border-slate-100 py-4 text-left text-xl sm:text-2xl font-bold tracking-tight text-slate-900 transition-all hover:text-blue-600 hover:translate-x-1"
                 >
                   {l.label}
                 </motion.button>
               ))}
-              <motion.button
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            </div>
+
+            {/* Bottom Action CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 w-full max-w-lg mx-auto pb-4"
+            >
+              <button
                 onClick={() => go("#roles")}
-                className="mt-6 sm:mt-8 rounded-full bg-brand px-6 py-3.5 sm:py-4 text-sm font-semibold text-brand-foreground"
+                className="w-full rounded-full bg-blue-600 hover:bg-blue-700 py-3.5 sm:py-4 text-center text-sm sm:text-base font-semibold text-white shadow-lg shadow-blue-500/25 transition-all active:scale-[0.98]"
               >
                 See open roles
-              </motion.button>
-            </div>
+              </button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

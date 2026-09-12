@@ -114,6 +114,8 @@ html {
   scroll-padding-top: 84px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -132,6 +134,8 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-figtree);
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 a {

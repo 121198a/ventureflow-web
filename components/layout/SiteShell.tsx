@@ -165,16 +165,17 @@ export function SiteNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[100] flex flex-col justify-between bg-gradient-to-b from-[#8f3282] via-[#5a2e7c] to-[#1d5089] p-4 sm:p-6 text-white sm:hidden overflow-y-auto"
+            className="fixed inset-0 z-[100] flex flex-col justify-between bg-gradient-to-b from-[#6b1c67] via-[#481c68] to-[#1c3c6f] p-4 sm:p-6 text-white sm:hidden overflow-y-auto"
           >
-            {/* Ambient Background Circles */}
-            <div className="pointer-events-none absolute inset-0 overflow-hidden">
-              <div className="absolute top-[18%] left-1/2 -translate-x-1/2 w-[min(90vw,480px)] h-[min(90vw,480px)] rounded-pill border border-white/10 opacity-60" />
-              <div className="absolute top-[28%] left-1/2 -translate-x-1/2 w-[min(70vw,340px)] h-[min(70vw,340px)] rounded-pill border border-white/10 opacity-40" />
+            {/* Ambient Background Concentric Rings */}
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+              <div className="w-[min(96vw,460px)] h-[min(96vw,460px)] rounded-full border border-white/[0.08]" />
+              <div className="w-[min(76vw,340px)] h-[min(76vw,340px)] rounded-full border border-white/[0.11]" />
+              <div className="w-[min(56vw,220px)] h-[min(56vw,220px)] rounded-full border border-white/[0.14]" />
             </div>
 
             {/* Top Bar inside Overlay */}
-            <div className="relative z-10 mx-auto flex h-[54px] sm:h-[58px] w-full max-w-lg items-center justify-between px-4 sm:px-5 rounded-pill bg-white/95 text-slate-900 shadow-xl backdrop-blur-md">
+            <div className="relative z-10 mx-auto flex h-[54px] sm:h-[58px] w-full max-w-lg items-center justify-between px-4 sm:px-5 rounded-full bg-white text-slate-900 shadow-xl backdrop-blur-md">
               <div className="flex items-center gap-2 font-bold text-sm sm:text-base">
                 <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center shadow-2xs">
                   <Image
@@ -192,7 +193,7 @@ export function SiteNav() {
                 <button
                   aria-label="Close menu"
                   onClick={() => setOpen(false)}
-                  className="grid h-8 w-8 place-items-center rounded-pill bg-slate-100 text-slate-800 transition-transform active:scale-90 cursor-pointer"
+                  className="grid h-8 w-8 place-items-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 transition-transform active:scale-90 cursor-pointer"
                 >
                   <X size={16} />
                 </button>
@@ -200,51 +201,62 @@ export function SiteNav() {
             </div>
 
             {/* Centered Navigation Links */}
-            <nav className="relative z-10 flex flex-col items-center justify-center gap-5 sm:gap-7 py-6 sm:my-auto sm:py-8 min-h-0">
-              {nav.map(([label, href]) => {
+            <nav className="relative z-10 flex flex-col items-center justify-center gap-6 sm:gap-8 py-6 sm:my-auto sm:py-8 min-h-0">
+              {nav.map(([label, href], i) => {
                 const isActive = pathname === href || (href !== "/" && pathname?.startsWith(href));
                 return (
-                  <TransitionLink
+                  <motion.div
                     key={href}
-                    onClick={() => setOpen(false)}
-                    href={href}
-                    className={`text-[clamp(1.4rem,4.5vw,2rem)] font-bold tracking-tight transition-all duration-200 ${
-                      isActive
-                        ? "text-white font-extrabold scale-105"
-                        : "text-white/60 hover:text-white"
-                    }`}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.06 * i + 0.08, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    {label}
-                  </TransitionLink>
+                    <TransitionLink
+                      onClick={() => setOpen(false)}
+                      href={href}
+                      className={`text-[clamp(1.5rem,5vw,2.2rem)] font-bold tracking-tight transition-all duration-200 ${
+                        isActive
+                          ? "text-white font-extrabold scale-105"
+                          : "text-white/80 hover:text-white"
+                      }`}
+                    >
+                      {label}
+                    </TransitionLink>
+                  </motion.div>
                 );
               })}
 
-              <div className="mt-3 sm:mt-5">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-3 sm:mt-5"
+              >
                 <AuthButton
                   flow="signup"
                   icon={false}
                   onClick={() => setOpen(false)}
-                  className="inline-flex items-center gap-2 rounded-pill bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 text-white text-xs sm:text-sm font-semibold px-6 py-2.5 sm:px-7 sm:py-3 shadow-lg transition-transform active:scale-95"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm font-semibold px-7 py-3 shadow-lg transition-transform active:scale-95"
                 >
                   <span>Get started</span>
                   <ArrowRight size={14} />
                 </AuthButton>
-              </div>
+              </motion.div>
             </nav>
 
             {/* Bottom Social Icons */}
-            <div className="relative z-10 flex items-center justify-center gap-6 pb-2 text-white/70 text-sm">
+            <div className="relative z-10 flex items-center justify-center gap-7 pb-4 text-white/80 text-base">
               <a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on X" className="p-1 hover:text-white transition-colors">
-                <FaTwitter size={15} />
+                <FaTwitter size={16} />
               </a>
               <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on LinkedIn" className="p-1 hover:text-white transition-colors">
-                <FaLinkedinIn size={15} />
+                <FaLinkedinIn size={16} />
               </a>
               <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Facebook" className="p-1 hover:text-white transition-colors">
-                <FaFacebookF size={15} />
+                <FaFacebookF size={16} />
               </a>
               <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Instagram" className="p-1 hover:text-white transition-colors">
-                <FaInstagram size={15} />
+                <FaInstagram size={16} />
               </a>
             </div>
           </motion.div>
