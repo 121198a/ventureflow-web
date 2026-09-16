@@ -35,10 +35,10 @@ export const socialLinks = {
 
 export const site = {
   name: "UnBound X",
-  brandLine: "Connect. Share. Invest.",
-  tagline: "Become someone worth listening to.",
+  brandLine: "Formulate. Verify. Execute.",
+  tagline: "The verifiable record-keeping layer for investment ideas.",
   description:
-    "Post an investment idea and let the market track it. UnBound X turns social investing claims into a public, verifiable record - target, horizon, and outcome, hit or miss.",
+    "UnBound X turns market theses into immutable, verifiable track records. Set targets, specify horizons, and build audited credibility as outcomes unfold.",
 };
 
 

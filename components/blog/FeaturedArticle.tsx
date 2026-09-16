@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Clock, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import { FundingRoundCalendarIcon, GrowthChartIcon } from "@/components/ui/CustomIcons";
 import type { BlogPost } from "@/types/blog";
 
 interface FeaturedArticleProps {
@@ -60,7 +61,7 @@ export function FeaturedArticle({ post }: FeaturedArticleProps) {
 
               {post.keyStats && post.keyStats.length > 0 && (
                 <div className="hidden sm:flex items-center gap-2 rounded-xl border border-white/15 bg-blue-950/80 px-3.5 py-2 text-white backdrop-blur-md shadow-lg">
-                  <TrendingUp size={15} className="text-blue-400" />
+                  <GrowthChartIcon size={15} className="text-blue-400" />
                   <div className="text-left">
                     <p className="text-[10px] text-blue-200 uppercase tracking-wider font-semibold">
                       {post.keyStats[0].label}
@@ -81,7 +82,7 @@ export function FeaturedArticle({ post }: FeaturedArticleProps) {
                 </span>
                 <span>•</span>
                 <span className="flex items-center gap-1 text-slate-600 font-medium">
-                  <Clock size={13} className="text-slate-400" />
+                  <FundingRoundCalendarIcon size={13} className="text-slate-400" />
                   {post.readTime}
                 </span>
                 <span>•</span>

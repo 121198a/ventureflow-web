@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none">
+  <defs>
+    <linearGradient id="lidGrad" x1="0" y1="0" x2="320" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f5a623"/>
+      <stop offset="0.5" stop-color="#7b2ff7"/>
+      <stop offset="1" stop-color="#12b0f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="240" fill="none"/>
+  <ellipse cx="160" cy="196" rx="86" ry="10" fill="#e2e8f0"/>
+
+  <!-- open folder / empty tray -->
+  <path d="M70 150 L88 96 C90 90 96 86 102 86 H218 C224 86 230 90 232 96 L250 150 Z" fill="#eef2f9" stroke="#c9d4e6" stroke-width="2"/>
+  <path d="M70 150 H250 V172 C250 178 245 183 239 183 H81 C75 183 70 178 70 172 Z" fill="#ffffff" stroke="#c9d4e6" stroke-width="2"/>
+  <rect x="118" y="80" width="84" height="10" rx="3" fill="url(#lidGrad)" opacity="0.85"/>
+
+  <!-- magnifier -->
+  <circle cx="205" cy="135" r="22" fill="#ffffff" stroke="#2563eb" stroke-width="4"/>
+  <line x1="221" y1="151" x2="238" y2="168" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/>
+  <line x1="196" y1="135" x2="214" y2="135" stroke="#2563eb" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+</svg>

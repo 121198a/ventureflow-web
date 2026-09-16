@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { ChevronDown, FileText } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { DocumentFilingIcon } from "@/components/ui/CustomIcons";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 import { LEGAL_PAGES } from "@/lib/cms";
 
@@ -68,7 +69,7 @@ export function LegalSidebar({ activeSlug }: { activeSlug?: string }) {
           className="flex w-full items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-left shadow-xs cursor-pointer hover:border-slate-300 transition-colors"
         >
           <span className="flex items-center gap-2 text-sm font-semibold text-slate-900">
-            <FileText size={16} className="shrink-0 text-blue-600" />
+            <DocumentFilingIcon size={16} className="shrink-0 text-blue-600" />
             {activeLabel}
           </span>
           <ChevronDown

@@ -8,12 +8,11 @@ import { Reveal } from "@/components/ui/Reveal";
 import { AuthButton } from "@/components/ui/AuthButton";
 
 const phrases = [
-  "AI circular spending.",
-  "the next Fed cut.",
-  "blockchain technology.",
-  "space robotics.",
-  "nuclear energy.",
-  "$NVDA.",
+  "semiconductor capex cycles.",
+  "energy infrastructure demand.",
+  "enterprise cloud adoption.",
+  "central bank rate shifts.",
+  "commercial aerospace backlogs.",
 ];
 
 export function StartRecord() {
@@ -45,7 +44,7 @@ export function StartRecord() {
   }, [text, isDeleting, phraseIndex]);
 
   return (
-    <section className="overflow-hidden bg-white px-5 py-20 sm:py-28 border-t border-slate-100">
+    <section className="overflow-hidden bg-gradient-to-b from-white to-slate-50/50 px-5 pt-20 sm:pt-28 pb-28 sm:pb-36 lg:pb-44 border-t border-slate-200/80">
       <div className="mx-auto grid max-w-[1100px] items-center gap-10 lg:grid-cols-2 lg:gap-14">
         {/* Dual Phone Perspective Mockup */}
         <Reveal direction="left" className="relative order-2 flex justify-center py-6 lg:order-1">
@@ -85,14 +84,14 @@ export function StartRecord() {
           </h2>
 
           <p className="mt-4 max-w-md mx-auto lg:mx-0 text-sm sm:text-base text-slate-600 leading-relaxed">
-            You do not need a portfolio. You need a reason and a number.
+            You do not need capital under management to build an institutional track record. You need an underlying argument, a target price, and a timeframe.
           </p>
 
           <div className="mt-8 flex justify-center lg:justify-start">
             <AuthButton
               flow="signup"
               icon={false}
-              className="inline-flex items-center gap-2 rounded-pill bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-md shadow-slate-900/20 transition-all duration-200 hover:bg-blue-700 hover:shadow-blue-500/25 active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all duration-200 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/25 active:scale-[0.98] focus-ring"
             >
               <span>Start your record</span>
               <ArrowRight size={16} />
@@ -107,17 +106,16 @@ export function StartRecord() {
 function FeedMini() {
   return (
     <div className="flex h-full flex-col bg-white px-4 py-3 text-slate-900 select-none">
-      <p className="text-xs font-bold text-slate-900">Home</p>
+      <p className="text-xs font-bold text-slate-900">Live Thesis</p>
       <div className="mt-3 rounded-lg border border-slate-100 bg-slate-50/80 p-3">
         <div className="flex items-center gap-2">
-          <span
-            className="h-6 w-6 rounded-pill bg-cover bg-center shadow-xs"
-            style={{ backgroundImage: "url(https://i.pravatar.cc/100?img=68)" }}
-          />
-          <p className="text-micro font-bold text-slate-900">Marcelo Hernandez</p>
+          <span className="grid h-6 w-6 place-items-center rounded-pill bg-blue-600 text-[10px] font-bold text-white shadow-xs">
+            MV
+          </span>
+          <p className="text-micro font-bold text-slate-900">Marcus Vance</p>
         </div>
         <p className="mt-2 text-micro leading-snug text-slate-600">
-          I&apos;ve been reflecting on the ongoing discussions about the A.I. Bubble&hellip;
+          Hyperscaler accelerator demand confirms sustainable multi-quarter operating margin expansion&hellip;
         </p>
         <div className="mt-2 flex justify-between text-micro font-semibold text-slate-600 bg-white p-1.5 rounded-lg border border-slate-100">
           <span>Target $280</span>
@@ -127,15 +125,14 @@ function FeedMini() {
 
       <div className="mt-3 rounded-lg border border-slate-100 bg-slate-50/80 p-3">
         <div className="flex items-center gap-2">
-          <span
-            className="h-6 w-6 rounded-pill bg-cover bg-center shadow-xs"
-            style={{ backgroundImage: "url(https://i.pravatar.cc/100?img=12)" }}
-          />
+          <span className="grid h-6 w-6 place-items-center rounded-pill bg-indigo-600 text-[10px] font-bold text-white shadow-xs">
+            JM
+          </span>
           <p className="text-micro font-bold text-slate-900">Jacob Martin</p>
         </div>
         <div className="mt-2 flex items-center justify-between text-micro font-semibold">
           <span className="text-slate-700">$NVDA</span>
-          <span className="rounded-pill bg-emerald-100 px-2 py-0.5 text-emerald-700 font-bold">Bullish</span>
+          <span className="rounded-pill bg-emerald-100 px-2 py-0.5 text-emerald-700 font-bold">Verified Hit</span>
         </div>
       </div>
     </div>

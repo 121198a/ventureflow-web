@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Clock } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { FundingRoundCalendarIcon } from "@/components/ui/CustomIcons";
 import type { BlogPost } from "@/types/blog";
 import { cn } from "@/lib/utils";
 
@@ -53,7 +54,7 @@ export function ArticleCard({
               <span className="font-semibold text-blue-600">{post.tag}</span>
               <span>•</span>
               <span className="flex items-center gap-1">
-                <Clock size={12} className="text-slate-400" />
+                <FundingRoundCalendarIcon size={12} className="text-slate-400" />
                 {post.readTime}
               </span>
             </div>
@@ -233,7 +234,7 @@ export function ArticleCard({
                 {post.tag}
               </span>
               <span className="flex items-center gap-1 bg-black/40 px-2 py-0.5 rounded-md backdrop-blur-xs">
-                <Clock size={12} />
+                <FundingRoundCalendarIcon size={12} />
                 {post.readTime}
               </span>
             </div>

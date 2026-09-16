@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ComplianceShieldIcon } from "@/components/ui/CustomIcons";
 import { Reveal } from "@/components/motion/Reveal";
 import { AuthButton } from "@/components/ui/AuthButton";
 
@@ -22,7 +23,7 @@ export function EditorialFeatureBanner() {
               {/* Text content */}
               <div>
                 <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-semibold text-blue-300 backdrop-blur-md border border-white/15">
-                  <ShieldCheck size={14} className="text-blue-400" />
+                  <ComplianceShieldIcon size={14} className="text-blue-400" />
                   <span>The UnBound X Standard</span>
                 </div>
 

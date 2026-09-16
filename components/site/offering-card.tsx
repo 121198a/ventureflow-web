@@ -1,12 +1,17 @@
 import Link from "next/link";
 import { StatRow } from "./stat-row";
 import type { Offering } from "@/lib/offerings-data";
+import {
+  FundingTargetIcon,
+  WalletInvestmentIcon,
+  DocumentFilingIcon,
+} from "@/components/ui/CustomIcons";
 
 export function OfferingCard({ o }: { o: Offering }) {
   const stats = [
-    { value: o.goal, label: "Funding goal" },
-    { value: o.min, label: "Min. Invest..." },
-    { value: o.filing, label: "Security Filing" },
+    { value: o.goal, label: "Funding goal", icon: <FundingTargetIcon size={14} /> },
+    { value: o.min, label: "Min. Invest...", icon: <WalletInvestmentIcon size={14} /> },
+    { value: o.filing, label: "Security Filing", icon: <DocumentFilingIcon size={14} /> },
   ];
 
   return (

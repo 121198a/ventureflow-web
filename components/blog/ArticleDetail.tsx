@@ -8,11 +8,10 @@ import {
   ArrowRight,
   Check,
   CheckCircle2,
-  Clock,
   Copy,
-  ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import { ComplianceShieldIcon, FundingRoundCalendarIcon } from "@/components/ui/CustomIcons";
 import { FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import { Reveal } from "@/components/motion/Reveal";
 import { RelatedArticles } from "@/components/blog/RelatedArticles";
@@ -88,7 +87,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
               {post.tag}
             </span>
             <span className="flex items-center gap-1 text-xs text-slate-500 font-medium">
-              <Clock size={12} className="text-slate-400" />
+              <FundingRoundCalendarIcon size={12} className="text-slate-400" />
               {post.readTime}
             </span>
           </div>
@@ -269,7 +268,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
                     className={`my-8 rounded-2xl border p-6 sm:p-7 shadow-xs ${variantClasses}`}
                   >
                     <div className="flex items-center gap-2">
-                      <ShieldCheck
+                      <ComplianceShieldIcon
                         size={18}
                         className={
                           block.variant === "dark"

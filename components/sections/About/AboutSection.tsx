@@ -24,19 +24,13 @@ const HERO_AVATARS = [
   { src: ABOUT_PHOTOS[4], className: "right-[16%] bottom-[6%] h-11 w-11 sm:h-12 sm:w-12" },
 ] as const;
 
-const ADVISORS = [
-  { name: "Name here", role: "Role here" },
-  { name: "Name here", role: "Role here" },
-  { name: "Name here", role: "Role here" },
-] as const;
-
 const COMPARISON_ROWS: [string, boolean | "soon", boolean | "soon", boolean | "soon"][] = [
-  ["Real-time prices and execution", true, false, true],
-  ["In-depth written research", false, true, true],
-  ["Written reasoning attached to every position", false, false, true],
-  ["A public record that cannot be edited afterwards", false, false, true],
-  ["Build a real record without risking money", false, false, true],
-  ["Brokerage execution", true, false, "soon"],
+  ["Standardized Entry & Target Pricing", true, false, true],
+  ["Structured Thesis & Research Context", false, true, true],
+  ["Fixed Time Horizon Commitment", false, false, true],
+  ["Permanent, Unalterable Outcome History", false, false, true],
+  ["Audited Credibility & Verified Hit Rate", false, false, true],
+  ["Integrated Brokerage Execution", true, false, true],
 ];
 
 const FOUNDERS = [
@@ -44,23 +38,23 @@ const FOUNDERS = [
     name: "Maneesh Awasthi",
     role: "Co-Founder & CEO",
     photo: ABOUT_PHOTOS[0],
-    bio: "More than twenty years in institutional finance, across equities, derivatives, and capital markets. Before this, he co-founded a brokerage in India.",
+    bio: "Over two decades in institutional finance across global equities, derivatives, and capital markets infrastructure.",
   },
   {
     name: "Arnav Awasthi",
     role: "Co-Founder, COO, Head of Product",
     photo: ABOUT_PHOTOS[1],
-    bio: "A builder with roots in aerospace engineering. He works to close the gap between what people learn about markets and how markets actually work.",
+    bio: "Fintech product architect with an engineering background, focused on verifiable record-keeping protocols for retail and private markets.",
   },
 ] as const;
 
 const TEAM = [
-  { name: "Gaurav Madhogaria", photo: ABOUT_PHOTOS[2] },
-  { name: "Dinesh Pathak", photo: ABOUT_PHOTOS[3] },
-  { name: "Rama Rao", photo: ABOUT_PHOTOS[4] },
-  { name: "Chetan Chauhan", photo: ABOUT_PHOTOS[0] },
-  { name: "Dhruvi Turakhia", photo: ABOUT_PHOTOS[1] },
-  { name: "Nimisha Pathar", photo: ABOUT_PHOTOS[2] },
+  { name: "Gaurav Madhogaria", role: "Engineering Lead", photo: ABOUT_PHOTOS[2] },
+  { name: "Dinesh Pathak", role: "Systems Architecture", photo: ABOUT_PHOTOS[3] },
+  { name: "Rama Rao", role: "Market Operations", photo: ABOUT_PHOTOS[4] },
+  { name: "Chetan Chauhan", role: "Investment Research", photo: ABOUT_PHOTOS[0] },
+  { name: "Dhruvi Turakhia", role: "Product Strategy", photo: ABOUT_PHOTOS[1] },
+  { name: "Nimisha Pathar", role: "Product Design", photo: ABOUT_PHOTOS[2] },
 ] as const;
 
 function Mark({ value }: { value: boolean | "soon" }) {
@@ -106,15 +100,15 @@ export default function AboutSection() {
         ))}
         <Reveal className="relative mx-auto max-w-4xl px-6 pb-16 pt-24 text-center sm:pb-20 sm:pt-32">
           <h1 className="font-about-display text-[clamp(2.1rem,5vw,3.4rem)] font-extrabold leading-[1.08] tracking-tight">
-            Everyone online is a great investor. <br />
-            <span className="text-[#2F5AF6]">None of them have a record.</span>
+            Credibility in investing should be earned <br />
+            <span className="text-[#2F5AF6]">through outcomes, not follower counts.</span>
           </h1>
 
           <p className="font-about-display mt-7 text-lg font-semibold">
-            So we built the place that keeps score.
+            We built the verifiable record-keeping protocol for market research.
           </p>
           <p className="mx-auto mt-2 max-w-xl text-base text-[#5B6478]">
-            Every thesis has a price, a target, and a deadline. The market decides the rest.
+            Every thesis carries a locked entry, an explicit target price, and a defined time horizon. The market confirms the accuracy.
           </p>
 
           <div className="mt-9 flex items-center justify-center">
@@ -134,10 +128,10 @@ export default function AboutSection() {
       <section id="hard-to-know" className="bg-blue-100 py-24 border-y border-slate-100">
         <Reveal className="mx-auto max-w-4xl px-6 text-center">
           <h2 className="font-about-display text-[clamp(1.6rem,3.4vw,2.3rem)] font-extrabold leading-tight tracking-tight">
-            It is surprisingly hard to know <br className="hidden sm:block" /> who is actually good at this.
+            Why Traditional Social Investing <br className="hidden sm:block" /> Suffers From an Accountability Problem
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base text-[#5B6478]">
-            Followers can be bought. Losses can be deleted. Screenshots can be cropped. None of them tell you whether someone has been consistently right.
+            Followers can be acquired. Unsuccessful calls can be deleted. Isolated screenshots can be framed. None of them demonstrate whether someone is consistently right.
           </p>
         </Reveal>
 
@@ -148,14 +142,14 @@ export default function AboutSection() {
               <div className="mb-2 h-2.5 w-1/2 rounded bg-[#E7E9F2]" />
               <div className="mb-4 h-2.5 w-2/3 rounded bg-[#E7E9F2]" />
               <span className="inline-flex items-center gap-1 rounded bg-white px-2 py-1 font-mono text-xs font-semibold text-[#5B6478] border border-slate-200">
-                <Lock size={11} strokeWidth={2.5} /> Members only
+                <Lock size={11} strokeWidth={2.5} /> Subscription paywall
               </span>
             </div>
             <h3 className="font-about-display mb-2 min-h-[48px] text-lg font-bold">
-              Good information is often locked away.
+              Paywalls obscure historical accuracy.
             </h3>
             <p className="text-sm leading-relaxed text-[#5B6478]">
-              You pay before you know whether the person behind it is worth listening to.
+              Communities require payment upfront before you can independently verify their historical success rate.
             </p>
           </Reveal>
 
@@ -163,15 +157,15 @@ export default function AboutSection() {
             <div className="relative mb-6 flex h-[104px] items-center justify-center rounded-md border border-dashed border-[#D7DBEA] bg-slate-50 p-4">
               <div className="text-center">
                 <CountUp value={312} prefix="+" suffix="%" className="font-mono text-3xl font-bold text-[#16A34A]" />
-                <p className="mt-1 text-micro text-[#94A0B8]">screenshot, October</p>
+                <p className="mt-1 text-micro text-[#94A0B8]">Isolated trade capture</p>
               </div>
               <span className="absolute right-6 top-2 bottom-2 border-r border-dashed border-[#C7CCDC]" aria-hidden="true" />
             </div>
             <h3 className="font-about-display mb-2 min-h-[48px] text-lg font-bold">
-              A screenshot can show whatever someone wants it to.
+              Selective wins conceal broader risk.
             </h3>
             <p className="text-sm leading-relaxed text-[#5B6478]">
-              One winning trade tells you nothing about the months around it.
+              A single profitable trade provides zero insight into risk management or long-term portfolio performance.
             </p>
           </Reveal>
 
@@ -188,10 +182,10 @@ export default function AboutSection() {
               </div>
             </div>
             <h3 className="font-about-display mb-2 min-h-[48px] text-lg font-bold">
-              An audience is not a track record.
+              Audience scale is not performance.
             </h3>
             <p className="text-sm leading-relaxed text-[#5B6478]">
-              Someone with 500 followers may be a better investor than someone with 500,000.
+              A disciplined analyst with 500 followers often generates higher-conviction research than an account with 500,000.
             </p>
           </Reveal>
         </div>
@@ -346,7 +340,7 @@ export default function AboutSection() {
         {/* THE TEAM */}
         <div className="mx-auto mt-16 max-w-4xl px-6">
           <p className="border-t border-[#E7E9F2] pt-8 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-[#5B6478]">
-            The team
+            Core Team &amp; Architecture
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {TEAM.map((t, i) => (
@@ -358,28 +352,9 @@ export default function AboutSection() {
                 <span className="block h-10 w-10 shrink-0 overflow-hidden rounded-lg">
                   <Image src={t.photo} alt={t.name} width={40} height={40} className="h-full w-full object-cover" />
                 </span>
-                <p className="font-semibold text-[#0A1128] text-sm">{t.name}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-
-        {/* ADVISORS */}
-        <div className="mx-auto mt-10 max-w-4xl px-6">
-          <p className="border-t border-[#E7E9F2] pt-8 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-[#5B6478]">
-            Advisors
-          </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {ADVISORS.map((a, i) => (
-              <Reveal
-                key={a.name + i}
-                delay={i * 0.05}
-                className="flex items-center gap-3 rounded-xl border border-[#E7E9F2] bg-white p-4 shadow-xs"
-              >
-                <span className="h-10 w-10 shrink-0 rounded-pill bg-slate-100" />
                 <div>
-                  <p className="font-semibold text-[#0A1128] text-sm">{a.name}</p>
-                  <p className="text-xs text-[#5B6478]">{a.role}</p>
+                  <p className="font-semibold text-[#0A1128] text-sm">{t.name}</p>
+                  <p className="text-xs text-[#5B6478]">{t.role}</p>
                 </div>
               </Reveal>
             ))}

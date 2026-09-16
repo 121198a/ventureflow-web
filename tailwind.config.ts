@@ -29,10 +29,12 @@ const config: Config = {
         "6xl": ["3.5rem", { lineHeight: "1.02" }],
       },
       borderRadius: {
+        xs: "4px",
         sm: "8px",
-        md: "14px",
-        lg: "20px",
-        xl: "28px",
+        md: "12px",
+        lg: "16px",
+        xl: "24px",
+        "2xl": "32px",
         pill: "999px",
       },
       colors: {
@@ -90,9 +92,15 @@ const config: Config = {
         },
         "text-primary": "#0a1226",
         "text-secondary": "var(--text-secondary)",
-        "text-muted": "#94a3b8",
+        "text-muted": "#64748b",
       },
-      boxShadow: { soft: "0 20px 60px rgba(0,0,0,.12)" },
+      boxShadow: {
+        "2xs": "0 1px 2px rgba(15, 23, 42, 0.04)",
+        xs: "0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04)",
+        card: "0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.03)",
+        elevated: "0 8px 30px rgba(15, 23, 42, 0.08)",
+        soft: "0 20px 60px rgba(15, 23, 42, 0.09)",
+      },
       keyframes: {
         "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
       },

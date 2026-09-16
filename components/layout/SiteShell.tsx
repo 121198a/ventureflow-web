@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { TransitionLink } from "@/components/ui/TransitionLink";
-import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, ArrowUpRight, ChevronDown, Mail, Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { nav, site, socialLinks } from "@/lib/constants";
@@ -38,9 +38,21 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+const exploreLinks = [
+  { label: "Market Intelligence", href: "/blog", desc: "Briefings, playbooks & theses" },
+  { label: "Careers & Culture", href: "/careers", desc: "Join our senior remote team" },
+  { label: "Press Room", href: "/press", desc: "Official releases & media kit" },
+  { label: "Private Markets Platform", href: "/platform", desc: "Browse active offerings & deals" },
+  { label: "For Founders", href: "/for-founders", desc: "Capital raise infrastructure" },
+  { label: "Service Tiers", href: "/services", desc: "Offering pathway matrix" },
+  { label: "Legal Hub", href: "/legal", desc: "Disclosures, CRS & compliance" },
+] as const;
+
 export function SiteNav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -50,7 +62,25 @@ export function SiteNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Auto-close mobile menu on desktop resize
+  // Auto-close dropdown when clicking outside or pressing Escape
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setDropdownOpen(false);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  // Auto-close menus on desktop resize or path change
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 640) {
@@ -60,6 +90,11 @@ export function SiteNav() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    setOpen(false);
+    setDropdownOpen(false);
+  }, [pathname]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -83,10 +118,10 @@ export function SiteNav() {
       <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
         <motion.div
           animate={{
-            maxWidth: scrolled ? 900 : 1080,
+            maxWidth: scrolled ? 940 : 1080,
             borderRadius: 9999,
-            backgroundColor: scrolled ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.78)",
-            borderColor: scrolled ? "rgba(226, 232, 240, 0.95)" : "rgba(226, 232, 240, 0.7)",
+            backgroundColor: scrolled ? "rgba(255, 255, 255, 0.94)" : "rgba(255, 255, 255, 0.85)",
+            borderColor: scrolled ? "rgba(226, 232, 240, 0.95)" : "rgba(226, 232, 240, 0.75)",
             boxShadow: scrolled
               ? "0 12px 35px -8px rgba(15, 23, 42, 0.12)"
               : "0 4px 20px -4px rgba(15, 23, 42, 0.05)",
@@ -95,8 +130,8 @@ export function SiteNav() {
           className="pointer-events-auto mx-auto flex h-[54px] sm:h-[58px] w-full items-center justify-between px-4 sm:px-7 border backdrop-blur-md backdrop-saturate-[180%]"
         >
           {/* Brand Logo */}
-          <TransitionLink href="/" className="flex items-center gap-2.5 font-display text-sm sm:text-base font-bold text-slate-900 group">
-            <div className="relative h-7 w-7 sm:h-8 sm:w-8 overflow-hidden rounded-full flex items-center justify-center shadow-2xs">
+          <TransitionLink href="/" aria-label={`${site.name} home`} className="flex items-center gap-2.5 font-display text-sm sm:text-base font-bold text-slate-900 group focus-ring rounded-full">
+            <div className="relative h-7 w-7 sm:h-8 sm:w-8 overflow-hidden rounded-full flex items-center justify-center shadow-2xs border border-slate-200/60">
               <Image
                 src="/logo/unboundx-mark.png"
                 width={32}
@@ -110,7 +145,7 @@ export function SiteNav() {
           </TransitionLink>
 
           {/* Desktop Nav Items */}
-          <nav className="hidden items-center gap-8 text-sm font-medium sm:flex">
+          <nav className="hidden items-center gap-7 text-sm font-medium sm:flex">
             {nav.map(([label, href]) => {
               const isActive = pathname === href || (href !== "/" && pathname?.startsWith(href));
               return (
@@ -118,7 +153,7 @@ export function SiteNav() {
                   key={href}
                   href={href}
                   aria-current={isActive ? "page" : undefined}
-                  className={`relative py-1 transition-colors duration-200 hover:text-blue-600 ${
+                  className={`relative py-1 transition-colors duration-200 hover:text-blue-600 focus-ring rounded-md ${
                     isActive ? "text-blue-600 font-semibold" : "text-slate-600"
                   }`}
                 >
@@ -133,6 +168,52 @@ export function SiteNav() {
                 </TransitionLink>
               );
             })}
+
+            {/* Explore Dropdown */}
+            <div ref={dropdownRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setDropdownOpen((v) => !v)}
+                aria-expanded={dropdownOpen}
+                aria-haspopup="true"
+                aria-label="Toggle explore navigation menu"
+                className={`inline-flex items-center gap-1 py-1 transition-colors duration-200 focus-ring rounded-md cursor-pointer ${
+                  dropdownOpen ? "text-blue-600 font-semibold" : "text-slate-600 hover:text-blue-600"
+                }`}
+              >
+                <span>Explore</span>
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180 text-blue-600" : "text-slate-400"}`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {dropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    className="absolute top-full mt-3 -left-12 w-64 rounded-2xl border border-slate-200/90 bg-white/95 p-2 shadow-elevated backdrop-blur-xl z-50"
+                  >
+                    <div className="space-y-0.5">
+                      {exploreLinks.map((item) => (
+                        <TransitionLink
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setDropdownOpen(false)}
+                          className="flex flex-col rounded-xl px-3 py-2 text-left transition-colors hover:bg-slate-50 focus-ring"
+                        >
+                          <span className="text-xs font-bold text-slate-900">{item.label}</span>
+                          <span className="text-micro text-slate-500">{item.desc}</span>
+                        </TransitionLink>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </nav>
 
           {/* Desktop CTA & Mobile Toggle */}
@@ -140,44 +221,38 @@ export function SiteNav() {
             <AuthButton
               flow="signup"
               icon={false}
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-pill bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-xs sm:text-sm font-semibold px-5 py-2.5 shadow-sm transition-all duration-200"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-pill bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-xs sm:text-sm font-semibold px-5 py-2.5 shadow-sm transition-all duration-200 focus-ring"
             >
-              <span>Get started</span>
+              <span>Start your record</span>
               <ArrowRight size={14} />
             </AuthButton>
 
             <button
-              aria-label="Toggle navigation menu"
-              onClick={() => setOpen(true)}
-              className="grid h-9 w-9 place-items-center rounded-pill border border-slate-200/90 bg-white/90 text-slate-800 transition-transform active:scale-95 sm:hidden cursor-pointer shadow-2xs"
+              aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+              className="grid h-10 w-10 place-items-center rounded-full border border-slate-200/90 bg-white/95 text-slate-800 transition-transform active:scale-95 sm:hidden cursor-pointer shadow-2xs focus-ring"
             >
-              <Menu size={18} />
+              {open ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </motion.div>
       </header>
 
-      {/* Responsive Full-Screen Gradient Mobile Drawer Overlay */}
+      {/* Responsive Full-Screen Dark Drawer Mobile Navigation */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[100] flex flex-col justify-between bg-gradient-to-b from-[#6b1c67] via-[#481c68] to-[#1c3c6f] p-4 sm:p-6 text-white sm:hidden overflow-y-auto"
+            transition={{ duration: 0.22 }}
+            className="fixed inset-0 z-[100] flex flex-col justify-between bg-[#070e1e]/98 p-5 sm:p-7 text-white sm:hidden overflow-y-auto backdrop-blur-2xl"
           >
-            {/* Ambient Background Concentric Rings */}
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-              <div className="w-[min(96vw,460px)] h-[min(96vw,460px)] rounded-full border border-white/[0.08]" />
-              <div className="w-[min(76vw,340px)] h-[min(76vw,340px)] rounded-full border border-white/[0.11]" />
-              <div className="w-[min(56vw,220px)] h-[min(56vw,220px)] rounded-full border border-white/[0.14]" />
-            </div>
-
             {/* Top Bar inside Overlay */}
-            <div className="relative z-10 mx-auto flex h-[54px] sm:h-[58px] w-full max-w-lg items-center justify-between px-4 sm:px-5 rounded-full bg-white text-slate-900 shadow-xl backdrop-blur-md">
-              <div className="flex items-center gap-2 font-bold text-sm sm:text-base">
-                <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center shadow-2xs">
+            <div className="relative z-10 mx-auto flex h-[54px] w-full max-w-lg items-center justify-between px-4 rounded-full bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-md">
+              <div className="flex items-center gap-2 font-bold text-sm">
+                <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center shadow-2xs border border-slate-700">
                   <Image
                     src="/logo/unboundx-mark.png"
                     width={28}
@@ -186,77 +261,83 @@ export function SiteNav() {
                     className="h-full w-full object-cover rounded-full"
                   />
                 </div>
-                <UnboundXBrand className="text-base sm:text-lg" />
+                <UnboundXBrand className="text-base" />
               </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  aria-label="Close menu"
-                  onClick={() => setOpen(false)}
-                  className="grid h-8 w-8 place-items-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 transition-transform active:scale-90 cursor-pointer"
-                >
-                  <X size={16} />
-                </button>
-              </div>
+              <button
+                aria-label="Close menu"
+                onClick={() => setOpen(false)}
+                className="grid h-8 w-8 place-items-center rounded-full bg-slate-800 hover:bg-slate-700 text-white transition-transform active:scale-90 cursor-pointer focus-ring"
+              >
+                <X size={16} />
+              </button>
             </div>
 
-            {/* Centered Navigation Links */}
-            <nav className="relative z-10 flex flex-col items-center justify-center gap-6 sm:gap-8 py-6 sm:my-auto sm:py-8 min-h-0">
-              {nav.map(([label, href], i) => {
-                const isActive = pathname === href || (href !== "/" && pathname?.startsWith(href));
-                return (
-                  <motion.div
-                    key={href}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.06 * i + 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <TransitionLink
-                      onClick={() => setOpen(false)}
-                      href={href}
-                      className={`text-[clamp(1.5rem,5vw,2.2rem)] font-bold tracking-tight transition-all duration-200 ${
-                        isActive
-                          ? "text-white font-extrabold scale-105"
-                          : "text-white/80 hover:text-white"
-                      }`}
-                    >
-                      {label}
-                    </TransitionLink>
-                  </motion.div>
-                );
-              })}
+            {/* Navigation Links Grouping */}
+            <nav className="relative z-10 my-auto flex flex-col gap-6 py-6 text-center max-w-sm mx-auto w-full">
+              <div className="space-y-3">
+                <p className="text-micro font-bold uppercase tracking-wider text-slate-400">Core</p>
+                {nav.map(([label, href]) => {
+                  const isActive = pathname === href || (href !== "/" && pathname?.startsWith(href));
+                  return (
+                    <div key={href}>
+                      <TransitionLink
+                        onClick={() => setOpen(false)}
+                        href={href}
+                        className={`block text-2xl font-extrabold tracking-tight transition-all duration-200 ${
+                          isActive ? "text-blue-400 scale-105" : "text-white/90 hover:text-white"
+                        }`}
+                      >
+                        {label}
+                      </TransitionLink>
+                    </div>
+                  );
+                })}
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-3 sm:mt-5"
-              >
+              <div className="border-t border-slate-800/80 pt-4 space-y-2">
+                <p className="text-micro font-bold uppercase tracking-wider text-slate-400">Explore</p>
+                <div className="grid grid-cols-2 gap-2 text-left">
+                  {exploreLinks.map((item) => (
+                    <TransitionLink
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="rounded-xl border border-slate-800/70 bg-slate-900/50 p-2.5 transition-colors hover:bg-slate-800/80"
+                    >
+                      <p className="text-xs font-bold text-white leading-tight">{item.label}</p>
+                      <p className="text-[10px] text-slate-400 mt-0.5 truncate">{item.desc}</p>
+                    </TransitionLink>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-3">
                 <AuthButton
                   flow="signup"
                   icon={false}
                   onClick={() => setOpen(false)}
-                  className="inline-flex items-center gap-2 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm font-semibold px-7 py-3 shadow-lg transition-transform active:scale-95"
+                  className="w-full justify-center inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-7 py-3.5 shadow-lg shadow-blue-600/30 transition-transform active:scale-95"
                 >
-                  <span>Get started</span>
-                  <ArrowRight size={14} />
+                  <span>Start your record</span>
+                  <ArrowRight size={15} />
                 </AuthButton>
-              </motion.div>
+              </div>
             </nav>
 
             {/* Bottom Social Icons */}
-            <div className="relative z-10 flex items-center justify-center gap-7 pb-4 text-white/80 text-base">
-              <a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on X" className="p-1 hover:text-white transition-colors">
-                <FaTwitter size={16} />
+            <div className="relative z-10 flex items-center justify-center gap-6 pb-2 text-slate-400 text-base">
+              <a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on X" className="p-2 hover:text-white transition-colors focus-ring rounded-full">
+                <FaTwitter size={15} />
               </a>
-              <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on LinkedIn" className="p-1 hover:text-white transition-colors">
-                <FaLinkedinIn size={16} />
+              <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on LinkedIn" className="p-2 hover:text-white transition-colors focus-ring rounded-full">
+                <FaLinkedinIn size={15} />
               </a>
-              <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Facebook" className="p-1 hover:text-white transition-colors">
-                <FaFacebookF size={16} />
+              <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Facebook" className="p-2 hover:text-white transition-colors focus-ring rounded-full">
+                <FaFacebookF size={15} />
               </a>
-              <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Instagram" className="p-1 hover:text-white transition-colors">
-                <FaInstagram size={16} />
+              <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Instagram" className="p-2 hover:text-white transition-colors focus-ring rounded-full">
+                <FaInstagram size={15} />
               </a>
             </div>
           </motion.div>
@@ -270,35 +351,37 @@ const footerColumns = [
   {
     heading: "Product",
     links: [
-      ["Thesis", "/#thesis"],
-      ["Spaces", "/#spaces"],
-      ["Beyond the feed", "/#beyond-the-feed"],
+      ["Thesis Journey", "/#thesis"],
+      ["Collaborative Spaces", "/#spaces"],
+      ["Beyond Social Feeds", "/#beyond-the-feed"],
     ],
   },
   {
-    heading: "UBverse",
+    heading: "UBverse Platform",
     links: [
-      ["Startup Investing", "/ubverse#the-company-space"],
-      ["Ventures", "/ubverse#raising"],
-      ["How It Works", "/ubverse#beyond-the-raise"],
+      ["Deal Marketplace", "/platform"],
+      ["For Founders", "/for-founders"],
+      ["Service Tiers", "/services"],
+      ["Playbook Newsletter", "/newsletter"],
     ],
   },
   {
     heading: "Company",
     links: [
       ["About Us", "/about#top"],
-      ["Careers", "/careers"],
-      ["Blog", "/blog"],
-      ["Press", "/press"],
+      ["Careers & Culture", "/careers"],
+      ["Market Blog", "/blog"],
+      ["Press & Media Kit", "/press"],
     ],
   },
   {
-    heading: "Resources",
+    heading: "Legal & Regulatory",
     links: [
       ["Legal Hub", "/legal"],
+      ["Form CRS", "/legal/crs"],
+      ["Reg BI Disclosure", "/legal/reg-bi-disclosure"],
+      ["Investment Disclaimers", "/legal/investment-disclaimers"],
       ["Support", "/legal/support"],
-      ["Community", "/legal/community-guidelines"],
-      ["Contact Us", "/legal/contact-us"],
     ],
   },
 ] as const;
@@ -326,17 +409,17 @@ export function SiteFooter() {
     <>
       <footer
         className={`relative bg-[#0a1226] pb-10 text-slate-300 ${
-          hasOwnOverlapCard ? "mt-0 pt-24 sm:pt-28" : "mt-24 pt-0 sm:mt-32"
+          hasOwnOverlapCard ? "mt-0 pt-24 sm:pt-28" : "mt-20 pt-0 sm:mt-28 md:mt-32"
         }`}
       >
         {showRecordCard && (
-        <div className="relative z-20 mx-auto -mb-24 -translate-y-1/2 px-4 sm:-mb-20">
+        <div className="relative z-20 mx-auto px-4 -translate-y-10 sm:-translate-y-16 md:-translate-y-1/2 -mb-10 sm:-mb-16 md:-mb-24">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
-            className="mx-auto flex max-w-[1120px] flex-col items-center gap-8 rounded-lg border border-slate-200/90 bg-white p-6 md:p-10 shadow-[0_25px_60px_rgba(10,18,38,0.2)] backdrop-blur-xl md:flex-row md:justify-between"
+            className="mx-auto flex max-w-[1120px] flex-col items-center gap-8 rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 md:p-10 shadow-[0_25px_60px_rgba(10,18,38,0.2)] backdrop-blur-xl md:flex-row md:justify-between"
           >
             <div className="w-full max-w-[280px] shrink-0 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm">
               <div className="flex items-center justify-between text-sm font-semibold text-slate-900">
@@ -373,10 +456,10 @@ export function SiteFooter() {
 
             <div className="text-center md:text-left flex-1 max-w-lg">
               <h3 className="text-2xl font-bold text-slate-900 sm:text-3xl tracking-tight">
-                Put your market ideas on the record.
+                Turn market theses into verified credibility.
               </h3>
               <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                Write down what you think and see how it holds up when the market decides.
+                Publish your price target and time horizon before events unfold. Build an immutable, public track record evaluated by real market results.
               </p>
               <AuthButton
                 flow="signup"
@@ -411,7 +494,7 @@ export function SiteFooter() {
         <div className="mx-auto grid max-w-[1180px] gap-x-8 gap-y-10 px-6 pt-16 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="relative h-8 w-8 overflow-hidden rounded-full shadow-sm flex items-center justify-center">
+              <div className="relative h-8 w-8 overflow-hidden rounded-full shadow-sm flex items-center justify-center border border-slate-700">
                 <Image
                   src="/logo/unboundx-mark.png"
                   width={32}
@@ -425,16 +508,25 @@ export function SiteFooter() {
                 <p className="text-xs text-blue-400 font-medium">{site.brandLine}</p>
               </div>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed max-w-[220px]">
-              Where investment ideas build a verified record.
+            <p className="text-xs text-slate-400 leading-relaxed max-w-[240px]">
+              The verifiable record-keeping layer for investment ideas and private market offerings.
             </p>
-            <div className="flex gap-2.5 pt-1">
+            <div className="space-y-1.5 text-xs text-slate-400 pt-1">
+              <a
+                href="mailto:info@unboundxinc.com"
+                className="flex items-center gap-2 hover:text-white transition-colors"
+              >
+                <Mail size={13} className="text-blue-400 shrink-0" />
+                <span>info@unboundxinc.com</span>
+              </a>
+            </div>
+            <div className="flex gap-2.5 pt-2">
               <a
                 href={socialLinks.x}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="UnBound X on X"
-                className="grid h-8 w-8 place-items-center rounded-pill border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white"
+                className="grid h-8 w-8 place-items-center rounded-full border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white focus-ring"
               >
                 <FaTwitter size={13} />
               </a>
@@ -443,7 +535,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="UnBound X on LinkedIn"
-                className="grid h-8 w-8 place-items-center rounded-pill border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white"
+                className="grid h-8 w-8 place-items-center rounded-full border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white focus-ring"
               >
                 <FaLinkedinIn size={13} />
               </a>
@@ -452,7 +544,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="UnBound X on Facebook"
-                className="grid h-8 w-8 place-items-center rounded-pill border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white"
+                className="grid h-8 w-8 place-items-center rounded-full border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white focus-ring"
               >
                 <FaFacebookF size={13} />
               </a>
@@ -461,7 +553,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="UnBound X on Instagram"
-                className="grid h-8 w-8 place-items-center rounded-pill border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white"
+                className="grid h-8 w-8 place-items-center rounded-full border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white focus-ring"
               >
                 <FaInstagram size={13} />
               </a>
@@ -470,11 +562,11 @@ export function SiteFooter() {
 
           {footerColumns.map((col) => (
             <div key={col.heading}>
-              <h3 className="mb-3.5 text-sm font-semibold text-white">{col.heading}</h3>
-              <ul className="space-y-2 text-xs">
+              <h3 className="mb-3.5 text-xs font-bold uppercase tracking-wider text-slate-200">{col.heading}</h3>
+              <ul className="space-y-2.5 text-xs">
                 {col.links.map(([label, href]) => (
                   <li key={label}>
-                    <TransitionLink href={href} className="text-slate-400 transition-colors hover:text-white">
+                    <TransitionLink href={href} className="text-slate-400 transition-colors hover:text-white focus-ring rounded-xs">
                       {label}
                     </TransitionLink>
                   </li>
@@ -484,12 +576,17 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mx-auto mt-12 flex max-w-[1180px] flex-col gap-3 border-t border-slate-900/80 px-6 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <span>&copy; 2026 {site.name}. All rights reserved.</span>
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            <TransitionLink href="/legal/privacy-policy" className="hover:text-slate-300 transition-colors">Privacy Policy</TransitionLink>
-            <TransitionLink href="/legal/terms-condition" className="hover:text-slate-300 transition-colors">Terms &amp; Condition</TransitionLink>
-            <TransitionLink href="/legal/investment-disclaimers" className="hover:text-slate-300 transition-colors">Disclaimers</TransitionLink>
+        <div className="mx-auto mt-12 max-w-[1180px] border-t border-slate-800/80 px-6 pt-6">
+          <p className="text-[11px] leading-relaxed text-slate-500 mb-4">
+            Securities transactions executed through MARV Capital, Inc., SEC-registered broker-dealer &middot; Member FINRA/SIPC (CRD #104390).
+          </p>
+          <div className="flex flex-col gap-3 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+            <span>&copy; 2026 {site.name} Inc. All rights reserved.</span>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              <TransitionLink href="/legal/privacy-policy" className="hover:text-slate-300 transition-colors">Privacy Policy</TransitionLink>
+              <TransitionLink href="/legal/terms-condition" className="hover:text-slate-300 transition-colors">Terms &amp; Condition</TransitionLink>
+              <TransitionLink href="/legal/investment-disclaimers" className="hover:text-slate-300 transition-colors">Disclaimers</TransitionLink>
+            </div>
           </div>
         </div>
       </footer>

@@ -1,9 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import type { BlogPost } from "@/types/blog";
-import { SearchX } from "lucide-react";
 
 interface ArticleGridProps {
   posts: BlogPost[];
@@ -15,8 +15,14 @@ export function ArticleGrid({ posts, onResetSearch, className = "" }: ArticleGri
   if (posts.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-slate-50/60 p-12 text-center">
-        <div className="grid h-12 w-12 place-items-center rounded-full bg-slate-100 text-slate-400">
-          <SearchX size={24} />
+        <div className="relative h-24 w-24">
+          <Image
+            src="/illustrations/empty-state-noresults.svg"
+            alt="Search returned no matching articles"
+            width={96}
+            height={96}
+            className="h-full w-full object-contain"
+          />
         </div>
         <h3 className="mt-4 text-lg font-bold text-slate-900">No articles matched your criteria</h3>
         <p className="mt-1.5 max-w-sm text-sm text-slate-500">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
@@ -61,9 +62,18 @@ export function JobBoard() {
       </ul>
 
       {filtered.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-border py-16 text-center">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-16 px-6 text-center">
+          <div className="relative mb-3 h-20 w-20">
+            <Image
+              src="/illustrations/empty-state-noresults.svg"
+              alt="No positions found"
+              width={80}
+              height={80}
+              className="h-full w-full object-contain"
+            />
+          </div>
           <p className="display text-xl">No roles match that search.</p>
-          <p className="mt-3 text-sm text-text-secondary">
+          <p className="mt-3 max-w-md text-sm text-text-secondary">
             Send your work to careers@unboundxinc.com — we keep good people in mind.
           </p>
           <button
@@ -72,7 +82,7 @@ export function JobBoard() {
               setDept("All");
               setLoc("All");
             }}
-            className="mt-6 rounded-full border border-brand px-5 py-2 text-sm font-semibold text-brand transition-colors hover:bg-brand hover:text-brand-foreground"
+            className="mt-6 rounded-full border border-brand px-5 py-2 text-sm font-semibold text-brand transition-colors hover:bg-brand hover:text-brand-foreground cursor-pointer"
           >
             Clear filters
           </button>

@@ -5,7 +5,10 @@ import { site } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "About — " + site.name,
   description:
-    "Everyone online is a great investor. None of them have a record. UnBound X is the place that keeps score.",
+    "Learn why UnBound X was founded: to replace unverified social investing claims with an immutable, verifiable ledger for market theses.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutPage() {

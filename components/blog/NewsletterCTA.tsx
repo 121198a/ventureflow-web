@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, Mail } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { NewsletterSignalIcon } from "@/components/ui/CustomIcons";
 import { Reveal } from "@/components/motion/Reveal";
 
 export function NewsletterCTA() {
@@ -43,7 +44,7 @@ export function NewsletterCTA() {
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3.5 py-1 text-xs font-semibold text-blue-700 border border-blue-100">
-              <Mail size={13} className="text-blue-600" />
+              <NewsletterSignalIcon size={14} className="text-blue-600" />
               <span>Weekly Executive Briefing</span>
             </div>
 
@@ -81,7 +82,7 @@ export function NewsletterCTA() {
                   >
                     <div className="relative flex-1">
                       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                        <Mail size={17} />
+                        <NewsletterSignalIcon size={17} />
                       </div>
                       <input
                         type="email"

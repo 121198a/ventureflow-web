@@ -7,10 +7,14 @@ import {
   ChevronDown,
   CircleUserRound,
   Home,
-  TrendingDown,
-  TrendingUp,
-  WalletCards,
 } from "lucide-react";
+import {
+  ComplianceShieldIcon,
+  FundingTargetIcon,
+  GrowthChartIcon,
+  PartnershipRingsIcon,
+  WalletInvestmentIcon,
+} from "@/components/ui/CustomIcons";
 import type { ReactNode } from "react";
 import { BiMessageRounded } from "react-icons/bi";
 import { FaRegHeart } from "react-icons/fa";
@@ -24,7 +28,7 @@ import { AuthButton } from "@/components/ui/AuthButton";
 import { scrollToTarget } from "@/providers/SmoothScrollProvider";
 
 const cardBase =
-  "gb-interactive-card rounded-lg border border-slate-200/90 bg-white/95 p-3.5 shadow-[0_10px_30px_rgba(15,23,42,0.08)] backdrop-blur-md transition-all duration-300 hover:shadow-[0_16px_36px_rgba(15,23,42,0.12)]";
+  "gb-interactive-card rounded-xl border border-slate-200/90 bg-white/95 p-3.5 shadow-card backdrop-blur-md transition-all duration-300 hover:shadow-elevated hover:border-blue-500/30";
 
 type Card = {
   key: string;
@@ -32,117 +36,114 @@ type Card = {
   body: ReactNode;
 };
 
-const avatar = (id: number) => ({
-  backgroundImage: `url(https://i.pravatar.cc/120?img=${id})`,
-});
-
 const cards: Card[] = [
   {
     key: "google",
-    desktop: "left-[-150px] lg:left-[-110px] xl:left-[-165px] 2xl:left-[-190px] top-10 hidden w-[145px] md:block",
+    desktop: "left-[-110px] xl:left-[-165px] 2xl:left-[-190px] top-10 hidden w-[155px] lg:block",
     body: (
       <>
-        <p className="text-xs font-semibold text-slate-600">Bullish Thesis</p>
+        <div className="flex items-center justify-between">
+          <p className="text-micro font-bold uppercase tracking-wider text-emerald-700">Verified Hit</p>
+          <GrowthChartIcon size={13} className="text-emerald-600" />
+        </div>
         <p className="mt-1 flex items-center gap-1.5 text-xs font-bold text-slate-900">
-          <FcGoogle size={17} />
-          GOOGLE
+          <FcGoogle size={16} />
+          ALPHABET
         </p>
         <p className="mt-1 text-xs text-slate-600">
-          Target <span className="font-bold text-slate-900">$150.00</span>
+          Target <span className="font-bold text-slate-900">$185.00</span>
         </p>
-        <p className="text-xs text-slate-600">by @AlexM</p>
+        <p className="text-xs text-slate-500">Horizon: 180d</p>
         <p className="mt-1.5 flex items-center gap-1 text-xs font-bold text-emerald-700">
-          <TrendingUp size={12} />
-          42.1%
+          <span>+24.8% reached</span>
         </p>
       </>
     ),
   },
   {
     key: "apple",
-    desktop: "right-[-140px] lg:right-[-90px] xl:right-[-150px] 2xl:right-[-175px] top-6 hidden w-[140px] md:block",
+    desktop: "right-[-90px] xl:right-[-150px] 2xl:right-[-175px] top-6 hidden w-[150px] lg:block",
     body: (
       <>
-        <p className="text-xs font-semibold text-slate-600">Thesis Missed</p>
+        <div className="flex items-center justify-between">
+          <p className="text-micro font-bold uppercase tracking-wider text-slate-600">Active Call</p>
+          <FundingTargetIcon size={13} className="text-blue-600" />
+        </div>
         <p className="mt-1 flex items-center gap-1.5 text-xs font-bold text-slate-900">
-          <ImAppleinc size={16} />
+          <ImAppleinc size={15} />
           APPLE
         </p>
         <p className="mt-1 text-xs text-slate-600">
-          Target <span className="font-bold text-slate-900">$350.00</span>
+          Target <span className="font-bold text-slate-900">$235.00</span>
         </p>
-        <p className="text-xs text-slate-600">by @AlexH</p>
-        <p className="mt-1.5 flex items-center gap-1 text-xs font-bold text-rose-600">
-          <TrendingDown size={12} />
-          -2.34%
+        <p className="text-xs text-slate-500">Horizon: 120d</p>
+        <p className="mt-1.5 flex items-center gap-1 text-xs font-bold text-blue-700">
+          <span>Benchmarked Live</span>
         </p>
       </>
     ),
   },
   {
     key: "tesla",
-    desktop: "left-[-160px] 2xl:left-[-185px] top-[40%] hidden xl:block w-[155px]",
+    desktop: "left-[-160px] 2xl:left-[-185px] top-[40%] hidden xl:block w-[165px]",
     body: (
       <>
-        <p className="text-xs font-semibold text-slate-600">People are discussing</p>
-        <div className="mt-1.5 flex -space-x-1.5">
-          {[31, 32, 33].map((id) => (
-            <span
-              key={id}
-              className="h-5 w-5 rounded-pill border-2 border-white bg-cover bg-center shadow-xs"
-              style={avatar(id)}
-            />
-          ))}
-          <span className="grid h-5 w-5 place-items-center rounded-pill border-2 border-white bg-slate-100 text-xs font-bold text-slate-600">
-            +53
-          </span>
+        <div className="flex items-center justify-between">
+          <p className="text-micro font-bold uppercase tracking-wider text-slate-600">Analyst Space</p>
+          <PartnershipRingsIcon size={14} className="text-slate-500" />
         </div>
+        <p className="mt-1 text-xs font-bold text-slate-900 truncate">Horizon Capital</p>
+        <p className="mt-1 text-xs text-slate-600 leading-snug">
+          18 analysts reviewing 4 open valuation models
+        </p>
         <div className="mt-2 flex items-center justify-between text-xs font-semibold">
           <span className="flex items-center gap-1.5 text-slate-800">
-            <SiTesla className="text-red-500" size={13} aria-hidden="true" />
-            TESLA
+            <SiTesla className="text-red-500" size={12} aria-hidden="true" />
+            TSLA Thesis
           </span>
-          <span className="text-slate-600 font-normal">185</span>
+          <span className="text-slate-500 font-normal">Active</span>
         </div>
       </>
     ),
   },
   {
-    key: "zenith",
-    desktop: "right-[-160px] 2xl:right-[-185px] top-[38%] hidden xl:block w-[155px]",
+    key: "research",
+    desktop: "right-[-160px] 2xl:right-[-185px] top-[38%] hidden xl:block w-[165px]",
     body: (
       <>
         <div className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-pill bg-blue-600 animate-pulse" />
-          <p className="text-xs font-bold text-blue-600">Zenith AI</p>
+          <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+          <p className="text-xs font-bold text-blue-600">Filing Analysis</p>
         </div>
         <p className="mt-1 text-xs font-medium text-slate-700 leading-tight">
-          Market sentiment for NVDA is{" "}
-          <span className="font-bold text-emerald-700">Bullish</span>
+          Hyperscaler capex guidance confirms sustained accelerator procurement through Q4.
         </p>
       </>
     ),
   },
   {
     key: "space",
-    desktop: "left-[-180px] 2xl:left-[-220px] bottom-16 hidden 2xl:block w-[210px]",
+    desktop: "left-[-180px] 2xl:left-[-220px] bottom-16 hidden 2xl:block w-[215px]",
     body: (
       <>
-        <p className="text-xs font-semibold text-slate-600">New in your Space</p>
+        <p className="text-micro font-bold uppercase tracking-wider text-slate-500">Space Activity</p>
         <p className="mt-1 text-xs font-bold text-blue-600">Bravo Investment Club</p>
-        <p className="text-xs text-slate-600 mt-0.5">@Sarah just shared a new thesis</p>
+        <p className="text-xs text-slate-600 mt-0.5">New semiconductor thesis submitted for committee review</p>
       </>
     ),
   },
   {
     key: "rank",
-    desktop: "right-[-135px] lg:right-[-85px] xl:right-[-140px] 2xl:right-[-165px] bottom-14 hidden w-[150px] md:block",
+    desktop: "right-[-85px] xl:right-[-140px] 2xl:right-[-165px] bottom-14 hidden w-[155px] lg:block",
     body: (
       <>
-        <p className="text-xs font-semibold text-slate-600">Track Record</p>
-        <p className="text-xs text-slate-600 mt-0.5">Your rank</p>
-        <p className="text-lg font-black text-blue-600 tracking-tight leading-none my-1">Top 3%</p>
-        <p className="text-xs text-slate-600">this month</p>
+        <div className="flex items-center justify-between">
+          <p className="text-micro font-bold uppercase tracking-wider text-slate-600">Public Record</p>
+          <ComplianceShieldIcon size={14} className="text-blue-600" />
+        </div>
+        <p className="text-xs text-slate-500 mt-0.5">Audited accuracy</p>
+        <p className="text-xl font-extrabold text-blue-600 tracking-tight leading-none my-1.5">68.4%</p>
+        <p className="text-[11px] text-slate-500">Across 38 closed theses</p>
       </>
     ),
   },
@@ -152,39 +153,40 @@ export function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/80 via-blue-100 to-white border-slate-200 px-5 pb-16 pt-24 sm:pb-20 sm:pt-28 lg:pb-24 lg:pt-32">
-      {/* Background radial atmosphere */}
-      <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-pill bg-blue-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-24 h-80 w-80 rounded-pill bg-emerald-100/40 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[600px] -translate-x-1/2 rounded-pill bg-blue-50/50 blur-3xl" />
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/90 via-white to-slate-50/40 border-b border-slate-200/80 px-5 pb-16 pt-24 sm:pb-24 sm:pt-32 lg:pb-28 lg:pt-36">
+      {/* Background ambient lighting */}
+      <div className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-full bg-blue-100/60 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-20 h-96 w-96 rounded-full bg-indigo-50/50 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[700px] -translate-x-1/2 rounded-full bg-blue-50/40 blur-3xl" />
 
-      <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-10 lg:grid-cols-2 lg:gap-14">
+      <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-2 lg:gap-14">
         {/* Left Intro Copy */}
         <div className="relative z-20 text-center lg:text-left">
           <Reveal>
-            <span className="inline-flex items-center rounded-pill border border-slate-200/80 bg-white px-4 py-1.5 text-xs font-semibold text-slate-600 shadow-xs">
-              Post an investment idea. The market tracks it.
+            <span className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/95 px-4 py-1.5 text-xs font-semibold text-blue-800 shadow-2xs">
+              <ComplianceShieldIcon size={14} className="text-blue-600" />
+              <span>Verifiable Investment Record Architecture</span>
             </span>
           </Reveal>
 
-          <Reveal delay={0.1}>
-            <h1 className="mt-5 text-[clamp(2.25rem,5vw,3.5rem)] font-extrabold leading-[1.12] tracking-tight text-slate-900">
-              Become someone <br />
-              <span className="text-blue-600">worth listening to.</span>
+          <Reveal delay={0.08}>
+            <h1 className="mt-5 text-[clamp(2.35rem,5.5vw,3.75rem)] font-extrabold leading-[1.08] tracking-tight text-slate-900">
+              Every thesis on record. <br />
+              <span className="text-blue-600">Tracked to the outcome.</span>
             </h1>
           </Reveal>
 
-          <Reveal delay={0.2}>
-            <p className="mx-auto mt-5 max-w-md text-base sm:text-lg leading-relaxed text-slate-600 lg:mx-0">
-              On social media, follower counts make you credible. Here, it&apos;s how often your calls actually land.
+          <Reveal delay={0.16}>
+            <p className="mx-auto mt-5 max-w-lg text-base sm:text-lg leading-relaxed text-slate-600 lg:mx-0">
+              State your price target, horizon, and underlying rationale. UnBound X benchmarks every call against live market pricing to turn opinion into verifiable credibility.
             </p>
           </Reveal>
 
-          <Reveal delay={0.3}>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-5 lg:justify-start">
+          <Reveal delay={0.24}>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-5 lg:justify-start">
               <AuthButton
                 flow="signup"
-                className="rounded-pill bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-md shadow-slate-900/20 transition-all duration-200 hover:bg-blue-700 hover:shadow-blue-500/25 active:scale-[0.98]"
+                className="rounded-full bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all duration-200 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/25 active:scale-[0.98] focus-ring"
               >
                 Start your record
               </AuthButton>
@@ -194,36 +196,45 @@ export function Hero() {
                 onClick={() => {
                   scrollToTarget("#thesis");
                 }}
-                className="group inline-flex items-center gap-1.5 rounded-pill py-2.5 text-sm font-semibold text-slate-800 transition-colors hover:text-blue-600 cursor-pointer"
+                className="group inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/80 px-6 py-3.5 text-sm font-semibold text-slate-800 transition-all duration-200 hover:bg-slate-50 hover:border-slate-300 focus-ring cursor-pointer"
                 aria-label="See how it works"
               >
-                <span>See how it works</span>
+                <span>Review Methodology</span>
                 <ChevronDown
-                  size={16}
+                  size={15}
                   className="transition-transform duration-300 group-hover:translate-y-0.5"
                 />
               </button>
             </div>
           </Reveal>
 
-          <Reveal delay={0.4}>
-            <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-600 lg:justify-start">
-              <span className="flex items-center gap-1 text-slate-600">✓ Track every thesis</span>
-              <span className="flex items-center gap-1 text-slate-600">✓ Build credibility</span>
-              <span className="flex items-center gap-1 text-slate-600">✓ Learn from outcomes</span>
+          <Reveal delay={0.32}>
+            <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-xs font-medium text-slate-600 lg:justify-start">
+              <span className="flex items-center gap-1.5 text-slate-700">
+                <ComplianceShieldIcon size={14} className="text-blue-600 shrink-0" />
+                Target &amp; horizon locked at publish
+              </span>
+              <span className="flex items-center gap-1.5 text-slate-700">
+                <GrowthChartIcon size={14} className="text-emerald-600 shrink-0" />
+                Audited hit &amp; miss accuracy
+              </span>
+              <span className="flex items-center gap-1.5 text-slate-700">
+                <PartnershipRingsIcon size={14} className="text-indigo-600 shrink-0" />
+                Collaborative research Spaces
+              </span>
             </div>
           </Reveal>
         </div>
 
         {/* Right Phone Frame & Floating Widgets */}
         <div className="relative flex flex-col items-center py-6 lg:py-0">
-          <Reveal direction="none" delay={0.15} className="relative">
+          <Reveal direction="none" delay={0.12} className="relative">
             <motion.div
               initial={{ opacity: 0, scale: 0.94, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{
                 duration: reduce ? 0 : 0.8,
-                delay: reduce ? 0 : 0.15,
+                delay: reduce ? 0 : 0.12,
                 ease: [0.21, 0.47, 0.32, 0.98],
               }}
               className="relative"
@@ -266,8 +277,8 @@ export function Hero() {
             ))}
           </Reveal>
 
-          {/* Mobile Fallback Grid */}
-          <div className="mt-8 grid w-full max-w-sm grid-cols-1 min-[360px]:grid-cols-2 gap-3 md:hidden">
+          {/* Mobile & Tablet Fallback Grid */}
+          <div className="mt-8 grid w-full max-w-md grid-cols-1 min-[380px]:grid-cols-2 gap-3.5 lg:hidden">
             {cards.slice(0, 4).map((card, index) => (
               <Reveal key={card.key} delay={index * 0.06} className={cardBase}>
                 {card.body}
@@ -283,17 +294,17 @@ export function Hero() {
 function FeedPreview() {
   const reduce = useReducedMotion();
 
-  const stories = [
-    ["Riley", 12],
-    ["Casey", 25],
-    ["Jordan", 14],
-    ["Avery", 47],
+  const mockUsers = [
+    { name: "Marcus", tag: "MV", color: "bg-blue-100 text-blue-800" },
+    { name: "Elena", tag: "ES", color: "bg-indigo-100 text-indigo-800" },
+    { name: "David", tag: "DK", color: "bg-slate-100 text-slate-800" },
+    { name: "Priya", tag: "PR", color: "bg-emerald-100 text-emerald-800" },
   ] as const;
 
   const navigation = [
-    { label: "Social", icon: Home, active: true },
-    { label: "Invest", icon: WalletCards, active: false },
-    { label: "Complete", icon: CheckCircle2, active: false },
+    { label: "Feed", icon: Home, active: true },
+    { label: "Invest", icon: WalletInvestmentIcon, active: false },
+    { label: "Verified", icon: CheckCircle2, active: false },
     { label: "Profile", icon: CircleUserRound, active: false },
   ];
 
@@ -307,10 +318,9 @@ function FeedPreview() {
           transition={{ duration: reduce ? 0 : 0.4, delay: reduce ? 0 : 0.2 }}
           className="flex items-center justify-between px-4 pb-2.5 pt-2"
         >
-          <span className="text-xs font-bold text-slate-900">Home</span>
+          <span className="text-xs font-bold text-slate-900">UnBound X</span>
           <span className="text-xs text-slate-600 flex items-center gap-2">
-            <span>⌕</span>
-            <span>🔔</span>
+            <span>Live Record</span>
           </span>
         </motion.div>
 
@@ -321,14 +331,14 @@ function FeedPreview() {
             <span className="absolute -bottom-[9px] left-0 h-0.5 w-full rounded-pill bg-blue-600" />
           </span>
           <span>Spaces</span>
-          <span>Saved</span>
+          <span>Tracked</span>
         </div>
 
-        {/* Stories Ribbon */}
+        {/* Analyst Avatars Ribbon */}
         <div className="flex gap-3 overflow-hidden px-4 py-2.5">
-          {stories.map(([name, id], index) => (
+          {mockUsers.map((u, index) => (
             <motion.div
-              key={name}
+              key={u.name}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -337,19 +347,15 @@ function FeedPreview() {
               }}
               className="flex shrink-0 flex-col items-center gap-1"
             >
-              <span className="rounded-pill bg-gradient-to-tr from-yellow-400 via-pink-500 to-blue-600 p-[1.5px]">
-                <span
-                  className="block h-8 w-8 rounded-pill border-2 border-white bg-cover bg-center"
-                  style={avatar(id)}
-                />
+              <span className={`grid h-8 w-8 place-items-center rounded-pill border border-slate-200 font-bold text-[11px] ${u.color}`}>
+                {u.tag}
               </span>
-              <span className="text-xs font-medium text-slate-600">{name}</span>
+              <span className="text-xs font-medium text-slate-600">{u.name}</span>
             </motion.div>
           ))}
         </div>
 
-        {/* Feed Card — an illustrative example post, not real content, so
-            it's hidden from assistive tech rather than treated as body copy. */}
+        {/* Feed Card */}
         <motion.div
           aria-hidden="true"
           initial={{ opacity: 0, y: 8 }}
@@ -361,18 +367,17 @@ function FeedPreview() {
           className="mx-3 rounded-xl border border-slate-100 bg-slate-50/80 p-3 shadow-xs"
         >
           <div className="flex items-center gap-2">
-            <span
-              className="h-6 w-6 rounded-pill bg-cover bg-center shadow-xs"
-              style={avatar(68)}
-            />
+            <span className="grid h-6 w-6 place-items-center rounded-pill bg-blue-600 text-[10px] font-bold text-white shadow-xs">
+              MV
+            </span>
             <div>
-              <p className="text-xs font-bold text-slate-900 leading-tight">Marcelo Hernandez</p>
-              <p className="text-xs text-slate-600">@marcelohernandez</p>
+              <p className="text-xs font-bold text-slate-900 leading-tight">Marcus Vance</p>
+              <p className="text-xs text-slate-600">@marcusvance · 90d Horizon</p>
             </div>
           </div>
 
           <p className="mt-2 text-xs leading-snug text-slate-600">
-            I&apos;ve been reflecting on the ongoing discussions about the A.I. Bubble, and here&apos;s my perspective on retail investor flows into the market&hellip;
+            Semiconductor foundry capacity expansion confirms supplier pricing strength through year-end. Target reflects multiple expansion to historical peak.
           </p>
 
           <div className="mt-2 flex items-center justify-between rounded-lg bg-white px-2 py-1.5 text-[11px] sm:text-xs font-semibold text-slate-700 shadow-xs border border-slate-100">
@@ -380,7 +385,7 @@ function FeedPreview() {
             <span className="text-slate-300">|</span>
             <span>Horizon <b className="text-slate-900 font-bold">90d</b></span>
             <span className="rounded-pill bg-emerald-50 px-1.5 py-0.5 text-[10px] sm:text-xs font-bold text-emerald-700 border border-emerald-100">
-              Bullish
+              Verified
             </span>
           </div>
 

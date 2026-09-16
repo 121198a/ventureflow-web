@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import SiteShell from "@/components/layout/SiteShell";
 import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
-import { Mail, Download, ArrowUpRight, Sparkles, Newspaper, ShieldCheck } from "lucide-react";
+import { Mail, Download, ArrowUpRight, Sparkles, Newspaper } from "lucide-react";
+import { ComplianceShieldIcon } from "@/components/ui/CustomIcons";
 import { site, SITE_URL } from "@/lib/constants";
 import {
   pressReleases,
@@ -321,7 +322,7 @@ export default function PressPage() {
             <div className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50/80 via-white to-sky-50/50 p-6 sm:p-10 shadow-xs">
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/70 px-3 py-0.5 text-xs font-bold text-blue-800">
-                  <ShieldCheck size={14} />
+                  <ComplianceShieldIcon size={14} />
                   <span>Media &amp; Press Contact</span>
                 </div>
                 <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">

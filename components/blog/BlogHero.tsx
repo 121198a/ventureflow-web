@@ -1,6 +1,7 @@
 "use client";
 
-import { BookOpen, ShieldCheck, Sparkles } from "lucide-react";
+import { BookOpen, Sparkles } from "lucide-react";
+import { ComplianceShieldIcon } from "@/components/ui/CustomIcons";
 import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/lib/constants";
 
@@ -49,7 +50,7 @@ export function BlogHero({ totalArticles }: BlogHeroProps) {
         <Reveal delay={0.24}>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10 border-y border-slate-200/70 py-4 text-xs sm:text-sm text-slate-600 font-medium">
             <div className="flex items-center gap-2">
-              <ShieldCheck size={16} className="text-emerald-600" />
+              <ComplianceShieldIcon size={16} className="text-emerald-600" />
               <span>Immutable Public Ledger</span>
             </div>
             <div className="flex items-center gap-2">

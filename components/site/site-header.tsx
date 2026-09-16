@@ -46,14 +46,14 @@ export function SiteHeader() {
             );
           })}
           <Button href="/signup" size="sm" className="shadow-sm">
-            Sign Up/Log in
+            Sign Up / Log In
           </Button>
         </nav>
 
         {/* Mobile: sign-up stays visible + hamburger toggle */}
         <div className="flex shrink-0 items-center gap-1.5 min-[360px]:gap-2 sm:hidden">
           <Button href="/signup" size="sm" className="px-2.5 py-1.5 text-xs min-[360px]:px-3.5 min-[360px]:text-[0.8rem] shadow-sm">
-            Sign Up/Log in
+            Sign Up / Log In
           </Button>
           <button
             type="button"

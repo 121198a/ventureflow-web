@@ -33,7 +33,7 @@ export function DealTypeModal() {
             className="w-full sm:w-auto text-center rounded-full border border-brand px-6 py-[10px] text-[0.9rem] text-brand transition-colors hover:bg-brand/5"
             style={{ fontWeight: 600 }}
           >
-            Login
+            Log In
           </Link>
           <a
             href="mailto:info@unboundxinc.com"

@@ -16,7 +16,7 @@ export const footerColumns: FooterColumn[] = [
     links: [
       { label: "For Investors", href: "/investor/login" },
       { label: "For Companies", href: "/issuer/login" },
-      { label: "Service Tiers", href: "#" },
+      { label: "Service Tiers", href: "/services" },
     ],
   },
   {

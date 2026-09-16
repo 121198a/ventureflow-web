@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Lock, FileText, CheckSquare, Briefcase, Database, Sparkles } from "lucide-react";
+import { Lock, CheckSquare, Briefcase, Database, Sparkles } from "lucide-react";
+import { DocumentFilingIcon } from "@/components/ui/CustomIcons";
 import { cn } from "@/lib/utils";
 
 const tabs = ["Updates", "Milestones", "Team", "Materials"];
 
 const pillItems = [
-  { label: "Investor updates", icon: FileText },
+  { label: "Investor updates", icon: DocumentFilingIcon },
   { label: "Milestones", icon: CheckSquare },
   { label: "Hiring", icon: Briefcase },
-  { label: "Deck", icon: FileText },
+  { label: "Deck", icon: DocumentFilingIcon },
   { label: "Data room", icon: Database },
   { label: "Diligence", icon: Sparkles },
 ];

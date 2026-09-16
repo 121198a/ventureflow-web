@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { Reveal } from "@/components/site/reveal";
@@ -27,8 +28,19 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
 
-      <section className="border-b border-hairline bg-surface">
-        <div className="mx-auto max-w-[820px] px-5 py-14 text-center sm:py-20">
+      <section className="relative overflow-hidden border-b border-hairline bg-surface">
+        <div className="pointer-events-none absolute inset-0 -z-0 flex items-center justify-center opacity-30">
+          <Image
+            src="/illustrations/hero-network.svg"
+            alt=""
+            width={640}
+            height={480}
+            priority
+            className="h-full w-auto max-w-none object-contain"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="relative z-10 mx-auto max-w-[820px] px-5 py-14 text-center sm:py-20">
           {/* Sans-serif, not editorial serif — confirmed against the
               dedicated Home recording, which shows no serifs on the hero
               headline (only "Active offerings..." below uses the serif). */}

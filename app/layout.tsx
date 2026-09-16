@@ -5,6 +5,7 @@ import "./globals.css";
 import { ViewTransitions } from "@/components/motion/ViewTransitions";
 import { SmoothScrollProvider } from "@/providers/SmoothScrollProvider";
 import { TopProgressBar } from "@/components/layout/TopProgressBar";
+import { CookieConsent } from "@/components/ui/CookieConsent";
 import { site, SITE_URL } from "@/lib/constants";
 
 const sourceSerif4 = Source_Serif_4({
@@ -18,13 +19,33 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: site.name + " — " + site.tagline, template: "%s — " + site.name },
   description: site.description,
-  openGraph: { title: site.name + " — " + site.tagline, description: site.description, type: "website" },
-  twitter: { card: "summary_large_image", title: site.name + " — " + site.tagline, description: site.description },
+  openGraph: {
+    title: site.name + " — " + site.tagline,
+    description: site.description,
+    type: "website",
+    url: SITE_URL,
+    siteName: site.name,
+    images: [
+      {
+        url: "/brand/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} — ${site.tagline}`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.name + " — " + site.tagline,
+    description: site.description,
+    images: ["/brand/og-image.png"],
+  },
   icons: {
     icon: [
       { url: "/icon.png" },
       { url: "/favicon.ico" },
       { url: "/favicon-256.png", sizes: "256x256", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
       { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
@@ -53,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScrollProvider>
           <ViewTransitions>{children}</ViewTransitions>
         </SmoothScrollProvider>
+        <CookieConsent />
       </body>
     </html>
   );

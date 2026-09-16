@@ -4,22 +4,23 @@ import { useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/ui/Reveal";
+import { FundingTargetIcon } from "@/components/ui/CustomIcons";
 
 const steps = [
   {
-    title: "A real argument, with a target and a date.",
-    body: "The format institutions use, in your hands.",
-    chip: "Target $800 · Horizon 28mo",
+    title: "Formulate a thesis with a target and fixed horizon.",
+    body: "Define your fundamental argument, precise target price, and validation deadline in an institutional framework.",
+    chip: "Target $195.00 · Horizon 180d",
   },
   {
-    title: "Track it in real time",
-    body: "Three months in, everyone is looking at the same number you are.",
-    chip: "Price moving with thesis",
+    title: "Benchmark progress against live market pricing.",
+    body: "As market sessions execute, community members evaluate whether underlying catalysts are materializing as forecasted.",
+    chip: "Live Price Tracking Active",
   },
   {
-    title: "See the verdict",
-    body: "Hits and misses are both recorded. That is what makes a hit rate mean something.",
-    chip: "Hit rate 61% → 62%",
+    title: "Immutable verdict recorded upon horizon close.",
+    body: "Hits and misses are permanently committed to your public ledger. Credibility is calculated through audited accuracy.",
+    chip: "Verified Hit Recorded · +36.8%",
   },
 ];
 
@@ -53,8 +54,9 @@ export function ThesisJourney() {
         {/* Header */}
         <div className="mx-auto max-w-[1120px] text-center shrink-0">
           <Reveal>
-            <span className="inline-flex items-center rounded-pill border border-slate-200 bg-slate-50/80 px-3.5 py-1 text-xs font-semibold text-slate-600 shadow-2xs">
-              One thesis, start to finish
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-slate-50/90 px-3.5 py-1 text-xs font-semibold text-slate-700 shadow-2xs">
+              <FundingTargetIcon size={13} className="text-blue-600" />
+              <span>One Thesis &middot; Start to Finish</span>
             </span>
           </Reveal>
           <Reveal delay={0.08}>
@@ -263,10 +265,9 @@ export function ThesisJourney() {
                           <b className="block text-xs font-bold text-slate-900 leading-none">Arnav Awasthi</b>
                           <span className="text-xs text-slate-600">@arnav</span>
                         </div>
-                        <span
-                          className="h-[22px] w-[22px] shrink-0 rounded-pill bg-cover bg-center shadow-2xs"
-                          style={{ backgroundImage: "url(https://i.pravatar.cc/100?img=12)" }}
-                        />
+                        <span className="grid h-[22px] w-[22px] place-items-center rounded-pill bg-blue-600 text-[9px] font-bold text-white shadow-2xs">
+                          AA
+                        </span>
                       </div>
 
                       {/* Editorial Paragraphs */}
