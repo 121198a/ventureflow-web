@@ -26,6 +26,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    authInterrupts: true,
+  },
   images: { formats: ['image/avif', 'image/webp'] },
   devIndicators: false,
   async headers() {
