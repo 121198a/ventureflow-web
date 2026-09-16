@@ -40,9 +40,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === "" ? 1.0 : 0.8,
   }));
 
-  // Dynamic offerings (/offerings/[slug])
+  // Dynamic company/deal routes (/:slug)
   const offeringRoutes = offerings.map((o) => ({
-    url: `${SITE_URL}/offerings/${o.slug}`,
+    url: `${SITE_URL}/${o.slug}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
@@ -56,13 +56,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // Dynamic newsletter articles
-  const newsletterRoutes = articles.map((article) => ({
-    url: `${SITE_URL}/newsletter/article/${article.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  // Dynamic newsletter articles (both slug and numeric ID)
+  const newsletterRoutes = [
+    ...articles.map((article) => ({
+      url: `${SITE_URL}/newsletter/article/${article.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    ...articles.map((article) => ({
+      url: `${SITE_URL}/newsletter/article/${article.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
 
   // Dynamic career roles
   const careerRoutes = roles.map((role) => ({

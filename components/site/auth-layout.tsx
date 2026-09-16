@@ -24,7 +24,7 @@ export function AuthLayout({
         <div className="flex flex-col justify-center pr-0 lg:pr-16">
           {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
           <h1
-            className="text-[2.4rem] leading-[1.1] sm:text-[2.8rem] bg-clip-text text-transparent font-extrabold tracking-tight inline-block"
+            className="text-[1.85rem] min-[400px]:text-[2.2rem] sm:text-[2.6rem] lg:text-[2.8rem] leading-[1.12] bg-clip-text text-transparent font-extrabold tracking-tight inline-block"
             style={{
               fontWeight: 800,
               backgroundImage:

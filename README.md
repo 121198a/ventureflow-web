@@ -51,3 +51,69 @@ same data, two layouts.
 - Only `/public/logo/*` are original brand assets and were left untouched.
 - Every other page/section was rewritten from the original GrowthBridge agency
   template to match the UnBound X product design.
+
+## Integration notes
+
+This repository is a Next.js App Router application. It does **not** require a separate Express backend.
+
+### Runtime API architecture
+
+```text
+Browser / React UI
+        |
+        v
+Next.js App Router + /app/api/*
+        |
+        v
+lib/ubverse-api.ts
+        |
+        v
+NEXT_PUBLIC_UBVERSE_API_URL
+(default: https://development.unboundxinc.us/api)
+```
+
+The existing integration points are intentionally preserved:
+
+- Public company listing: `ubverse-service/investor-dashboard/dashboard-without-auth`
+- Company detail: `ubverse-service/general/get-issuer-detail/{companyId}`
+- Backend login: `user-service/user/login`
+- Newsletter subscription: `ubverse-service/newsletter/save-user-email` and `subscribe-news-letter`
+- Support session: `zenithv2/support-chat/initiate_chat`
+- Supabase remains responsible for the existing auth/storage/application flows where configured.
+
+### Newsletter
+
+The nine existing newsletter articles remain in `lib/newsletter-data.ts`. The `/api/newsletter/articles` routes expose that existing dataset; no unverified remote article endpoint has been invented.
+
+### Support chat
+
+The current implementation creates a support-chat session through the verified `initiate_chat` integration. The reference materials did not establish a verified message-send endpoint, so no fabricated message endpoint was added.
+
+### Development
+
+```bash
+npm install
+npm run dev
+```
+
+For a production-style local run:
+
+```bash
+npm run build
+npm run start
+```
+
+Copy `.env.example` to `.env.local` and set environment-specific values before deployment.
+
+## Canonical UBverse company/deal URLs
+
+Company/deal pages now use the reference-style root slug route:
+
+- `https://development.unboundxinc.us/virani-chem-pvt-limited`
+- `https://development.unboundxinc.us/infopulse-technology`
+- `https://development.unboundxinc.us/unbound-x`
+- `https://development.unboundxinc.us/hopiyant-tech`
+
+The old `/offerings/:slug` route is retained only as a compatibility redirect. Both the canonical route and the legacy route resolve the same `DealDetail` component and the same `getDynamicOffering()` -> dashboard company ID -> `get-issuer-detail/{companyId}` backend flow.
+
+`NEXT_PUBLIC_SITE_URL` controls the public/canonical origin and is set to `https://development.unboundxinc.us` in `.env.example`. Running `npm run dev` still serves the application locally at `http://localhost:3000`; a browser address bar cannot display the production hostname while the browser is actually connected to localhost unless DNS/reverse-proxy/deployment points that hostname to this application.

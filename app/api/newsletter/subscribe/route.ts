@@ -59,7 +59,15 @@ export async function POST(request: Request) {
 
     const { email } = parsed.data;
 
-    // Persist to Supabase if configured
+    // 1. Forward subscription to UBverse backend newsletter service
+    try {
+      const { subscribeBackendNewsletter } = await import("@/lib/ubverse-api");
+      await subscribeBackendNewsletter(email);
+    } catch (apiErr) {
+      console.warn("[Newsletter] Backend API subscription warning:", apiErr);
+    }
+
+    // 2. Persist to Supabase if configured
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 

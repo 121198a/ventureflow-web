@@ -73,9 +73,6 @@ export function SiteNav() {
             </span>
             <div className="flex items-center gap-2">
               <UnboundXBrand className="text-base tracking-tight" />
-              <span className="ml-1 hidden text-[11px] font-semibold tracking-[0.2em] text-muted-foreground uppercase sm:inline">
-                Careers
-              </span>
             </div>
           </Link>
 

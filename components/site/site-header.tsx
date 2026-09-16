@@ -8,7 +8,8 @@ import { BrandLogoLink } from "./brand-logo";
 import { Button } from "@/components/ui/button";
 
 const nav = [
-  { href: "/platform", label: "Home" },
+  { href: "/", label: "Home" },
+  { href: "/platform", label: "Offerings" },
   { href: "/for-founders", label: "For Founders" },
   { href: "/newsletter", label: "Newsletter" },
 ] as const;
@@ -25,7 +26,12 @@ export function SiteHeader() {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-7 sm:flex">
           {nav.map((item) => {
-            const isActive = item.href === "/platform" ? pathname === "/platform" : pathname.startsWith(item.href);
+            const isActive =
+              item.href === "/"
+                ? pathname === "/"
+                : item.href === "/platform"
+                ? pathname === "/platform"
+                : pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
@@ -72,7 +78,12 @@ export function SiteHeader() {
         <nav className="border-t border-hairline bg-surface px-5 py-4 sm:hidden">
           <ul className="space-y-1">
             {nav.map((item) => {
-              const isActive = item.href === "/platform" ? pathname === "/platform" : pathname.startsWith(item.href);
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : item.href === "/platform"
+                  ? pathname === "/platform"
+                  : pathname.startsWith(item.href);
               return (
                 <li key={item.href}>
                   <Link

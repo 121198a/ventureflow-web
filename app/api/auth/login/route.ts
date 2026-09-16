@@ -71,7 +71,35 @@ export async function POST(request: Request) {
 
     const { email, role } = parsed.data;
 
-    // 4. Delegate to standard authentication provider (e.g. Supabase / Auth0)
+    // 4. Delegate to UBverse Backend Authentication
+    try {
+      const { loginBackendUser } = await import("@/lib/ubverse-api");
+      const backendAuth = await loginBackendUser({
+        email,
+        password: parsed.data.password,
+      });
+
+      if (backendAuth.success) {
+        resetRateLimit(`login_${clientIp}`);
+        return NextResponse.json({
+          success: true,
+          user: { email, role },
+          data: backendAuth.data,
+        });
+      }
+
+      // If backend explicitly rejected the user credentials, return that reason
+      if (backendAuth.status === 400 || backendAuth.status === 401) {
+        return NextResponse.json(
+          { success: false, error: backendAuth.error || "Invalid email or password." },
+          { status: 401 }
+        );
+      }
+    } catch (backendErr) {
+      console.warn("[Auth Login] Backend auth attempt warning:", backendErr);
+    }
+
+    // 5. Delegate to standard authentication provider (e.g. Supabase / Auth0)
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 

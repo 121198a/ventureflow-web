@@ -174,6 +174,7 @@ export function Hero() {
               Every thesis on record. <br />
               <span className="text-blue-600">Tracked to the outcome.</span>
             </h1>
+            
           </Reveal>
 
           <Reveal delay={0.16}>

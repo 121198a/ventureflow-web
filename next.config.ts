@@ -29,7 +29,21 @@ const nextConfig: NextConfig = {
   experimental: {
     authInterrupts: true,
   },
-  images: { formats: ['image/avif', 'image/webp'] },
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'dev-ubverse-backend.s3.us-east-1.amazonaws.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'dev-assets.unboundxinc.us',
+        pathname: '/**',
+      },
+    ],
+  },
   devIndicators: false,
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Share2, Copy, Check } from "lucide-react";
+import { SITE_URL } from "@/lib/constants";
 import {
   Dialog,
   DialogContent,
@@ -38,7 +39,7 @@ function XIcon() {
 
 export function ShareDealModal({ slug }: { slug: string }) {
   const [copied, setCopied] = useState(false);
-  const url = typeof window !== "undefined" ? `${window.location.origin}/offerings/${slug}` : `/offerings/${slug}`;
+  const url = `${SITE_URL}/${slug}`;
 
   return (
     <Dialog>

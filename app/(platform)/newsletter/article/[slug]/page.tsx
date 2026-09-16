@@ -128,7 +128,9 @@ function Block({ block }: { block: ArticleBlock }) {
 }
 
 export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
+  const bySlug = articles.map((a) => ({ slug: a.slug }));
+  const byId = articles.map((a) => ({ slug: a.id }));
+  return [...bySlug, ...byId];
 }
 
 export async function generateMetadata({

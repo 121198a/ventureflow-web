@@ -13,13 +13,15 @@ export function StatRow({
     <div className="grid border-t border-hairline pt-4 text-center" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
       {items.map((item, i) => (
         <div key={item.label} className={i < items.length - 1 ? "border-r border-hairline px-1" : "px-1"}>
-          <div className="flex items-center justify-center gap-1.5">
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5">
             {item.icon && <span className="text-brand shrink-0">{item.icon}</span>}
-            <p className="text-[0.95rem] text-ink" style={{ fontWeight: 800 }}>
+            <p className="text-[0.88rem] sm:text-[0.95rem] text-ink" style={{ fontWeight: 800 }}>
               {item.value}
             </p>
           </div>
-          <p className="mt-1 text-[0.78rem] text-muted-foreground">{item.label}</p>
+          <p className="mt-1 text-[0.72rem] sm:text-[0.78rem] text-muted-foreground truncate" title={item.label}>
+            {item.label}
+          </p>
         </div>
       ))}
     </div>

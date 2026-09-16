@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { Reveal } from "@/components/site/reveal";
 import { OfferingCard } from "@/components/site/offering-card";
-import { offerings } from "@/lib/offerings-data";
+import { offerings, getDynamicOfferings } from "@/lib/offerings-data";
 
 export const metadata: Metadata = {
   title: "UBverse by UnBound X — Invest in Private Markets",
@@ -23,7 +23,10 @@ export const metadata: Metadata = {
 // variant — it's a normal grid card that simply wraps to row 2, alone,
 // left-aligned. Correcting the earlier (wrong) inference here.
 
-export default function Home() {
+export default async function Home() {
+  const dynamicOfferings = await getDynamicOfferings();
+  const list = dynamicOfferings.length > 0 ? dynamicOfferings : offerings;
+
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
@@ -77,7 +80,7 @@ export default function Home() {
           </Reveal>
 
           <div className="mt-14 grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-            {offerings.map((o, i) => (
+            {list.map((o, i) => (
               <Reveal key={o.slug} delay={i * 90}>
                 <OfferingCard o={o} />
               </Reveal>

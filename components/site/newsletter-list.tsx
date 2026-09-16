@@ -121,14 +121,14 @@ export function NewsletterList() {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-transparent" />
-        <div className="relative max-w-2xl px-8 py-16 sm:px-14 sm:py-20">
+        <div className="relative max-w-2xl px-5 py-12 sm:px-14 sm:py-20">
           <Reveal as="p" className="eyebrow text-white/80">
             Weekly · On the mechanics of private raises
           </Reveal>
           <Reveal
             as="h1"
             delay={80}
-            className="mt-5 font-editorial text-[2.4rem] leading-tight text-white sm:text-[3rem]"
+            className="mt-4 font-editorial text-[1.95rem] min-[400px]:text-[2.35rem] leading-tight text-white sm:text-[3rem]"
           >
             The Fundraising Playbook
           </Reveal>

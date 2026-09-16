@@ -16,7 +16,7 @@ export function OfferingCard({ o }: { o: Offering }) {
 
   return (
     <Link
-      href={`/offerings/${o.slug}`}
+      href={`/${o.slug}`}
       className="group block cursor-pointer rounded-lg transition-shadow duration-300 hover:shadow-[0_8px_28px_rgba(16,24,40,0.09)]"
     >
       <div

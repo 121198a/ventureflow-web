@@ -13,9 +13,13 @@ export const BRANCH_PAGEVIEW_URL =
   process.env.NEXT_PUBLIC_BRANCH_PAGEVIEW_URL || "https://api2.branch.io/v1/pageview";
 
 
+export const UBVERSE_API_BASE_URL =
+  process.env.NEXT_PUBLIC_UBVERSE_API_URL ||
+  "https://development.unboundxinc.us/api";
+
 export const UBVERSE_DASHBOARD_URL =
   process.env.NEXT_PUBLIC_UBVERSE_DASHBOARD_URL ||
-  "https://development.unboundxinc.us/api/ubverse-service/investor-dashboard/dashboard-without-auth";
+  `${UBVERSE_API_BASE_URL}/ubverse-service/investor-dashboard/dashboard-without-auth`;
 
 export const TERMS_URL = "/legal/terms-condition";
 export const PRIVACY_URL = "/legal/privacy-policy";
@@ -42,6 +46,6 @@ export const site = {
 };
 
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://unboundx.example").replace(/\/$/, "");
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://development.unboundxinc.us").replace(/\/$/, "");
 
 export const MAIN_SITE_URL = process.env.NEXT_PUBLIC_MAIN_SITE_URL || "/";
