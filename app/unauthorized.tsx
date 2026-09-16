@@ -2,14 +2,14 @@ import { ErrorView } from "@/components/ui/ErrorView";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "404 - Page Not Found | UnBound X",
-  description: "The page or document you're looking for doesn't exist, has been moved, or the link may be invalid.",
+  title: "401 - Unauthorized | UnBound X",
+  description: "Authentication is required to view or access this page.",
 };
 
-export default function NotFound() {
+export default function Unauthorized() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-white">
-      <ErrorView code={404} />
+      <ErrorView code={401} />
     </div>
   );
 }

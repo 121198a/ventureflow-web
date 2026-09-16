@@ -38,6 +38,41 @@ const nextConfig: NextConfig = {
         destination: '/platform',
         permanent: false,
       },
+      {
+        source: '/privacy-policy',
+        destination: '/legal/privacy-policy',
+        permanent: true,
+      },
+      {
+        source: '/privacy',
+        destination: '/legal/privacy-policy',
+        permanent: true,
+      },
+      {
+        source: '/terms',
+        destination: '/legal/terms-condition',
+        permanent: true,
+      },
+      {
+        source: '/terms-condition',
+        destination: '/legal/terms-condition',
+        permanent: true,
+      },
+      {
+        source: '/terms-of-service',
+        destination: '/legal/terms-condition',
+        permanent: true,
+      },
+      {
+        source: '/terms-of-use',
+        destination: '/legal/terms-condition',
+        permanent: true,
+      },
+      {
+        source: '/terms-and-conditions',
+        destination: '/legal/terms-condition',
+        permanent: true,
+      },
     ];
   },
 };
