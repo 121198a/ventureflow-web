@@ -77,34 +77,32 @@ export default function Services() {
                 ))}
               </tr>
             </thead>
-            <tbody>
-              {serviceFeatures.map((group) => (
-                <tbody key={group.category} className="divide-y divide-hairline">
-                  <tr className="bg-slate-50/80">
-                    <td
-                      colSpan={5}
-                      className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-600"
-                    >
-                      {group.category}
-                    </td>
+            {serviceFeatures.map((group) => (
+              <tbody key={group.category} className="divide-y divide-hairline">
+                <tr className="bg-slate-50/80">
+                  <td
+                    colSpan={5}
+                    className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-600"
+                  >
+                    {group.category}
+                  </td>
+                </tr>
+                {group.items.map((item) => (
+                  <tr key={item.name} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="px-6 py-3.5 font-medium text-slate-800 text-sm">{item.name}</td>
+                    {item.tiers.map((supported, idx) => (
+                      <td key={idx} className="px-4 py-3.5 text-center align-middle">
+                        {supported ? (
+                          <Check className="mx-auto size-4 text-emerald-600" />
+                        ) : (
+                          <span className="text-slate-300 font-bold">&mdash;</span>
+                        )}
+                      </td>
+                    ))}
                   </tr>
-                  {group.items.map((item) => (
-                    <tr key={item.name} className="hover:bg-slate-50/50 transition-colors">
-                      <td className="px-6 py-3.5 font-medium text-slate-800 text-sm">{item.name}</td>
-                      {item.tiers.map((supported, idx) => (
-                        <td key={idx} className="px-4 py-3.5 text-center align-middle">
-                          {supported ? (
-                            <Check className="mx-auto size-4 text-emerald-600" />
-                          ) : (
-                            <span className="text-slate-300 font-bold">&mdash;</span>
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              ))}
-            </tbody>
+                ))}
+              </tbody>
+            ))}
           </table>
         </div>
 
