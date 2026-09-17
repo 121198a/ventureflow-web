@@ -16,12 +16,12 @@ export const metadata: Metadata = {
 
 export default function Newsletter() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen overflow-hidden bg-background">
       <SiteHeader />
-      <main className="mx-auto max-w-[1180px] px-5">
+      <main className="relative z-10 mx-auto max-w-[1180px] px-5">
         <NewsletterList />
       </main>
-      <div className="mt-16">
+      <div className="relative z-10 mt-16">
         <SiteFooter />
       </div>
     </div>

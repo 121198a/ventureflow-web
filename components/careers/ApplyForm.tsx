@@ -2,6 +2,7 @@
 
 import { useRef, useState, type FormEvent } from "react";
 import { z } from "zod";
+import { CheckCircle2, Loader2, Upload } from "lucide-react";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB, matches bucket limit
 const ACCEPTED_TYPES = [
@@ -36,9 +37,6 @@ export function ApplyForm({
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
-
-  const inputClass =
-    "w-full rounded-xl border border-border bg-background px-4 py-3 text-sm placeholder:text-muted-foreground/60 transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20";
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -101,38 +99,40 @@ export function ApplyForm({
 
   if (status === "success") {
     return (
-      <div className="surface p-5 sm:p-8 text-center">
-        <p className="eyebrow justify-center">Application received</p>
-        <p className="display mt-4 text-2xl">Thank you, {name.split(" ")[0]}.</p>
-        <p className="mt-3 text-sm text-text-secondary">
-          We have your application for {roleTitle}. We reply within five
-          working days.
+      <div className="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-6 sm:p-10 text-center shadow-sm">
+        <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full bg-emerald-100 text-emerald-700">
+          <CheckCircle2 size={24} />
+        </div>
+        <p className="text-xs font-bold uppercase tracking-wider text-emerald-800">Application received</p>
+        <p className="mt-2 text-2xl font-extrabold text-slate-900 tracking-tight">Thank you, {name.split(" ")[0]}.</p>
+        <p className="mt-2 text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
+          We have received your application for <b className="text-slate-900">{roleTitle}</b>. Our talent team reviews every submission and responds within five business days.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="surface space-y-5 p-5 sm:p-8" noValidate>
+    <form onSubmit={onSubmit} className="rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-card space-y-5" noValidate>
       <div>
-        <label htmlFor="apply-name" className="eyebrow">
-          Full name
+        <label htmlFor="apply-name" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+          Full name <span className="text-rose-500">*</span>
         </label>
         <input
           id="apply-name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Your name"
+          placeholder="Your full name"
           autoComplete="name"
           maxLength={100}
           required
-          className={`mt-2 ${inputClass}`}
+          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 transition-all focus:border-blue-600 focus:outline-none focus:ring-3 focus:ring-blue-100 shadow-2xs"
         />
       </div>
       <div>
-        <label htmlFor="apply-email" className="eyebrow">
-          Email
+        <label htmlFor="apply-email" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+          Work Email <span className="text-rose-500">*</span>
         </label>
         <input
           id="apply-email"
@@ -143,12 +143,12 @@ export function ApplyForm({
           autoComplete="email"
           maxLength={255}
           required
-          className={`mt-2 ${inputClass}`}
+          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 transition-all focus:border-blue-600 focus:outline-none focus:ring-3 focus:ring-blue-100 shadow-2xs"
         />
       </div>
       <div>
-        <label htmlFor="apply-resume" className="eyebrow">
-          Resume (PDF or Word, max 10 MB)
+        <label htmlFor="apply-resume" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+          Resume (PDF or Word, max 10 MB) <span className="text-rose-500">*</span>
         </label>
         <input
           id="apply-resume"
@@ -161,30 +161,30 @@ export function ApplyForm({
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="mt-2 flex w-full items-center justify-between rounded-xl border border-dashed border-border px-4 py-3 text-left text-sm text-muted-foreground transition-colors hover:border-brand"
+          className="mt-1.5 flex w-full items-center justify-between rounded-xl border border-dashed border-slate-300 bg-slate-50/70 px-4 py-3 text-left text-sm text-slate-600 transition-colors hover:border-blue-500 hover:bg-blue-50/30 cursor-pointer"
         >
           <span className="truncate">{file ? file.name : "Choose a file…"}</span>
-          <span className="text-brand">↑</span>
+          <Upload size={15} className="text-blue-600 shrink-0" />
         </button>
       </div>
       <div>
-        <label htmlFor="apply-cover" className="eyebrow">
-          Cover letter
+        <label htmlFor="apply-cover" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+          Cover letter &amp; portfolio notes <span className="text-rose-500">*</span>
         </label>
         <textarea
           id="apply-cover"
           value={coverLetter}
           onChange={(e) => setCoverLetter(e.target.value)}
-          placeholder="Why this role, why you."
-          rows={6}
+          placeholder="Why this role, why you, and links to your best work."
+          rows={5}
           maxLength={5000}
           required
-          className={`mt-2 resize-y ${inputClass}`}
+          className="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 transition-all focus:border-blue-600 focus:outline-none focus:ring-3 focus:ring-blue-100 shadow-2xs"
         />
       </div>
 
       {status === "error" && (
-        <p role="alert" className="text-sm font-medium text-destructive">
+        <p role="alert" className="text-xs font-semibold text-rose-600 bg-rose-50 border border-rose-200 p-3 rounded-lg">
           {message}
         </p>
       )}
@@ -192,9 +192,16 @@ export function ApplyForm({
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="block w-full rounded-full bg-brand px-6 py-4 text-center text-sm font-semibold text-brand-foreground transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-700 disabled:opacity-60 disabled:hover:translate-y-0"
+        className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3.5 text-center text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-700 disabled:opacity-60 disabled:hover:translate-y-0 cursor-pointer"
       >
-        {status === "submitting" ? "Submitting…" : `Apply — ${roleTitle}`}
+        {status === "submitting" ? (
+          <>
+            <Loader2 className="size-4 animate-spin" />
+            <span>Submitting Application…</span>
+          </>
+        ) : (
+          `Apply — ${roleTitle}`
+        )}
       </button>
     </form>
   );

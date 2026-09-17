@@ -181,3 +181,60 @@ export const mobileMenuItem: Variants = {
     transition: { duration: 0.15 },
   },
 };
+
+// Overlay & Dialog Transitions
+export const modalOverlayMotion: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.2, ease: EASE_EXPO },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.15, ease: EASE_EXPO },
+  },
+};
+
+export const modalContentMotion: Variants = {
+  hidden: { opacity: 0, scale: 0.96, y: 8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.25, ease: EASE_PREMIUM },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.96,
+    y: 6,
+    transition: { duration: 0.18, ease: EASE_EXPO },
+  },
+};
+
+// Dropdown & Popover Transitions
+export const dropdownMotion: Variants = {
+  hidden: { opacity: 0, y: -6, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.18, ease: EASE_EXPO },
+  },
+  exit: {
+    opacity: 0,
+    y: -4,
+    scale: 0.98,
+    transition: { duration: 0.12, ease: EASE_EXPO },
+  },
+};
+
+// Micro-interaction presets
+export const hoverLiftSubtle = {
+  rest: { y: 0, transition: { duration: 0.2, ease: EASE_EXPO } },
+  hover: { y: -2, transition: { duration: 0.2, ease: EASE_EXPO } },
+};
+
+export const iconHoverRotate = {
+  rest: { rotate: 0 },
+  hover: { rotate: 12, transition: { duration: 0.2, ease: EASE_EXPO } },
+};

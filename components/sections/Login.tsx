@@ -363,7 +363,7 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleEmailSubmit} className="mt-6 space-y-4">
+                  <form onSubmit={handleEmailSubmit} autoComplete="off" className="mt-6 space-y-4">
                     <div>
                       <label htmlFor="email" className="mb-1.5 block text-xs font-bold text-slate-700">
                         Email address
@@ -371,7 +371,10 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                       <input
                         id="email"
                         type="email"
-                        autoComplete="email"
+                        autoComplete="off"
+                        data-lpignore="true"
+                        data-1p-ignore="true"
+                        data-form-type="other"
                         value={email}
                         onChange={(e) => {
                           setEmail(e.target.value);
@@ -402,7 +405,10 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                       <input
                         id="password"
                         type="password"
-                        autoComplete={isSignup ? "new-password" : "current-password"}
+                        autoComplete="new-password"
+                        data-lpignore="true"
+                        data-1p-ignore="true"
+                        data-form-type="other"
                         value={password}
                         onChange={(e) => {
                           setPassword(e.target.value);

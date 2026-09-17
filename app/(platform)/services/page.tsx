@@ -47,10 +47,10 @@ const serviceFeatures = [
 
 export default function Services() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen overflow-hidden bg-background">
       <SiteHeader />
 
-      <section className="mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
+      <section className="relative z-10 mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
         <p className="eyebrow">Capital Raise Pathways</p>
         <h1 className="mt-4 text-[2rem] sm:text-[2.4rem] text-slate-900" style={{ fontWeight: 800 }}>
           Compare Offering Pathways

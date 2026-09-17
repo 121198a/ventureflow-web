@@ -24,10 +24,10 @@ export function OfferingCard({ o }: { o: Offering }) {
   return (
     <Link
       href={`/${o.slug}`}
-      className="group block cursor-pointer rounded-lg transition-shadow duration-300 hover:shadow-[0_8px_28px_rgba(16,24,40,0.09)]"
+      className="group block cursor-pointer rounded-2xl border border-slate-200/90 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_12px_32px_rgba(15,23,42,0.08)]"
     >
       <div
-        className="relative grid aspect-[16/9] place-items-center overflow-hidden rounded-md border border-hairline bg-surface"
+        className="relative grid aspect-[16/9] place-items-center overflow-hidden rounded-xl border border-slate-100 bg-slate-50"
         style={{ background: showImage ? "#ffffff" : o.art }}
       >
         {showImage && o.imageUrl ? (
@@ -51,13 +51,12 @@ export function OfferingCard({ o }: { o: Offering }) {
         )}
       </div>
       <h3
-        className="mt-5 text-[1.35rem] transition-colors duration-200 group-hover:text-brand"
-        style={{ fontWeight: 800 }}
+        className="mt-5 text-[1.25rem] sm:text-[1.35rem] font-bold text-slate-900 transition-colors duration-200 group-hover:text-blue-600"
       >
         {o.name}
       </h3>
-      <p className="mt-1 text-[0.92rem] text-ink/70">Funding Round: {o.round}</p>
-      <div className="mt-5">
+      <p className="mt-1 text-xs sm:text-[0.875rem] text-slate-500 font-medium">Funding Round: {o.round}</p>
+      <div className="mt-4 border-t border-slate-100 pt-4">
         <StatRow items={stats} />
       </div>
     </Link>

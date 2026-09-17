@@ -161,13 +161,32 @@ export function ThesisJourney() {
               ))}
             </div>
 
-            {/* Right: Phone Frame with Pixel-Accurate Status Bar & Notch */}
+            {/* Right: Phone Frame with Pixel-Accurate Status Bar & Notch (Image 2 Gradient Border) */}
             <div className="lg:col-span-5 relative flex justify-center items-center">
               <div
                 aria-hidden="true"
-                className="phone relative w-[230px] h-[360px] min-[380px]:w-[245px] min-[380px]:h-[390px] sm:w-[260px] sm:h-[430px] lg:w-[265px] lg:h-[450px] xl:w-[275px] xl:h-[490px] flex-none rounded-lg bg-[#111729] p-[6px] sm:p-[7px] shadow-[0_12px_32px_rgba(15,23,42,0.12),0_25px_60px_rgba(15,23,42,0.14)] select-none"
+                className="phone relative w-[230px] h-[360px] min-[380px]:w-[245px] min-[380px]:h-[390px] sm:w-[260px] sm:h-[430px] lg:w-[265px] lg:h-[450px] xl:w-[275px] xl:h-[490px] flex-none rounded-[32px] sm:rounded-[36px] bg-[#070b14] p-[3px] sm:p-[3.5px] shadow-[0_25px_60px_-15px_rgba(5,10,24,0.4),0_12px_28px_-8px_rgba(5,10,24,0.3)] ring-1 ring-white/15 select-none"
               >
-                <div className="relative z-10 h-full w-full overflow-hidden rounded-lg bg-white flex flex-col justify-between">
+                {/* 4-Edge Perimeter Neon Gradient Ribbon */}
+                <div
+                  className="relative h-full w-full rounded-[29px] sm:rounded-[33px] p-[2.5px]"
+                  style={{
+                    background:
+                      "conic-gradient(from 190deg at 50% 50%, #3b82f6 0deg, #6366f1 60deg, #8b5cf6 120deg, #06b6d4 180deg, #38bdf8 250deg, #1d4ed8 310deg, #3b82f6 360deg)",
+                    boxShadow: "0 0 16px rgba(59, 130, 246, 0.32), inset 0 0 6px rgba(59, 130, 246, 0.32)",
+                  }}
+                >
+                  {/* Outer Bloom */}
+                  <div
+                    className="pointer-events-none absolute inset-0 -z-10 rounded-[29px] sm:rounded-[33px] opacity-75 blur-[3px]"
+                    style={{
+                      background:
+                        "conic-gradient(from 190deg at 50% 50%, #3b82f6 0deg, #6366f1 60deg, #8b5cf6 120deg, #06b6d4 180deg, #38bdf8 250deg, #1d4ed8 310deg, #3b82f6 360deg)",
+                    }}
+                  />
+
+                  {/* Screen Glass Container */}
+                  <div className="relative z-10 h-full w-full overflow-hidden rounded-[27px] sm:rounded-[31px] bg-white flex flex-col justify-between">
                   
                   {/* Status Bar Section */}
                   <div>
@@ -438,10 +457,11 @@ export function ThesisJourney() {
             </div>
           </div>
         </div>
-
-        {/* Bottom safety gap */}
-        <div className="h-1 shrink-0" />
       </div>
+
+      {/* Bottom safety gap */}
+      <div className="h-1 shrink-0" />
     </div>
+  </div>
   );
 }

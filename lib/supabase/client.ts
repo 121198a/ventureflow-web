@@ -1,50 +1,134 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "./types";
 
 export function isSupabaseConfigured(): boolean {
+  const url = process.env["NEXT_PUBLIC_SUPABASE_URL"];
+  const key =
+    process.env["NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"] ||
+    process.env["NEXT_PUBLIC_SUPABASE_ANON_KEY"];
+
   return Boolean(
-    process.env["NEXT_PUBLIC_SUPABASE_URL"] &&
-    process.env["NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"]
+    url &&
+    key &&
+    !url.includes("your-project.supabase.co") &&
+    !key.includes("your-anon-key")
   );
 }
 
-function createSupabaseClient() {
+function createSupabaseClient(): SupabaseClient<Database> | null {
   const SUPABASE_URL = process.env["NEXT_PUBLIC_SUPABASE_URL"];
   const SUPABASE_PUBLISHABLE_KEY =
-    process.env["NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"];
+    process.env["NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"] ||
+    process.env["NEXT_PUBLIC_SUPABASE_ANON_KEY"];
 
-  if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
-    const missing = [
-      ...(!SUPABASE_URL ? ["NEXT_PUBLIC_SUPABASE_URL"] : []),
-      ...(!SUPABASE_PUBLISHABLE_KEY ? ["NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"] : []),
-    ];
-    const message = `Missing Supabase environment variable(s): ${missing.join(", ")}.`;
-    console.error(`[Supabase] ${message}`);
-    throw new Error(message);
+  if (
+    !SUPABASE_URL ||
+    !SUPABASE_PUBLISHABLE_KEY ||
+    SUPABASE_URL.includes("your-project.supabase.co") ||
+    SUPABASE_PUBLISHABLE_KEY.includes("your-anon-key")
+  ) {
+    return null;
   }
 
-  return createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-    },
-  });
+  try {
+    return createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+      },
+    });
+  } catch (err) {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("[Supabase] Failed to initialize Supabase client:", err);
+    }
+    return null;
+  }
 }
 
-let _supabase: ReturnType<typeof createSupabaseClient> | undefined;
+let _supabase: SupabaseClient<Database> | null | undefined;
 
-export function getSupabaseClient() {
+export function getSupabaseClient(): SupabaseClient<Database> | null {
   if (!isSupabaseConfigured()) return null;
-  if (!_supabase) _supabase = createSupabaseClient();
+  if (_supabase === undefined) {
+    _supabase = createSupabaseClient();
+  }
   return _supabase;
 }
 
+// Fallback proxy handler for when Supabase is not configured.
+// Prevents module evaluation crashes during bundler inspection and runtime calls.
+function createFallbackSupabaseClient(): any {
+  const fallbackHandler: ProxyHandler<any> = {
+    get(_, prop) {
+      if (
+        typeof prop === "symbol" ||
+        prop === "then" ||
+        prop === "$$typeof" ||
+        prop === "__esModule" ||
+        prop === "toJSON" ||
+        prop === "default"
+      ) {
+        return undefined;
+      }
+      if (prop === "onAuthStateChange") {
+        return () => ({
+          data: { subscription: { unsubscribe: () => {} } },
+          error: null,
+        });
+      }
+      if (prop === "getSession" || prop === "getUser") {
+        return async () => ({
+          data: { session: null, user: null },
+          error: null,
+        });
+      }
+      const callable = (..._args: any[]) => {
+        return new Proxy(
+          Promise.resolve({
+            data: null,
+            error: { message: "Supabase is not configured in this environment." },
+          }),
+          fallbackHandler
+        );
+      };
+      return new Proxy(callable, fallbackHandler);
+    },
+    apply() {
+      return new Proxy(
+        Promise.resolve({
+          data: null,
+          error: { message: "Supabase is not configured in this environment." },
+        }),
+        fallbackHandler
+      );
+    },
+  };
+  return new Proxy({}, fallbackHandler);
+}
+
+const _fallbackClient = createFallbackSupabaseClient();
+
 // Import the supabase client like this:
 // import { supabase } from "@/lib/supabase/client";
-export const supabase = new Proxy({} as ReturnType<typeof createSupabaseClient>, {
+export const supabase = new Proxy({} as SupabaseClient<Database>, {
   get(_, prop, receiver) {
-    if (!_supabase) _supabase = createSupabaseClient();
-    return Reflect.get(_supabase, prop, receiver);
+    if (
+      typeof prop === "symbol" ||
+      prop === "then" ||
+      prop === "$$typeof" ||
+      prop === "__esModule" ||
+      prop === "toJSON" ||
+      prop === "default"
+    ) {
+      return undefined;
+    }
+
+    const realClient = getSupabaseClient();
+    if (realClient) {
+      return Reflect.get(realClient, prop, receiver);
+    }
+
+    return Reflect.get(_fallbackClient, prop, receiver);
   },
 });
 

@@ -39,8 +39,8 @@ export function NewsletterCTA() {
   };
 
   return (
-    <section className="relative overflow-hidden py-16 sm:py-24 border-t border-slate-200/70 bg-gradient-to-b from-white via-slate-50/70 to-slate-100/50">
-      <div className="mx-auto max-w-[1240px] px-5 sm:px-6">
+    <section className="relative overflow-hidden py-16 sm:py-24 border-t border-slate-200/70 bg-white">
+      <div className="relative z-10 mx-auto max-w-[1240px] px-5 sm:px-6">
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3.5 py-1 text-xs font-semibold text-blue-700 border border-blue-100">

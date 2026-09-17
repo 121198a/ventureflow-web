@@ -35,27 +35,28 @@ export default function PressPage() {
     <SiteShell>
       <div className="pt-24 pb-20 sm:pt-32 sm:pb-28">
         <div className="mx-auto max-w-[1140px] px-5 sm:px-6">
-          {/* Distinct Newsroom Hero Banner */}
-          <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-gradient-to-br from-slate-900 via-[#0B1528] to-[#122444] p-8 sm:p-12 text-white shadow-xl">
+          {/* Distinct Newsroom Hero Banner (Strictly Light-Mode) */}
+          <div className="relative overflow-hidden rounded-3xl border border-slate-200/90 bg-gradient-to-br from-slate-50 via-white to-blue-50/60 p-8 sm:p-12 text-slate-900 shadow-[0_10px_35px_rgba(15,23,42,0.05)]">
             {/* Subtle background grid & ambient light */}
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px]" />
-            <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-blue-500/15 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-indigo-500/15 blur-3xl" />
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0f172a08_1px,transparent_1px),linear-gradient(to_bottom,#0f172a08_1px,transparent_1px)] bg-[size:24px_24px]" />
+
+            <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-blue-100/40 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-indigo-100/40 blur-3xl" />
 
             <div className="relative z-10 max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-300 backdrop-blur-xs">
-                <Sparkles size={13} className="text-blue-400" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/90 bg-blue-50/80 px-3.5 py-1 text-xs font-semibold text-blue-800 shadow-2xs">
+                <Sparkles size={13} className="text-blue-600" />
                 <span>UnBound X Press Room &amp; Media Kit</span>
-                <span className="h-1 w-1 rounded-full bg-blue-400" />
-                <span className="text-blue-200/80 font-normal">Official Disclosures</span>
+                <span className="h-1 w-1 rounded-full bg-blue-600" />
+                <span className="text-blue-700 font-normal">Official Disclosures</span>
               </div>
 
-              <h1 className="mt-5 text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
+              <h1 className="mt-5 text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
                 Press resources, official statements, and brand assets from{" "}
                 <UnboundXBrand className="inline-block" />
               </h1>
 
-              <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-300">
+              <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600 font-normal">
                 The public record-keeping layer for social investing and venture diligence. Access our
                 latest company briefings, executive commentary, verified brand assets, and direct press contacts.
               </p>
@@ -63,14 +64,14 @@ export default function PressPage() {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <a
                   href="#media-contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-xs sm:text-sm font-semibold text-white shadow-md hover:bg-blue-500 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-xs sm:text-sm font-semibold text-white shadow-md shadow-blue-600/20 hover:bg-blue-700 transition-colors"
                 >
                   <Mail size={15} />
                   <span>Contact Press Desk</span>
                 </a>
                 <a
                   href="#brand-assets"
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-600/80 bg-slate-800/60 px-5 py-3 text-xs sm:text-sm font-semibold text-slate-200 hover:bg-slate-700/60 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-xs sm:text-sm font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-colors"
                 >
                   <Download size={15} />
                   <span>Brand Assets &amp; Guidelines</span>
@@ -79,22 +80,22 @@ export default function PressPage() {
             </div>
 
             {/* Live Press Metadata Strip */}
-            <div className="relative z-10 mt-10 grid grid-cols-2 gap-4 border-t border-slate-700/60 pt-6 sm:grid-cols-4">
+            <div className="relative z-10 mt-10 grid grid-cols-2 gap-4 border-t border-slate-200 pt-6 sm:grid-cols-4">
               <div>
-                <span className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400">Press Contact</span>
-                <span className="mt-1 block text-xs sm:text-sm font-bold text-white">press@unboundxinc.com</span>
+                <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500">Press Contact</span>
+                <span className="mt-1 block text-xs sm:text-sm font-bold text-slate-900">press@unboundxinc.com</span>
               </div>
               <div>
-                <span className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400">Response SLA</span>
-                <span className="mt-1 block text-xs sm:text-sm font-bold text-emerald-400">&lt; 24 Business Hours</span>
+                <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500">Response SLA</span>
+                <span className="mt-1 block text-xs sm:text-sm font-bold text-emerald-600">&lt; 24 Business Hours</span>
               </div>
               <div>
-                <span className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400">Headquarters</span>
-                <span className="mt-1 block text-xs sm:text-sm font-bold text-white">New York, NY</span>
+                <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500">Headquarters</span>
+                <span className="mt-1 block text-xs sm:text-sm font-bold text-slate-900">New York, NY</span>
               </div>
               <div>
-                <span className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400">Media Kit Version</span>
-                <span className="mt-1 block text-xs sm:text-sm font-bold text-white">v2026.1 (Current)</span>
+                <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500">Media Kit Version</span>
+                <span className="mt-1 block text-xs sm:text-sm font-bold text-blue-700">v2026.1 (Current)</span>
               </div>
             </div>
           </div>

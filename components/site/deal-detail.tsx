@@ -59,10 +59,10 @@ export function DealDetail({ offering }: { offering: Offering }) {
         {/* Status row */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-[oklch(0.93_0.06_150)] px-3 py-1 text-[0.78rem] text-[oklch(0.4_0.1_150)]" style={{ fontWeight: 700 }}>
+            <span className="rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-bold text-emerald-800">
               {offering.status}
             </span>
-            <span className="rounded-full border border-brand/40 px-3 py-1 text-[0.78rem] text-brand" style={{ fontWeight: 600 }}>
+            <span className="rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-bold text-blue-700">
               {offering.filing}
             </span>
           </div>
@@ -70,19 +70,18 @@ export function DealDetail({ offering }: { offering: Offering }) {
         </div>
 
         {/* Hero */}
-        <div className="mt-5 grid gap-6 rounded-lg border border-hairline p-5 sm:grid-cols-[1.3fr_1fr] sm:items-center sm:gap-8 sm:p-8">
+        <div className="mt-5 grid gap-6 rounded-2xl border border-slate-200/90 bg-white p-6 sm:grid-cols-[1.3fr_1fr] sm:items-center sm:gap-8 sm:p-8 shadow-[0_1px_3px_rgba(15,23,42,0.04)]">
           <div>
-            <h1 className="text-[1.9rem] leading-tight sm:text-[2.1rem]" style={{ fontWeight: 800 }}>
-              Welcome to <span className="text-brand">{offering.name}</span>
+            <h1 className="text-[1.85rem] leading-tight sm:text-[2.25rem] font-extrabold text-slate-900 tracking-tight">
+              Welcome to <span className="text-blue-600">{offering.name}</span>
             </h1>
-            <p className="mt-4 text-[0.95rem] leading-relaxed text-ink/75">
+            <p className="mt-4 text-[0.95rem] leading-relaxed text-slate-600 font-normal">
               {shownDescription}
               {longDescription && (
                 <button
                   type="button"
                   onClick={() => setExpanded((v) => !v)}
-                  className="ml-2 text-brand underline"
-                  style={{ fontWeight: 600 }}
+                  className="ml-2 text-blue-600 underline font-semibold cursor-pointer"
                 >
                   {expanded ? "View Less" : "View More"}
                 </button>
@@ -93,7 +92,7 @@ export function DealDetail({ offering }: { offering: Offering }) {
             </Button>
           </div>
           <div
-            className="relative grid aspect-[4/3] place-items-center overflow-hidden rounded-md border border-hairline bg-surface"
+            className="relative grid aspect-[4/3] place-items-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-2xs"
             style={{ background: showImage ? "#ffffff" : offering.art }}
           >
             {showImage && offering.imageUrl ? (

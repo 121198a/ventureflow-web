@@ -13,11 +13,15 @@ const leaderboard = [
 
 export function TradeCompete() {
   return (
-    <section className="bg-slate-50/50 px-5 py-20 sm:py-28 border-t border-slate-200/80">
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/50 via-white to-slate-50/70 px-5 py-20 sm:py-28 border-t border-slate-200/80">
+      {/* Background ambient lighting */}
+      <div className="pointer-events-none absolute right-1/3 top-1/4 h-72 w-72 rounded-full bg-blue-100/30 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/4 bottom-1/4 h-72 w-72 rounded-full bg-amber-100/30 blur-3xl" />
+
       {/* Brokerage Trading Block */}
-      <div className="mx-auto grid max-w-[1100px] items-start gap-12 lg:grid-cols-2">
+      <div className="relative z-10 mx-auto grid max-w-[1100px] items-start gap-12 lg:grid-cols-2">
         <Reveal direction="left" className="order-2 lg:order-1 lg:pt-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-white px-3.5 py-1 text-xs font-semibold text-slate-700 shadow-2xs">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-white/95 px-3.5 py-1 text-xs font-semibold text-blue-800 shadow-2xs">
             <WalletInvestmentIcon size={14} className="text-blue-600" />
             <span>Execution Protocol</span>
           </span>
@@ -25,30 +29,33 @@ export function TradeCompete() {
           <h3 className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Integrated Brokerage Execution
           </h3>
-          <p className="mt-3 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed">
+          <p className="mt-3 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
             Transition seamlessly from thesis formulation to capital allocation. Every portfolio trade ties directly to its recorded thesis, executed through registered broker-dealer MARV Capital, Inc.
           </p>
         </Reveal>
 
-        <Reveal direction="right" delay={0.1} className="gb-interactive-card order-1 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-card hover:shadow-elevated transition-shadow lg:order-2">
+        <Reveal direction="right" delay={0.1} className="gb-interactive-card order-1 rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-[0_10px_35px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_45px_rgba(15,23,42,0.09)] transition-all lg:order-2">
           <div className="flex items-center justify-between">
-            <p className="font-bold text-slate-900 text-base">Buy 20 AMD</p>
-            <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
+            <div className="flex items-center gap-2">
+              <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+              <p className="font-bold text-slate-900 text-base">Buy 20 AMD</p>
+            </div>
+            <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200/80">
               Market Order
             </span>
           </div>
 
           <dl className="mt-5 space-y-3.5 border-t border-slate-100 pt-5 text-xs sm:text-sm">
             <div className="flex justify-between">
-              <dt className="text-slate-500">Shares</dt>
-              <dd className="font-bold text-slate-900">20</dd>
+              <dt className="text-slate-500 font-medium">Shares</dt>
+              <dd className="font-bold text-slate-900 tabular-numbers">20</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-slate-500">Order type</dt>
+              <dt className="text-slate-500 font-medium">Order type</dt>
               <dd className="font-bold text-slate-900">Market</dd>
             </div>
             <div className="flex justify-between gap-3 sm:gap-6">
-              <dt className="shrink-0 text-slate-500">Tied to</dt>
+              <dt className="shrink-0 text-slate-500 font-medium">Tied to</dt>
               <dd className="text-right font-medium text-slate-800 text-xs">
                 AMD expands data center accelerator market share
               </dd>
@@ -57,12 +64,12 @@ export function TradeCompete() {
 
           <button
             type="button"
-            className="mt-6 w-full rounded-full bg-slate-900 py-3 text-xs sm:text-sm font-bold text-white shadow-xs hover:bg-slate-800 transition-colors focus-ring cursor-pointer"
+            className="mt-6 w-full rounded-full bg-blue-600 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-blue-600/20 hover:bg-blue-700 hover:shadow-lg transition-all focus-ring cursor-pointer active:scale-[0.99]"
           >
             Review order
           </button>
 
-          <p className="mt-3 text-center text-xs text-slate-500 flex items-center justify-center gap-1">
+          <p className="mt-3.5 text-center text-xs text-slate-500 flex items-center justify-center gap-1 font-normal">
             <ComplianceShieldIcon size={12} className="text-blue-600 inline" />
             <span>Execution through MARV Capital, Inc. &middot; Member FINRA/SIPC</span>
             <Info size={12} className="inline ml-0.5 align-middle shrink-0" />
@@ -71,8 +78,8 @@ export function TradeCompete() {
       </div>
 
       {/* Competitions / Research League Block */}
-      <div className="mx-auto mt-24 grid max-w-[1100px] items-center gap-12 lg:grid-cols-2">
-        <Reveal direction="left" className="gb-interactive-card rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-card hover:shadow-elevated transition-shadow">
+      <div className="relative z-10 mx-auto mt-24 grid max-w-[1100px] items-center gap-12 lg:grid-cols-2">
+        <Reveal direction="left" className="gb-interactive-card rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-[0_10px_35px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_45px_rgba(15,23,42,0.09)] transition-all">
           <p className="mb-5 flex items-center gap-2 font-bold text-slate-900 text-base">
             <Trophy size={18} className="text-amber-500" /> Research League Leaderboard
           </p>
@@ -84,13 +91,14 @@ export function TradeCompete() {
 
             {leaderboard.map((row) => (
               <Fragment key={row.rank}>
-                <span className={"font-bold " + (row.active ? "text-blue-600" : "text-slate-500")}>
+                <span className={"font-bold tabular-numbers " + (row.active ? "text-blue-600 font-extrabold" : "text-slate-500")}>
                   {row.rank}
                 </span>
                 <span className={"font-semibold " + (row.active ? "text-blue-600" : "text-slate-800")}>
                   {row.club}
+                  {row.active && <span className="ml-1.5 text-micro rounded-full bg-blue-50 px-2 py-0.5 text-blue-700 font-bold">You</span>}
                 </span>
-                <span className={"text-right font-bold " + (row.active ? "text-blue-600" : "text-slate-900")}>
+                <span className={"text-right font-bold tabular-numbers " + (row.active ? "text-blue-600 font-extrabold" : "text-slate-900")}>
                   {row.rate}
                 </span>
               </Fragment>
@@ -99,14 +107,14 @@ export function TradeCompete() {
         </Reveal>
 
         <Reveal direction="right" delay={0.1}>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-white px-3.5 py-1 text-xs font-semibold text-slate-700 shadow-2xs">
-            <Trophy size={13} className="text-amber-500" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200/80 bg-amber-50/70 px-3.5 py-1 text-xs font-semibold text-amber-900 shadow-2xs">
+            <Trophy size={13} className="text-amber-600" />
             <span>Collegiate &amp; Fund Leagues</span>
           </span>
           <h3 className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Analyst Tournaments &amp; Competitions
           </h3>
-          <p className="mt-3 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed">
+          <p className="mt-3 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
             Test your research against peer funds and collegiate societies. Tournament theses are benchmarked using the same locked horizons and audited scoring standards.
           </p>
         </Reveal>

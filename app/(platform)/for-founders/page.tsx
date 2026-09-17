@@ -68,8 +68,8 @@ export default function ForFounders() {
       <SiteHeader />
 
       {/* Hero */}
-      <section className="border-b border-hairline">
-        <div className="mx-auto grid max-w-[1180px] items-center gap-10 px-5 py-16 lg:grid-cols-[1fr_1.05fr] lg:py-20">
+      <section className="relative overflow-hidden border-b border-hairline">
+        <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-10 px-5 py-16 lg:grid-cols-[1fr_1.05fr] lg:py-20">
           <div>
             <Reveal as="h1" className="text-[38px] leading-[1.12] sm:text-[44px]">
               <span className="text-brand" style={{ fontWeight: 800 }}>

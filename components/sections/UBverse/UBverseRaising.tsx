@@ -42,19 +42,20 @@ const deals = [
 
 export function UBverseRaising() {
   return (
-    <section id="raising" className="scroll-mt-24 relative overflow-hidden bg-[#0a1226] px-5 py-20 text-white sm:py-28">
-      {/* Background Glow */}
-      <div className="pointer-events-none absolute left-1/3 top-0 h-80 w-80 rounded-pill bg-blue-500/15 blur-3xl" />
+    <section id="raising" className="scroll-mt-24 relative overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-slate-50/60 px-5 py-20 text-slate-900 sm:py-28 border-y border-slate-200/80">
+      {/* Subtle Light Ambient Wash */}
+      <div className="pointer-events-none absolute left-1/3 top-0 h-80 w-80 rounded-full bg-blue-100/50 blur-3xl" />
+      <div className="pointer-events-none absolute right-1/4 bottom-0 h-80 w-80 rounded-full bg-indigo-50/60 blur-3xl" />
 
       <Reveal className="relative z-10 mx-auto max-w-[820px] text-center">
-        <span className="inline-flex items-center gap-2 rounded-pill border border-white/15 bg-white/[0.06] px-4 py-1.5 text-xs font-semibold text-slate-400">
-          <span className="h-1.5 w-1.5 rounded-pill bg-blue-400 animate-pulse" />
+        <span className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/95 px-4 py-1.5 text-xs font-semibold text-blue-800 shadow-2xs">
+          <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse" />
           Now on UBverse
         </span>
-        <h2 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+        <h2 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
           Real companies, raising now.
         </h2>
-        <p className="mx-auto mt-4 max-w-lg text-sm sm:text-base text-slate-400 leading-relaxed">
+        <p className="mx-auto mt-4 max-w-lg text-sm sm:text-base text-slate-600 leading-relaxed">
           Every one of these has a Space you can read before you decide anything.
         </p>
       </Reveal>
@@ -65,33 +66,33 @@ export function UBverseRaising() {
           <Reveal
             key={d.name}
             delay={i * 0.1}
-            className="gb-interactive-card rounded-lg border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md hover:border-white/20 transition-all"
+            className="gb-interactive-card rounded-2xl border border-slate-200/90 bg-white p-6 shadow-[0_1px_3px_rgba(15,23,42,0.04)] hover:shadow-[0_12px_32px_rgba(15,23,42,0.08)] hover:border-blue-500/30 transition-all duration-200"
           >
             <div className="flex items-center justify-between gap-3">
               <div className="flex min-w-0 flex-1 items-center gap-3">
-                <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg text-xs font-bold text-white shadow-md ${d.mark}`}>
+                <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl text-xs font-bold text-white shadow-xs ${d.mark}`}>
                   {d.initials}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="font-bold text-white text-sm sm:text-base leading-tight truncate">{d.name}</p>
-                  <p className="text-xs text-slate-400 mt-0.5 truncate">{d.sub}</p>
+                  <p className="font-bold text-slate-900 text-sm sm:text-base leading-tight truncate">{d.name}</p>
+                  <p className="text-xs text-slate-500 mt-0.5 truncate">{d.sub}</p>
                 </div>
               </div>
-              <span className="shrink-0 self-start rounded-pill bg-blue-500/15 border border-blue-400/20 px-2.5 py-1 text-xs font-bold text-blue-300">
+              <span className="shrink-0 self-start rounded-full bg-blue-50 border border-blue-200/80 px-2.5 py-1 text-xs font-bold text-blue-700">
                 {d.tag}
               </span>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-baseline gap-2 font-display text-2xl sm:text-3xl font-extrabold text-white">
+            <div className="mt-6 flex flex-wrap items-baseline gap-2 font-display text-2xl sm:text-3xl font-extrabold text-slate-900">
               {d.goal}
-              <span className="font-sans text-xs font-medium text-slate-400">funding goal</span>
+              <span className="font-sans text-xs font-medium text-slate-500">funding goal</span>
             </div>
 
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-4 text-xs text-slate-400">
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-4 text-xs text-slate-600">
               <span>
-                {d.round} &middot; min <b className="text-slate-400">{d.min}</b>
+                {d.round} &middot; min <b className="text-slate-900">{d.min}</b>
               </span>
-              <span className="text-xs">{d.access}</span>
+              <span className="text-xs font-medium text-slate-500">{d.access}</span>
             </div>
           </Reveal>
         ))}
@@ -100,7 +101,7 @@ export function UBverseRaising() {
       <Reveal delay={0.2} className="relative z-10 mt-14 text-center">
         <Link
           href="/platform"
-          className="inline-flex items-center gap-2 rounded-pill bg-white px-7 py-3.5 text-sm font-semibold text-slate-900 shadow-lg transition-all hover:bg-slate-100 hover:scale-[1.02] active:scale-[0.98]"
+          className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98]"
         >
           <span>Explore companies</span>
           <ArrowRight size={15} />

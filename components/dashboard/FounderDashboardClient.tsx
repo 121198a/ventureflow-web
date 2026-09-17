@@ -420,24 +420,24 @@ export function FounderDashboardClient() {
           {/* TAB: DEAL OVERVIEW */}
           {activeTab === "overview" && (
             <div className="space-y-6 animate-in fade-in duration-200">
-              {/* Header Card */}
-              <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#1e3a8a] p-6 sm:p-8 text-white shadow-sm">
+              {/* Header Card (Light-Mode) */}
+              <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-gradient-to-r from-blue-50/80 via-white to-indigo-50/40 p-6 sm:p-8 text-slate-900 shadow-xs">
                 <div className="relative z-10 space-y-3 max-w-2xl">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/90 backdrop-blur-xs">
-                    <Sparkles className="size-3.5 text-blue-300" />
+                  <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-700">
+                    <Sparkles className="size-3.5 text-blue-600" />
                     Capital Raise Console
                   </div>
-                  <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                  <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
                     {companyInfo?.companyLegalName || "Issuer Deal Workspace"}
                   </h1>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                     {companyInfo?.companyDescription ||
                       "Manage your offering structure, review accredited investor interest, and coordinate SEC filings."}
                   </p>
                   <div className="pt-2 flex flex-wrap gap-3">
                     <Link
                       href="/for-founders"
-                      className="inline-flex items-center gap-1.5 rounded-md bg-white px-3.5 py-2 text-xs font-semibold text-slate-900 hover:bg-slate-100 shadow-sm"
+                      className="inline-flex items-center gap-1.5 rounded-md bg-blue-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-blue-700 shadow-xs transition-colors"
                     >
                       Fundraising Guide <ArrowUpRight className="size-3.5" />
                     </Link>
@@ -445,7 +445,7 @@ export function FounderDashboardClient() {
                       onClick={() => setActiveTab("support")}
                       size="sm"
                       variant="outline"
-                      className="border-white/20 text-white hover:bg-white/10"
+                      className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50 shadow-2xs"
                     >
                       Contact Deal Desk
                     </Button>

@@ -122,7 +122,7 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
   }
 
   return (
-    <form className="max-w-[440px] space-y-5" onSubmit={handleSubmit}>
+    <form className="max-w-[440px] space-y-5" onSubmit={handleSubmit} autoComplete="off">
       {errorMessage && (
         <div
           role="alert"
@@ -141,7 +141,10 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
           name="email"
           type="email"
           required
-          autoComplete="email"
+          autoComplete="off"
+          data-lpignore="true"
+          data-1p-ignore="true"
+          data-form-type="other"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);

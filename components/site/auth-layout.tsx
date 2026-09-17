@@ -12,6 +12,7 @@ export function AuthLayout({
   title: string;
   subtitle: string;
   belowSubtitle?: ReactNode;
+  withWatermark?: boolean;
   children: ReactNode;
 }) {
   return (

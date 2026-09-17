@@ -25,6 +25,7 @@ export function Hero() {
       className="relative overflow-hidden pt-32 pb-16 sm:pt-40 md:pt-48 md:pb-24"
     >
       <div className="subtle-grid absolute inset-0 -z-20" aria-hidden />
+
       <div
         className="gradient-blob absolute -top-24 -left-24 -z-10 h-[420px] w-[420px] rounded-full bg-brand"
         aria-hidden

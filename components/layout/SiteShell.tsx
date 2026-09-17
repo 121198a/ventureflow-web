@@ -239,7 +239,7 @@ export function SiteNav() {
         </motion.div>
       </header>
 
-      {/* Responsive Full-Screen Dark Drawer Mobile Navigation */}
+      {/* Responsive Full-Screen Light Drawer Mobile Navigation */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -247,12 +247,12 @@ export function SiteNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-[100] flex flex-col justify-between bg-[#070e1e]/98 p-5 sm:p-7 text-white sm:hidden overflow-y-auto backdrop-blur-2xl"
+            className="fixed inset-0 z-[100] flex flex-col justify-between bg-white/98 p-5 sm:p-7 text-slate-900 sm:hidden overflow-y-auto backdrop-blur-2xl"
           >
             {/* Top Bar inside Overlay */}
-            <div className="relative z-10 mx-auto flex h-[54px] w-full max-w-lg items-center justify-between px-4 rounded-full bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-md">
+            <div className="relative z-10 mx-auto flex h-[54px] w-full max-w-lg items-center justify-between px-4 rounded-full bg-slate-50 border border-slate-200/90 shadow-sm backdrop-blur-md">
               <div className="flex items-center gap-2 font-bold text-sm">
-                <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center shadow-2xs border border-slate-700">
+                <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center shadow-2xs border border-slate-200">
                   <Image
                     src="/logo/unboundx-mark.png"
                     width={28}
@@ -267,7 +267,7 @@ export function SiteNav() {
               <button
                 aria-label="Close menu"
                 onClick={() => setOpen(false)}
-                className="grid h-8 w-8 place-items-center rounded-full bg-slate-800 hover:bg-slate-700 text-white transition-transform active:scale-90 cursor-pointer focus-ring"
+                className="grid h-8 w-8 place-items-center rounded-full bg-slate-200/70 hover:bg-slate-300 text-slate-700 transition-transform active:scale-90 cursor-pointer focus-ring"
               >
                 <X size={16} />
               </button>
@@ -285,7 +285,7 @@ export function SiteNav() {
                         onClick={() => setOpen(false)}
                         href={href}
                         className={`block text-2xl font-extrabold tracking-tight transition-all duration-200 ${
-                          isActive ? "text-blue-400 scale-105" : "text-white/90 hover:text-white"
+                          isActive ? "text-blue-600 scale-105" : "text-slate-800 hover:text-blue-600"
                         }`}
                       >
                         {label}
@@ -295,7 +295,7 @@ export function SiteNav() {
                 })}
               </div>
 
-              <div className="border-t border-slate-800/80 pt-4 space-y-2">
+              <div className="border-t border-slate-200 pt-4 space-y-2">
                 <p className="text-micro font-bold uppercase tracking-wider text-slate-400">Explore</p>
                 <div className="grid grid-cols-2 gap-2 text-left">
                   {exploreLinks.map((item) => (
@@ -303,10 +303,10 @@ export function SiteNav() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setOpen(false)}
-                      className="rounded-xl border border-slate-800/70 bg-slate-900/50 p-2.5 transition-colors hover:bg-slate-800/80"
+                      className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-2.5 transition-colors hover:bg-blue-50/60"
                     >
-                      <p className="text-xs font-bold text-white leading-tight">{item.label}</p>
-                      <p className="text-[10px] text-slate-400 mt-0.5 truncate">{item.desc}</p>
+                      <p className="text-xs font-bold text-slate-900 leading-tight">{item.label}</p>
+                      <p className="text-[10px] text-slate-500 mt-0.5 truncate">{item.desc}</p>
                     </TransitionLink>
                   ))}
                 </div>
@@ -317,7 +317,7 @@ export function SiteNav() {
                   flow="signup"
                   icon={false}
                   onClick={() => setOpen(false)}
-                  className="w-full justify-center inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-7 py-3.5 shadow-lg shadow-blue-600/30 transition-transform active:scale-95"
+                  className="w-full justify-center inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-7 py-3.5 shadow-lg shadow-blue-600/20 transition-transform active:scale-95"
                 >
                   <span>Start your record</span>
                   <ArrowRight size={15} />
@@ -326,17 +326,17 @@ export function SiteNav() {
             </nav>
 
             {/* Bottom Social Icons */}
-            <div className="relative z-10 flex items-center justify-center gap-6 pb-2 text-slate-400 text-base">
-              <a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on X" className="p-2 hover:text-white transition-colors focus-ring rounded-full">
+            <div className="relative z-10 flex items-center justify-center gap-6 pb-2 text-slate-500 text-base">
+              <a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on X" className="p-2 hover:text-blue-600 transition-colors focus-ring rounded-full">
                 <FaTwitter size={15} />
               </a>
-              <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on LinkedIn" className="p-2 hover:text-white transition-colors focus-ring rounded-full">
+              <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on LinkedIn" className="p-2 hover:text-blue-600 transition-colors focus-ring rounded-full">
                 <FaLinkedinIn size={15} />
               </a>
-              <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Facebook" className="p-2 hover:text-white transition-colors focus-ring rounded-full">
+              <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Facebook" className="p-2 hover:text-blue-600 transition-colors focus-ring rounded-full">
                 <FaFacebookF size={15} />
               </a>
-              <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Instagram" className="p-2 hover:text-white transition-colors focus-ring rounded-full">
+              <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Instagram" className="p-2 hover:text-blue-600 transition-colors focus-ring rounded-full">
                 <FaInstagram size={15} />
               </a>
             </div>
@@ -408,7 +408,7 @@ export function SiteFooter() {
   return (
     <>
       <footer
-        className={`relative bg-[#0a1226] pb-10 text-slate-300 ${
+        className={`relative bg-slate-50 border-t border-slate-200/90 pb-10 text-slate-700 ${
           hasOwnOverlapCard ? "mt-0 pt-24 sm:pt-28" : "mt-20 pt-0 sm:mt-28 md:mt-32"
         }`}
       >
@@ -419,38 +419,38 @@ export function SiteFooter() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
-            className="mx-auto flex max-w-[1120px] flex-col items-center gap-8 rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 md:p-10 shadow-[0_25px_60px_rgba(10,18,38,0.2)] backdrop-blur-xl md:flex-row md:justify-between"
+            className="mx-auto flex max-w-[1120px] flex-col items-center gap-8 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(15,23,42,0.08)] backdrop-blur-xl md:flex-row md:justify-between"
           >
-            <div className="w-full max-w-[280px] shrink-0 rounded-lg border border-slate-200 bg-slate-50 p-5 shadow-sm">
+            <div className="w-full max-w-[280px] shrink-0 rounded-xl border border-slate-200 bg-slate-50/80 p-5 shadow-xs">
               <div className="flex items-center justify-between text-sm font-semibold text-slate-900">
                 <span>NVDA</span>
-                <span className="rounded-pill bg-blue-50 px-2 py-0.5 text-micro font-bold text-blue-600">
+                <span className="rounded-full bg-blue-50 border border-blue-200 px-2.5 py-0.5 text-micro font-bold text-blue-700">
                   LONG
                 </span>
               </div>
               <dl className="mt-3 space-y-1.5 text-xs md:text-sm">
                 <div className="flex justify-between">
-                  <dt className="text-slate-600">Entered</dt>
-                  <dd className="font-semibold text-slate-800">$219.86</dd>
+                  <dt className="text-slate-500 font-medium">Entered</dt>
+                  <dd className="font-semibold text-slate-800 tabular-numbers">$219.86</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-slate-600">Target</dt>
-                  <dd className="font-semibold text-slate-800">$260.00</dd>
+                  <dt className="text-slate-500 font-medium">Target</dt>
+                  <dd className="font-semibold text-slate-800 tabular-numbers">$260.00</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-slate-600">By</dt>
+                  <dt className="text-slate-500 font-medium">By</dt>
                   <dd className="font-semibold text-slate-800">Dec 2026</dd>
                 </div>
               </dl>
               <div className="mt-4" aria-hidden="true">
-                <div className="relative mx-1 h-[2px] rounded-pill bg-[#E4EAEF]">
-                  <span className="absolute -left-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-pill bg-blue-600" />
-                  <span className="absolute -right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-pill border-[1.5px] border-slate-400/60 bg-white" />
+                <div className="relative mx-1 h-[2px] rounded-full bg-slate-200">
+                  <span className="absolute -left-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-blue-600" />
+                  <span className="absolute -right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full border-[1.5px] border-slate-400/60 bg-white" />
                 </div>
               </div>
               <div className="mt-2 flex justify-between text-micro font-medium">
-                <span className="text-blue-600">Published</span>
-                <span className="text-slate-600">Settled</span>
+                <span className="text-blue-600 font-semibold">Published</span>
+                <span className="text-slate-500">Settled</span>
               </div>
             </div>
 
@@ -458,33 +458,31 @@ export function SiteFooter() {
               <h3 className="text-2xl font-bold text-slate-900 sm:text-3xl tracking-tight">
                 Turn market theses into verified credibility.
               </h3>
-              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed font-normal">
                 Publish your price target and time horizon before events unfold. Build an immutable, public track record evaluated by real market results.
               </p>
               <AuthButton
                 flow="signup"
                 icon={false}
-                className="mt-5 inline-flex items-center gap-2 rounded-pill bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-blue-700 active:scale-[0.98]"
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all duration-200 hover:bg-blue-700 active:scale-[0.98]"
               >
                 <span>Start your record</span>
                 <ArrowRight size={15} />
               </AuthButton>
             </div>
 
-            {/* QR code and its caption are one unit — only shown together at
-                lg+, so mobile/tablet never see "scan to get started" text
-                without the QR code to actually scan. */}
-            <div className="hidden shrink-0 items-center gap-3.5 rounded-lg border border-slate-200/80 bg-white/30 p-4 lg:flex backdrop-blur-sm">
+            {/* QR code */}
+            <div className="hidden shrink-0 items-center gap-3.5 rounded-xl border border-slate-200 bg-slate-50/70 p-4 lg:flex">
               <Image
                 src="/image/QR.webp"
                 width={64}
                 height={64}
                 alt="Scan QR code"
-                className="h-18 w-18 object-contain shadow-xs"
+                className="h-16 w-16 object-contain shadow-2xs rounded-lg"
               />
-              <div className="text-xs">
-                <p className="font-semibold text-slate-900 text-lg">Take UnBound X with you.</p>
-                <p className="text-slate-600 mt-0.5 text-sm">Scan to get started on your phone.</p>
+              <div className="text-xs text-left">
+                <p className="font-bold text-slate-900 text-sm sm:text-base leading-tight">Take UnBound X with you.</p>
+                <p className="text-slate-500 mt-0.5 text-xs">Scan to get started on your phone.</p>
               </div>
             </div>
           </motion.div>
@@ -494,7 +492,7 @@ export function SiteFooter() {
         <div className="mx-auto grid max-w-[1180px] gap-x-8 gap-y-10 px-6 pt-16 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="relative h-8 w-8 overflow-hidden rounded-full shadow-sm flex items-center justify-center border border-slate-700">
+              <div className="relative h-8 w-8 overflow-hidden rounded-full shadow-2xs flex items-center justify-center border border-slate-200">
                 <Image
                   src="/logo/unboundx-mark.png"
                   width={32}
@@ -504,19 +502,19 @@ export function SiteFooter() {
                 />
               </div>
               <div>
-                <UnboundXBrand className="text-lg font-bold" />
-                <p className="text-xs text-blue-400 font-medium">{site.brandLine}</p>
+                <UnboundXBrand className="text-lg font-bold text-slate-900" />
+                <p className="text-xs text-blue-600 font-semibold">{site.brandLine}</p>
               </div>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed max-w-[240px]">
+            <p className="text-xs text-slate-600 leading-relaxed max-w-[240px]">
               The verifiable record-keeping layer for investment ideas and private market offerings.
             </p>
-            <div className="space-y-1.5 text-xs text-slate-400 pt-1">
+            <div className="space-y-1.5 text-xs text-slate-600 pt-1">
               <a
                 href="mailto:info@unboundxinc.com"
-                className="flex items-center gap-2 hover:text-white transition-colors"
+                className="flex items-center gap-2 hover:text-blue-600 transition-colors font-medium"
               >
-                <Mail size={13} className="text-blue-400 shrink-0" />
+                <Mail size={13} className="text-blue-600 shrink-0" />
                 <span>info@unboundxinc.com</span>
               </a>
             </div>
@@ -526,7 +524,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="UnBound X on X"
-                className="grid h-8 w-8 place-items-center rounded-full border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white focus-ring"
+                className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:border-blue-300 hover:text-blue-600 focus-ring shadow-2xs"
               >
                 <FaTwitter size={13} />
               </a>
@@ -535,7 +533,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="UnBound X on LinkedIn"
-                className="grid h-8 w-8 place-items-center rounded-full border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white focus-ring"
+                className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:border-blue-300 hover:text-blue-600 focus-ring shadow-2xs"
               >
                 <FaLinkedinIn size={13} />
               </a>
@@ -544,7 +542,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="UnBound X on Facebook"
-                className="grid h-8 w-8 place-items-center rounded-full border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white focus-ring"
+                className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:border-blue-300 hover:text-blue-600 focus-ring shadow-2xs"
               >
                 <FaFacebookF size={13} />
               </a>
@@ -553,7 +551,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="UnBound X on Instagram"
-                className="grid h-8 w-8 place-items-center rounded-full border border-slate-800 text-slate-300 transition-colors hover:border-slate-600 hover:text-white focus-ring"
+                className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:border-blue-300 hover:text-blue-600 focus-ring shadow-2xs"
               >
                 <FaInstagram size={13} />
               </a>
@@ -562,11 +560,11 @@ export function SiteFooter() {
 
           {footerColumns.map((col) => (
             <div key={col.heading}>
-              <h3 className="mb-3.5 text-xs font-bold uppercase tracking-wider text-slate-200">{col.heading}</h3>
+              <h3 className="mb-3.5 text-xs font-bold uppercase tracking-wider text-slate-900">{col.heading}</h3>
               <ul className="space-y-2.5 text-xs">
                 {col.links.map(([label, href]) => (
                   <li key={label}>
-                    <TransitionLink href={href} className="text-slate-400 transition-colors hover:text-white focus-ring rounded-xs">
+                    <TransitionLink href={href} className="text-slate-600 transition-colors hover:text-blue-600 focus-ring rounded-xs">
                       {label}
                     </TransitionLink>
                   </li>
@@ -576,16 +574,16 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mx-auto mt-12 max-w-[1180px] border-t border-slate-800/80 px-6 pt-6">
+        <div className="mx-auto mt-12 max-w-[1180px] border-t border-slate-200 px-6 pt-6">
           <p className="text-[11px] leading-relaxed text-slate-500 mb-4">
             Securities transactions executed through MARV Capital, Inc., SEC-registered broker-dealer &middot; Member FINRA/SIPC (CRD #104390).
           </p>
-          <div className="flex flex-col gap-3 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
             <span>&copy; 2026 {site.name} Inc. All rights reserved.</span>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
-              <TransitionLink href="/legal/privacy-policy" className="hover:text-slate-300 transition-colors">Privacy Policy</TransitionLink>
-              <TransitionLink href="/legal/terms-condition" className="hover:text-slate-300 transition-colors">Terms &amp; Condition</TransitionLink>
-              <TransitionLink href="/legal/investment-disclaimers" className="hover:text-slate-300 transition-colors">Disclaimers</TransitionLink>
+              <TransitionLink href="/legal/privacy-policy" className="hover:text-blue-600 transition-colors">Privacy Policy</TransitionLink>
+              <TransitionLink href="/legal/terms-condition" className="hover:text-blue-600 transition-colors">Terms &amp; Condition</TransitionLink>
+              <TransitionLink href="/legal/investment-disclaimers" className="hover:text-blue-600 transition-colors">Disclaimers</TransitionLink>
             </div>
           </div>
         </div>

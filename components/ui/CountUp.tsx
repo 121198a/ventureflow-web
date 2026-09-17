@@ -8,6 +8,7 @@ interface CountUpProps {
   duration?: number;
   prefix?: string;
   suffix?: string;
+  decimals?: number;
   className?: string;
 }
 
@@ -16,6 +17,7 @@ export function CountUp({
   duration = 1.8,
   prefix = "",
   suffix = "",
+  decimals = 0,
   className = "",
 }: CountUpProps) {
   const [count, setCount] = useState(0);
@@ -35,7 +37,8 @@ export function CountUp({
     const counter = setInterval(() => {
       currentFrame++;
       const progress = easeOutQuad(currentFrame / totalFrames);
-      setCount(Math.round(start + (end - start) * progress));
+      const current = start + (end - start) * progress;
+      setCount(decimals > 0 ? parseFloat(current.toFixed(decimals)) : Math.round(current));
 
       if (currentFrame >= totalFrames) {
         clearInterval(counter);
@@ -44,12 +47,12 @@ export function CountUp({
     }, 1000 / 60);
 
     return () => clearInterval(counter);
-  }, [isInView, value, duration]);
+  }, [isInView, value, duration, decimals]);
 
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {count.toLocaleString()}
+      {decimals > 0 ? count.toFixed(decimals) : count.toLocaleString()}
       {suffix}
     </span>
   );

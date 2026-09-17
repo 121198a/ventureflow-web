@@ -15,27 +15,30 @@ type Variant =
   | "outline"
   | "ghost"
   | "destructive"
-  | "text";
+  | "text"
+  | "link";
 
 type Size = "xs" | "sm" | "md" | "lg" | "icon";
-type Shape = "pill" | "rounded";
+type Shape = "pill" | "rounded" | "square" | "circle";
 
 const base =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 select-none";
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-200 active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:pointer-events-none disabled:opacity-50 select-none cursor-pointer";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-brand text-primary-foreground hover:bg-brand-strong disabled:bg-brand-disabled",
+    "bg-brand text-primary-foreground shadow-xs hover:bg-brand-strong hover:shadow-md hover:shadow-blue-900/10 disabled:bg-brand-disabled",
   secondary:
-    "bg-surface-alt text-ink hover:bg-slate-200 border border-hairline",
+    "bg-surface-alt text-ink hover:bg-slate-200/90 border border-slate-200 hover:border-slate-300 shadow-2xs",
   outline:
-    "border border-hairline bg-background text-ink hover:bg-surface-alt hover:border-slate-300",
+    "border border-slate-200 bg-white text-ink hover:bg-slate-50 hover:border-slate-300 shadow-2xs",
   ghost:
-    "text-ink/80 hover:text-brand hover:bg-brand/10 border border-transparent",
+    "text-ink/80 hover:text-brand hover:bg-blue-50/80 border border-transparent",
   destructive:
-    "bg-destructive text-destructive-foreground hover:bg-red-700",
+    "bg-destructive text-destructive-foreground hover:bg-red-600 shadow-xs",
   text:
     "text-brand underline underline-offset-2 hover:text-brand-strong p-0 h-auto font-normal",
+  link:
+    "text-brand hover:text-brand-strong hover:underline underline-offset-4 p-0 h-auto font-medium",
 };
 
 const sizes: Record<Size, string> = {
@@ -49,6 +52,8 @@ const sizes: Record<Size, string> = {
 const shapes: Record<Shape, string> = {
   pill: "rounded-full",
   rounded: "rounded-lg",
+  square: "rounded-md",
+  circle: "rounded-full p-0",
 };
 
 type CommonProps = {
@@ -78,12 +83,13 @@ export function Button({
   disabled,
   ...rest
 }: ButtonAsButton | ButtonAsLink) {
+  const isTextOrLink = variant === "text" || variant === "link";
   const classes = cn(
     base,
     shapes[shape],
-    variant !== "text" && sizes[size],
+    !isTextOrLink && sizes[size],
     variants[variant],
-    variant === "text" ? "font-normal" : variant === "primary" ? "font-bold" : "font-semibold",
+    isTextOrLink ? "font-normal" : variant === "primary" ? "font-bold" : "font-semibold",
     loading && "cursor-wait opacity-80",
     className
   );

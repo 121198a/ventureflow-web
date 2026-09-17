@@ -12,6 +12,9 @@ export interface LaptopFrameProps {
   src?: string;
   videoSrc?: string;
   autoPlay?: boolean;
+  withWatermark?: boolean;
+  watermarkText?: string;
+  showCircuitLine?: boolean;
 }
 
 /**
@@ -27,6 +30,9 @@ export function LaptopFrame({
   src = "/images/hero-laptop.jpg",
   videoSrc = "/UBverse-Laptop.mp4",
   autoPlay = true,
+  withWatermark = false,
+  watermarkText = "",
+  showCircuitLine = true,
 }: LaptopFrameProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -108,15 +114,27 @@ export function LaptopFrame({
     <div
       ref={containerRef}
       className={cn(
-        "relative mx-auto w-full max-w-[620px] flex flex-col items-center select-none",
+        "relative mx-auto w-full max-w-[640px] flex flex-col items-center select-none",
         className
       )}
     >
       {/* Subtle ambient lighting behind laptop to enhance 3D depth */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-4 sm:-inset-8 rounded-3xl bg-gradient-to-tr from-blue-600/15 via-sky-400/10 to-indigo-500/15 blur-2xl transition-opacity duration-700 opacity-80"
+        className="pointer-events-none absolute -inset-6 sm:-inset-10 rounded-[32px] bg-gradient-to-tr from-blue-600/15 via-sky-400/10 to-indigo-500/15 blur-2xl transition-opacity duration-700 opacity-80"
       />
+
+      {/* Repeated Watermark Backdrop removed */}
+      {withWatermark && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-8 sm:-inset-12 -z-10 rounded-[36px] overflow-hidden bg-gradient-to-b from-sky-50/60 via-slate-50/30 to-white/40 border border-slate-200/50 shadow-[0_20px_60px_-20px_rgba(15,23,42,0.08)]"
+        >
+          {/* Subtle light glow pods */}
+          <div className="absolute -top-10 -left-10 h-48 w-48 rounded-full bg-sky-400/15 blur-2xl" />
+          <div className="absolute -bottom-10 -right-10 h-48 w-48 rounded-full bg-blue-500/15 blur-2xl" />
+        </div>
+      )}
 
       {/* Main Laptop Media Display */}
       <div className="relative z-10 w-full overflow-hidden rounded-xl sm:rounded-2xl drop-shadow-[0_20px_50px_rgba(15,23,42,0.14)] border border-slate-800/20 bg-slate-950">

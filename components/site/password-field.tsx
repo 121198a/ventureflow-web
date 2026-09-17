@@ -9,12 +9,14 @@ export function PasswordField({
   placeholder,
   value,
   onChange,
+  autoComplete = "new-password",
   className,
 }: {
   id: string;
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
+  autoComplete?: string;
   className?: string;
 }) {
   const [visible, setVisible] = useState(false);
@@ -26,6 +28,10 @@ export function PasswordField({
         name={id}
         type={visible ? "text" : "password"}
         required
+        autoComplete={autoComplete}
+        data-lpignore="true"
+        data-1p-ignore="true"
+        data-form-type="other"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}

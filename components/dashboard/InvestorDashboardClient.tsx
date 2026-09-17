@@ -365,17 +365,17 @@ export function InvestorDashboardClient() {
           {/* TAB: OVERVIEW */}
           {activeTab === "overview" && (
             <div className="space-y-6 animate-in fade-in duration-200">
-              {/* Hero Banner */}
-              <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-r from-[#111827] via-[#1e293b] to-[#0f172a] p-6 sm:p-8 text-white shadow-sm">
+              {/* Hero Banner (Light-Mode) */}
+              <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-gradient-to-r from-blue-50/80 via-white to-slate-50 p-6 sm:p-8 text-slate-900 shadow-xs">
                 <div className="relative z-10 max-w-2xl space-y-3">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/90 backdrop-blur-xs">
-                    <Sparkles className="size-3.5 text-amber-400" />
+                  <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-700">
+                    <Sparkles className="size-3.5 text-blue-600" />
                     Verified Private Capital Network
                   </div>
-                  <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                  <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
                     Welcome back, {user?.email ? user.email.split("@")[0] : "Investor"}
                   </h1>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl font-normal">
                     Explore active offerings with verified SEC filings, track your investment theses,
                     and review real company disclosures through institutional compliance infrastructure.
                   </p>
@@ -383,7 +383,7 @@ export function InvestorDashboardClient() {
                     <Button
                       onClick={() => setActiveTab("opportunities")}
                       size="sm"
-                      className="bg-white text-slate-900 hover:bg-slate-100"
+                      className="bg-blue-600 text-white hover:bg-blue-700 shadow-xs"
                     >
                       Browse Offerings ({allCompanies.length})
                     </Button>
@@ -391,7 +391,7 @@ export function InvestorDashboardClient() {
                       onClick={() => setActiveTab("thesis")}
                       size="sm"
                       variant="outline"
-                      className="border-white/20 text-white hover:bg-white/10"
+                      className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50 shadow-2xs"
                     >
                       Record New Thesis
                     </Button>
