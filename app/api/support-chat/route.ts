@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { initiateSupportChat } from "@/lib/ubverse-api";
 
 export async function POST(request: Request) {
   try {
+    const cookieStore = await cookies();
     const authHeader = request.headers.get("authorization");
-    const token = authHeader ? authHeader.replace(/^Bearer\s+/i, "").trim() : undefined;
+    const token = authHeader
+      ? authHeader.replace(/^Bearer\s+/i, "").trim()
+      : cookieStore.get("sb_access_token")?.value;
 
     let body: { threadId?: string } = {};
     try {

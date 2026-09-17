@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { BrandLogoLink } from "./brand-logo";
 import { Button } from "@/components/ui/button";
+import { useAuthSession } from "@/hooks/useAuthSession";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -17,6 +18,10 @@ const nav = [
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { user, role } = useAuthSession();
+
+  const dashboardHref =
+    role === "founder" || role === "issuer" ? "/founder/dashboard" : "/investor/dashboard";
 
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-surface/95 backdrop-blur">
@@ -51,16 +56,28 @@ export function SiteHeader() {
               </Link>
             );
           })}
-          <Button href="/signup" size="sm" className="shadow-sm">
-            Sign Up / Log In
-          </Button>
+          {user ? (
+            <Button href={dashboardHref} size="sm" className="shadow-sm">
+              Dashboard
+            </Button>
+          ) : (
+            <Button href="/signup" size="sm" className="shadow-sm">
+              Sign Up / Log In
+            </Button>
+          )}
         </nav>
 
         {/* Mobile: sign-up stays visible + hamburger toggle */}
         <div className="flex shrink-0 items-center gap-1.5 min-[360px]:gap-2 sm:hidden">
-          <Button href="/signup" size="sm" className="px-2.5 py-1.5 text-xs min-[360px]:px-3.5 min-[360px]:text-[0.8rem] shadow-sm">
-            Sign Up / Log In
-          </Button>
+          {user ? (
+            <Button href={dashboardHref} size="sm" className="px-2.5 py-1.5 text-xs min-[360px]:px-3.5 min-[360px]:text-[0.8rem] shadow-sm">
+              Dashboard
+            </Button>
+          ) : (
+            <Button href="/signup" size="sm" className="px-2.5 py-1.5 text-xs min-[360px]:px-3.5 min-[360px]:text-[0.8rem] shadow-sm">
+              Sign Up / Log In
+            </Button>
+          )}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

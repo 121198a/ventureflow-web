@@ -139,6 +139,66 @@ export async function fetchDashboardCompanies(): Promise<BackendCompanySummary[]
 }
 
 /**
+ * Fetches the public dashboard categories with full company arrays.
+ */
+export async function fetchDashboardCategories(): Promise<BackendDashboardCategory[]> {
+  try {
+    const url = `${UBVERSE_API_BASE_URL}/ubverse-service/investor-dashboard/dashboard-without-auth`;
+    const res = await fetch(url, {
+      headers: DEFAULT_HEADERS,
+      next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+      console.warn(`[UBverse API] dashboard-without-auth returned status ${res.status}`);
+      return [];
+    }
+
+    const json = await res.json();
+    return json?.data || [];
+  } catch (err) {
+    console.error("[UBverse API] Failed to fetch dashboard categories:", err);
+    return [];
+  }
+}
+
+/**
+ * Fetches authenticated investor dashboard data if a bearer token is available.
+ */
+export async function fetchAuthenticatedInvestorDashboard(
+  token?: string
+): Promise<{ success: boolean; data?: unknown; error?: string }> {
+  if (!token) {
+    return { success: false, error: "No bearer token provided." };
+  }
+
+  const url = `${UBVERSE_API_BASE_URL}/ubverse-service/investor-dashboard/dashboard`;
+  try {
+    const res = await fetch(url, {
+      headers: {
+        ...DEFAULT_HEADERS,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const json = await res.json().catch(() => ({}));
+    if (res.ok) {
+      return { success: true, data: json?.data || json };
+    }
+
+    return {
+      success: false,
+      error: json?.message || "Failed to load authenticated investor dashboard.",
+    };
+  } catch (err) {
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : "Network error.",
+    };
+  }
+}
+
+/**
  * Fetches issuer details for a specific company by company ID.
  */
 export async function fetchIssuerDetail(companyId: string): Promise<BackendIssuerDetailData | null> {

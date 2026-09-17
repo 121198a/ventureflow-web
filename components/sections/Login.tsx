@@ -6,21 +6,44 @@ import { TransitionLink } from "@/components/ui/TransitionLink";
 import { site } from "@/lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { Loader2 } from "lucide-react";
+import { initiateOAuthSignIn } from "@/lib/supabase/client";
 
 export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "signup" | "login" }) {
   const [mode, setMode] = useState<"signup" | "login">(initialFlow);
+  const [role, setRole] = useState<"investor" | "founder">("investor");
   const [emailMode, setEmailMode] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [oauthError, setOauthError] = useState<string | null>(null);
+  const [loadingProvider, setLoadingProvider] = useState<"google" | "apple" | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const isSignup = mode === "signup";
 
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+
+  const handleOAuth = async (provider: "google" | "apple") => {
+    setOauthError(null);
+    setLoadingProvider(provider);
+
+    try {
+      const result = await initiateOAuthSignIn(provider, { role });
+      if (!result.success && result.error) {
+        setOauthError(result.error);
+      }
+    } catch {
+      setOauthError(
+        `Unable to initiate ${provider === "google" ? "Google" : "Apple"} authentication. Please try again.`
+      );
+    } finally {
+      setLoadingProvider(null);
+    }
+  };
 
   const handleEmailSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,7 +84,7 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
           password,
           confirmPassword: isSignup ? confirmPassword : undefined,
           agreed: true,
-          role: "founder",
+          role,
         }),
       });
 
@@ -88,16 +111,20 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
         }
       }
 
+      const resolvedRole = data.user?.role || role;
+      const targetDashboard =
+        resolvedRole === "founder" ? "/founder/dashboard" : "/investor/dashboard";
+
       setSuccessMessage(
         isSignup
           ? "Account created! Please check your email for confirmation."
-          : "Sign-in successful! Redirecting..."
+          : "Sign-in successful! Redirecting to your dashboard..."
       );
 
-      if (!isSignup) {
+      if (!isSignup || data.session) {
         setTimeout(() => {
-          window.location.href = "/for-founders";
-        }, 800);
+          window.location.href = targetDashboard;
+        }, 600);
       }
     } catch {
       setEmailError("Network error. Please try again later.");
@@ -175,26 +202,72 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                     : "Log in to keep tracking your theses and building your verified record."}
                 </p>
 
-                {/* Social Login Buttons */}
-                <div className="mt-8 space-y-3">
+                {/* Role Switcher */}
+                <div className="mt-6 inline-flex p-1 rounded-full bg-slate-100/90 border border-slate-200 text-xs">
                   <button
                     type="button"
-                    disabled
-                    title="Google authentication coming soon"
-                    className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-slate-50 text-xs sm:text-sm font-semibold text-slate-500 opacity-70 cursor-not-allowed shadow-xs"
+                    onClick={() => setRole("investor")}
+                    className={`px-4 py-1.5 rounded-full font-semibold transition-all ${
+                      role === "investor"
+                        ? "bg-white text-slate-900 shadow-xs"
+                        : "text-slate-500 hover:text-slate-800"
+                    }`}
                   >
-                    <GoogleIcon />
-                    Continue with Google (Coming soon)
+                    Investor Portal
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRole("founder")}
+                    className={`px-4 py-1.5 rounded-full font-semibold transition-all ${
+                      role === "founder"
+                        ? "bg-white text-slate-900 shadow-xs"
+                        : "text-slate-500 hover:text-slate-800"
+                    }`}
+                  >
+                    Founder / Issuer
+                  </button>
+                </div>
+
+                {oauthError && (
+                  <div
+                    role="alert"
+                    className="mt-5 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-left text-xs leading-relaxed text-amber-800"
+                  >
+                    <p className="font-semibold mb-0.5">Configuration Notice</p>
+                    <p>{oauthError}</p>
+                  </div>
+                )}
+
+                {/* Social Login Buttons */}
+                <div className="mt-6 space-y-3">
+                  <button
+                    type="button"
+                    onClick={() => handleOAuth("google")}
+                    disabled={loadingProvider !== null}
+                    aria-label="Continue with Google"
+                    className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50 active:scale-[0.99] transition-all shadow-xs cursor-pointer disabled:opacity-60"
+                  >
+                    {loadingProvider === "google" ? (
+                      <Loader2 className="size-4 animate-spin text-blue-600" />
+                    ) : (
+                      <GoogleIcon />
+                    )}
+                    Continue with Google
                   </button>
 
                   <button
                     type="button"
-                    disabled
-                    title="Apple authentication coming soon"
-                    className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-slate-50 text-xs sm:text-sm font-semibold text-slate-500 opacity-70 cursor-not-allowed shadow-xs"
+                    onClick={() => handleOAuth("apple")}
+                    disabled={loadingProvider !== null}
+                    aria-label="Continue with Apple"
+                    className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50 active:scale-[0.99] transition-all shadow-xs cursor-pointer disabled:opacity-60"
                   >
-                    <AppleIcon />
-                    Continue with Apple (Coming soon)
+                    {loadingProvider === "apple" ? (
+                      <Loader2 className="size-4 animate-spin text-blue-600" />
+                    ) : (
+                      <AppleIcon />
+                    )}
+                    Continue with Apple
                   </button>
                 </div>
 

@@ -1,16 +1,19 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Info, Loader2 } from "lucide-react";
 import { PasswordField } from "./password-field";
 import { Button } from "@/components/ui/button";
+import { OAuthButtons } from "./oauth-buttons";
 
 const PASSWORD_RULE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
 
-export function SignupForm({ role = "founder" }: { role?: "founder" | "investor" }) {
+function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -86,8 +89,17 @@ export function SignupForm({ role = "founder" }: { role?: "founder" | "investor"
 
       setSubmitted(true);
       if (data.session) {
-        const destination = role === "founder" ? "/for-founders" : "/platform";
-        router.push(destination);
+        const verifiedRole = data.user?.role || role;
+        let destination =
+          verifiedRole === "founder" ? "/founder/dashboard" : "/investor/dashboard";
+
+        if (redirectTo && redirectTo.startsWith("/") && !redirectTo.startsWith("//")) {
+          destination = redirectTo;
+        }
+
+        setTimeout(() => {
+          router.push(destination);
+        }, 500);
       }
     } catch {
       setErrorMessage("Network error. Please try again later.");
@@ -103,7 +115,7 @@ export function SignupForm({ role = "founder" }: { role?: "founder" | "investor"
           {role === "founder" ? "Application Submitted" : "Account Created"}
         </p>
         <p className="mt-2 text-[0.85rem] leading-relaxed text-ink/70">
-          Your account has been registered successfully. We have verified your credentials.
+          Your account has been registered successfully. You can now access your dashboard or confirm your email.
         </p>
       </div>
     );
@@ -195,6 +207,17 @@ export function SignupForm({ role = "founder" }: { role?: "founder" | "investor"
         </span>
       </label>
 
+      <div className="pt-1">
+        <div className="flex items-center gap-4 text-[0.78rem] text-muted-foreground">
+          <span className="h-px flex-1 bg-hairline" />
+          Or continue with
+          <span className="h-px flex-1 bg-hairline" />
+        </div>
+        <div className="mt-3">
+          <OAuthButtons role={role} onError={(msg) => setErrorMessage(msg)} />
+        </div>
+      </div>
+
       <div className="flex items-center justify-between border-t border-hairline pt-6">
         <Link
           href="/legal/investment-disclaimers"
@@ -216,5 +239,13 @@ export function SignupForm({ role = "founder" }: { role?: "founder" | "investor"
         </Button>
       </div>
     </form>
+  );
+}
+
+export function SignupForm({ role = "founder" }: { role?: "founder" | "investor" }) {
+  return (
+    <Suspense fallback={<div className="p-6 text-sm text-ink/60">Loading registration form...</div>}>
+      <SignupFormInner role={role} />
+    </Suspense>
   );
 }

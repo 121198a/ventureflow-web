@@ -44,3 +44,76 @@ export async function verifyPassword(
   const { hash } = await hashPassword(password, storedSalt);
   return hash === storedHash;
 }
+
+const SESSION_SECRET =
+  process.env.AUTH_SECRET ||
+  process.env.NEXTAUTH_SECRET ||
+  "ventureflow_secure_session_signing_secret_2026_unboundx";
+
+async function getHmacKey(): Promise<CryptoKey> {
+  const enc = new TextEncoder();
+  return crypto.subtle.importKey(
+    "raw",
+    enc.encode(SESSION_SECRET),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign", "verify"]
+  );
+}
+
+/**
+ * Creates a cryptographically signed session token using HMAC-SHA256.
+ * Prevents client-side role and session tampering.
+ */
+export async function signSessionToken<T extends Record<string, unknown>>(
+  payload: T
+): Promise<string> {
+  const enc = new TextEncoder();
+  const jsonStr = JSON.stringify(payload);
+  const payloadB64 = Buffer.from(jsonStr).toString("base64url");
+
+  const key = await getHmacKey();
+  const signatureBuffer = await crypto.subtle.sign(
+    "HMAC",
+    key,
+    enc.encode(payloadB64)
+  );
+  const sigB64 = Buffer.from(signatureBuffer).toString("base64url");
+
+  return `${payloadB64}.${sigB64}`;
+}
+
+/**
+ * Verifies and decodes an HMAC-SHA256 signed session token.
+ * Returns null if the signature is invalid or tampered.
+ */
+export async function verifySessionToken<T extends Record<string, unknown>>(
+  token?: string | null
+): Promise<T | null> {
+  if (!token || typeof token !== "string" || !token.includes(".")) {
+    return null;
+  }
+
+  try {
+    const [payloadB64, sigB64] = token.split(".");
+    if (!payloadB64 || !sigB64) return null;
+
+    const enc = new TextEncoder();
+    const key = await getHmacKey();
+    const signatureBytes = Buffer.from(sigB64, "base64url");
+
+    const isValid = await crypto.subtle.verify(
+      "HMAC",
+      key,
+      signatureBytes,
+      enc.encode(payloadB64)
+    );
+
+    if (!isValid) return null;
+
+    const jsonStr = Buffer.from(payloadB64, "base64url").toString("utf-8");
+    return JSON.parse(jsonStr) as T;
+  } catch {
+    return null;
+  }
+}

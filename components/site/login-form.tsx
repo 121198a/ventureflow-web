@@ -1,15 +1,17 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { PasswordField } from "./password-field";
 import { Button } from "@/components/ui/button";
 import { OAuthButtons } from "./oauth-buttons";
 import { Loader2 } from "lucide-react";
 
-export function LoginForm({ role = "founder" }: { role?: "founder" | "investor" }) {
+function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -67,7 +69,14 @@ export function LoginForm({ role = "founder" }: { role?: "founder" | "investor" 
       }
 
       setSubmitted(true);
-      const destination = role === "founder" ? "/for-founders" : "/platform";
+      const verifiedRole = data.user?.role || role;
+      let destination =
+        verifiedRole === "founder" ? "/founder/dashboard" : "/investor/dashboard";
+
+      if (redirectTo && redirectTo.startsWith("/") && !redirectTo.startsWith("//")) {
+        destination = redirectTo;
+      }
+
       router.push(destination);
     } catch {
       setErrorMessage("Network error. Please try again later.");
@@ -83,7 +92,7 @@ export function LoginForm({ role = "founder" }: { role?: "founder" | "investor" 
           Login Successful
         </p>
         <p className="mt-2 text-[0.85rem] leading-relaxed text-ink/70">
-          Welcome back to the {role === "founder" ? "Founder" : "Investor"} portal.
+          Welcome back to the {role === "founder" ? "Founder" : "Investor"} portal. Redirecting to your dashboard...
         </p>
       </div>
     );
@@ -154,16 +163,16 @@ export function LoginForm({ role = "founder" }: { role?: "founder" | "investor" 
         </Button>
       </div>
 
-      {role === "investor" && (
-        <>
-          <div className="flex items-center gap-4 pt-1 text-[0.78rem] text-muted-foreground">
-            <span className="h-px flex-1 bg-hairline" />
-            Or
-            <span className="h-px flex-1 bg-hairline" />
-          </div>
-          <OAuthButtons />
-        </>
-      )}
+      <div className="pt-1">
+        <div className="flex items-center gap-4 text-[0.78rem] text-muted-foreground">
+          <span className="h-px flex-1 bg-hairline" />
+          Or continue with
+          <span className="h-px flex-1 bg-hairline" />
+        </div>
+        <div className="mt-3">
+          <OAuthButtons role={role} onError={(msg) => setErrorMessage(msg)} />
+        </div>
+      </div>
 
       <div className="flex items-center justify-between border-t border-hairline pt-6">
         <p className="text-[0.85rem] text-ink/70">Don&apos;t have an account on UnBound X yet?</p>
@@ -172,5 +181,13 @@ export function LoginForm({ role = "founder" }: { role?: "founder" | "investor" 
         </Button>
       </div>
     </form>
+  );
+}
+
+export function LoginForm({ role = "founder" }: { role?: "founder" | "investor" }) {
+  return (
+    <Suspense fallback={<div className="p-6 text-sm text-ink/60">Loading login form...</div>}>
+      <LoginFormInner role={role} />
+    </Suspense>
   );
 }

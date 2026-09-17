@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
 import { checkRateLimit, resetRateLimit, getClientIp } from "@/lib/rate-limit";
+import { signSessionToken } from "@/lib/crypto";
 
 // Strict Zod schema for server-side validation
 const loginSchema = z.object({
@@ -69,6 +70,9 @@ export async function POST(request: Request) {
     }
 
     const { email, role } = parsed.data;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+    let backendError: string | null = null;
 
     // 4. Delegate to UBverse Backend Authentication
     try {
@@ -80,28 +84,39 @@ export async function POST(request: Request) {
 
       if (backendAuth.success) {
         resetRateLimit(`login_${clientIp}`);
-        return NextResponse.json({
+        const res = NextResponse.json({
           success: true,
           user: { email, role },
           data: backendAuth.data,
         });
+
+        const vfToken = await signSessionToken({ email, role });
+        res.cookies.set("vf_token", vfToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          path: "/",
+          maxAge: 60 * 60 * 24 * 7,
+        });
+        res.cookies.set("vf_role", role, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+        res.cookies.set("vf_auth", "1", { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+        res.cookies.set(
+          "vf_user",
+          JSON.stringify({ email, role }),
+          { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" }
+        );
+
+        return res;
       }
 
-      // If backend explicitly rejected the user credentials, return that reason
       if (backendAuth.status === 400 || backendAuth.status === 401) {
-        return NextResponse.json(
-          { success: false, error: backendAuth.error || "Invalid email or password." },
-          { status: 401 }
-        );
+        backendError = backendAuth.error || "Invalid email or password.";
       }
     } catch (backendErr) {
       console.warn("[Auth Login] Backend auth attempt warning:", backendErr);
     }
 
-    // 5. Delegate to standard authentication provider (e.g. Supabase / Auth0)
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-
+    // 5. Delegate to standard authentication provider (Supabase)
     if (supabaseUrl && supabaseKey) {
       try {
         const { supabase } = await import("@/lib/supabase/client");
@@ -112,24 +127,68 @@ export async function POST(request: Request) {
 
         if (error) {
           return NextResponse.json(
-            { success: false, error: "Invalid email or password." },
+            { success: false, error: backendError || "Invalid email or password." },
             { status: 401 }
           );
         }
 
+        const verifiedRole =
+          (data.user?.user_metadata?.role as string) ||
+          (data.user?.app_metadata?.role as string) ||
+          role;
+
         resetRateLimit(`login_${clientIp}`);
-        return NextResponse.json({
+        const res = NextResponse.json({
           success: true,
-          user: { id: data.user?.id, email: data.user?.email, role },
+          user: {
+            id: data.user?.id,
+            email: data.user?.email || email,
+            role: verifiedRole,
+          },
           session: data.session,
         });
+
+        const vfToken = await signSessionToken({
+          id: data.user?.id,
+          email: data.user?.email || email,
+          role: verifiedRole,
+        });
+
+        res.cookies.set("vf_token", vfToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          path: "/",
+          maxAge: 60 * 60 * 24 * 7,
+        });
+        res.cookies.set("vf_role", verifiedRole, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+        res.cookies.set("vf_auth", "1", { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+        res.cookies.set(
+          "vf_user",
+          JSON.stringify({ id: data.user?.id, email: data.user?.email || email, role: verifiedRole }),
+          { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" }
+        );
+        if (data.session?.access_token) {
+          res.cookies.set("sb_access_token", data.session.access_token, {
+            path: "/",
+            maxAge: 60 * 60 * 24 * 7,
+            sameSite: "lax",
+          });
+        }
+        return res;
       } catch {
-        // Generic failure
         return NextResponse.json(
           { success: false, error: "Invalid email or password." },
           { status: 401 }
         );
       }
+    }
+
+    if (backendError) {
+      return NextResponse.json(
+        { success: false, error: backendError },
+        { status: 401 }
+      );
     }
 
     // Fail closed when authentication service is not configured

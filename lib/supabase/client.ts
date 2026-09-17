@@ -33,6 +33,12 @@ function createSupabaseClient() {
 
 let _supabase: ReturnType<typeof createSupabaseClient> | undefined;
 
+export function getSupabaseClient() {
+  if (!isSupabaseConfigured()) return null;
+  if (!_supabase) _supabase = createSupabaseClient();
+  return _supabase;
+}
+
 // Import the supabase client like this:
 // import { supabase } from "@/lib/supabase/client";
 export const supabase = new Proxy({} as ReturnType<typeof createSupabaseClient>, {
@@ -41,3 +47,91 @@ export const supabase = new Proxy({} as ReturnType<typeof createSupabaseClient>,
     return Reflect.get(_supabase, prop, receiver);
   },
 });
+
+export interface OAuthSignInResult {
+  success: boolean;
+  url?: string;
+  error?: string;
+  configurationRequired?: boolean;
+}
+
+/**
+ * Initiates a real Supabase OAuth sign-in flow for Google or Apple.
+ * Complies with strict rule: never fakes success or mock credentials.
+ * If Supabase or provider credentials are not configured, returns a clear
+ * configuration description.
+ */
+export async function initiateOAuthSignIn(
+  provider: "google" | "apple",
+  options?: { redirectTo?: string; role?: "investor" | "founder" }
+): Promise<OAuthSignInResult> {
+  if (!isSupabaseConfigured()) {
+    const providerName = provider === "google" ? "Google" : "Apple";
+    return {
+      success: false,
+      configurationRequired: true,
+      error: `Supabase environment variables are not configured. To enable ${providerName} sign-in, set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local, then enable the ${providerName} provider in your Supabase project under Authentication -> Providers.`,
+    };
+  }
+
+  try {
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
+    const targetRole = options?.role || "investor";
+    const redirectTo =
+      options?.redirectTo ||
+      `${origin}/auth/callback?role=${encodeURIComponent(targetRole)}`;
+
+    const client = getSupabaseClient();
+    if (!client) {
+      return {
+        success: false,
+        configurationRequired: true,
+        error: "Supabase client could not be initialized.",
+      };
+    }
+
+    const { data, error } = await client.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo,
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+        },
+      },
+    });
+
+    if (error) {
+      const isProviderDisabled =
+        error.message?.toLowerCase().includes("not enabled") ||
+        error.message?.toLowerCase().includes("unsupported provider") ||
+        error.message?.toLowerCase().includes("disabled");
+
+      return {
+        success: false,
+        configurationRequired: isProviderDisabled,
+        error: isProviderDisabled
+          ? `${provider === "google" ? "Google" : "Apple"} OAuth provider is not enabled in your Supabase Dashboard. Navigate to Authentication -> Providers -> ${provider === "google" ? "Google" : "Apple"} to enable it with client credentials.`
+          : error.message || `Failed to initiate ${provider} authentication.`,
+      };
+    }
+
+    if (data?.url) {
+      if (typeof window !== "undefined") {
+        window.location.assign(data.url);
+      }
+      return { success: true, url: data.url };
+    }
+
+    return {
+      success: false,
+      error: `No authorization redirect URL received from ${provider} provider. Please verify your Supabase OAuth redirect URL settings.`,
+    };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "Unknown OAuth error";
+    return {
+      success: false,
+      error: msg,
+    };
+  }
+}

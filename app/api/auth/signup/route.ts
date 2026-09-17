@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
 import { checkRateLimit, resetRateLimit, getClientIp } from "@/lib/rate-limit";
+import { signSessionToken } from "@/lib/crypto";
 
 // Strong password complexity: min 8, uppercase, lowercase, number, symbol
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
@@ -106,12 +107,44 @@ export async function POST(request: Request) {
         }
 
         resetRateLimit(`signup_${clientIp}`);
-        return NextResponse.json({
+        const res = NextResponse.json({
           success: true,
           message: "Account created successfully.",
           user: { id: data.user?.id, email: data.user?.email, role },
           session: data.session,
         });
+
+        if (data.session) {
+          const vfToken = await signSessionToken({
+            id: data.user?.id,
+            email: data.user?.email || email,
+            role,
+          });
+
+          res.cookies.set("vf_token", vfToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/",
+            maxAge: 60 * 60 * 24 * 7,
+          });
+          res.cookies.set("vf_role", role, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+          res.cookies.set("vf_auth", "1", { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+          res.cookies.set(
+            "vf_user",
+            JSON.stringify({ id: data.user?.id, email: data.user?.email || email, role }),
+            { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" }
+          );
+          if (data.session.access_token) {
+            res.cookies.set("sb_access_token", data.session.access_token, {
+              path: "/",
+              maxAge: 60 * 60 * 24 * 7,
+              sameSite: "lax",
+            });
+          }
+        }
+
+        return res;
       } catch {
         return NextResponse.json(
           { success: false, error: "Unable to create account. Please try again." },
