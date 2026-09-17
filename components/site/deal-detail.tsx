@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Info } from "lucide-react";
 import type { Offering } from "@/lib/offerings-data";
 import { StatRow } from "./stat-row";
@@ -38,6 +39,8 @@ function GatedRow({ items }: { items: { label: string; hint?: boolean }[] }) {
 export function DealDetail({ offering }: { offering: Offering }) {
   const [loginOpen, setLoginOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [imgError, setImgError] = useState(false);
+  const showImage = Boolean(offering.imageUrl) && !imgError;
 
   const longDescription = offering.description.length > 220;
   const shownDescription =
@@ -90,12 +93,26 @@ export function DealDetail({ offering }: { offering: Offering }) {
             </Button>
           </div>
           <div
-            className="grid aspect-[4/3] place-items-center overflow-hidden rounded-md"
-            style={{ background: offering.art }}
+            className="relative grid aspect-[4/3] place-items-center overflow-hidden rounded-md border border-hairline bg-surface"
+            style={{ background: showImage ? "#ffffff" : offering.art }}
           >
-            <span className="text-5xl text-white/90" style={{ fontWeight: 800, letterSpacing: "-0.04em" }}>
-              {offering.initials}
-            </span>
+            {showImage && offering.imageUrl ? (
+              <div className="relative h-full w-full p-6 flex items-center justify-center">
+                <Image
+                  src={offering.imageUrl}
+                  alt={offering.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 420px"
+                  className="object-contain p-4"
+                  priority
+                  onError={() => setImgError(true)}
+                />
+              </div>
+            ) : (
+              <span className="text-5xl text-white/90" style={{ fontWeight: 800, letterSpacing: "-0.04em" }}>
+                {offering.initials}
+              </span>
+            )}
           </div>
         </div>
 

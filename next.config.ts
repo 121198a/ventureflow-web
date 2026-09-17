@@ -25,11 +25,26 @@ const securityHeaders = [
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
 ];
 
+// Determine build output mode:
+// - 'standalone' (default): Generates a minimal, self-contained server bundle in .next/standalone.
+//   Essential for low-memory VPS, Hostinger Node.js, AWS App Runner/Lightsail, Docker, and free-tier containers.
+// - undefined: Standard server build (used if NEXT_OUTPUT_STANDALONE=false).
+const isStandalone = process.env.NEXT_OUTPUT_STANDALONE !== 'false';
+const isUnoptimizedImages =
+  process.env.NEXT_PUBLIC_UNOPTIMIZED_IMAGES === 'true' ||
+  process.env.UNOPTIMIZED_IMAGES === 'true';
+
 const nextConfig: NextConfig = {
+  // Standalone output drastically reduces container/runtime image size and RAM usage (~60MB vs ~300MB),
+  // perfect for student-budget VPS ($2-4/mo) and free-tier cloud containers (Render, Railway, Fly.io).
+  output: isStandalone ? 'standalone' : undefined,
+  poweredByHeader: false,
+  compress: true,
   experimental: {
     authInterrupts: true,
   },
   images: {
+    unoptimized: isUnoptimizedImages,
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {

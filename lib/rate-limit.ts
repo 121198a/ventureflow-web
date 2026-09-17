@@ -51,3 +51,28 @@ export function checkRateLimit(
 export function resetRateLimit(identifier: string) {
   attemptsMap.delete(identifier);
 }
+
+/**
+ * Resolves the client IP address across diverse hosting platforms:
+ * - Cloudflare (cf-connecting-ip)
+ * - Vercel / Netlify / AWS ALB / Nginx (x-forwarded-for, x-real-ip)
+ * - Hostinger / VPS reverse proxies
+ */
+export function getClientIp(request: Request): string {
+  const headers = request.headers;
+
+  const cfIp = headers.get("cf-connecting-ip");
+  if (cfIp) return cfIp.trim();
+
+  const forwardedFor = headers.get("x-forwarded-for");
+  if (forwardedFor) {
+    const firstIp = forwardedFor.split(",")[0]?.trim();
+    if (firstIp) return firstIp;
+  }
+
+  const realIp = headers.get("x-real-ip");
+  if (realIp) return realIp.trim();
+
+  return "127.0.0.1";
+}
+

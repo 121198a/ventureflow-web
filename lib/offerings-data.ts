@@ -26,6 +26,13 @@ export type Offering = {
   };
 };
 
+export const LOCAL_COMPANY_LOGOS: Record<string, string> = {
+  "virani-chem-pvt-limited": "/images/companies/virani-chem.jpg",
+  "infopulse-technology": "/images/companies/infopulse-technology.jpg",
+  "unbound-x": "/images/companies/unbound-x.png",
+  "hopiyant-tech": "/images/companies/hopiyant-tech.png",
+};
+
 export const defaultOfferings: Offering[] = [
   {
     id: "6a13ecf060f222865a4316d1",
@@ -36,6 +43,7 @@ export const defaultOfferings: Offering[] = [
     min: "$5",
     filing: "Reg D, 506b",
     art: "linear-gradient(135deg, oklch(0.96 0.02 20), oklch(0.9 0.06 25))",
+    imageUrl: "/images/companies/virani-chem.jpg",
     initials: "VC",
     status: "Open Now",
     description: "qwer",
@@ -54,6 +62,7 @@ export const defaultOfferings: Offering[] = [
     min: "$10K",
     filing: "Regulation CF",
     art: "linear-gradient(135deg, oklch(0.55 0.22 262), oklch(0.45 0.2 268))",
+    imageUrl: "/images/companies/infopulse-technology.jpg",
     initials: "IP",
     status: "Open Now",
     description: "zsdsfdsafd",
@@ -72,6 +81,7 @@ export const defaultOfferings: Offering[] = [
     min: "$100K",
     filing: "Reg D Rule 506(b)",
     art: "conic-gradient(from 200deg, oklch(0.78 0.17 75), oklch(0.55 0.24 300), oklch(0.6 0.2 250), oklch(0.78 0.17 75))",
+    imageUrl: "/images/companies/unbound-x.png",
     initials: "UX",
     status: "Open Now",
     description:
@@ -91,6 +101,7 @@ export const defaultOfferings: Offering[] = [
     min: "$5",
     filing: "Reg D, 506b",
     art: "linear-gradient(115deg, oklch(0.28 0.07 262), oklch(0.5 0.19 250))",
+    imageUrl: "/images/companies/hopiyant-tech.png",
     initials: "HT",
     status: "Open Now",
     description: "test",
@@ -181,7 +192,7 @@ function mapBackendCompany(c: BackendCompanySummary): Offering {
     min,
     filing: formatFiling(c.securitiesFiling),
     art: fallback?.art || "linear-gradient(135deg, oklch(0.55 0.22 262), oklch(0.45 0.2 268))",
-    imageUrl: c.image || undefined,
+    imageUrl: LOCAL_COMPANY_LOGOS[slug] || c.image || fallback?.imageUrl || undefined,
     initials: getInitials(c.name),
     status: "Open Now",
     description: fallback?.description || "Structured private offering on UBverse.",
@@ -239,7 +250,7 @@ export async function getDynamicOffering(slug: string): Promise<Offering | null>
           name: info?.companyLegalName || baseOffering.name,
           description: info?.companyDescription || baseOffering.description,
           filing: formatFiling(info?.securityFilling || baseOffering.filing),
-          imageUrl: info?.image?.url || baseOffering.imageUrl,
+          imageUrl: LOCAL_COMPANY_LOGOS[normSlug] || info?.image?.url || baseOffering.imageUrl,
           categories: about?.categories?.length ? about.categories : baseOffering.categories,
           legalOfferor: about?.valueLegalOfferor || baseOffering.legalOfferor,
           lawFirm: about?.valueLegalFirm || baseOffering.lawFirm,

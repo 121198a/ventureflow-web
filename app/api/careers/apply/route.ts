@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_TYPES = [
@@ -20,8 +20,7 @@ const applySchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const forwardedFor = request.headers.get("x-forwarded-for");
-    const clientIp = forwardedFor ? forwardedFor.split(",")[0].trim() : "127.0.0.1";
+    const clientIp = getClientIp(request);
 
     const rateLimit = checkRateLimit(`apply_${clientIp}`, 5, 60 * 60 * 1000);
     if (!rateLimit.allowed) {

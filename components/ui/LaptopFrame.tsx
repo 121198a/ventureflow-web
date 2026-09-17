@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Play, Pause, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface LaptopFrameProps {
@@ -16,25 +15,44 @@ export interface LaptopFrameProps {
 }
 
 /**
- * Reusable, responsive laptop device component playing the authentic UBverse
- * high-definition video with autoPlay, seamless looping, viewport pause/resume,
- * high-res poster fallback, and accessible playback controls.
+ * High-performance, responsive laptop showcase component playing the authentic
+ * UBverse 3D laptop animation (/UBverse-Laptop.mp4) with seamless looping,
+ * robust autoplay handling, and zero clutter (pure auto-playing animation).
  */
 export function LaptopFrame({
   children,
   className = "",
   priority = false,
-  alt = "UBverse platform displayed on a high-resolution laptop screen with open capital raises and featured start-ups",
+  alt = "UBverse platform showcased on a high-resolution laptop screen with open capital raises and featured start-ups",
   src = "/images/hero-laptop.jpg",
   videoSrc = "/UBverse-Laptop.mp4",
   autoPlay = true,
 }: LaptopFrameProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
-  // Play/pause control based on viewport visibility to save CPU and battery
+  // Initialize and attempt autoplay with proper browser compatibility
+  const attemptPlay = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay muted retry
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    }
+  }, []);
+
+  // Handle intersection observer to pause when off-screen and resume when in view
   useEffect(() => {
     const el = containerRef.current;
     const video = videoRef.current;
@@ -43,41 +61,48 @@ export function LaptopFrame({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (autoPlay && video.paused) {
-            video.play().catch(() => {});
-            setIsPlaying(true);
+          if (autoPlay) {
+            attemptPlay();
           }
-        } else {
+        } else if (entry.intersectionRatio === 0) {
           if (!video.paused) {
             video.pause();
-            setIsPlaying(false);
           }
         }
       },
-      { threshold: 0.2 }
+      { threshold: [0, 0.1, 0.25] }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [autoPlay]);
+  }, [autoPlay, attemptPlay]);
 
-  const togglePlay = () => {
+  // Direct video event listeners
+  useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    if (video.paused) {
-      video.play().then(() => setIsPlaying(true)).catch(() => {});
-    } else {
-      video.pause();
-      setIsPlaying(false);
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const onLoadedData = () => {
+      setIsLoaded(true);
+      if (autoPlay) attemptPlay();
+    };
+
+    video.addEventListener("loadeddata", onLoadedData);
+
+    // Initial mount attempt
+    if (video.readyState >= 2) {
+      setIsLoaded(true);
+      if (autoPlay) attemptPlay();
     }
-  };
 
-  const restartVideo = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.currentTime = 0;
-    video.play().then(() => setIsPlaying(true)).catch(() => {});
-  };
+    return () => {
+      video.removeEventListener("loadeddata", onLoadedData);
+    };
+  }, [autoPlay, attemptPlay]);
 
   return (
     <div
@@ -87,33 +112,49 @@ export function LaptopFrame({
         className
       )}
     >
-      {/* Subtle ambient lighting behind laptop */}
+      {/* Subtle ambient lighting behind laptop to enhance 3D depth */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-4 sm:-inset-8 rounded-3xl bg-gradient-to-tr from-blue-600/15 via-sky-400/10 to-indigo-500/15 blur-2xl"
+        className="pointer-events-none absolute -inset-4 sm:-inset-8 rounded-3xl bg-gradient-to-tr from-blue-600/15 via-sky-400/10 to-indigo-500/15 blur-2xl transition-opacity duration-700 opacity-80"
       />
 
       {/* Main Laptop Media Display */}
-      <div className="relative z-10 w-full overflow-hidden rounded-xl sm:rounded-2xl drop-shadow-[0_20px_50px_rgba(15,23,42,0.12)]">
+      <div className="relative z-10 w-full overflow-hidden rounded-xl sm:rounded-2xl drop-shadow-[0_20px_50px_rgba(15,23,42,0.14)] border border-slate-800/20 bg-slate-950">
         {!videoError ? (
-          <div className="relative w-full aspect-[3/2] rounded-xl sm:rounded-2xl overflow-hidden">
+          <div className="relative w-full aspect-[16/9] overflow-hidden bg-slate-950 flex items-center justify-center">
+            {/* Poster fallback while video loads */}
+            {!isLoaded && (
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                priority={priority}
+                sizes="(max-width: 640px) 100vw, 620px"
+                className="object-contain"
+              />
+            )}
+
             <video
               ref={videoRef}
+              src={videoSrc}
               autoPlay={autoPlay}
               loop
               muted
               playsInline
               preload="auto"
               poster={src}
-              onError={() => setVideoError(true)}
-              className="absolute inset-0 size-full object-contain"
+              onError={() => {
+                console.warn("[LaptopFrame] Video source load failed, falling back to static poster.");
+                setVideoError(true);
+              }}
+              className={cn(
+                "absolute inset-0 size-full object-contain transition-opacity duration-500",
+                isLoaded ? "opacity-100" : "opacity-0"
+              )}
               aria-label={alt}
-            >
-              <source src={videoSrc} type="video/mp4" />
-              <source src="/UBverse-Laptop-8K.mp4" type="video/mp4" />
-            </video>
+            />
 
-            {/* Optional children overlay */}
+            {/* Optional children overlay inside screen */}
             {children && (
               <div className="absolute inset-0 z-20 pointer-events-auto">
                 {children}
@@ -121,7 +162,7 @@ export function LaptopFrame({
             )}
           </div>
         ) : (
-          <div className="relative w-full aspect-[3/2]">
+          <div className="relative w-full aspect-[16/9]">
             <Image
               src={src}
               alt={alt}
@@ -132,42 +173,6 @@ export function LaptopFrame({
             />
           </div>
         )}
-      </div>
-
-      {/* Control & Status Bar */}
-      <div className="mt-3 flex items-center justify-center gap-3 text-xs text-slate-500">
-        <div className="inline-flex items-center gap-2 rounded-full border border-slate-200/90 bg-white/95 px-3 py-1 shadow-2xs backdrop-blur-md">
-          <span className="flex items-center gap-1.5 font-medium text-slate-700">
-            <span className={cn("size-1.5 rounded-full", isPlaying ? "bg-emerald-500 animate-pulse" : "bg-slate-400")} />
-            <span>{isPlaying ? " Playing" : "Paused"}</span>
-          </span>
-
-          <span className="h-3 w-px bg-slate-200" />
-
-          <button
-            type="button"
-            onClick={togglePlay}
-            title={isPlaying ? "Pause video" : "Play video"}
-            aria-label={isPlaying ? "Pause video" : "Play video"}
-            className="inline-flex items-center gap-1 text-slate-600 hover:text-blue-600 transition-colors cursor-pointer"
-          >
-            {isPlaying ? <Pause size={12} /> : <Play size={12} />}
-            <span>{isPlaying ? "Pause" : "Play"}</span>
-          </button>
-
-          <span className="h-3 w-px bg-slate-200" />
-
-          <button
-            type="button"
-            onClick={restartVideo}
-            title="Replay video from beginning"
-            aria-label="Replay video from beginning"
-            className="inline-flex items-center gap-1 text-slate-600 hover:text-blue-600 transition-colors cursor-pointer"
-          >
-            <RotateCcw size={12} />
-            <span>Replay</span>
-          </button>
-        </div>
       </div>
     </div>
   );

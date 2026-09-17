@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
-import { checkRateLimit, resetRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, resetRateLimit, getClientIp } from "@/lib/rate-limit";
 
 // Strict Zod schema for server-side validation
 const loginSchema = z.object({
@@ -21,8 +21,7 @@ const loginSchema = z.object({
 export async function POST(request: Request) {
   try {
     // 1. IP / client identifier extraction for rate limiting
-    const forwardedFor = request.headers.get("x-forwarded-for");
-    const clientIp = forwardedFor ? forwardedFor.split(",")[0].trim() : "127.0.0.1";
+    const clientIp = getClientIp(request);
 
     const rateLimit = checkRateLimit(`login_${clientIp}`, 5, 15 * 60 * 1000);
     if (!rateLimit.allowed) {

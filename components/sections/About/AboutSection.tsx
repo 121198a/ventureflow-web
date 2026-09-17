@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -43,18 +43,18 @@ const FOUNDERS = [
   {
     name: "Arnav Awasthi",
     role: "Co-Founder, COO, Head of Product",
-    photo: ABOUT_PHOTOS[4],
+    photo: ABOUT_PHOTOS[1],
     bio: "Fintech product architect with an engineering background, focused on verifiable record-keeping protocols for retail and private markets.",
   },
 ] as const;
 
 const TEAM = [
   { name: "Gaurav Madhogaria", role: "Engineering Lead", photo: ABOUT_PHOTOS[2] },
-  { name: "Dinesh Pathak", role: "Systems Architecture", photo: ABOUT_PHOTOS[0] },
+  { name: "Dinesh Pathak", role: "Systems Architecture", photo: ABOUT_PHOTOS[3] },
   { name: "Rama Rao", role: "Market Operations", photo: ABOUT_PHOTOS[4] },
   { name: "Chetan Chauhan", role: "Investment Research", photo: ABOUT_PHOTOS[0] },
   { name: "Dhruvi Turakhia", role: "Product Strategy", photo: ABOUT_PHOTOS[1] },
-  { name: "Nimisha Pathar", role: "Product Design", photo: ABOUT_PHOTOS[3] },
+  { name: "Nimisha Pathar", role: "Product Design", photo: ABOUT_PHOTOS[2] },
 ] as const;
 
 function Mark({ value }: { value: boolean | "soon" }) {

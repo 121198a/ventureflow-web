@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 const subscribeSchema = z.object({
   email: z
@@ -14,8 +14,7 @@ const subscribeSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const forwardedFor = request.headers.get("x-forwarded-for");
-    const clientIp = forwardedFor ? forwardedFor.split(",")[0].trim() : "127.0.0.1";
+    const clientIp = getClientIp(request);
 
     const rateLimit = checkRateLimit(`newsletter_${clientIp}`, 5, 15 * 60 * 1000);
     if (!rateLimit.allowed) {
@@ -60,26 +59,47 @@ export async function POST(request: Request) {
     const { email } = parsed.data;
 
     // 1. Forward subscription to UBverse backend newsletter service
+    let backendSucceeded = false;
     try {
       const { subscribeBackendNewsletter } = await import("@/lib/ubverse-api");
-      await subscribeBackendNewsletter(email);
+      const backendResult = await subscribeBackendNewsletter(email);
+      backendSucceeded = backendResult.success;
+      if (!backendResult.success) {
+        console.warn("[Newsletter] Backend API subscription rejected:", backendResult.message);
+      }
     } catch (apiErr) {
       console.warn("[Newsletter] Backend API subscription warning:", apiErr);
     }
 
     // 2. Persist to Supabase if configured
+    let supabaseSucceeded = false;
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
     if (supabaseUrl && supabaseKey) {
       try {
         const { supabase } = await import("@/lib/supabase/client");
-        await supabase
+        const { error } = await supabase
           .from("newsletter_subscribers")
           .upsert({ email, subscribed_at: new Date().toISOString() }, { onConflict: "email" });
+        supabaseSucceeded = !error;
+        if (error) {
+          console.warn("[Newsletter] Supabase storage error:", error);
+        }
       } catch (err) {
         console.warn("[Newsletter] Supabase storage warning:", err);
       }
+    }
+
+    // Only report success if the subscription was actually persisted somewhere.
+    if (!backendSucceeded && !supabaseSucceeded) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Unable to subscribe right now. Please try again later.",
+        },
+        { status: 502 }
+      );
     }
 
     return NextResponse.json({

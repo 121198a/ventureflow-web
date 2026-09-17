@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { checkRateLimit, resetRateLimit } from "../lib/rate-limit.ts";
+import { checkRateLimit, resetRateLimit, getClientIp } from "../lib/rate-limit.ts";
 
 test("Rate limiter allows requests under the maximum limit", () => {
   const id = "test_user_under_limit";
@@ -46,3 +46,28 @@ test("Rate limiter resets correctly when resetRateLimit is called", () => {
   assert.equal(fresh.allowed, true);
   assert.equal(fresh.remaining, 2);
 });
+
+test("getClientIp correctly extracts IP from various platform headers", () => {
+  // Cloudflare
+  const cfReq = new Request("http://localhost", {
+    headers: { "cf-connecting-ip": "203.0.113.195" },
+  });
+  assert.equal(getClientIp(cfReq), "203.0.113.195");
+
+  // X-Forwarded-For with multiple proxies (take first)
+  const xffReq = new Request("http://localhost", {
+    headers: { "x-forwarded-for": "198.51.100.1, 192.0.2.1" },
+  });
+  assert.equal(getClientIp(xffReq), "198.51.100.1");
+
+  // X-Real-IP
+  const realIpReq = new Request("http://localhost", {
+    headers: { "x-real-ip": "192.0.2.42" },
+  });
+  assert.equal(getClientIp(realIpReq), "192.0.2.42");
+
+  // Fallback to localhost
+  const emptyReq = new Request("http://localhost");
+  assert.equal(getClientIp(emptyReq), "127.0.0.1");
+});
+

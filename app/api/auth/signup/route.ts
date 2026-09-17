@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
-import { checkRateLimit, resetRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, resetRateLimit, getClientIp } from "@/lib/rate-limit";
 
 // Strong password complexity: min 8, uppercase, lowercase, number, symbol
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
@@ -34,8 +34,7 @@ const signupSchema = z.object({
 export async function POST(request: Request) {
   try {
     // 1. Rate limiting
-    const forwardedFor = request.headers.get("x-forwarded-for");
-    const clientIp = forwardedFor ? forwardedFor.split(",")[0].trim() : "127.0.0.1";
+    const clientIp = getClientIp(request);
 
     const rateLimit = checkRateLimit(`signup_${clientIp}`, 8, 15 * 60 * 1000);
     if (!rateLimit.allowed) {
