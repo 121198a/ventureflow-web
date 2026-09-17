@@ -57,8 +57,8 @@ export function getSupabaseClient(): SupabaseClient<Database> | null {
 
 // Fallback proxy handler for when Supabase is not configured.
 // Prevents module evaluation crashes during bundler inspection and runtime calls.
-function createFallbackSupabaseClient(): any {
-  const fallbackHandler: ProxyHandler<any> = {
+function createFallbackSupabaseClient(): object {
+  const fallbackHandler: ProxyHandler<object> = {
     get(_, prop) {
       if (
         typeof prop === "symbol" ||
@@ -82,7 +82,7 @@ function createFallbackSupabaseClient(): any {
           error: null,
         });
       }
-      const callable = (..._args: any[]) => {
+      const callable = () => {
         return new Proxy(
           Promise.resolve({
             data: null,
