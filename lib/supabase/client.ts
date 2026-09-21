@@ -2,10 +2,10 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "./types";
 
 export function isSupabaseConfigured(): boolean {
-  const url = process.env["NEXT_PUBLIC_SUPABASE_URL"];
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key =
-    process.env["NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"] ||
-    process.env["NEXT_PUBLIC_SUPABASE_ANON_KEY"];
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   return Boolean(
     url &&
@@ -16,10 +16,10 @@ export function isSupabaseConfigured(): boolean {
 }
 
 function createSupabaseClient(): SupabaseClient<Database> | null {
-  const SUPABASE_URL = process.env["NEXT_PUBLIC_SUPABASE_URL"];
+  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const SUPABASE_PUBLISHABLE_KEY =
-    process.env["NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"] ||
-    process.env["NEXT_PUBLIC_SUPABASE_ANON_KEY"];
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (
     !SUPABASE_URL ||
