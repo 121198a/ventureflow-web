@@ -84,7 +84,7 @@ export function UBverseCohort() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 6, scale: 0.98 }}
                       transition={{ duration: 0.18, ease: "easeOut" }}
-                      className="absolute left-0 sm:left-8 top-full z-20 mt-2 w-64 sm:w-72 max-w-[calc(100vw-3rem)] rounded-lg border border-slate-200 bg-white p-3.5 text-left shadow-xl shadow-slate-900/10"
+                      className="card-fintech absolute left-0 sm:left-8 top-full z-20 mt-2 w-64 sm:w-72 max-w-[calc(100vw-3rem)] p-3.5 text-left shadow-lg"
                     >
                       <div className="flex items-center gap-2.5">
                         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-emerald-100 text-xs font-bold text-emerald-700">

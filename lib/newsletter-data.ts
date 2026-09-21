@@ -334,7 +334,7 @@ const whatCouldKillItBody: ArticleBlock[] = [
 const postRoundOwnershipBody: ArticleBlock[] = [
   {
     type: "p",
-    text: "Why founders hesitate when investors ask about post-round ownership, what belongs in the calculation, and how to answer without reaching for the cap table.",
+    text: "Why founders hesitate when investors ask about post-round ownership, what belongs in the calculation, and how to answer with confidence without reaching for the cap table.",
   },
   {
     type: "p",
@@ -509,7 +509,7 @@ const raw = [
     read: "4 min read",
     headline: "Your investor update is part of the raise",
     summary:
-      "Why a quiet investor is usually a founder who went quiet first, the four lines a good update needs, and a filled-in example you can copy.",
+      "Why silent investors often start with silent founders. Discover the four lines every update needs, plus a real example you can copy.",
     body: updatesWinInvestorsBody,
   },
   {
@@ -535,7 +535,7 @@ const raw = [
     read: "4 min read",
     headline: "What this round does to your ownership",
     summary:
-      "Why founders hesitate when investors ask about post-round ownership, what belongs in the calculation, and how to answer without reaching for the cap table.",
+      "Why founders freeze when asked about post-round ownership. Learn what belongs in the math, and how to answer without opening your cap table.",
     body: postRoundOwnershipBody,
   },
   {
@@ -548,7 +548,7 @@ const raw = [
     read: "4 min read",
     headline: "The valuation number you should never say first",
     summary:
-      "Why your opening valuation matters, how investors interpret an anchor, and how to frame valuation discussions without setting a ceiling.",
+      "Why your starting valuation matters and how investors view an anchor. Learn how to discuss price without capping your upside.",
     body: theNumberYouSayFirstBody,
   },
   {
@@ -561,7 +561,7 @@ const raw = [
     read: "4 min read",
     headline: "How much runway are you actually raising for?",
     summary:
-      "Why a month count can misstate what a round will support, what belongs in the model, and how to connect the capital requested to the milestone it must reach.",
+      "Why a simple month count can misstate what a round supports. Learn how to build your model and connect every dollar to a clear milestone.",
     body: howMuchRunwayBody,
   },
   {
@@ -574,7 +574,7 @@ const raw = [
     read: "4 min read",
     headline: "You do not graduate from one round to the next",
     summary:
-      "Why funding stages are not automatic promotions, what each stage is expected to prove, and how to decide whether the company is ready to raise again.",
+      "Why funding stages are not automatic milestones. Learn what each stage must prove, and how to know when you are ready to raise again.",
     body: youDontGraduateBody,
   },
 ];

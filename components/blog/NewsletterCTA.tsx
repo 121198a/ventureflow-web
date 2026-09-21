@@ -90,14 +90,14 @@ export function NewsletterCTA() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your work email address"
-                        className="w-full rounded-full border border-slate-300 bg-white py-3.5 pl-11 pr-4 text-sm text-slate-900 placeholder:text-slate-400 shadow-xs focus:border-blue-600 focus:outline-hidden focus:ring-4 focus:ring-blue-100 transition-all"
+                        className="input-fintech rounded-full py-3.5 pl-11 pr-4 text-sm"
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={loading}
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all hover:bg-blue-700 active:scale-98 disabled:opacity-70 cursor-pointer"
+                      className="btn-pill-primary px-7 py-3.5 disabled:opacity-70 cursor-pointer"
                     >
                       {loading ? (
                         <span>Subscribing...</span>

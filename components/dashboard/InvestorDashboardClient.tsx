@@ -17,7 +17,6 @@ import {
   Building2,
   RefreshCw,
   AlertCircle,
-  Sparkles,
   ChevronRight,
   Menu,
   X,
@@ -33,6 +32,7 @@ import type { BackendCompanySummary } from "@/lib/ubverse-api";
 import { DashboardSearch } from "./DashboardSearch";
 import { DashboardPagination } from "./DashboardPagination";
 import { EmptySearchResult } from "./EmptySearchResult";
+import { cn } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -304,11 +304,12 @@ export function InvestorDashboardClient() {
                 key={item.key}
                 type="button"
                 onClick={() => setActiveTab(item.key)}
-                className={`w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-xs font-semibold transition-colors text-left cursor-pointer ${
+                className={cn(
+                  "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-xs font-semibold text-left cursor-pointer",
                   activeTab === item.key
-                    ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                }`}
+                    ? "bg-blue-600 text-white"
+                    : "text-slate-600 hover:bg-slate-50"
+                )}
               >
                 {item.icon}
                 <span>{item.label}</span>
@@ -369,7 +370,7 @@ export function InvestorDashboardClient() {
               <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-gradient-to-r from-blue-50/80 via-white to-slate-50 p-6 sm:p-8 text-slate-900 shadow-xs">
                 <div className="relative z-10 max-w-2xl space-y-3">
                   <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-700">
-                    <Sparkles className="size-3.5 text-blue-600" />
+                    <ShieldCheck className="size-3.5 text-blue-600" />
                     Verified Private Capital Network
                   </div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">

@@ -31,8 +31,6 @@ export function LaptopFrame({
   videoSrc = "/UBverse-Laptop.mp4",
   autoPlay = true,
   withWatermark = false,
-  watermarkText = "",
-  showCircuitLine = true,
 }: LaptopFrameProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -121,14 +119,14 @@ export function LaptopFrame({
       {/* Subtle ambient lighting behind laptop to enhance 3D depth */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-6 sm:-inset-10 rounded-[32px] bg-gradient-to-tr from-blue-600/15 via-sky-400/10 to-indigo-500/15 blur-2xl transition-opacity duration-700 opacity-80"
+        className="pointer-events-none absolute -inset-6 sm:-inset-10 rounded-[32px] bg-gradient-to-tr from-blue-600/15 via-sky-400/10 to-blue-500/15 blur-2xl transition-opacity duration-700 opacity-80"
       />
 
       {/* Repeated Watermark Backdrop removed */}
       {withWatermark && (
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -inset-8 sm:-inset-12 -z-10 rounded-[36px] overflow-hidden bg-gradient-to-b from-sky-50/60 via-slate-50/30 to-white/40 border border-slate-200/50 shadow-[0_20px_60px_-20px_rgba(15,23,42,0.08)]"
+          className="pointer-events-none absolute -inset-8 sm:-inset-12 -z-10 rounded-3xl overflow-hidden bg-gradient-to-b from-sky-50/60 via-slate-50/30 to-white/40 border border-slate-200/50 shadow-md"
         >
           {/* Subtle light glow pods */}
           <div className="absolute -top-10 -left-10 h-48 w-48 rounded-full bg-sky-400/15 blur-2xl" />

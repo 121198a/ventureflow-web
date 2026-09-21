@@ -16,9 +16,9 @@ const steps = [
 
 export function UBverseProcess() {
   const [active, setActive] = useState(0);
-  const ref0 = useRef<HTMLDivElement>(null);
-  const ref1 = useRef<HTMLDivElement>(null);
-  const ref2 = useRef<HTMLDivElement>(null);
+  const ref0 = useRef<HTMLButtonElement>(null);
+  const ref1 = useRef<HTMLButtonElement>(null);
+  const ref2 = useRef<HTMLButtonElement>(null);
   const refs = [ref0, ref1, ref2];
 
   useEffect(() => {
@@ -56,20 +56,23 @@ export function UBverseProcess() {
         {/* Right Stepper Steps */}
         <div className="lg:col-span-6 flex flex-col gap-12 sm:gap-16 py-4">
           {steps.map((s, i) => (
-            <div
+            <button
               key={s.title}
               ref={refs[i]}
+              type="button"
               onClick={() => setActive(i)}
-              className="flex gap-5 cursor-pointer group"
+              aria-label={`Step ${i + 1}: ${s.title}`}
+              aria-current={active === i ? "step" : undefined}
+              className="flex w-full text-left gap-5 cursor-pointer group rounded-lg p-1 transition-colors focus-ring"
             >
               {/* Stepper Node & Connecting Line */}
               <div className="flex flex-col items-center">
                 <span
                   className={cn(
-                    "grid h-8 w-8 shrink-0 place-items-center rounded-pill border-2 font-mono text-xs font-bold transition-all duration-300",
+                    "grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 font-mono text-xs font-bold",
                     active >= i
-                      ? "scale-110 border-blue-600 bg-blue-600 text-white shadow-xs"
-                      : "border-slate-300 bg-white text-slate-600 group-hover:border-slate-400"
+                      ? "border-blue-600 bg-blue-600 text-white shadow-xs"
+                      : "border-slate-300 bg-white text-slate-600"
                   )}
                 >
                   {i + 1}
@@ -94,7 +97,7 @@ export function UBverseProcess() {
                   </span>
                 )}
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>

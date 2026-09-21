@@ -16,7 +16,6 @@ import {
   Building2,
   RefreshCw,
   AlertCircle,
-  Sparkles,
   Menu,
   X,
   Send,
@@ -33,6 +32,7 @@ import type { BackendIssuerDetailData, BackendCompanySummary } from "@/lib/ubver
 import { DashboardSearch } from "./DashboardSearch";
 import { DashboardPagination } from "./DashboardPagination";
 import { EmptySearchResult } from "./EmptySearchResult";
+import { cn } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -339,11 +339,12 @@ export function FounderDashboardClient() {
                 key={item.key}
                 type="button"
                 onClick={() => setActiveTab(item.key)}
-                className={`w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-xs font-semibold transition-colors text-left cursor-pointer ${
+                className={cn(
+                  "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-xs font-semibold text-left cursor-pointer",
                   activeTab === item.key
-                    ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                }`}
+                    ? "bg-blue-600 text-white"
+                    : "text-slate-600 hover:bg-slate-50"
+                )}
               >
                 {item.icon}
                 <span>{item.label}</span>
@@ -421,10 +422,10 @@ export function FounderDashboardClient() {
           {activeTab === "overview" && (
             <div className="space-y-6 animate-in fade-in duration-200">
               {/* Header Card (Light-Mode) */}
-              <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-gradient-to-r from-blue-50/80 via-white to-indigo-50/40 p-6 sm:p-8 text-slate-900 shadow-xs">
+              <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-gradient-to-r from-blue-50/80 via-white to-slate-50/60 p-6 sm:p-8 text-slate-900 shadow-xs">
                 <div className="relative z-10 space-y-3 max-w-2xl">
                   <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-700">
-                    <Sparkles className="size-3.5 text-blue-600" />
+                    <ShieldCheck className="size-3.5 text-blue-600" />
                     Capital Raise Console
                   </div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
@@ -945,9 +946,7 @@ export function FounderDashboardClient() {
                               className={`w-fit font-semibold px-2 py-0.5 rounded border text-[11px] shrink-0 ${
                                 item.status === "Verified"
                                   ? "text-emerald-700 bg-emerald-50 border-emerald-200"
-                                  : item.status === "Active"
-                                  ? "text-blue-700 bg-blue-50 border-blue-200"
-                                  : "text-amber-700 bg-amber-50 border-amber-200"
+                                  : "text-blue-700 bg-blue-50 border-blue-200"
                               }`}
                             >
                               {item.status}

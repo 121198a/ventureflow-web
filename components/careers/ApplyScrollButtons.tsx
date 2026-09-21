@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { scrollToTarget } from "@/components/motion/SmoothScroll";
+import { cn } from "@/lib/utils";
 
 export function ApplyClientCTA() {
   return (
@@ -33,9 +34,10 @@ export function MobileApplyBar({ roleTitle }: { roleTitle: string }) {
   return (
     <div
       aria-hidden={!visible}
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-xl transition-transform duration-300 md:hidden ${
+      className={cn(
+        "fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 p-4 backdrop-blur-xl transition-transform duration-300 md:hidden",
         visible ? "translate-y-0" : "pointer-events-none translate-y-full"
-      }`}
+      )}
     >
       <button
         type="button"

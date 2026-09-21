@@ -48,7 +48,7 @@ export function BrandWatermark({
 export function DeviceWatermarkBackdrop({
   className = "",
   showCircuit = true,
-  glowColor = "from-blue-500/12 via-sky-400/8 to-indigo-500/10",
+  glowColor = "from-blue-500/12 via-sky-400/8 to-blue-600/10",
   children,
 }: {
   items?: string[];
@@ -78,7 +78,7 @@ export function DeviceWatermarkBackdrop({
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-12 -right-12 h-64 w-64 rounded-full bg-indigo-300/15 blur-2xl"
+        className="pointer-events-none absolute -bottom-12 -right-12 h-64 w-64 rounded-full bg-sky-300/15 blur-2xl"
       />
 
       {/* Circuit line with >>> accent */}

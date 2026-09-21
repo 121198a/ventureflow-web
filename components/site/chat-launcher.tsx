@@ -108,7 +108,7 @@ export function ChatLauncher() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={open ? "Close chat" : "Open chat"}
-        className="grid size-14 place-items-center rounded-full bg-brand text-primary-foreground shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-brand-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+        className="grid size-14 place-items-center rounded-full bg-brand text-primary-foreground shadow-lg transition-transform hover:scale-105 hover:bg-brand-strong focus-ring cursor-pointer"
       >
         {open ? <X className="size-5" /> : <MessageCircle className="size-5" />}
       </button>

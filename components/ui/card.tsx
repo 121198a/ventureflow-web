@@ -22,7 +22,7 @@ const cardVariants: Record<NonNullable<CardProps["variant"]>, string> = {
   compact:
     "rounded-lg border border-slate-200/80 bg-white p-3.5 text-ink shadow-2xs",
   elevated:
-    "rounded-2xl border border-slate-200/90 bg-white text-ink shadow-[0_12px_32px_rgba(15,23,42,0.08)]",
+    "card-fintech shadow-md",
 };
 
 export function Card({
@@ -39,7 +39,7 @@ export function Card({
         cardVariants[variant],
         hoverable &&
           variant !== "interactive" &&
-          "hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:border-slate-300",
+          "hover:-translate-y-0.5 hover:shadow-md hover:border-slate-300",
         className
       )}
       {...props}

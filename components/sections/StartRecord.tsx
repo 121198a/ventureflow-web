@@ -132,7 +132,7 @@ export function StartRecord() {
 
           <h2 className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
             Your first thesis could be about <br />
-            <span className="inline-block bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-600 bg-clip-text text-transparent font-black min-h-[1.25em]">
+            <span className="inline-block text-blue-600 font-black min-h-[1.25em]">
               {text}
               <span className="animate-pulse text-blue-600 font-normal">|</span>
             </span>
@@ -147,7 +147,7 @@ export function StartRecord() {
               <AuthButton
                 flow="signup"
                 icon={false}
-                className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all duration-200 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/25 active:scale-[0.98] focus-ring"
+                className="btn-pill-primary px-8"
               >
                 <span>Start your record</span>
                 <ArrowRight size={16} />
@@ -185,7 +185,7 @@ function FeedMini() {
 
         <div className="mt-2 rounded-xl border border-slate-100 bg-slate-50/80 p-2.5 shadow-xs">
           <div className="flex items-center gap-2">
-            <span className="grid h-5 w-5 place-items-center rounded-pill bg-indigo-600 text-[9px] font-bold text-white shadow-xs">
+            <span className="grid h-5 w-5 place-items-center rounded-pill bg-blue-600 text-[9px] font-bold text-white shadow-xs">
               JM
             </span>
             <p className="text-[11px] font-bold text-slate-900 leading-tight">Jacob Martin</p>

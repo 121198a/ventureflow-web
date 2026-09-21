@@ -34,9 +34,8 @@ export function TrendingArticles({ posts }: TrendingArticlesProps) {
               </h2>
 
               <p className="mt-4 text-base text-slate-600 leading-relaxed max-w-md">
-                Stay ahead of private market dynamics and public horizon
-                forecasts. The briefings gaining the highest readership across
-                our investor community this week.
+                Stay ahead of market moves and company forecasts. Here are the
+                most-read briefings across our investor community this week.
               </p>
             </Reveal>
 

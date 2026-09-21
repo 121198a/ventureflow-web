@@ -9,7 +9,7 @@ import {
   Check,
   CheckCircle2,
   Copy,
-  Sparkles,
+  TrendingUp,
 } from "lucide-react";
 import { ComplianceShieldIcon, FundingRoundCalendarIcon } from "@/components/ui/CustomIcons";
 import { FaLinkedinIn, FaTwitter } from "react-icons/fa";
@@ -80,7 +80,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
         <Reveal>
           <div className="flex flex-wrap items-center justify-center gap-2.5">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 border border-blue-100">
-              <Sparkles size={12} />
+              <TrendingUp size={12} />
               {post.category}
             </span>
             <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
@@ -388,7 +388,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
         </div>
 
         {/* 7. Action CTA Box */}
-        <div className="mt-8 rounded-3xl border border-blue-200 bg-gradient-to-r from-blue-600 to-blue-700 p-8 text-white shadow-lg shadow-blue-600/15 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="card-fintech mt-8 bg-blue-600 border-blue-500 text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
           <div className="max-w-md">
             <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
               Test your market thesis on UnBound X

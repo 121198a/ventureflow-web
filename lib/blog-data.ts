@@ -256,7 +256,7 @@ export const blogPosts: BlogPost[] = [
     title: "Post-Round Ownership: Why Dilution Math Can't Wait for the Lawyers",
     subtitle: "Understand equity math, option pool refreshes, and unallocated SAFEs before investors ask.",
     summary:
-      "Why founders hesitate when investors ask about post-round ownership, what actually belongs in the calculation, and how to answer with absolute conviction without reaching for a calculator.",
+      "Why founders hesitate when investors ask about post-round ownership, what belongs in the calculation, and how to answer with confidence without reaching for a calculator.",
     category: "Founders",
     tag: "Cap Table Masterclass",
     date: "Aug 2026",
@@ -407,7 +407,7 @@ export const blogPosts: BlogPost[] = [
     title: "Reg D 506(b) vs. Regulation CF: Navigating Compliant Capital Formation on UBverse",
     subtitle: "The strategic differences between private placement syndicates and public retail offerings.",
     summary:
-      "Choosing between Rule 506(b), 506(c), and Regulation CF dictates whether you can publicly solicit investment, how much capital you can raise, and what ongoing reporting disclosures you owe shareholders.",
+      "Choosing between Rule 506(b), 506(c), and Regulation CF determines whether you can solicit investment publicly, how much capital you can raise, and what reporting you owe shareholders.",
     category: "Ventures",
     tag: "Regulatory Frameworks",
     date: "Jul 2026",
@@ -438,7 +438,7 @@ export const blogPosts: BlogPost[] = [
     title: "Senior by Default: How Our Engineering Team Ships Financial Systems with High Trust",
     subtitle: "Fewer people, higher context, real ownership. Inside UnBound X's remote-first product culture.",
     summary:
-      "Why we deliberately avoided bloated hierarchies, why craft has a dedicated budget, and how small senior squads ship rock-solid market systems faster than teams four times our size.",
+      "Why we skipped bloated hierarchies, why craft gets dedicated time and support, and how small senior teams ship reliable market systems faster than much larger teams.",
     category: "Craft & Culture",
     tag: "Engineering Culture",
     date: "Jun 2026",

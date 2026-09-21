@@ -187,13 +187,7 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.25 }}
               >
-                <h1
-                  className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent inline-block"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(90deg, #ff5a00 0%, #d946ef 35%, #7c3aed 65%, #00a2ff 100%)",
-                  }}
-                >
+                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 inline-block">
                   {isSignup ? `Join ${site.name}` : "Welcome back"}
                 </h1>
                 <p className="mx-auto mt-2.5 max-w-[340px] text-xs sm:text-sm leading-relaxed text-slate-500">
@@ -245,7 +239,7 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                     onClick={() => handleOAuth("google")}
                     disabled={loadingProvider !== null}
                     aria-label="Continue with Google"
-                    className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50 active:scale-[0.99] transition-all shadow-xs cursor-pointer disabled:opacity-60"
+                    className="btn-pill-secondary h-12 w-full cursor-pointer shadow-xs disabled:opacity-60"
                   >
                     {loadingProvider === "google" ? (
                       <Loader2 className="size-4 animate-spin text-blue-600" />
@@ -260,7 +254,7 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                     onClick={() => handleOAuth("apple")}
                     disabled={loadingProvider !== null}
                     aria-label="Continue with Apple"
-                    className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50 active:scale-[0.99] transition-all shadow-xs cursor-pointer disabled:opacity-60"
+                    className="btn-pill-secondary h-12 w-full cursor-pointer shadow-xs disabled:opacity-60"
                   >
                     {loadingProvider === "apple" ? (
                       <Loader2 className="size-4 animate-spin text-blue-600" />
@@ -282,7 +276,7 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                 <button
                   type="button"
                   onClick={() => setEmailMode(true)}
-                  className="flex h-12 w-full items-center justify-center rounded-full bg-blue-600 text-xs sm:text-sm font-semibold text-white shadow-md shadow-blue-500/20 transition-all hover:bg-blue-700 active:scale-[0.99] cursor-pointer"
+                  className="btn-pill-primary h-12 w-full cursor-pointer"
                 >
                   Continue with email
                 </button>
@@ -385,10 +379,10 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                         maxLength={254}
                         aria-invalid={!!emailError}
                         aria-describedby={emailError ? "email-error" : undefined}
-                        className={`h-11 w-full rounded-xl border bg-white px-4 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:ring-4 ${
+                        className={`input-fintech h-11 ${
                           emailError
                             ? "border-red-400 focus:border-red-500 focus:ring-red-500/10"
-                            : "border-slate-200 focus:border-blue-600 focus:ring-blue-600/10"
+                            : ""
                         }`}
                       />
                       {emailError && (
@@ -416,10 +410,10 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                         }}
                         placeholder="••••••••"
                         required
-                        className={`h-11 w-full rounded-xl border bg-white px-4 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:ring-4 ${
+                        className={`input-fintech h-11 ${
                           passwordError
                             ? "border-red-400 focus:border-red-500 focus:ring-red-500/10"
-                            : "border-slate-200 focus:border-blue-600 focus:ring-blue-600/10"
+                            : ""
                         }`}
                       />
                     </div>
@@ -440,7 +434,7 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                           }}
                           placeholder="••••••••"
                           required
-                          className="h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                          className="input-fintech h-11"
                         />
                       </div>
                     )}
@@ -452,7 +446,7 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                     <button
                       type="submit"
                       disabled={loading}
-                      className="mt-2 flex h-11 w-full items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white shadow-md shadow-blue-500/20 transition-all hover:bg-blue-700 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
+                      className="btn-pill-primary h-11 w-full mt-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       {loading ? (
                         <span className="flex items-center gap-2">

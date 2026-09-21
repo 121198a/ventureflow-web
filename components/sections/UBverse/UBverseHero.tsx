@@ -69,7 +69,7 @@ export function UBverseHero() {
               flow rather than the read-only company data feed. */}
           <TransitionLink
             href="/login?flow=signup"
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-pill bg-blue-600 pl-5 pr-2 min-[360px]:pl-7 min-[360px]:pr-2.5 py-2 text-xs min-[360px]:text-sm font-bold text-white shadow-[0_10px_25px_-5px_rgba(0,102,255,0.4)] hover:bg-blue-700 hover:shadow-[0_12px_30px_-5px_rgba(0,102,255,0.5)] transition-all duration-200 cursor-pointer"
+            className="btn-pill-primary group w-full sm:w-auto pl-5 pr-2 min-[360px]:pl-7 min-[360px]:pr-2.5 py-2 text-xs min-[360px]:text-sm cursor-pointer"
           >
             <span>Create your company Space</span>
             <span className="flex h-8 w-8 items-center justify-center rounded-pill bg-white/20 group-hover:bg-white/30 transition-colors">

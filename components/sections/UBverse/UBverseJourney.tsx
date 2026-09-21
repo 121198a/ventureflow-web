@@ -30,9 +30,9 @@ const milestones = [
 
 export function UBverseJourney() {
   const [active, setActive] = useState(0);
-  const ref0 = useRef<HTMLDivElement>(null);
-  const ref1 = useRef<HTMLDivElement>(null);
-  const ref2 = useRef<HTMLDivElement>(null);
+  const ref0 = useRef<HTMLButtonElement>(null);
+  const ref1 = useRef<HTMLButtonElement>(null);
+  const ref2 = useRef<HTMLButtonElement>(null);
   const refs = [ref0, ref1, ref2];
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export function UBverseJourney() {
               Show what your company has done.
             </h3>
             <p className="mt-4 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed">
-              Post milestones as they happen: your first prototype, new customers, contracts, hires, deployments. Each update joins your company&apos;s history. Investors get a clearer view of how the business is progressing.
+              Share milestones as they happen: your first prototype, new customers, contracts, hires, and deployments. Each update becomes part of the company&apos;s story, giving investors a clearer view of how the business is actually moving.
             </p>
           </Reveal>
         </div>
@@ -86,11 +86,14 @@ export function UBverseJourney() {
         {/* Right Milestones Stepper */}
         <div className="lg:col-span-6 flex flex-col gap-12 sm:gap-16 py-4">
           {milestones.map((m, i) => (
-            <div
+            <button
               key={m.title}
               ref={refs[i]}
+              type="button"
               onClick={() => setActive(i)}
-              className="flex gap-5 cursor-pointer group"
+              aria-label={`Milestone ${i + 1}: ${m.title}`}
+              aria-current={active === i ? "step" : undefined}
+              className="flex w-full text-left gap-5 cursor-pointer group rounded-lg p-1 transition-colors focus-ring"
             >
               {/* Stepper Dot & Line */}
               <div className="flex flex-col items-center">
@@ -127,7 +130,7 @@ export function UBverseJourney() {
                   ))}
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>

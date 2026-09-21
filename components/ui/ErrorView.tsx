@@ -269,7 +269,7 @@ export function ErrorView({
                 <button
                   type="button"
                   onClick={finalPrimary.onClick}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-6 py-2.5 shadow-lg shadow-blue-500/25 transition-all duration-200 active:scale-95 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="btn-pill-primary w-full sm:w-auto px-6 py-2.5 cursor-pointer"
                 >
                   {renderActionIcon(finalPrimary.icon)}
                   <span>{finalPrimary.label}</span>
@@ -277,7 +277,7 @@ export function ErrorView({
               ) : (
                 <Link
                   href={finalPrimary.href || "/"}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-6 py-2.5 shadow-lg shadow-blue-500/25 transition-all duration-200 active:scale-95 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="btn-pill-primary w-full sm:w-auto px-6 py-2.5"
                 >
                   {renderActionIcon(finalPrimary.icon)}
                   <span>{finalPrimary.label}</span>
@@ -293,7 +293,7 @@ export function ErrorView({
                 <button
                   type="button"
                   onClick={finalSecondary.onClick}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium px-6 py-2.5 shadow-2xs hover:border-slate-300 transition-all duration-200 active:scale-95 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-slate-300 focus:ring-offset-2"
+                  className="btn-pill-secondary w-full sm:w-auto px-6 py-2.5 cursor-pointer"
                 >
                   {renderActionIcon(finalSecondary.icon)}
                   <span>{finalSecondary.label}</span>
@@ -301,7 +301,7 @@ export function ErrorView({
               ) : (
                 <Link
                   href={finalSecondary.href || "/"}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium px-6 py-2.5 shadow-2xs hover:border-slate-300 transition-all duration-200 active:scale-95 focus:outline-hidden focus:ring-2 focus:ring-slate-300 focus:ring-offset-2"
+                  className="btn-pill-secondary w-full sm:w-auto px-6 py-2.5"
                 >
                   {renderActionIcon(finalSecondary.icon)}
                   <span>{finalSecondary.label}</span>
@@ -325,7 +325,7 @@ export function ErrorView({
                 <Link
                   key={dest.label}
                   href={dest.href}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-600 hover:text-blue-600 bg-white hover:bg-blue-50/60 border border-slate-200/80 hover:border-blue-200 shadow-2xs transition-all duration-150"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-600 hover:text-blue-600 bg-white hover:bg-blue-50/60 border border-slate-200 hover:border-blue-200 transition-colors"
                 >
                   {renderActionIcon(dest.icon, "size-3 text-slate-400")}
                   <span>{dest.label}</span>

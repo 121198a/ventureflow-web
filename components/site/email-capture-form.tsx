@@ -1,16 +1,17 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useFormDraft } from "@/hooks/useFormDraft";
 
 export function EmailCaptureForm({ buttonLabel }: { buttonLabel: string }) {
-  const [email, setEmail] = useState("");
+  const { values, setValues, clearDraft } = useFormDraft("email-capture-form", { email: "" });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const trimmed = email.trim();
+    const trimmed = values.email.trim();
     if (!trimmed || !trimmed.includes("@")) {
       setError("Please enter a valid email.");
       return;
@@ -30,6 +31,7 @@ export function EmailCaptureForm({ buttonLabel }: { buttonLabel: string }) {
         setError(data.error || "Subscription failed.");
         return;
       }
+      clearDraft();
       setSuccess(true);
     } catch {
       setError("Network error. Please try again.");
@@ -52,9 +54,9 @@ export function EmailCaptureForm({ buttonLabel }: { buttonLabel: string }) {
         <input
           type="email"
           required
-          value={email}
+          value={values.email}
           onChange={(e) => {
-            setEmail(e.target.value);
+            setValues({ email: e.target.value });
             if (error) setError(null);
           }}
           placeholder="you@company.com"

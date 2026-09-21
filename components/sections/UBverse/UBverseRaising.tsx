@@ -36,7 +36,7 @@ const deals = [
     round: "Pre Series A",
     min: "$250K",
     access: "Open to accredited",
-    mark: "bg-gradient-to-br from-violet-400 to-indigo-500",
+    mark: "bg-gradient-to-br from-blue-500 to-sky-600",
   },
 ];
 
@@ -45,7 +45,7 @@ export function UBverseRaising() {
     <section id="raising" className="scroll-mt-24 relative overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-slate-50/60 px-5 py-20 text-slate-900 sm:py-28 border-y border-slate-200/80">
       {/* Subtle Light Ambient Wash */}
       <div className="pointer-events-none absolute left-1/3 top-0 h-80 w-80 rounded-full bg-blue-100/50 blur-3xl" />
-      <div className="pointer-events-none absolute right-1/4 bottom-0 h-80 w-80 rounded-full bg-indigo-50/60 blur-3xl" />
+      <div className="pointer-events-none absolute right-1/4 bottom-0 h-80 w-80 rounded-full bg-sky-50/60 blur-3xl" />
 
       <Reveal className="relative z-10 mx-auto max-w-[820px] text-center">
         <span className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/95 px-4 py-1.5 text-xs font-semibold text-blue-800 shadow-2xs">
@@ -66,7 +66,7 @@ export function UBverseRaising() {
           <Reveal
             key={d.name}
             delay={i * 0.1}
-            className="gb-interactive-card rounded-2xl border border-slate-200/90 bg-white p-6 shadow-[0_1px_3px_rgba(15,23,42,0.04)] hover:shadow-[0_12px_32px_rgba(15,23,42,0.08)] hover:border-blue-500/30 transition-all duration-200"
+            className="card-fintech-interactive p-6"
           >
             <div className="flex items-center justify-between gap-3">
               <div className="flex min-w-0 flex-1 items-center gap-3">
@@ -101,7 +101,7 @@ export function UBverseRaising() {
       <Reveal delay={0.2} className="relative z-10 mt-14 text-center">
         <Link
           href="/platform"
-          className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98]"
+          className="btn-pill-primary px-7 py-3.5"
         >
           <span>Explore companies</span>
           <ArrowRight size={15} />

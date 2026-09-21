@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { CountUp } from "@/components/ui/CountUp";
-import { TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 
 export interface DataMetricCardProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
@@ -32,11 +32,12 @@ export function DataMetricCard({
 }: DataMetricCardProps) {
   const numericValue = typeof value === "number" ? value : parseFloat(value.replace(/[^0-9.-]+/g, ""));
   const isNumeric = !isNaN(numericValue) && animated;
+  const isPositive = trend === "up" || (trend === undefined && (change ?? 0) >= 0);
 
   return (
     <div
       className={cn(
-        "rounded-xl border border-slate-200/90 bg-white p-5 text-slate-900 shadow-[0_1px_3px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_6px_20px_rgba(15,23,42,0.05)]",
+        "card-fintech-interactive p-5",
         className
       )}
       {...props}
@@ -62,18 +63,16 @@ export function DataMetricCard({
         {change !== undefined && (
           <span
             className={cn(
-              "inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[0.72rem] font-bold",
-              trend === "up" || (trend === undefined && change >= 0)
-                ? "bg-emerald-50 text-emerald-700 border border-emerald-200/80"
-                : "bg-rose-50 text-rose-700 border border-rose-200/80"
+              "badge-fintech py-0.5 px-2 text-micro",
+              isPositive
+                ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                : "bg-rose-50 text-rose-700 border-rose-200"
             )}
           >
-            {trend === "up" || (trend === undefined && change >= 0) ? (
+            {isPositive ? (
               <TrendingUp className="size-3" />
-            ) : trend === "down" || (trend === undefined && change < 0) ? (
-              <TrendingDown className="size-3" />
             ) : (
-              <Minus className="size-3" />
+              <TrendingDown className="size-3" />
             )}
             <span>{change > 0 ? `+${change}%` : `${change}%`}</span>
           </span>

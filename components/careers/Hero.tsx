@@ -37,7 +37,7 @@ export function Hero() {
 
       <div className={section}>
         <Reveal>
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-semibold tracking-wider text-text-secondary uppercase">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-semibold tracking-[0.08em] text-text-secondary">
             <span className="h-1.5 w-1.5 rounded-full bg-signal" />
             Careers · UnBound X
           </span>
@@ -64,7 +64,7 @@ export function Hero() {
               <Magnetic>
                 <button
                   onClick={() => scrollToTarget("#roles")}
-                  className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-[0_16px_40px_rgba(37,99,235,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-700"
+                  className="btn-pill-primary px-6 py-3.5"
                 >
                   View open roles
                   <ArrowUpRight size={16} />
@@ -73,7 +73,7 @@ export function Hero() {
               <Magnetic>
                 <button
                   onClick={() => scrollToTarget("#life")}
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 text-sm font-semibold text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-brand/40"
+                  className="btn-pill-secondary px-6 py-3.5"
                 >
                   Meet the culture
                 </button>

@@ -22,7 +22,7 @@ export function AuthButton({
   onClick?: () => void;
 }) {
   const classes = cn(
-    "gb-magnetic focus-ring group relative inline-flex items-center justify-center gap-2 rounded-pill text-sm font-semibold transition-all duration-200 ease-out",
+    "gb-magnetic focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white group relative inline-flex items-center justify-center gap-2 rounded-pill text-sm font-semibold transition-all duration-200 ease-out",
     variant === "primary" &&
       "bg-brand px-6 py-3.5 text-white hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-[0_12px_32px_rgba(37,99,235,0.24)] active:translate-y-0 active:scale-[0.985]",
     variant === "secondary" &&

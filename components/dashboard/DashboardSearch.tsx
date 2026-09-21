@@ -50,7 +50,7 @@ export function DashboardSearch({
         aria-label={ariaLabel}
         autoComplete="off"
         spellCheck="false"
-        className="w-full rounded-lg border border-slate-200/90 bg-white pl-9 pr-8 py-2 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 shadow-2xs outline-none transition-all duration-150 focus:border-blue-600 focus:ring-1 focus:ring-blue-600/20 font-sans"
+        className="input-fintech w-full pl-9 pr-8 py-2 text-xs sm:text-sm font-sans"
       />
       {value.trim().length > 0 && (
         <button

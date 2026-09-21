@@ -70,7 +70,7 @@ export function DealDetail({ offering }: { offering: Offering }) {
         </div>
 
         {/* Hero */}
-        <div className="mt-5 grid gap-6 rounded-2xl border border-slate-200/90 bg-white p-6 sm:grid-cols-[1.3fr_1fr] sm:items-center sm:gap-8 sm:p-8 shadow-[0_1px_3px_rgba(15,23,42,0.04)]">
+        <div className="card-fintech mt-5 grid gap-6 sm:grid-cols-[1.3fr_1fr] sm:items-center sm:gap-8 sm:p-8">
           <div>
             <h1 className="text-[1.85rem] leading-tight sm:text-[2.25rem] font-extrabold text-slate-900 tracking-tight">
               Welcome to <span className="text-blue-600">{offering.name}</span>

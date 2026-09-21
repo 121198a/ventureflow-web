@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Lock, CheckSquare, Briefcase, Database, Sparkles } from "lucide-react";
+import { Lock, CheckSquare, Briefcase, Database, Search } from "lucide-react";
 import { DocumentFilingIcon } from "@/components/ui/CustomIcons";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +13,7 @@ const pillItems = [
   { label: "Hiring", icon: Briefcase },
   { label: "Deck", icon: DocumentFilingIcon },
   { label: "Data room", icon: Database },
-  { label: "Diligence", icon: Sparkles },
+  { label: "Diligence", icon: Search },
 ];
 
 const tabContentMap: Record<string, { tag: string; title: string; desc: string; metrics: { label: string; value: string }[] }> = {
@@ -88,10 +88,10 @@ export function CompanySpaceSection() {
                   key={item.label}
                   onClick={() => setActivePill(item.label)}
                   className={cn(
-                    "flex items-center gap-2.5 rounded-lg border px-3.5 py-3 text-xs font-semibold transition-all text-left cursor-pointer shadow-2xs",
+                    "flex items-center gap-2.5 rounded-lg border px-3.5 py-2.5 text-xs font-semibold text-left shadow-2xs",
                     isSelected
                       ? "border-blue-300 bg-blue-50 text-blue-600"
-                      : "border-slate-200/90 bg-white text-slate-700 hover:border-slate-300"
+                      : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                   )}
                 >
                   <Icon className={cn("h-4 w-4 shrink-0", isSelected ? "text-blue-600" : "text-slate-600")} />
@@ -158,21 +158,24 @@ export function CompanySpaceSection() {
 
             {/* Tabs */}
             <div className="mt-7 flex flex-col gap-3 border-b border-slate-100 pb-3 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold sm:gap-x-6">
+              <div role="tablist" className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold sm:gap-x-6">
                 {tabs.map((tab) => (
-                  <span
+                  <button
                     key={tab}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeTab === tab}
                     onClick={() => setActiveTab(tab)}
                     className={cn(
-                      "cursor-pointer transition-colors pb-3 -mb-3 flex items-center gap-1 whitespace-nowrap",
+                      "cursor-pointer transition-colors pb-3 -mb-3 flex items-center gap-1 whitespace-nowrap focus-ring",
                       activeTab === tab
-                        ? "text-blue-600 border-b-2 border-blue-600"
-                        : "text-slate-600 hover:text-slate-600"
+                        ? "text-blue-600 border-b-2 border-blue-600 font-bold"
+                        : "text-slate-600 hover:text-slate-900"
                     )}
                   >
                     {tab === "Materials" && <Lock className="h-3 w-3" />}
                     {tab}
-                  </span>
+                  </button>
                 ))}
               </div>
 

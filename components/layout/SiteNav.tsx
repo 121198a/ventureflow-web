@@ -50,9 +50,9 @@ export function SiteNav() {
         initial={{ y: -32, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "border-b border-border bg-card/85 py-3 shadow-[0_10px_30px_rgba(15,23,42,0.06)] backdrop-blur-xl"
+            ? "border-b border-border bg-card/85 py-3 shadow-sm backdrop-blur-xl"
             : "border-b border-transparent py-6"
         }`}
       >
@@ -125,7 +125,7 @@ export function SiteNav() {
             className="fixed inset-0 z-[100] flex flex-col justify-between bg-white/95 p-4 sm:p-6 text-slate-900 lg:hidden overflow-y-auto backdrop-blur-2xl"
           >
             {/* Top Bar inside Overlay */}
-            <div className="relative z-10 mx-auto flex h-[54px] sm:h-[58px] w-full max-w-lg items-center justify-between px-4 sm:px-5 rounded-full bg-white border border-slate-200/80 text-slate-900 shadow-xl backdrop-blur-md">
+            <div className="relative z-10 mx-auto flex h-14 w-full max-w-lg items-center justify-between px-5 rounded-full bg-white border border-slate-200 text-slate-900 shadow-xl backdrop-blur-md">
               <Link
                 href="/careers"
                 onClick={() => setOpen(false)}

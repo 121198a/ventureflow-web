@@ -34,7 +34,7 @@ export function TradeCompete() {
           </p>
         </Reveal>
 
-        <Reveal direction="right" delay={0.1} className="gb-interactive-card order-1 rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-[0_10px_35px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_45px_rgba(15,23,42,0.09)] transition-all lg:order-2">
+        <Reveal direction="right" delay={0.1} className="card-fintech order-1 p-6 sm:p-8 lg:order-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -64,7 +64,7 @@ export function TradeCompete() {
 
           <button
             type="button"
-            className="mt-6 w-full rounded-full bg-blue-600 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-blue-600/20 hover:bg-blue-700 hover:shadow-lg transition-all focus-ring cursor-pointer active:scale-[0.99]"
+            className="btn-pill-primary mt-6 w-full py-3"
           >
             Review order
           </button>
@@ -79,7 +79,7 @@ export function TradeCompete() {
 
       {/* Competitions / Research League Block */}
       <div className="relative z-10 mx-auto mt-24 grid max-w-[1100px] items-center gap-12 lg:grid-cols-2">
-        <Reveal direction="left" className="gb-interactive-card rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-[0_10px_35px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_45px_rgba(15,23,42,0.09)] transition-all">
+        <Reveal direction="left" className="card-fintech p-6 sm:p-8">
           <p className="mb-5 flex items-center gap-2 font-bold text-slate-900 text-base">
             <Trophy size={18} className="text-amber-500" /> Research League Leaderboard
           </p>

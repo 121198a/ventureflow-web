@@ -6,7 +6,7 @@ import {
   ArrowRight,
   FileCheck,
   PieChart,
-  Sparkles,
+  BookOpen,
   TrendingUp,
   Users,
 } from "lucide-react";
@@ -27,14 +27,14 @@ export function CuratedTracks() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <Reveal>
             <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 border border-blue-100">
-              <Sparkles size={13} className="text-blue-600" />
+              <BookOpen size={13} className="text-blue-600" />
               <span>Frameworks & Handbooks</span>
             </div>
             <h2 className="display mt-3 text-[clamp(1.8rem,3.5vw,2.8rem)] font-extrabold tracking-tight text-slate-900">
               Insider Playbooks for Maximum Conviction
             </h2>
             <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl">
-              High-leverage mental models, cap table spreadsheets, and diligence
+              Practical frameworks, cap table tools, and diligence
               frameworks tested across real market outcomes.
             </p>
           </Reveal>
@@ -49,12 +49,12 @@ export function CuratedTracks() {
             return (
               <Reveal key={track.id} delay={i * 0.07}>
                 <motion.div
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  className={`group relative flex flex-col justify-between rounded-2xl p-6 shadow-xs transition-all duration-300 ${
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  className={`card-fintech-interactive group relative flex flex-col justify-between p-6 ${
                     isFirst
-                      ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-blue-500/15"
-                      : "border border-slate-200/90 bg-slate-50/70 hover:border-blue-300 hover:bg-white text-slate-900"
+                      ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white border-blue-600"
+                      : "bg-slate-50/70 hover:bg-white text-slate-900"
                   }`}
                 >
                   <div>

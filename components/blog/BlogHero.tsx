@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, Sparkles } from "lucide-react";
+import { BookOpen, CheckCircle2 } from "lucide-react";
 import { ComplianceShieldIcon } from "@/components/ui/CustomIcons";
 import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/lib/constants";
@@ -40,7 +40,7 @@ export function BlogHero({ totalArticles }: BlogHeroProps) {
         {/* Subtitle */}
         <Reveal delay={0.16}>
           <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            Deep-dive briefings on thesis-driven investing, cap table math,
+            Clear, practical briefings on thesis-driven investing, cap table math,
             venture mechanics, and market signals—written by the operators and
             analysts building {site.name}.
           </p>
@@ -54,11 +54,11 @@ export function BlogHero({ totalArticles }: BlogHeroProps) {
               <span>Immutable Public Ledger</span>
             </div>
             <div className="flex items-center gap-2">
-              <Sparkles size={16} className="text-blue-600" />
+              <CheckCircle2 size={16} className="text-blue-600" />
               <span>Zero Hindsight Revisions</span>
             </div>
             <div className="flex items-center gap-2">
-              <BookOpen size={16} className="text-indigo-600" />
+              <BookOpen size={16} className="text-blue-600" />
               <span>{totalArticles} In-Depth Briefings</span>
             </div>
           </div>

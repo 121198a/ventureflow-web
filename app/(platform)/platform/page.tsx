@@ -59,16 +59,15 @@ export default async function Home() {
             delay={120}
             className="mx-auto mt-7 max-w-[520px] text-[0.95rem] leading-[1.75] text-ink/70"
           >
-            A single platform to review structured deal pages, access founder updates, and complete
-            investments through a registered broker-dealer — with full compliance infrastructure from
-            day one.
+            One platform to review deal terms, follow founder updates, and invest through a registered
+            broker-dealer—with full compliance built in from day one.
           </Reveal>
         </div>
       </section>
 
       <section className="bg-background">
         <div className="mx-auto max-w-[1180px] px-5 py-14 sm:py-20">
-          <Reveal as="p" className="eyebrow text-center">
+          <Reveal as="p" className="text-xs font-semibold text-brand tracking-wider text-center">
             Current Opportunities
           </Reveal>
           <Reveal

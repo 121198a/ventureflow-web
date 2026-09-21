@@ -13,11 +13,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         ref={ref}
         className={cn(
-          "flex w-full rounded-lg border bg-white px-3.5 py-2.5 text-[0.9rem] text-slate-900 placeholder:text-slate-400 transition-all duration-150 shadow-2xs",
-          "border-slate-200 focus-visible:outline-none focus-visible:border-blue-600 focus-visible:ring-3 focus-visible:ring-blue-100",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50",
-          error && "border-rose-500 focus-visible:border-rose-500 focus-visible:ring-rose-100 text-rose-900",
-          success && "border-emerald-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-100",
+          "input-fintech shadow-2xs",
+          error && "border-rose-500 focus:border-rose-500 focus:ring-rose-100 text-rose-900",
+          success && "border-emerald-500 focus:border-emerald-500 focus:ring-emerald-100",
           className
         )}
         aria-invalid={error ? "true" : undefined}
@@ -39,11 +37,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       <textarea
         ref={ref}
         className={cn(
-          "flex min-h-[90px] w-full rounded-lg border bg-white px-3.5 py-2.5 text-[0.9rem] text-slate-900 placeholder:text-slate-400 transition-all duration-150 shadow-2xs",
-          "border-slate-200 focus-visible:outline-none focus-visible:border-blue-600 focus-visible:ring-3 focus-visible:ring-blue-100",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50",
-          error && "border-rose-500 focus-visible:border-rose-500 focus-visible:ring-rose-100 text-rose-900",
-          success && "border-emerald-500 focus-visible:border-emerald-500 focus-visible:ring-emerald-100",
+          "input-fintech min-h-[90px] shadow-2xs",
+          error && "border-rose-500 focus:border-rose-500 focus:ring-rose-100 text-rose-900",
+          success && "border-emerald-500 focus:border-emerald-500 focus:ring-emerald-100",
           className
         )}
         aria-invalid={error ? "true" : undefined}

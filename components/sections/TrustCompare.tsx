@@ -19,7 +19,7 @@ export function TrustCompare() {
         </span>
 
         <h2 className="mx-auto mt-5 max-w-2xl text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
-          <span className="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <span className="text-blue-600">
             <CountUp value={61} suffix="%" />
           </span>{" "}
           of investors under 35 source investment ideas from social feeds.
@@ -36,13 +36,13 @@ export function TrustCompare() {
           </a>
         </p>
         <p className="mx-auto mt-4 max-w-xl text-base sm:text-lg font-normal text-slate-600 leading-relaxed">
-          When market calls are detached from entry points and deadlines, accuracy is impossible to verify. UnBound X fixes the missing ledger.
+          When a market call is not tied to an entry point and a deadline, there is no way to check its accuracy. UnBound X closes that gap with a clear record.
         </p>
       </Reveal>
 
       <div className="relative mx-auto mt-16 grid grid-cols-1 max-w-[1100px] items-stretch gap-8 md:grid-cols-2">
         {/* Without Track Record (Left Side) */}
-        <Reveal direction="left" className="w-full min-w-0 flex flex-col rounded-2xl border border-slate-200/80 bg-slate-50/60 p-6 sm:p-8 shadow-xs">
+        <Reveal direction="left" className="card-fintech w-full min-w-0 flex flex-col bg-slate-50/60 p-6 sm:p-8">
           <div className="flex items-center justify-between mb-4">
             <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Unverified Social Discourse
@@ -95,7 +95,7 @@ export function TrustCompare() {
         </Reveal>
 
         {/* With Track Record (Right Side - UnBound X) */}
-        <Reveal direction="right" className="gb-interactive-card gb-animated-line relative w-full min-w-0 flex flex-col rounded-2xl border-2 border-blue-600 bg-white p-6 sm:p-8 shadow-[0_10px_30px_rgba(30,64,175,0.08)]">
+        <Reveal direction="right" className="card-fintech-featured gb-animated-line relative w-full min-w-0 flex flex-col p-6 sm:p-8">
           <span className="absolute -top-3.5 right-6 inline-flex items-center gap-1 rounded-full bg-blue-600 px-3.5 py-1 text-xs font-bold text-white shadow-xs">
             <ComplianceShieldIcon size={12} />
             <span>UnBound X Verified</span>
@@ -178,7 +178,7 @@ export function TrustCompare() {
         </Reveal>
 
         {/* Floating "vs" Divider */}
-        <span className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-black uppercase text-slate-500 shadow-md md:flex z-20">
+        <span className="badge-fintech absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex z-20 text-slate-500 font-bold uppercase shadow-sm">
           vs
         </span>
       </div>

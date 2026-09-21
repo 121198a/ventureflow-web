@@ -105,7 +105,7 @@ function FilterGroup({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="text-[10px] font-bold tracking-[0.22em] text-muted-foreground uppercase">
+      <span className="text-xs font-bold tracking-wider text-muted-foreground uppercase">
         {label}
       </span>
       {options.map((o) => (

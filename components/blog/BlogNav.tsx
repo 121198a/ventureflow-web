@@ -108,7 +108,7 @@ export function BlogNav() {
             <AuthButton
               flow="signup"
               icon={false}
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-xs sm:text-sm font-semibold px-5 py-2.5 shadow-sm transition-all duration-200"
+              className="hidden sm:inline-flex btn-pill-primary px-5 py-2.5 text-xs sm:text-sm"
             >
               <span>Get started</span>
               <ArrowRight size={14} />
@@ -136,7 +136,7 @@ export function BlogNav() {
             className="fixed inset-0 z-[100] flex flex-col justify-between bg-[#0f172a] p-4 sm:p-6 text-white sm:hidden overflow-y-auto backdrop-blur-xl"
           >
             {/* Top Bar inside Overlay */}
-            <div className="relative z-10 mx-auto flex h-[54px] sm:h-[58px] w-full max-w-lg items-center justify-between px-4 sm:px-5 rounded-full bg-[#1e293b]/90 border border-slate-700/60 text-white shadow-xl backdrop-blur-md">
+            <div className="relative z-10 mx-auto flex h-14 w-full max-w-lg items-center justify-between px-5 rounded-full bg-slate-800/90 border border-slate-700 text-white shadow-xl backdrop-blur-md">
               <div className="flex items-center gap-2.5">
                 <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center">
                   <Image

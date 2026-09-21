@@ -127,7 +127,7 @@ export function ApplyForm({
           autoComplete="name"
           maxLength={100}
           required
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 transition-all focus:border-blue-600 focus:outline-none focus:ring-3 focus:ring-blue-100 shadow-2xs"
+          className="input-fintech"
         />
       </div>
       <div>
@@ -143,7 +143,7 @@ export function ApplyForm({
           autoComplete="email"
           maxLength={255}
           required
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 transition-all focus:border-blue-600 focus:outline-none focus:ring-3 focus:ring-blue-100 shadow-2xs"
+          className="input-fintech"
         />
       </div>
       <div>
@@ -161,7 +161,7 @@ export function ApplyForm({
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="mt-1.5 flex w-full items-center justify-between rounded-xl border border-dashed border-slate-300 bg-slate-50/70 px-4 py-3 text-left text-sm text-slate-600 transition-colors hover:border-blue-500 hover:bg-blue-50/30 cursor-pointer"
+          className="mt-1.5 flex w-full items-center justify-between rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-left text-sm text-slate-600 hover:border-blue-500 hover:bg-blue-50/40 cursor-pointer"
         >
           <span className="truncate">{file ? file.name : "Choose a file…"}</span>
           <Upload size={15} className="text-blue-600 shrink-0" />
@@ -179,7 +179,7 @@ export function ApplyForm({
           rows={5}
           maxLength={5000}
           required
-          className="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 transition-all focus:border-blue-600 focus:outline-none focus:ring-3 focus:ring-blue-100 shadow-2xs"
+          className="input-fintech resize-y"
         />
       </div>
 
@@ -192,7 +192,7 @@ export function ApplyForm({
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3.5 text-center text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-700 disabled:opacity-60 disabled:hover:translate-y-0 cursor-pointer"
+        className="btn-pill-primary w-full cursor-pointer disabled:opacity-60"
       >
         {status === "submitting" ? (
           <>

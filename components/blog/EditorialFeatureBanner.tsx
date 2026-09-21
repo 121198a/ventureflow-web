@@ -16,7 +16,7 @@ export function EditorialFeatureBanner() {
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
               <div className="gb-subtle-grid absolute inset-0 opacity-10" />
               <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-blue-500/15 blur-3xl" />
-              <div className="absolute -bottom-10 left-1/3 h-72 w-72 rounded-full bg-indigo-500/15 blur-3xl" />
+              <div className="absolute -bottom-10 left-1/3 h-72 w-72 rounded-full bg-sky-500/15 blur-3xl" />
             </div>
 
             <div className="relative z-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">

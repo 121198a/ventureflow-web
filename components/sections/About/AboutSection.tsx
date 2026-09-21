@@ -108,13 +108,13 @@ export default function AboutSection() {
             We built the verifiable record-keeping protocol for market research.
           </p>
           <p className="mx-auto mt-2 max-w-xl text-base text-[#5B6478]">
-            Every thesis carries a locked entry, an explicit target price, and a defined time horizon. The market confirms the accuracy.
+            Every thesis includes a locked entry point, an explicit target price, and a fixed time horizon. The market then decides whether the call was right.
           </p>
 
           <div className="mt-9 flex items-center justify-center">
             <AuthButton
               flow="signup"
-              className="rounded-pill bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(10,18,38,0.45)] transition-all duration-200 hover:bg-blue-600 hover:shadow-[0_10px_24px_-8px_rgba(37,99,235,0.55)]"
+              className="btn-pill-primary px-7 py-3.5"
               icon={false}
             >
               <span>Start your record</span>
@@ -131,7 +131,7 @@ export default function AboutSection() {
             Why Traditional Social Investing <br className="hidden sm:block" /> Suffers From an Accountability Problem
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base text-[#5B6478]">
-            Followers can be acquired. Unsuccessful calls can be deleted. Isolated screenshots can be framed. None of them demonstrate whether someone is consistently right.
+            Audience size can be bought. Bad calls can be deleted. Screenshots can be edited to fit a story. None of that proves whether someone is consistently right.
           </p>
         </Reveal>
 
@@ -369,7 +369,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
-            className="mx-auto flex w-full max-w-[1120px] flex-col items-center gap-8 rounded-lg border border-slate-200 bg-white p-6 md:p-10 shadow-[0_25px_60px_rgba(10,18,38,0.2)] backdrop-blur-xl md:flex-row md:justify-between"
+            className="card-fintech mx-auto flex w-full max-w-[1120px] flex-col items-center gap-8 p-6 md:p-10 shadow-xl md:flex-row md:justify-between"
           >
             <div className="text-center md:text-left">
               <h2 className="font-about-display text-[clamp(1.4rem,3vw,1.8rem)] font-extrabold tracking-tight text-[#0A1128]">

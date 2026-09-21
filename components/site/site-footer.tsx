@@ -17,7 +17,7 @@ export function SiteFooter() {
         </div>
 
         <div className="ftr-item links">
-          <h5 className="ftr-heading">Platform</h5>
+          <h3 className="ftr-heading">Platform</h3>
           <ul className="useful-links">
             <li>
               <Link className="ftr-link" href="/investor/login">
@@ -38,7 +38,7 @@ export function SiteFooter() {
         </div>
 
         <div className="ftr-item links">
-          <h5 className="ftr-heading">Legal &amp; Compliance</h5>
+          <h3 className="ftr-heading">Legal &amp; Compliance</h3>
           <ul className="useful-links">
             <li>
               <Link className="ftr-link" href="/legal/ubverse-disclaimer-for-unboundx">
@@ -69,7 +69,7 @@ export function SiteFooter() {
         </div>
 
         <div className="ftr-item links">
-          <h5 className="ftr-heading">Contact</h5>
+          <h3 className="ftr-heading">Contact</h3>
           <ul className="useful-links">
             <li>
               <a
@@ -116,11 +116,11 @@ export function SiteFooter() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <p className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>
-              <strong>Platform Overview:</strong> UBverse is a private markets technology and administrative services platform operated by UnBound X Inc. UBverse is not a registered broker-dealer, investment advisor, or funding portal, and does not provide investment advice, recommendations, or endorsements regarding any investment opportunities available on the platform.
+              <strong>Platform Overview:</strong> UBverse is a technology and administrative platform run by UnBound X Inc. for private markets. UBverse is not a registered broker-dealer, investment advisor, or funding portal. We do not provide investment advice, endorsements, or recommendations for any company on the platform.
             </p>
 
             <p className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>
-              <strong>Broker-Dealer:</strong> Securities are offered through MARV Capital, Inc., an SEC-registered broker-dealer and member of FINRA/SIPC (CRD #104390). All securities-related activity is conducted through MARV Capital, Inc., unless otherwise specified. In the event that a different broker-dealer is engaged for a particular offering, such broker-dealer will be identified on the applicable offering materials, and all securities-related activities for that offering will be conducted through that broker-dealer. You can review the background of MARV Capital and its investment professionals on FINRA&apos;s{" "}
+              <strong>Broker-Dealer:</strong> Securities are offered through MARV Capital, Inc., an SEC-registered broker-dealer and member of FINRA/SIPC (CRD #104390). All securities activity runs through MARV Capital, Inc. unless otherwise stated. If another broker-dealer is used for an offering, that partner will be clearly identified in the deal documents. You can review MARV Capital and its team on FINRA&apos;s{" "}
               <a
                 href="https://www.finra.org/brokercheck"
                 target="_blank"
@@ -133,52 +133,52 @@ export function SiteFooter() {
             </p>
 
             <p className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>
-              <strong>Offering Type:</strong> Offerings on UBverse may be conducted pursuant to Regulation D (including Rule 506(c)), Regulation A (commonly referred to as &ldquo;Regulation A+&rdquo;), Regulation Crowdfunding, or other applicable exemptions from registration under the Securities Act of 1933, as disclosed in the applicable offering materials. Eligibility requirements, including accredited investor status where applicable, and any required investor verification or qualification procedures, will be determined based on the specific exemption relied upon and must be satisfied prior to the acceptance of any investment.
+              <strong>Offering Type:</strong> Offerings on UBverse may use Regulation D (including Rule 506(c)), Regulation A, Regulation Crowdfunding, or other legal exemptions under the Securities Act of 1933. Investor requirements—such as accredited investor verification—depend on the chosen rule and must be completed before any investment is accepted.
             </p>
 
             <p className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>
-              <strong>No Investment Advice:</strong> Neither UBverse nor MARV Capital, Inc. provide investment advice, recommendations, or endorsements regarding any specific investment opportunity. UBverse serves solely as a technology intermediary, facilitating connections between issuers and accredited investors. The appearance of any company on the platform does not constitute an endorsement or solicitation. All investment decisions are the sole responsibility of the investor. You should conduct your own due diligence and consult with qualified financial, legal, and tax advisors before making any investment decision.
+              <strong>No Investment Advice:</strong> Neither UBverse nor MARV Capital, Inc. gives investment advice or endorses any offering. UBverse acts only as a technology platform connecting companies and accredited investors. Showing a company on the site is not a recommendation. All investment decisions are your own responsibility. Please do your own research and speak with financial, legal, and tax advisors before investing.
             </p>
 
             <p className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>
-              <strong>Issuer-Provided Information:</strong> All information on the platform — including company profiles, financial data, projections, and founder statements — is provided by the applicable issuer and has not been independently verified by UBverse or MARV Capital, Inc. Issuers have a direct financial interest in the success of their offerings and may present information in a manner that is incomplete, inaccurate, or inherently favorable. UBverse makes no representation regarding the accuracy, completeness, or reliability of any issuer-provided information. UBverse does not endorse or recommend any issuer, investment, or investor, and display on the platform should not be construed as such.
+              <strong>Issuer-Provided Information:</strong> All company information on the platform—including profiles, numbers, projections, and founder statements—comes directly from the company. It has not been independently verified by UBverse or MARV Capital, Inc. Companies have a financial interest in their offerings and may present favorable views. UBverse does not guarantee the accuracy or completeness of company materials.
             </p>
 
             <p className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>
-              <strong>Testimonials &amp; Endorsements:</strong> The platform may display testimonials, endorsements, or statements from founders, existing investors (including accredited investors, angel investors, venture capital firms, and other institutional or retail investors), or other third parties. These statements reflect the personal opinions of the individuals providing them and may not be representative of the experience of all users or investors. Testimonials are not a guarantee of future performance or success. Persons providing testimonials may have material conflicts of interest, including financial incentives to promote an offering. Where compensation has been provided, it will be disclosed. UBverse does not independently verify testimonials. UBverse, an affiliate of UnBound X Inc., may hold equity or warrants in companies listed on the platform, which may create additional conflicts of interest.
+              <strong>Testimonials &amp; Endorsements:</strong> The platform may show testimonials from founders, investors, or third parties. These represent personal views and may not reflect everyone&apos;s experience. Testimonials do not guarantee future performance. Reviewers may have financial conflicts of interest, which will be disclosed if compensation was given. UBverse does not verify testimonials and may hold equity in listed companies.
             </p>
 
             <p className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>
-              <strong>Investment Risks:</strong> Investments in private securities are speculative, illiquid, and involve substantial risk. You should not invest any funds unless you can afford to lose your entire investment. These investments are suitable only for investors who can bear the economic risk of a total loss and who have sufficient knowledge and experience to evaluate the merits and risks of prospective investments.
+              <strong>Investment Risks:</strong> Private market investments are speculative, illiquid, and carry substantial risk. You should only invest money you can afford to lose completely. These investments are suited only for investors who understand these risks and can bear a total loss.
             </p>
 
             <div className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>
               <strong>Key Risks to Consider:</strong>
               <ul style={{ marginTop: "8px", marginBottom: "0px", paddingLeft: "18px" }}>
                 <li>
-                  <strong>Illiquidity:</strong> There is no established trading market for these securities. You may not be able to sell your investment when desired, and shares are subject to significant restrictions on transfer and resale.
+                  <strong>Illiquidity:</strong> There is no public market for these shares. You may not be able to sell when you want, and transfers are restricted.
                 </li>
                 <li>
-                  <strong>Total Loss:</strong> Many startups and early-stage companies fail. You may lose your entire investment.
+                  <strong>Total Loss:</strong> Early-stage companies carry high risk. You may lose your entire investment.
                 </li>
                 <li>
-                  <strong>Dilution:</strong> Your ownership percentage may be reduced through future fundraising rounds.
+                  <strong>Dilution:</strong> Future funding rounds may reduce your ownership percentage.
                 </li>
                 <li>
-                  <strong>Limited Information:</strong> Private companies provide limited financial information compared to public companies.
+                  <strong>Limited Information:</strong> Private companies share less financial data than public companies.
                 </li>
                 <li>
-                  <strong>Valuation:</strong> Valuations of private companies are highly subjective and may not reflect actual market value.
+                  <strong>Valuation:</strong> Private valuations are subjective and may not reflect real market value.
                 </li>
               </ul>
             </div>
 
             <p className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>
-              <strong>No Regulatory Approval:</strong> This communication is provided for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. No securities regulatory authority has approved or disapproved of any offering on this platform.
+              <strong>No Regulatory Approval:</strong> This material is for informational purposes only. It is not an offer to sell or an invitation to buy any securities. No government or regulatory authority has reviewed or approved any offering on this platform.
             </p>
 
             <p className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>
-              <strong>For Issuers:</strong> Issuers using the platform are solely responsible for compliance with all applicable federal and state securities laws. UBverse does not review, approve, or make any representation regarding the legality, accuracy, or completeness of any offering materials. Use of the platform does not guarantee capital formation, investor participation, or the success of any offering.
+              <strong>For Issuers:</strong> Companies using UBverse are solely responsible for following all federal and state securities laws. UBverse does not review or guarantee the legality or accuracy of offering documents. Using the platform does not guarantee successful fundraising.
             </p>
 
             <p className="pricing-disclaimer-p" style={{ marginBottom: "0px" }}>

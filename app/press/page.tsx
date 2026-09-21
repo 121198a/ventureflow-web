@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SiteShell from "@/components/layout/SiteShell";
 import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
-import { Mail, Download, ArrowUpRight, Sparkles, Newspaper } from "lucide-react";
+import { Mail, Download, ArrowUpRight, Newspaper } from "lucide-react";
 import { ComplianceShieldIcon } from "@/components/ui/CustomIcons";
 import { site, SITE_URL } from "@/lib/constants";
 import {
@@ -41,11 +41,11 @@ export default function PressPage() {
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0f172a08_1px,transparent_1px),linear-gradient(to_bottom,#0f172a08_1px,transparent_1px)] bg-[size:24px_24px]" />
 
             <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-blue-100/40 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-indigo-100/40 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-sky-100/40 blur-3xl" />
 
             <div className="relative z-10 max-w-3xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/90 bg-blue-50/80 px-3.5 py-1 text-xs font-semibold text-blue-800 shadow-2xs">
-                <Sparkles size={13} className="text-blue-600" />
+                <Newspaper size={13} className="text-blue-600" />
                 <span>UnBound X Press Room &amp; Media Kit</span>
                 <span className="h-1 w-1 rounded-full bg-blue-600" />
                 <span className="text-blue-700 font-normal">Official Disclosures</span>
@@ -82,19 +82,19 @@ export default function PressPage() {
             {/* Live Press Metadata Strip */}
             <div className="relative z-10 mt-10 grid grid-cols-2 gap-4 border-t border-slate-200 pt-6 sm:grid-cols-4">
               <div>
-                <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500">Press Contact</span>
+                <span className="block text-[12px] font-bold tracking-[0.08em] text-slate-500">Press contact</span>
                 <span className="mt-1 block text-xs sm:text-sm font-bold text-slate-900">press@unboundxinc.com</span>
               </div>
               <div>
-                <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500">Response SLA</span>
+                <span className="block text-[12px] font-bold tracking-[0.08em] text-slate-500">Response SLA</span>
                 <span className="mt-1 block text-xs sm:text-sm font-bold text-emerald-600">&lt; 24 Business Hours</span>
               </div>
               <div>
-                <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500">Headquarters</span>
+                <span className="block text-[12px] font-bold tracking-[0.08em] text-slate-500">Headquarters</span>
                 <span className="mt-1 block text-xs sm:text-sm font-bold text-slate-900">New York, NY</span>
               </div>
               <div>
-                <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500">Media Kit Version</span>
+                <span className="block text-[12px] font-bold tracking-[0.08em] text-slate-500">Media kit version</span>
                 <span className="mt-1 block text-xs sm:text-sm font-bold text-blue-700">v2026.1 (Current)</span>
               </div>
             </div>
@@ -154,7 +154,7 @@ export default function PressPage() {
               {/* Asset 1 */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Primary Mark</span>
+                  <span className="text-xs font-semibold text-slate-500 tracking-[0.08em]">Primary mark</span>
                   <span className="rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold px-2.5 py-0.5">
                     PNG (512x512)
                   </span>
@@ -185,7 +185,7 @@ export default function PressPage() {
               {/* Asset 2 */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Full Brand Lockup</span>
+                  <span className="text-xs font-semibold text-slate-500 tracking-[0.08em]">Full brand lockup</span>
                   <span className="rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold px-2.5 py-0.5">
                     Vector SVG
                   </span>
@@ -216,9 +216,9 @@ export default function PressPage() {
 
             {/* Brand Usage Rules */}
             <div className="mt-6 rounded-xl border border-slate-200/80 bg-slate-50/60 p-5">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600">
-                Asset Usage &amp; Spacing Rules
-              </h4>
+              <h3 className="text-xs font-bold tracking-[0.08em] text-slate-600">
+                Asset usage &amp; spacing rules
+              </h3>
               <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-600">
                 <div>
                   <strong className="block text-slate-900 mb-0.5">Clear Space</strong>
@@ -237,9 +237,9 @@ export default function PressPage() {
 
             {/* Brand Color Reference */}
             <div className="mt-8">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                Official Brand Colors
-              </h3>
+              <h4 className="text-xs font-bold tracking-[0.08em] text-slate-500">
+                Official brand colors
+              </h4>
               <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {brandColors.map((color) => (
                   <ColorSwatch

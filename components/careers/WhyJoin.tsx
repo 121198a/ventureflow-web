@@ -27,7 +27,7 @@ export function WhyJoin() {
       <div className={`${section} grid gap-12 md:grid-cols-[0.85fr_1.15fr]`}>
         <Reveal>
           <p className="eyebrow">Why join</p>
-          <h2 className="display animated-rule mt-5 inline-block pb-3 text-[clamp(1.9rem,4.5vw,3.2rem)]">
+          <h2 className="display animated-rule mt-5 inline-block pb-3 text-3xl sm:text-4xl lg:text-5xl">
             A place where the work is actually yours.
           </h2>
         </Reveal>

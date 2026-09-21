@@ -7,6 +7,7 @@ import { ArrowRight, LayoutGrid, List as ListIcon } from "lucide-react";
 import { articles } from "@/lib/newsletter-data";
 import type { Article } from "@/lib/newsletter-data";
 import { Reveal } from "./reveal";
+import { cn } from "@/lib/utils";
 
 function BriefCard({ a }: { a: Article }) {
   return (
@@ -122,7 +123,7 @@ export function NewsletterList() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-transparent" />
         <div className="relative max-w-2xl px-5 py-12 sm:px-14 sm:py-20">
-          <Reveal as="p" className="eyebrow text-white/80">
+          <Reveal as="p" className="text-[0.7rem] font-semibold tracking-[0.12em] text-white/80">
             Weekly · On the mechanics of private raises
           </Reveal>
           <Reveal
@@ -132,7 +133,7 @@ export function NewsletterList() {
           >
             The Fundraising Playbook
           </Reveal>
-          <Reveal as="p" delay={140} className="eyebrow mt-8 text-white/80">
+          <Reveal as="p" delay={140} className="mt-8 text-[0.7rem] font-semibold tracking-[0.12em] text-white/80">
             UBverse
           </Reveal>
           <Reveal as="p" delay={160} className="mt-4 text-[1rem] leading-relaxed text-white/90">
@@ -144,7 +145,7 @@ export function NewsletterList() {
               <span className="flex size-11 items-center justify-center rounded-full border border-white/70 text-white transition-colors group-hover:bg-white group-hover:text-navy">
                 <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-0.5" />
               </span>
-              <span className="eyebrow text-white">Read the latest</span>
+              <span className="text-[0.7rem] font-semibold tracking-[0.12em] text-white">Read the latest</span>
             </a>
           </Reveal>
         </div>
@@ -162,10 +163,10 @@ export function NewsletterList() {
                 type="button"
                 onClick={() => setView(v)}
                 aria-pressed={view === v}
-                className={`flex items-center gap-2 px-3.5 py-2 text-[0.8rem] capitalize transition-colors sm:px-5 sm:py-2.5 sm:text-[0.85rem] ${
-                  view === v ? "bg-accent text-brand" : "text-muted-foreground"
-                }`}
-                style={{ fontWeight: view === v ? 600 : 500 }}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm capitalize transition-colors",
+                  view === v ? "bg-accent text-brand font-semibold" : "text-muted-foreground"
+                )}
               >
                 {v === "stacks" ? (
                   <LayoutGrid className="size-4" />

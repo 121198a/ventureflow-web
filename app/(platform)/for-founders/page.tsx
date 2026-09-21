@@ -124,7 +124,7 @@ export default function ForFounders() {
         <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1.75fr_1fr]">
           <Stepper steps={steps} />
 
-          <div className="rounded-lg border border-hairline bg-card p-6 text-center shadow-[0_1px_3px_rgba(16,24,40,0.06)] transition-shadow duration-300 hover:shadow-[0_6px_20px_rgba(16,24,40,0.08)]">
+          <div className="card-fintech p-6 text-center">
             <p className="text-[13.5px] leading-[1.6] text-ink/85">
               With UBverse, fundraising is simple and guided. You focus on your vision, we handle the
               process.

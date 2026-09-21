@@ -26,7 +26,7 @@ export function ClosingCTA() {
             <Magnetic>
               <a
                 href="mailto:careers@unboundxinc.com"
-                className="mt-9 inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-brand-foreground shadow-[0_16px_40px_rgba(37,99,235,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-700"
+                className="btn-pill-primary mt-9"
               >
                 <Mail size={16} aria-hidden />
                 careers@unboundxinc.com

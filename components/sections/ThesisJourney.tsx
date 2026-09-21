@@ -9,7 +9,7 @@ import { FundingTargetIcon } from "@/components/ui/CustomIcons";
 const steps = [
   {
     title: "Formulate a thesis with a target and fixed horizon.",
-    body: "Define your fundamental argument, precise target price, and validation deadline in an institutional framework.",
+    body: "State the core idea, the exact target price, and the deadline for proving it out.",
     chip: "Target $195.00 · Horizon 180d",
   },
   {
@@ -114,10 +114,13 @@ export function ThesisJourney() {
               />
 
               {steps.map((step, i) => (
-                <div
+                <button
                   key={step.title}
+                  type="button"
                   onClick={() => setActive(i)}
-                  className="relative z-10 flex items-start gap-4 cursor-pointer group"
+                  className="relative z-10 flex w-full items-start gap-4 text-left cursor-pointer group rounded-lg p-1 transition-colors focus-ring"
+                  aria-label={`Step ${i + 1}: ${step.title}`}
+                  aria-pressed={active === i}
                 >
                   <div className="flex items-center justify-center pt-1">
                     <span
@@ -157,7 +160,7 @@ export function ThesisJourney() {
                       </motion.div>
                     )}
                   </div>
-                </div>
+                </button>
               ))}
             </div>
 
@@ -165,23 +168,23 @@ export function ThesisJourney() {
             <div className="lg:col-span-5 relative flex justify-center items-center">
               <div
                 aria-hidden="true"
-                className="phone relative w-[230px] h-[360px] min-[380px]:w-[245px] min-[380px]:h-[390px] sm:w-[260px] sm:h-[430px] lg:w-[265px] lg:h-[450px] xl:w-[275px] xl:h-[490px] flex-none rounded-[32px] sm:rounded-[36px] bg-[#070b14] p-[3px] sm:p-[3.5px] shadow-[0_25px_60px_-15px_rgba(5,10,24,0.4),0_12px_28px_-8px_rgba(5,10,24,0.3)] ring-1 ring-white/15 select-none"
+                className="phone-frame-mockup thesis-phone-size"
               >
-                {/* 4-Edge Perimeter Neon Gradient Ribbon */}
+                {/* 4-Edge Perimeter Precision Gradient Ribbon */}
                 <div
                   className="relative h-full w-full rounded-[29px] sm:rounded-[33px] p-[2.5px]"
                   style={{
                     background:
-                      "conic-gradient(from 190deg at 50% 50%, #3b82f6 0deg, #6366f1 60deg, #8b5cf6 120deg, #06b6d4 180deg, #38bdf8 250deg, #1d4ed8 310deg, #3b82f6 360deg)",
-                    boxShadow: "0 0 16px rgba(59, 130, 246, 0.32), inset 0 0 6px rgba(59, 130, 246, 0.32)",
+                      "conic-gradient(from 190deg at 50% 50%, #2563eb 0deg, #0284c7 90deg, #38bdf8 180deg, #1d4ed8 270deg, #2563eb 360deg)",
+                    boxShadow: "0 0 16px rgba(37, 99, 235, 0.25), inset 0 0 6px rgba(37, 99, 235, 0.25)",
                   }}
                 >
                   {/* Outer Bloom */}
                   <div
-                    className="pointer-events-none absolute inset-0 -z-10 rounded-[29px] sm:rounded-[33px] opacity-75 blur-[3px]"
+                    className="pointer-events-none absolute inset-0 -z-10 rounded-[29px] sm:rounded-[33px] opacity-70 blur-[3px]"
                     style={{
                       background:
-                        "conic-gradient(from 190deg at 50% 50%, #3b82f6 0deg, #6366f1 60deg, #8b5cf6 120deg, #06b6d4 180deg, #38bdf8 250deg, #1d4ed8 310deg, #3b82f6 360deg)",
+                        "conic-gradient(from 190deg at 50% 50%, #2563eb 0deg, #0284c7 90deg, #38bdf8 180deg, #1d4ed8 270deg, #2563eb 360deg)",
                     }}
                   />
 
@@ -240,10 +243,10 @@ export function ThesisJourney() {
 
                     {/* Top Action Bar (< and 3-dots) */}
                     <div className="flex h-[18px] items-center justify-between px-3 text-slate-900">
-                      <svg className="h-[13px] w-[13px] cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                      <svg className="h-[13px] w-[13px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
                         <path d="m15 6-6 6 6 6" />
                       </svg>
-                      <span className="flex h-[13px] w-[13px] flex-col items-center justify-center gap-[1.5px] cursor-pointer text-slate-600">
+                      <span className="flex h-[13px] w-[13px] flex-col items-center justify-center gap-[1.5px] text-slate-600">
                         <i className="h-[2px] w-[2px] rounded-pill bg-current" />
                         <i className="h-[2px] w-[2px] rounded-pill bg-current" />
                         <i className="h-[2px] w-[2px] rounded-pill bg-current" />
@@ -364,7 +367,7 @@ export function ThesisJourney() {
                     {/* Sliding Bottom Sheet for Step 2 and 3 */}
                     <div
                       className={cn(
-                        "sheet absolute left-0 right-0 bottom-0 z-30 bg-white rounded-t-[16px] shadow-[0_-6px_25px_rgba(15,23,42,0.16)] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col text-left overflow-hidden p-2 pb-2.5 border-t border-slate-100",
+                        "sheet absolute inset-x-0 bottom-0 z-30 bg-white rounded-t-xl shadow-lg transition-transform duration-500 flex flex-col text-left p-2 border-t border-slate-100",
                         active > 0 ? "translate-y-0" : "translate-y-[105%]"
                       )}
                     >

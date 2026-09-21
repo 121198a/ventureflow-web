@@ -221,7 +221,7 @@ export function SiteNav() {
             <AuthButton
               flow="signup"
               icon={false}
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-pill bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-xs sm:text-sm font-semibold px-5 py-2.5 shadow-sm transition-all duration-200 focus-ring"
+              className="hidden sm:inline-flex btn-pill-primary px-5 py-2.5 text-xs sm:text-sm"
             >
               <span>Start your record</span>
               <ArrowRight size={14} />
@@ -419,7 +419,7 @@ export function SiteFooter() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
-            className="mx-auto flex max-w-[1120px] flex-col items-center gap-8 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(15,23,42,0.08)] backdrop-blur-xl md:flex-row md:justify-between"
+            className="card-fintech mx-auto flex max-w-[1120px] flex-col items-center gap-8 p-6 sm:p-8 md:p-10 shadow-lg md:flex-row md:justify-between"
           >
             <div className="w-full max-w-[280px] shrink-0 rounded-xl border border-slate-200 bg-slate-50/80 p-5 shadow-xs">
               <div className="flex items-center justify-between text-sm font-semibold text-slate-900">

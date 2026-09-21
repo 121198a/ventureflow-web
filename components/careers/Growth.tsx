@@ -40,7 +40,7 @@ export function Growth() {
         <div>
           <Reveal>
             <p className="eyebrow">Growth</p>
-            <h2 className="display mt-5 text-[clamp(1.9rem,4.5vw,3rem)]">
+            <h2 className="display mt-5 text-3xl sm:text-4xl lg:text-5xl">
               We hire for the next two roles, not just this one.
             </h2>
           </Reveal>

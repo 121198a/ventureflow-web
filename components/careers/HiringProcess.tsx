@@ -9,7 +9,7 @@ export function HiringProcess() {
       <div className={section}>
         <Reveal>
           <p className="eyebrow">Hiring process</p>
-          <h2 className="display mt-5 text-[clamp(1.9rem,4.5vw,3.2rem)]">
+          <h2 className="display mt-5 text-3xl sm:text-4xl lg:text-5xl">
             Four steps. Two weeks. No ghosting.
           </h2>
         </Reveal>

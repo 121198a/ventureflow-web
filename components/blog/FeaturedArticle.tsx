@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, TrendingUp } from "lucide-react";
 import { FundingRoundCalendarIcon, GrowthChartIcon } from "@/components/ui/CustomIcons";
 import type { BlogPost } from "@/types/blog";
 
@@ -18,7 +18,7 @@ export function FeaturedArticle({ post }: FeaturedArticleProps) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="group relative overflow-hidden rounded-3xl border border-slate-200/90 bg-gradient-to-br from-white via-white to-blue-50/30 p-4 sm:p-6 lg:p-8 shadow-[0_20px_50px_rgba(15,23,42,0.06)] backdrop-blur-md"
+        className="card-fintech group relative overflow-hidden p-4 sm:p-6 lg:p-8 shadow-md"
       >
         <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           {/* Visual Showcase (Left on desktop, stacked on mobile) */}
@@ -36,7 +36,7 @@ export function FeaturedArticle({ post }: FeaturedArticleProps) {
             {/* Top Category Badge */}
             <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-600/95 px-3 py-1 text-xs font-bold text-white shadow-md backdrop-blur-md">
-                <Sparkles size={12} />
+                <TrendingUp size={12} />
                 Featured Insight
               </span>
               <span className="hidden sm:inline-flex rounded-full bg-slate-900/80 px-2.5 py-0.5 text-xs font-semibold text-slate-200 backdrop-blur-md border border-white/10">
@@ -120,7 +120,7 @@ export function FeaturedArticle({ post }: FeaturedArticleProps) {
 
             {/* CTA action */}
             <div className="mt-7 flex items-center justify-between pt-2">
-              <div className="relative z-10 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(37,99,235,0.25)] transition-all duration-200 group-hover:bg-blue-700 group-hover:shadow-[0_14px_30px_rgba(37,99,235,0.35)]">
+              <div className="btn-pill-primary relative z-10 px-6 py-3">
                 <span>Read full briefing</span>
                 <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
               </div>

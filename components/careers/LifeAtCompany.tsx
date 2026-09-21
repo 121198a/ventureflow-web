@@ -33,7 +33,7 @@ export function LifeAtCompany() {
       <div className={section}>
         <Reveal>
           <p className="eyebrow">Life here</p>
-          <h2 className="display mt-5 max-w-3xl text-[clamp(1.9rem,4.5vw,3.2rem)]">
+          <h2 className="display mt-5 max-w-3xl text-3xl sm:text-4xl lg:text-5xl">
             Deep work, loud opinions, quiet calendars.
           </h2>
         </Reveal>

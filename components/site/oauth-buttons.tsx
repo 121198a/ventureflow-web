@@ -55,7 +55,7 @@ export function OAuthButtons({
           onClick={() => handleOAuth("google")}
           disabled={loadingProvider !== null}
           aria-label="Continue with Google"
-          className="flex items-center justify-center gap-2 rounded-md border border-hairline bg-background py-3 text-[0.85rem] text-ink hover:bg-surface-alt transition-colors active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+          className="btn-pill-secondary rounded-lg py-2.5 text-xs sm:text-sm shadow-2xs disabled:opacity-60"
           style={{ fontWeight: 600 }}
         >
           {loadingProvider === "google" ? (
@@ -88,7 +88,7 @@ export function OAuthButtons({
           onClick={() => handleOAuth("apple")}
           disabled={loadingProvider !== null}
           aria-label="Continue with Apple"
-          className="flex items-center justify-center gap-2 rounded-md border border-hairline bg-background py-3 text-[0.85rem] text-ink hover:bg-surface-alt transition-colors active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+          className="btn-pill-secondary rounded-lg py-2.5 text-xs sm:text-sm shadow-2xs disabled:opacity-60"
           style={{ fontWeight: 600 }}
         >
           {loadingProvider === "apple" ? (

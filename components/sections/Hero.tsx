@@ -38,7 +38,7 @@ import { AmbientLight } from "@/components/motion/AmbientLight";
 import { Magnetic } from "@/components/motion/Magnetic";
 
 const cardBase =
-  "gb-interactive-card rounded-2xl border border-slate-200/90 bg-white/95 p-3.5 shadow-[0_2px_8px_rgba(15,23,42,0.04),0_1px_2px_rgba(15,23,42,0.02)] backdrop-blur-md transition-all duration-300 hover:shadow-[0_12px_28px_rgba(15,23,42,0.08)] hover:border-blue-500/40 hover:-translate-y-1";
+  "card-fintech-interactive p-3.5 bg-white/95 backdrop-blur-xs select-none";
 
 type Card = {
   key: string;
@@ -321,7 +321,7 @@ export function Hero() {
 
       {/* Background ambient lighting */}
       <div className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-full bg-blue-100/60 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-20 h-96 w-96 rounded-full bg-indigo-50/50 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-20 h-96 w-96 rounded-full bg-sky-50/50 blur-3xl" />
       <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[700px] -translate-x-1/2 rounded-full bg-blue-50/40 blur-3xl" />
 
       <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-2 lg:gap-14">
@@ -337,7 +337,7 @@ export function Hero() {
           <Reveal delay={0.08}>
             <h1 className="mt-5 text-[clamp(2.35rem,5.5vw,3.75rem)] font-extrabold leading-[1.08] tracking-tight text-slate-900">
               Every thesis on record. <br />
-              <span className="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="text-blue-600">
                 Tracked to the outcome.
               </span>
             </h1>
@@ -345,7 +345,7 @@ export function Hero() {
 
           <Reveal delay={0.16}>
             <p className="mx-auto mt-5 max-w-lg text-base sm:text-lg leading-relaxed text-slate-600 lg:mx-0">
-              State your price target, horizon, and underlying rationale. UnBound X benchmarks every call against live market pricing to turn opinion into verifiable credibility.
+              Write down your target, the time horizon, and the reason behind the call. UnBound X measures each thesis against live market prices to turn opinion into something you can verify.
             </p>
           </Reveal>
 
@@ -354,7 +354,7 @@ export function Hero() {
               <Magnetic strength={0.2}>
                 <AuthButton
                   flow="signup"
-                  className="rounded-full bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all duration-200 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/25 active:scale-[0.98] focus-ring"
+                  className="btn-pill-primary px-8 focus-visible:ring-offset-2"
                 >
                   Start your record
                 </AuthButton>
@@ -365,8 +365,8 @@ export function Hero() {
                 onClick={() => {
                   scrollToTarget("#thesis");
                 }}
-                className="group inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/80 px-6 py-3.5 text-sm font-semibold text-slate-800 transition-all duration-200 hover:bg-slate-50 hover:border-slate-300 focus-ring cursor-pointer"
-                aria-label="See how it works"
+                className="btn-pill-secondary group cursor-pointer focus-visible:ring-offset-2"
+                aria-label="Review Methodology"
               >
                 <span>Review Methodology</span>
                 <ChevronDown
@@ -388,7 +388,7 @@ export function Hero() {
                 Audited hit &amp; miss accuracy
               </span>
               <span className="flex items-center gap-1.5 text-slate-700">
-                <PartnershipRingsIcon size={14} className="text-indigo-600 shrink-0" />
+                <PartnershipRingsIcon size={14} className="text-blue-600 shrink-0" />
                 Collaborative research Spaces
               </span>
             </div>
@@ -403,7 +403,7 @@ export function Hero() {
           {/* Subtle Ambient Device Pod (Matching reference image depth) */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -inset-6 sm:-inset-10 -z-10 rounded-3xl overflow-hidden bg-gradient-to-b from-sky-50/40 via-white/20 to-slate-50/30 border border-slate-200/50 shadow-[0_20px_50px_-20px_rgba(15,23,42,0.06)]"
+            className="pointer-events-none absolute -inset-6 sm:-inset-10 -z-10 rounded-xl overflow-hidden bg-gradient-to-b from-sky-50/40 via-white/20 to-slate-50/30 border border-slate-200/50 shadow-sm"
           >
             <div className="absolute -top-12 -left-12 h-64 w-64 rounded-full bg-sky-300/20 blur-3xl" />
             <div className="absolute -bottom-12 -right-12 h-64 w-64 rounded-full bg-blue-400/15 blur-3xl" />
@@ -571,7 +571,7 @@ function FeedPreview() {
 
   const mockUsers = [
     { name: "Marcus", tag: "MV", color: "bg-blue-100 text-blue-800" },
-    { name: "Elena", tag: "ES", color: "bg-indigo-100 text-indigo-800" },
+    { name: "Elena", tag: "ES", color: "bg-sky-100 text-sky-800" },
     { name: "David", tag: "DK", color: "bg-slate-100 text-slate-800" },
     { name: "Priya", tag: "PR", color: "bg-emerald-100 text-emerald-800" },
   ] as const;

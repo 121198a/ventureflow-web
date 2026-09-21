@@ -65,7 +65,7 @@ export function ColorSwatch({
       <div>
         <div className={`h-12 w-full rounded-lg border border-slate-100 ${colorClass}`} />
         <p className="mt-3 text-xs font-bold text-slate-900">{name}</p>
-        <p className="mt-1 text-[11px] text-slate-500">{usage}</p>
+        <p className="mt-1 text-xs text-slate-500 leading-snug">{usage}</p>
       </div>
       <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
         <span className="font-mono text-xs font-medium text-slate-600">{hex}</span>

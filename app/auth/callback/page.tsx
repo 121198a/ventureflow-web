@@ -8,6 +8,7 @@ import { Loader2, AlertTriangle, ShieldCheck, CheckCircle2 } from "lucide-react"
 import { isSupabaseConfigured, getSupabaseClient } from "@/lib/supabase/client";
 import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 function AuthCallbackInner() {
   const router = useRouter();
@@ -222,12 +223,12 @@ function AuthCallbackInner() {
 
             <div className="space-y-3 pt-2">
               <label
-                onClick={() => setSelectedRole("investor")}
-                className={`flex items-start gap-3 rounded-xl border p-4 cursor-pointer transition-all ${
+                className={cn(
+                  "flex items-start gap-3 rounded-xl border p-4 cursor-pointer transition-colors",
                   selectedRole === "investor"
                     ? "border-brand bg-brand/5 shadow-xs"
-                    : "border-hairline bg-background hover:bg-surface-alt"
-                }`}
+                    : "border-hairline hover:bg-surface-alt"
+                )}
               >
                 <input
                   type="radio"
@@ -245,12 +246,12 @@ function AuthCallbackInner() {
               </label>
 
               <label
-                onClick={() => setSelectedRole("founder")}
-                className={`flex items-start gap-3 rounded-xl border p-4 cursor-pointer transition-all ${
+                className={cn(
+                  "flex items-start gap-3 rounded-xl border p-4 cursor-pointer transition-colors",
                   selectedRole === "founder"
                     ? "border-brand bg-brand/5 shadow-xs"
-                    : "border-hairline bg-background hover:bg-surface-alt"
-                }`}
+                    : "border-hairline hover:bg-surface-alt"
+                )}
               >
                 <input
                   type="radio"

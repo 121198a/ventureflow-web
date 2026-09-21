@@ -14,7 +14,7 @@ export function UBverseCta() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5 }}
-          className="mx-auto flex w-full max-w-[1120px] flex-col items-start gap-8 rounded-lg border border-slate-200 bg-white p-6 md:p-10 shadow-[0_25px_60px_rgba(10,18,38,0.2)] backdrop-blur-xl md:flex-row md:items-center md:justify-between"
+          className="card-fintech mx-auto flex w-full max-w-[1120px] flex-col items-start gap-8 p-6 md:p-10 shadow-lg md:flex-row md:items-center md:justify-between"
         >
           {/* Left Column */}
           <div className="max-w-xl text-left">
@@ -30,7 +30,7 @@ export function UBverseCta() {
                   existing application flow, not the read-only data feed. */}
               <TransitionLink
                 href="/login?flow=signup"
-                className="inline-flex items-center gap-2 rounded-pill bg-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 transition-all cursor-pointer"
+                className="btn-pill-primary px-6 py-3 text-xs font-bold cursor-pointer"
               >
                 <span>Start your Company Space</span>
                 <ChevronRight className="h-3.5 w-3.5" />
@@ -39,7 +39,7 @@ export function UBverseCta() {
           </div>
 
           {/* Right Column (Dual Links) */}
-          <div className="w-full lg:w-auto flex flex-col sm:flex-row lg:flex-col gap-6 pt-6 lg:pt-0 border-t lg:border-t-0 lg:border-l border-slate-200/80 lg:pl-10 text-left">
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-6 pt-6 lg:pt-0 border-t lg:border-l border-slate-200 lg:pl-10">
             <div>
               <span className="text-xs font-bold text-slate-900 block">
                 Building a company?

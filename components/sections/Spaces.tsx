@@ -46,7 +46,7 @@ export function Spaces() {
   return (
     <section id="spaces" className="relative scroll-mt-24 bg-gradient-to-b from-slate-50/60 via-white to-slate-50/80 border-t border-slate-200/80 px-5 py-20 sm:py-28 overflow-hidden">
       {/* Background Ambient Glow */}
-      <div className="pointer-events-none absolute left-1/3 top-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-indigo-100/40 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/3 top-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-sky-100/40 blur-3xl" />
       <div className="pointer-events-none absolute right-1/4 top-1/4 h-72 w-72 rounded-full bg-blue-100/40 blur-3xl" />
 
       <Reveal className="relative z-10 mx-auto max-w-[900px] text-center">
@@ -57,17 +57,17 @@ export function Spaces() {
 
         <h2 className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
           Formulate, debate, and <br />
-          <span className="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <span className="text-blue-600">
             decide on theses together.
           </span>
         </h2>
 
         <p className="mx-auto mt-4 max-w-xl text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-          Spaces provide investment clubs, collegiate funds, and analyst teams with a structured environment to debate arguments, record consensus votes, and track collective accuracy over time.
+          Spaces give analyst teams, student funds, and investment clubs a clear place to debate ideas, record votes, and track how well the group performs over time.
         </p>
       </Reveal>
 
-      <Reveal delay={0.15} className="relative z-10 mx-auto mt-16 max-w-[860px] overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_10px_35px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_45px_rgba(15,23,42,0.09)] transition-shadow duration-300">
+      <Reveal delay={0.15} className="relative z-10 mx-auto mt-16 max-w-[860px] overflow-hidden rounded-xl border border-slate-200/90 bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
         {/* Cover Header */}
         <div className="h-16 bg-gradient-to-r from-blue-100/80 via-slate-100 to-emerald-50/80 border-b border-slate-100" />
 
@@ -145,10 +145,10 @@ export function Spaces() {
             Space-Approved Position
           </p>
 
-          <div className="gb-interactive-card mt-3 rounded-xl border border-slate-200/90 bg-white p-4 sm:p-5 shadow-xs hover:border-blue-500/30 hover:shadow-md transition-all">
+          <div className="card-fintech mt-3 p-4 sm:p-5">
             <div className="flex items-start justify-between gap-3">
               <div className="flex min-w-0 items-center gap-2.5">
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-indigo-600 text-xs font-bold text-white shadow-xs shrink-0">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-xs shrink-0">
                   SK
                 </span>
                 <div className="min-w-0">
@@ -246,7 +246,7 @@ export function Spaces() {
           Host meetings, share announcements, and control who can view your club&apos;s track record.
         </p>
 
-        <AuthButton flow="signup" className="mt-4 rounded-full bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-md shadow-blue-600/20 hover:bg-blue-700 transition-all active:scale-[0.98]">
+        <AuthButton flow="signup" className="btn-pill-primary mt-4">
           Create your club&apos;s Space
         </AuthButton>
       </Reveal>

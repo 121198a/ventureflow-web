@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import type { BlogPost } from "@/types/blog";
 import { Reveal } from "@/components/motion/Reveal";
@@ -20,7 +20,7 @@ export function RelatedArticles({ posts, currentCategory }: RelatedArticlesProps
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <Reveal>
             <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 border border-blue-100">
-              <Sparkles size={12} />
+              <BookOpen size={12} />
               <span>Continue Reading</span>
             </div>
             <h2 className="display mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">

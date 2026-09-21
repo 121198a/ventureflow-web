@@ -34,7 +34,7 @@ export function BlogSearch({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label="Search articles"
-        className="w-full rounded-full border border-slate-200/90 bg-white py-2.5 pl-10 pr-10 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 shadow-2xs transition-all duration-200 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-hidden focus:ring-3 focus:ring-blue-100"
+        className="input-fintech rounded-full py-2.5 pl-10 pr-10 text-xs sm:text-sm"
       />
 
       {value && (

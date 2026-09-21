@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, TrendingUp } from "lucide-react";
 import { BlogHero } from "@/components/blog/BlogHero";
 import { FeaturedArticle } from "@/components/blog/FeaturedArticle";
 import { ArticleCard } from "@/components/blog/ArticleCard";
@@ -185,7 +185,7 @@ export function BlogClient() {
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <Reveal>
                   <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 border border-blue-100">
-                    <Sparkles size={12} />
+                    <TrendingUp size={12} />
                     <span>Fresh Off the Ledger</span>
                   </div>
                   <h2 className="display mt-3 text-[clamp(1.8rem,3.5vw,2.8rem)] font-extrabold tracking-tight text-slate-900">

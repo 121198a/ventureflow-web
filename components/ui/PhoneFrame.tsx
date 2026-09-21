@@ -82,7 +82,6 @@ export function PhoneFrame({
   showStatusBar = true,
   showHomeIndicator = true,
   withWatermark = false,
-  watermarkText = "",
 }: PhoneFrameProps) {
   const selectedTheme = THEME_GRADIENTS[theme] || THEME_GRADIENTS.hero;
   const gradientStyle = customGradient || selectedTheme.gradient;
@@ -104,7 +103,7 @@ export function PhoneFrame({
       )}
 
       {/* Phone Outer Chassis (Precision Titanium Bezel with Metallic Border) */}
-      <div className="relative h-full w-full rounded-[34px] bg-[#0c1322] p-[3px] shadow-[0_24px_60px_-15px_rgba(15,23,42,0.18),0_10px_24px_-6px_rgba(30,64,175,0.08)] ring-1 ring-slate-400/30 transition-[box-shadow,transform] duration-500 hover:shadow-[0_28px_65px_-12px_rgba(15,23,42,0.22),0_0_25px_rgba(37,99,235,0.12)] sm:rounded-[38px] sm:p-[3.5px]">
+      <div className="relative h-full w-full rounded-[34px] sm:rounded-[38px] bg-[#0c1322] p-[3px] sm:p-[3.5px] shadow-2xl ring-1 ring-slate-400/30">
         {/* Subtle Hardware Side Buttons Hints */}
         <div className="pointer-events-none absolute -left-[5px] top-[72px] h-7 w-[3px] rounded-l-sm bg-slate-600/90" />
         <div className="pointer-events-none absolute -left-[5px] top-[110px] h-10 w-[3px] rounded-l-sm bg-slate-600/90" />
