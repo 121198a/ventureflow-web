@@ -37,31 +37,34 @@ export function OAuthButtons({
     }
   };
 
+  const socialBtn =
+    "inline-flex h-[clamp(2.75rem,5.75vh,3.4rem)] min-w-[11.5rem] flex-1 items-center justify-center gap-[clamp(0.5rem,0.75vw,0.75rem)] rounded-full border border-[#dfe8f3] bg-white px-4 text-[length:clamp(0.875rem,1.05vw,1.1rem)] font-medium text-[#0b1a33] transition-all hover:border-[#c9d7ee] hover:bg-[#f8faff] hover:shadow-[0_4px_16px_-8px_rgba(60,90,200,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30 disabled:cursor-not-allowed disabled:opacity-60";
+  const iconSize = "size-[clamp(1.1rem,1.3vw,1.4rem)] shrink-0";
+
   return (
     <div className={`space-y-3 ${className}`}>
       {localError && (
         <div
           role="alert"
-          className="rounded-md border border-amber-500/30 bg-amber-500/10 p-3 text-[0.8rem] leading-relaxed text-amber-700 dark:text-amber-300"
+          className="rounded-[14px] border border-amber-500/30 bg-amber-500/10 p-3 text-[0.8rem] leading-relaxed text-amber-700"
         >
-          <p className="font-semibold mb-0.5">Configuration Notice</p>
+          <p className="mb-0.5 font-semibold">Configuration Notice</p>
           <p>{localError}</p>
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="flex flex-wrap gap-[clamp(0.6rem,0.85vw,0.9rem)]">
         <button
           type="button"
           onClick={() => handleOAuth("google")}
           disabled={loadingProvider !== null}
           aria-label="Continue with Google"
-          className="btn-pill-secondary rounded-lg py-2.5 text-xs sm:text-sm shadow-2xs disabled:opacity-60"
-          style={{ fontWeight: 600 }}
+          className={socialBtn}
         >
           {loadingProvider === "google" ? (
-            <Loader2 className="size-4 animate-spin text-brand" />
+            <Loader2 className={`${iconSize} animate-spin text-brand`} />
           ) : (
-            <svg viewBox="0 0 48 48" className="size-4" aria-hidden>
+            <svg viewBox="0 0 48 48" className={iconSize} aria-hidden>
               <path
                 fill="#FFC107"
                 d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5Z"
@@ -88,13 +91,12 @@ export function OAuthButtons({
           onClick={() => handleOAuth("apple")}
           disabled={loadingProvider !== null}
           aria-label="Continue with Apple"
-          className="btn-pill-secondary rounded-lg py-2.5 text-xs sm:text-sm shadow-2xs disabled:opacity-60"
-          style={{ fontWeight: 600 }}
+          className={socialBtn}
         >
           {loadingProvider === "apple" ? (
-            <Loader2 className="size-4 animate-spin text-brand" />
+            <Loader2 className={`${iconSize} animate-spin text-brand`} />
           ) : (
-            <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden>
+            <svg viewBox="0 0 24 24" className="size-[clamp(1.2rem,1.5vw,1.6rem)] shrink-0" fill="currentColor" aria-hidden>
               <path d="M17.05 12.04c-.03-2.7 2.2-4 2.3-4.06-1.26-1.84-3.22-2.1-3.92-2.13-1.67-.17-3.26.98-4.1.98-.85 0-2.15-.96-3.54-.93-1.82.03-3.5 1.06-4.44 2.68-1.9 3.29-.49 8.15 1.36 10.82.9 1.31 1.98 2.78 3.39 2.73 1.36-.05 1.87-.88 3.52-.88 1.63 0 2.11.88 3.55.85 1.47-.02 2.4-1.33 3.29-2.65 1.04-1.52 1.47-3 1.49-3.07-.03-.02-2.85-1.1-2.88-4.34ZM14.4 4.02c.75-.9 1.25-2.16 1.11-3.42-1.08.04-2.38.72-3.16 1.61-.7.79-1.31 2.07-1.15 3.29 1.19.09 2.42-.6 3.2-1.48Z" />
             </svg>
           )}

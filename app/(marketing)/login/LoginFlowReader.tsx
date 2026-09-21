@@ -5,8 +5,18 @@ import { useSearchParams } from "next/navigation";
 import { AuthLayout } from "@/components/site/auth-layout";
 import { SignupForm } from "@/components/site/signup-form";
 import { LoginForm } from "@/components/site/login-form";
+import { ChatLauncher } from "@/components/site/chat-launcher";
 
 export function LoginFlowReader() {
+  return (
+    <>
+      <LoginFlowView />
+      <ChatLauncher />
+    </>
+  );
+}
+
+function LoginFlowView() {
   const params = useSearchParams();
   const flow = params.get("flow") === "login" ? "login" : "signup";
   const role = params.get("role") === "investor" ? "investor" : "founder";

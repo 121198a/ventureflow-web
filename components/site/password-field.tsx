@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AUTH_INPUT_CLASS } from "./input-field";
 
 export function PasswordField({
   id,
@@ -11,6 +12,7 @@ export function PasswordField({
   onChange,
   autoComplete = "new-password",
   className,
+  ariaLabel,
 }: {
   id: string;
   placeholder: string;
@@ -18,6 +20,7 @@ export function PasswordField({
   onChange: (value: string) => void;
   autoComplete?: string;
   className?: string;
+  ariaLabel?: string;
 }) {
   const [visible, setVisible] = useState(false);
 
@@ -29,22 +32,26 @@ export function PasswordField({
         type={visible ? "text" : "password"}
         required
         autoComplete={autoComplete}
+        aria-label={ariaLabel}
         data-lpignore="true"
         data-1p-ignore="true"
         data-form-type="other"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-slate-200/90 bg-slate-50/50 px-4 py-3 pr-11 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all"
-        style={{ fontWeight: 500 }}
+        className={cn(AUTH_INPUT_CLASS, "pr-[clamp(2.75rem,3.6vw,3.5rem)]")}
       />
       <button
         type="button"
         onClick={() => setVisible((v) => !v)}
         aria-label={visible ? "Hide password" : "Show password"}
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/50 transition-colors hover:text-ink"
+        className="absolute right-[clamp(0.9rem,1.5vw,1.5rem)] top-1/2 -translate-y-1/2 text-[#0b1a33] transition-colors hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30 rounded"
       >
-        {visible ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+        {visible ? (
+          <EyeOff strokeWidth={2.2} className="size-[clamp(1.1rem,1.3vw,1.4rem)]" />
+        ) : (
+          <Eye strokeWidth={2.2} className="size-[clamp(1.1rem,1.3vw,1.4rem)]" />
+        )}
       </button>
     </div>
   );

@@ -30,7 +30,7 @@ export function ChatLauncher() {
       className="fixed z-40 flex flex-col items-end gap-3"
       style={{
         right: "max(1.25rem, env(safe-area-inset-right))",
-        bottom: "max(1.25rem, env(safe-area-inset-bottom))",
+        bottom: "max(var(--chat-bottom, 1.25rem), env(safe-area-inset-bottom))",
       }}
     >
       {open && (

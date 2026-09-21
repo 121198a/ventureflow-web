@@ -4,8 +4,14 @@ import { FormEvent, Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PasswordField } from "./password-field";
-import { Button } from "@/components/ui/button";
 import { OAuthButtons } from "./oauth-buttons";
+import { AuthDivider, AuthRule } from "./auth-card";
+import {
+  AUTH_LABEL_GAP,
+  AUTH_STACK_GAP,
+  FieldLabel,
+  InputField,
+} from "./input-field";
 import { Loader2 } from "lucide-react";
 
 function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" }) {
@@ -90,14 +96,14 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
 
   if (submitted) {
     return (
-      <div className="w-full rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6 text-center">
-        <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full bg-emerald-100 text-emerald-600">
+      <div className="w-full rounded-[20px] border border-[#e0e8f5] bg-[#f8faff] p-6 text-center">
+        <div className="mx-auto mb-3 grid size-12 place-items-center rounded-full bg-emerald-100 text-emerald-600">
           <svg viewBox="0 0 24 24" className="size-6 stroke-[2.5]" fill="none" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
           </svg>
         </div>
-        <p className="text-base font-bold text-slate-900">Login Successful</p>
-        <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">
+        <p className="text-base font-bold text-[#0b1a33]">Login Successful</p>
+        <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
           Welcome back to your {role === "founder" ? "Founder" : "Investor"} portal. Redirecting to your dashboard...
         </p>
       </div>
@@ -107,46 +113,31 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
   const canSubmit = email.trim().length > 3 && password.length > 0 && !loading;
 
   return (
-    <form className="w-full space-y-4 sm:space-y-4.5" onSubmit={handleSubmit} autoComplete="off">
+    <form className={`flex w-full flex-col ${AUTH_STACK_GAP}`} onSubmit={handleSubmit} autoComplete="off">
       {errorMessage && (
         <div
           role="alert"
-          className="rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-xs leading-relaxed text-destructive"
+          className="rounded-[14px] border border-destructive/30 bg-destructive/10 px-4 py-3 text-xs leading-relaxed text-destructive"
         >
           {errorMessage}
         </div>
       )}
 
-      {/* Email Input */}
-      <div>
-        <label htmlFor="email" className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-900">
-          Enter your email address
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          data-lpignore="true"
-          data-1p-ignore="true"
-          data-form-type="other"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (errorMessage) setErrorMessage(null);
-          }}
-          placeholder="Email"
-          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all"
-          style={{ fontWeight: 500 }}
-        />
-      </div>
+      {/* Email */}
+      <InputField
+        id="email"
+        label="Enter your email address"
+        placeholder="Email"
+        value={email}
+        onChange={(val) => {
+          setEmail(val);
+          if (errorMessage) setErrorMessage(null);
+        }}
+      />
 
-      {/* Password Input */}
-      <div>
-        <label htmlFor="password" className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-900">
-          Enter your password
-        </label>
+      {/* Password */}
+      <div className={`flex flex-col ${AUTH_LABEL_GAP}`}>
+        <FieldLabel htmlFor="password">Enter your password</FieldLabel>
         <PasswordField
           id="password"
           placeholder="Password"
@@ -159,30 +150,40 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
         />
       </div>
 
-      {/* Remember Me & Forgot Password Row */}
-      <div className="flex items-center justify-between pt-0.5 text-xs">
-        <label className="flex items-center gap-2 text-slate-600 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={rememberMe}
-            onChange={(e) => setRememberMe(e.target.checked)}
-            className="size-4 rounded border-slate-300 accent-blue-600 cursor-pointer"
-          />
+      {/* Remember me + Forgot password */}
+      <div className="flex items-center justify-between gap-3 text-[length:clamp(0.85rem,1.02vw,1.1rem)] font-medium">
+        <label className="flex cursor-pointer select-none items-center gap-3 text-[#1c2740]">
+          <span className="relative grid size-[clamp(1.1rem,1.3vw,1.4rem)] shrink-0 place-items-center">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="peer size-full cursor-pointer appearance-none rounded-[5px] border-[1.5px] border-[#8f98a8] bg-white transition-colors checked:border-blue-600 checked:bg-blue-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600/15"
+            />
+            <svg
+              viewBox="0 0 24 24"
+              className="pointer-events-none absolute size-[70%] stroke-white opacity-0 peer-checked:opacity-100"
+              fill="none"
+              strokeWidth="3.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="M5 12.5l4.5 4.5L19 7.5" />
+            </svg>
+          </span>
           <span>Remember me</span>
         </label>
-        <Link
-          href="/legal/support"
-          className="font-medium text-blue-600 hover:text-blue-700 hover:underline"
-        >
+        <Link href="/legal/support" className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-800">
           Forgot Password?
         </Link>
       </div>
 
-      {/* Login Submit Button */}
+      {/* Login */}
       <button
         type="submit"
         disabled={!canSubmit}
-        className="btn-pill-primary w-full py-3 text-sm font-semibold rounded-full shadow-md shadow-blue-600/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all mt-1"
+        className="btn-pill-primary h-[clamp(2.75rem,5.5vh,3.3rem)] w-full text-[length:clamp(1rem,1.14vw,1.2rem)] disabled:cursor-not-allowed disabled:bg-[#c8dffd] disabled:text-white disabled:shadow-none"
       >
         {loading ? (
           <span className="inline-flex items-center gap-2">
@@ -194,27 +195,24 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
         )}
       </button>
 
-      {/* Social Divider */}
-      <div className="pt-2">
-        <div className="flex items-center gap-3 text-micro sm:text-xs text-slate-400 font-medium">
-          <span className="h-px flex-1 bg-slate-200" />
-          Or
-          <span className="h-px flex-1 bg-slate-200" />
-        </div>
-        <div className="mt-3">
-          <OAuthButtons role={role} onError={(msg) => setErrorMessage(msg)} />
-        </div>
+      {/* Social */}
+      <div className="flex flex-col gap-[clamp(0.7rem,1.9vh,1.15rem)]">
+        <AuthDivider />
+        <OAuthButtons role={role} onError={(msg) => setErrorMessage(msg)} />
       </div>
 
-      {/* Bottom Switch to Sign Up */}
-      <div className="border-t border-slate-100 pt-4 mt-2 text-center text-xs text-slate-600">
-        <span>Don&apos;t have an account on UnBound X yet? </span>
-        <Link
-          href={role === "founder" ? "/signup" : "/investor/signup"}
-          className="font-semibold text-blue-600 hover:text-blue-700 hover:underline"
-        >
-          Get Started
-        </Link>
+      {/* Switch to Get Started */}
+      <div className="flex flex-col gap-[clamp(0.9rem,2.7vh,1.6rem)]">
+        <AuthRule />
+        <p className="text-center text-[length:clamp(0.85rem,1.02vw,1.1rem)] font-medium text-[#1c2740]">
+          <span>Don&apos;t have an account on UnBound X yet? </span>
+          <Link
+            href={role === "founder" ? "/signup" : "/investor/signup"}
+            className="whitespace-nowrap font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-800"
+          >
+            Get Started
+          </Link>
+        </p>
       </div>
     </form>
   );
