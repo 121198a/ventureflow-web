@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function LoginRoute() {
   return (
-    <Suspense fallback={<LoginPage />}>
+    <Suspense fallback={<div className="min-h-screen bg-[#f8faff] flex items-center justify-center text-xs text-slate-400">Loading UBverse authentication...</div>}>
       <LoginFlowReader />
     </Suspense>
   );

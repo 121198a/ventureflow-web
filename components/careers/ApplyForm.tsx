@@ -3,6 +3,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { z } from "zod";
 import { CheckCircle2, Loader2, Upload } from "lucide-react";
+import { useFormDraft } from "@/hooks/useFormDraft";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB, matches bucket limit
 const ACCEPTED_TYPES = [
@@ -31,9 +32,11 @@ export function ApplyForm({
   roleTitle: string;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [coverLetter, setCoverLetter] = useState("");
+  const { values, setValues, clearDraft } = useFormDraft(`careers-apply-${roleSlug}`, {
+    name: "",
+    email: "",
+    coverLetter: "",
+  });
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
@@ -42,7 +45,7 @@ export function ApplyForm({
     e.preventDefault();
     if (status === "submitting") return;
 
-    const parsed = schema.safeParse({ name, email, coverLetter });
+    const parsed = schema.safeParse(values);
     if (!parsed.success) {
       setMessage(parsed.error.issues[0]?.message ?? "Please check the form.");
       setStatus("error");
@@ -89,6 +92,7 @@ export function ApplyForm({
         return;
       }
 
+      clearDraft();
       setStatus("success");
     } catch (err) {
       console.error(err);
@@ -104,7 +108,7 @@ export function ApplyForm({
           <CheckCircle2 size={24} />
         </div>
         <p className="text-xs font-bold uppercase tracking-wider text-emerald-800">Application received</p>
-        <p className="mt-2 text-2xl font-extrabold text-slate-900 tracking-tight">Thank you, {name.split(" ")[0]}.</p>
+        <p className="mt-2 text-2xl font-extrabold text-slate-900 tracking-tight">Thank you, {values.name.split(" ")[0] || "Applicant"}.</p>
         <p className="mt-2 text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
           We have received your application for <b className="text-slate-900">{roleTitle}</b>. Our talent team reviews every submission and responds within five business days.
         </p>
@@ -121,8 +125,8 @@ export function ApplyForm({
         <input
           id="apply-name"
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={values.name}
+          onChange={(e) => setValues((prev) => ({ ...prev, name: e.target.value }))}
           placeholder="Your full name"
           autoComplete="name"
           maxLength={100}
@@ -137,8 +141,8 @@ export function ApplyForm({
         <input
           id="apply-email"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={values.email}
+          onChange={(e) => setValues((prev) => ({ ...prev, email: e.target.value }))}
           placeholder="you@example.com"
           autoComplete="email"
           maxLength={255}
@@ -173,8 +177,8 @@ export function ApplyForm({
         </label>
         <textarea
           id="apply-cover"
-          value={coverLetter}
-          onChange={(e) => setCoverLetter(e.target.value)}
+          value={values.coverLetter}
+          onChange={(e) => setValues((prev) => ({ ...prev, coverLetter: e.target.value }))}
           placeholder="Why this role, why you, and links to your best work."
           rows={5}
           maxLength={5000}

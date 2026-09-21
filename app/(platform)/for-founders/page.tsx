@@ -85,8 +85,7 @@ export default function ForFounders() {
               delay={100}
               className="mt-6 max-w-[430px] text-[15px] leading-[1.65] text-ink/80"
             >
-              Run your raise end-to-end on UBverse: investor discovery, smart deal pages, document
-              flows, and guidance at every step.
+              Manage your entire raise on UBverse: find investors, publish your deal page, share documents, and get guidance at every step.
             </Reveal>
 
             <Reveal delay={180} className="mt-8 flex flex-wrap items-center gap-4">

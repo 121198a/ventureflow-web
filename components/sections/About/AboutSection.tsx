@@ -38,13 +38,13 @@ const FOUNDERS = [
     name: "Maneesh Awasthi",
     role: "Co-Founder & CEO",
     photo: ABOUT_PHOTOS[0],
-    bio: "Over two decades in institutional finance across global equities, derivatives, and capital markets infrastructure.",
+    bio: "Over 20 years in institutional finance across global stocks, derivatives, and market trading systems.",
   },
   {
     name: "Arnav Awasthi",
     role: "Co-Founder, COO, Head of Product",
     photo: ABOUT_PHOTOS[1],
-    bio: "Fintech product architect with an engineering background, focused on verifiable record-keeping protocols for retail and private markets.",
+    bio: "Fintech product builder and engineer focused on verified track records for everyday investors and private markets.",
   },
 ] as const;
 
@@ -149,7 +149,7 @@ export default function AboutSection() {
               Paywalls obscure historical accuracy.
             </h3>
             <p className="text-sm leading-relaxed text-[#5B6478]">
-              Communities require payment upfront before you can independently verify their historical success rate.
+              Many trading groups charge upfront fees before you can check whether their past calls were actually right.
             </p>
           </Reveal>
 
@@ -165,7 +165,7 @@ export default function AboutSection() {
               Selective wins conceal broader risk.
             </h3>
             <p className="text-sm leading-relaxed text-[#5B6478]">
-              A single profitable trade provides zero insight into risk management or long-term portfolio performance.
+              One winning trade tells you nothing about risk control or long-term investing skill.
             </p>
           </Reveal>
 
@@ -185,7 +185,7 @@ export default function AboutSection() {
               Audience scale is not performance.
             </h3>
             <p className="text-sm leading-relaxed text-[#5B6478]">
-              A disciplined analyst with 500 followers often generates higher-conviction research than an account with 500,000.
+              A disciplined analyst with 500 followers often does deeper, better research than a popular account with 500,000.
             </p>
           </Reveal>
         </div>

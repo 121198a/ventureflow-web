@@ -97,10 +97,7 @@ export function UBverseRails() {
           </h3>
 
           <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600 sm:text-base">
-            MARV Capital, a registered broker-dealer, handles securities
-            transactions. Anyone can discover companies openly. Access to
-            offering materials and investment is controlled by the rules of
-            each raise.
+            MARV Capital, an SEC-registered broker-dealer, handles the investment transactions. Anyone can explore companies freely, while access to official offering documents follows the legal rules of each raise.
           </p>
         </Reveal>
 

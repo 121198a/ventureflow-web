@@ -63,7 +63,7 @@ export function TrustCompare() {
                   <p className="text-xs text-slate-500">@mavmarkets</p>
                 </div>
               </div>
-              <span className="text-xs text-slate-400 shrink-0 font-medium">2h ago</span>
+              <span className="text-xs text-slate-500 shrink-0 font-medium">2h ago</span>
             </div>
 
             <p className="mt-3 text-sm text-slate-700 leading-snug">
@@ -131,7 +131,7 @@ export function TrustCompare() {
             </p>
 
             <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-              Foundry capacity reservations and hyperscaler capex guidance point to sustained gross margin expansion. Target reflects a 28x multiple on consensus forward earnings.
+              Chip plant bookings and strong cloud spending point to steady profit margin growth. The target price is based on 28 times expected future earnings.
             </p>
 
             <div className="mt-3 flex items-center gap-3 rounded-lg bg-white px-3 py-2 text-xs font-semibold text-slate-700 border border-slate-100 shadow-2xs">

@@ -110,30 +110,46 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
 
   if (submitted) {
     return (
-      <div className="max-w-[440px] rounded-lg border border-hairline bg-surface-alt p-6 text-center">
-        <p className="text-[0.95rem] text-ink" style={{ fontWeight: 600 }}>
+      <div className="w-full rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6 text-center">
+        <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full bg-emerald-100 text-emerald-600">
+          <svg viewBox="0 0 24 24" className="size-6 stroke-[2.5]" fill="none" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+        </div>
+        <p className="text-base font-bold text-slate-900">
           {role === "founder" ? "Application Submitted" : "Account Created"}
         </p>
-        <p className="mt-2 text-[0.85rem] leading-relaxed text-ink/70">
-          Your account has been registered successfully. You can now access your dashboard or confirm your email.
+        <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">
+          {role === "founder"
+            ? "Your founder application has been received. Redirecting you to your founder dashboard..."
+            : "Your investor profile has been created successfully. Redirecting you to your investor portal..."}
         </p>
+        <div className="mt-5">
+          <Link
+            href={role === "founder" ? "/founder/dashboard" : "/investor/dashboard"}
+            className="btn-pill-primary px-6 py-2.5 text-xs font-semibold"
+          >
+            Go to Dashboard &rarr;
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <form className="max-w-[440px] space-y-5" onSubmit={handleSubmit} autoComplete="off">
+    <form className="w-full space-y-4 sm:space-y-4.5" onSubmit={handleSubmit} autoComplete="off">
       {errorMessage && (
         <div
           role="alert"
-          className="rounded-md border border-destructive/30 bg-destructive/10 px-4 py-3 text-[0.85rem] text-destructive"
+          className="rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-xs leading-relaxed text-destructive"
         >
           {errorMessage}
         </div>
       )}
 
+      {/* Email Address */}
       <div>
-        <label htmlFor="email" className="mb-2 block text-[0.9rem] text-ink" style={{ fontWeight: 600 }}>
+        <label htmlFor="email" className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-900">
           What is your email address?
         </label>
         <input
@@ -141,7 +157,7 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
           name="email"
           type="email"
           required
-          autoComplete="off"
+          autoComplete="email"
           data-lpignore="true"
           data-1p-ignore="true"
           data-form-type="other"
@@ -151,86 +167,121 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
             if (errorMessage) setErrorMessage(null);
           }}
           placeholder="Email"
-          className="w-full rounded-md border border-hairline bg-background px-4 py-3 text-[0.9rem] outline-none focus:border-brand"
+          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all"
           style={{ fontWeight: 500 }}
         />
       </div>
 
+      {/* Password */}
       <div>
         <label
           htmlFor="password"
-          className="mb-2 flex items-center gap-1.5 text-[0.9rem] text-ink"
-          style={{ fontWeight: 600 }}
+          className="mb-1.5 flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-900"
         >
-          Set a password for your account
-          {role === "investor" && <Info className="size-3.5 text-muted-foreground" />}
+          <span>Set a password for your account</span>
+          {role === "investor" && <Info className="size-3.5 text-slate-400" />}
         </label>
-        <PasswordField id="password" placeholder="Password" value={password} onChange={setPassword} />
-        {role === "founder" && (
-          <p className="mt-2 text-[0.78rem] leading-relaxed text-muted-foreground">
-            Create a password with at least 8 characters, using an uppercase, lowercase, number, and
-            symbol.
-          </p>
-        )}
+        <PasswordField
+          id="password"
+          placeholder="Password"
+          value={password}
+          onChange={(val) => {
+            setPassword(val);
+            if (errorMessage) setErrorMessage(null);
+          }}
+        />
+        <p className="mt-1.5 text-micro sm:text-xs text-slate-500 leading-relaxed font-normal">
+          Create a password with at least 8 characters, using an uppercase, lowercase, number, and
+          symbol.
+        </p>
       </div>
 
+      {/* Confirm Password */}
       <div>
+        <label htmlFor="confirmPassword" className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-900">
+          Confirm password
+        </label>
         <PasswordField
           id="confirmPassword"
           placeholder="Confirm Password"
           value={confirmPassword}
-          onChange={setConfirmPassword}
+          onChange={(val) => {
+            setConfirmPassword(val);
+            if (errorMessage) setErrorMessage(null);
+          }}
         />
         {confirmPassword.length > 0 && !passwordsMatch && (
-          <p className="mt-2 text-[0.78rem] text-destructive">Passwords do not match.</p>
+          <p className="mt-1 text-micro text-destructive font-medium">Passwords do not match.</p>
         )}
       </div>
 
-      <label className="flex items-start gap-3 text-[0.85rem] leading-relaxed text-ink/85">
+      {/* Agreement Checkbox */}
+      <label className="flex items-start gap-2.5 pt-1 text-xs text-slate-600 leading-relaxed cursor-pointer select-none">
         <input
           type="checkbox"
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
-          className="mt-0.5 size-4 shrink-0 rounded border-hairline accent-[var(--color-brand)]"
+          className="mt-0.5 size-4 shrink-0 rounded border-slate-300 accent-blue-600 cursor-pointer"
         />
         <span>
           By creating an account, I agree to the UBverse{" "}
-          <Link href="/legal/terms-condition" target="_blank" rel="noopener noreferrer" className="text-brand underline">
+          <Link
+            href="/legal/terms-condition"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 underline font-medium"
+          >
             Terms of Use
           </Link>
           ,{" "}
-          <Link href="/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-brand underline">
+          <Link
+            href="/legal/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 underline font-medium"
+          >
             Privacy Policy
           </Link>{" "}
           and{" "}
-          <Link href="/legal/ubverse-disclaimer-for-unboundx" target="_blank" rel="noopener noreferrer" className="text-brand underline">
+          <Link
+            href="/legal/ubverse-disclaimer-for-unboundx"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 underline font-medium"
+          >
             Disclaimer
           </Link>
           .
         </span>
       </label>
 
-      <div className="pt-1">
-        <div className="flex items-center gap-4 text-[0.78rem] text-muted-foreground">
-          <span className="h-px flex-1 bg-hairline" />
-          Or continue with
-          <span className="h-px flex-1 bg-hairline" />
+      {/* Social Divider */}
+      <div className="pt-2">
+        <div className="flex items-center gap-3 text-micro sm:text-xs text-slate-400 font-medium">
+          <span className="h-px flex-1 bg-slate-200" />
+          Or
+          <span className="h-px flex-1 bg-slate-200" />
         </div>
         <div className="mt-3">
           <OAuthButtons role={role} onError={(msg) => setErrorMessage(msg)} />
         </div>
       </div>
 
-      <div className="flex items-center justify-between border-t border-hairline pt-6">
+      {/* Bottom Actions Row: Disclosures & Continue */}
+      <div className="flex items-center justify-between border-t border-slate-100 pt-5 mt-2">
         <Link
           href="/legal/investment-disclaimers"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-[0.85rem] text-brand underline"
+          className="text-xs text-blue-600 hover:text-blue-700 hover:underline font-medium"
         >
           Disclaimers and Disclosures
         </Link>
-        <Button type="submit" disabled={!canContinue}>
+        <button
+          type="submit"
+          disabled={!canContinue}
+          className="btn-pill-primary px-8 py-2.5 text-xs sm:text-sm font-semibold rounded-full shadow-md shadow-blue-600/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all"
+        >
           {loading ? (
             <span className="inline-flex items-center gap-2">
               <Loader2 className="size-4 animate-spin" />
@@ -239,7 +290,7 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
           ) : (
             "Continue"
           )}
-        </Button>
+        </button>
       </div>
     </form>
   );

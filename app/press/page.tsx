@@ -237,9 +237,9 @@ export default function PressPage() {
 
             {/* Brand Color Reference */}
             <div className="mt-8">
-              <h4 className="text-xs font-bold tracking-[0.08em] text-slate-500">
+              <h3 className="text-xs font-bold tracking-[0.08em] text-slate-500">
                 Official brand colors
-              </h4>
+              </h3>
               <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {brandColors.map((color) => (
                   <ColorSwatch
@@ -256,7 +256,7 @@ export default function PressPage() {
             {/* Boilerplate Text for Media Attribution */}
             <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50/70 p-6">
               <div className="flex items-center justify-between gap-4">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                <h3 className="text-xs font-bold tracking-[0.08em] text-slate-500">
                   Boilerplate Description (About UnBound X)
                 </h3>
                 <CopyBoilerplateButton text={companyBoilerplate} />

@@ -167,7 +167,7 @@ export function Spaces() {
             </h3>
 
             <p className="mt-1 text-xs text-slate-600 leading-relaxed font-normal">
-              Membership renewal rates of 93% and private-label basket share gains maintain gross margin expansion despite broader discretionary spending compression.
+              A 93% renewal rate and higher sales of store brands keep profit margins growing, even as overall consumer spending slows.
             </p>
 
             <div className="mt-3.5 flex items-center justify-between rounded-lg bg-slate-50/80 px-3.5 py-2 text-xs font-semibold text-slate-600 border border-slate-100">

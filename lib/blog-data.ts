@@ -309,7 +309,7 @@ export const blogPosts: BlogPost[] = [
     title: "Collaborative Due Diligence: Why High-Signal Angels Are Moving to Spaces",
     subtitle: "How decentralized investor communities pool insights, research, and capital without noise.",
     summary:
-      "Solo angel investing is lonely and inefficient. Group chats are noisy and unorganized. Inside Spaces, accredited investors run shared memos, challenge founder assumptions, and build co-investment syndicates.",
+      "Solo angel investing is tough and disconnected, while group chats get messy fast. Inside Spaces, accredited investors write shared memos, test founder assumptions, and co-invest together.",
     category: "UBverse",
     tag: "Spaces & Syndicates",
     date: "Aug 2026",
@@ -381,7 +381,7 @@ export const blogPosts: BlogPost[] = [
     title: "What Breaks This Company: Finding Your Pitch's Fatal Flaw Before Investors Do",
     subtitle: "Every seasoned investor looks for the weakest link in your model. State it before they find it.",
     summary:
-      "Defensive founders pretend risks don't exist. Elite founders name the existential threat in slide four and show the exact engineering or operational moat they are building to neutralize it.",
+      "Weak founders try to hide real risks. Strong founders name the biggest threats early and explain exactly how their product and operations will handle them.",
     category: "Founders",
     tag: "Risk Analysis",
     date: "Jul 2026",
@@ -407,7 +407,7 @@ export const blogPosts: BlogPost[] = [
     title: "Reg D 506(b) vs. Regulation CF: Navigating Compliant Capital Formation on UBverse",
     subtitle: "The strategic differences between private placement syndicates and public retail offerings.",
     summary:
-      "Choosing between Rule 506(b), 506(c), and Regulation CF determines whether you can solicit investment publicly, how much capital you can raise, and what reporting you owe shareholders.",
+      "Your choice between Rule 506(b), 506(c), and Regulation CF sets key fundraising rules. It decides if you can pitch publicly, how much money you can raise, and what reports you must share with investors.",
     category: "Ventures",
     tag: "Regulatory Frameworks",
     date: "Jul 2026",
@@ -438,7 +438,7 @@ export const blogPosts: BlogPost[] = [
     title: "Senior by Default: How Our Engineering Team Ships Financial Systems with High Trust",
     subtitle: "Fewer people, higher context, real ownership. Inside UnBound X's remote-first product culture.",
     summary:
-      "Why we skipped bloated hierarchies, why craft gets dedicated time and support, and how small senior teams ship reliable market systems faster than much larger teams.",
+      "We avoid deep corporate layers and give quality work dedicated support. Here is how our small senior team ships reliable financial systems faster than larger teams.",
     category: "Craft & Culture",
     tag: "Engineering Culture",
     date: "Jun 2026",
@@ -496,7 +496,7 @@ export const curatedTracks: CuratedTrack[] = [
   {
     id: "cap-table",
     title: "Cap Table Mastery",
-    description: "Understand unallocated option pools, post-money SAFE conversions, and prevent surprise dilution before signing.",
+    description: "Understand employee stock pools, SAFE conversions, and how to avoid surprise dilution before signing.",
     slug: "post-round-ownership-dilution",
     iconName: "PieChart",
     badge: "Essential",
@@ -505,7 +505,7 @@ export const curatedTracks: CuratedTrack[] = [
   {
     id: "thesis-record",
     title: "Thesis Verification",
-    description: "Build an immutable public record of your stock & venture forecasts with locked targets and settlement horizons.",
+    description: "Build a verified public record for your market forecasts with locked target prices and fixed dates.",
     slug: "architecture-of-a-verified-thesis",
     iconName: "TrendingUp",
     badge: "Reputation",
@@ -514,7 +514,7 @@ export const curatedTracks: CuratedTrack[] = [
   {
     id: "pitch-playbook",
     title: "The Pitch Playbook",
-    description: "Master the 5 critical numbers every early-stage founder must answer in 10 seconds flat from memory.",
+    description: "Master the 5 core numbers every startup founder should be able to answer from memory in seconds.",
     slug: "five-critical-numbers",
     iconName: "FileCheck",
     badge: "Fundraising",

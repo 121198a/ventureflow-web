@@ -53,6 +53,22 @@ const tabContentMap: Record<string, { tag: string; title: string; desc: string; 
   },
 };
 
+const pillToTab: Record<string, string> = {
+  "Investor updates": "Updates",
+  "Milestones": "Milestones",
+  "Hiring": "Team",
+  "Deck": "Materials",
+  "Data room": "Materials",
+  "Diligence": "Updates",
+};
+
+const tabToPill: Record<string, string> = {
+  Updates: "Investor updates",
+  Milestones: "Milestones",
+  Team: "Hiring",
+  Materials: "Deck",
+};
+
 export function CompanySpaceSection() {
   const [activeTab, setActiveTab] = useState("Updates");
   const [activePill, setActivePill] = useState("Investor updates");
@@ -86,9 +102,13 @@ export function CompanySpaceSection() {
               return (
                 <button
                   key={item.label}
-                  onClick={() => setActivePill(item.label)}
+                  onClick={() => {
+                    setActivePill(item.label);
+                    const mappedTab = pillToTab[item.label];
+                    if (mappedTab) setActiveTab(mappedTab);
+                  }}
                   className={cn(
-                    "flex items-center gap-2.5 rounded-lg border px-3.5 py-2.5 text-xs font-semibold text-left shadow-2xs",
+                    "flex items-center gap-2.5 rounded-lg border px-3.5 py-2.5 text-xs font-semibold text-left shadow-2xs transition-colors",
                     isSelected
                       ? "border-blue-300 bg-blue-50 text-blue-600"
                       : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
@@ -105,21 +125,21 @@ export function CompanySpaceSection() {
         {/* ========================================================================= */}
         {/* 2. MAIN BROWSER MOCKUP CARD */}
         {/* ========================================================================= */}
-        <div className="mt-4 min-[1061px]:mt-12 mx-auto max-w-[760px] rounded-lg border border-slate-200/90 bg-white shadow-[0_20px_50px_-15px_rgba(15,23,42,0.08)] overflow-hidden text-left">
+        <div className="mt-4 min-[1061px]:mt-12 mx-auto w-full max-w-[760px] rounded-lg border border-slate-200/90 bg-white shadow-[0_20px_50px_-15px_rgba(15,23,42,0.08)] overflow-hidden text-left">
 
           {/* Top Browser Bar */}
-          <div className="relative flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-3 sm:px-5 py-3">
-            <div className="flex items-center gap-1.5 shrink-0">
-              <div className="h-2.5 w-2.5 rounded-pill bg-slate-300" />
-              <div className="h-2.5 w-2.5 rounded-pill bg-slate-300" />
-              <div className="h-2.5 w-2.5 rounded-pill bg-slate-300" />
+          <div className="relative flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-2.5 sm:px-5 py-2.5 sm:py-3 gap-1 sm:gap-2">
+            <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+              <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-pill bg-slate-300" />
+              <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-pill bg-slate-300" />
+              <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-pill bg-slate-300" />
             </div>
 
-            <div className="min-w-0 flex-1 mx-2 sm:mx-4 truncate rounded-pill bg-white border border-slate-200/90 px-3 sm:px-4 py-0.5 text-xs font-medium text-slate-600 shadow-2xs text-center">
+            <div className="min-w-0 flex-1 mx-1 sm:mx-4 truncate rounded-pill bg-white border border-slate-200/90 px-2 sm:px-4 py-0.5 text-[10px] min-[360px]:text-xs font-medium text-slate-600 shadow-2xs text-center">
               unboundx.co/spaces/<span className="font-bold text-slate-700">halden-diagnostics</span>
             </div>
 
-            <div className="w-10 shrink-0 hidden sm:block" />
+            <div className="w-6 sm:w-10 shrink-0 hidden min-[360px]:block" />
           </div>
 
           {/* Card Body */}
@@ -165,7 +185,11 @@ export function CompanySpaceSection() {
                     type="button"
                     role="tab"
                     aria-selected={activeTab === tab}
-                    onClick={() => setActiveTab(tab)}
+                    onClick={() => {
+                      setActiveTab(tab);
+                      const matchedPill = tabToPill[tab];
+                      if (matchedPill) setActivePill(matchedPill);
+                    }}
                     className={cn(
                       "cursor-pointer transition-colors pb-3 -mb-3 flex items-center gap-1 whitespace-nowrap focus-ring",
                       activeTab === tab

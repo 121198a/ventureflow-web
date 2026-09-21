@@ -10,7 +10,7 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 const closes = ["up", "down", "up", "up", "down", "up", "down", "up", "up", "down"] as const;
 
 const fullAiResponse =
-  "Thesis validation depends on data center gross margins staying above 74% and hyperscaler backlog delivery tracking through Q4. Watch the forthcoming 10-Q filing and supplier commentary; both must confirm sustained capacity allocation for the target price to remain viable.";
+  "This thesis holds up if data center margins stay above 74% and suppliers deliver cloud orders through Q4. Watch the upcoming 10-Q filing and supplier updates to confirm production stays on track for the target price.";
 
 export function BeyondFeed() {
   return (
@@ -31,7 +31,7 @@ export function BeyondFeed() {
           </span>
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-          Every call is tied to a concrete security, a transparent price target, a fixed timeline, and an uneditable record.
+          Every call is tied to a real stock, a clear price target, a fixed timeline, and an unchangeable record.
         </p>
       </Reveal>
 
@@ -70,7 +70,7 @@ export function BeyondFeed() {
             <CountUp value={58} suffix="%" className="tabular-numbers text-4xl sm:text-5xl font-black text-slate-900 tracking-tight" />
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-slate-600">Verified Hit Rate</p>
-              <p className="text-[11px] text-emerald-600 font-semibold">+14.2% vs Benchmark</p>
+              <p className="text-[11px] text-emerald-700 font-semibold">+14.2% vs Benchmark</p>
             </div>
           </div>
 

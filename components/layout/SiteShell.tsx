@@ -136,7 +136,7 @@ export function SiteNav() {
                 src="/logo/unboundx-mark.png"
                 width={32}
                 height={32}
-                alt={site.name}
+                alt=""
                 className="h-full w-full object-cover rounded-full transition-transform group-hover:scale-105"
                 priority
               />
@@ -223,7 +223,7 @@ export function SiteNav() {
               icon={false}
               className="hidden sm:inline-flex btn-pill-primary px-5 py-2.5 text-xs sm:text-sm"
             >
-              <span>Start your record</span>
+              <span>Get started</span>
               <ArrowRight size={14} />
             </AuthButton>
 
@@ -257,7 +257,7 @@ export function SiteNav() {
                     src="/logo/unboundx-mark.png"
                     width={28}
                     height={28}
-                    alt={site.name}
+                    alt=""
                     className="h-full w-full object-cover rounded-full"
                   />
                 </div>
@@ -319,7 +319,7 @@ export function SiteNav() {
                   onClick={() => setOpen(false)}
                   className="w-full justify-center inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-7 py-3.5 shadow-lg shadow-blue-600/20 transition-transform active:scale-95"
                 >
-                  <span>Start your record</span>
+                  <span>Get started</span>
                   <ArrowRight size={15} />
                 </AuthButton>
               </div>
@@ -497,7 +497,7 @@ export function SiteFooter() {
                   src="/logo/unboundx-mark.png"
                   width={32}
                   height={32}
-                  alt={site.name}
+                  alt=""
                   className="h-full w-full object-cover rounded-full"
                 />
               </div>
@@ -587,23 +587,23 @@ export function SiteFooter() {
             </div>
           </div>
         </div>
-      </footer>
 
-      <AnimatePresence>
-        {showTop && (
-          <motion.a
-            href="#top"
-            aria-label="Back to top"
-            initial={{ opacity: 0, scale: 0.6, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.6, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 z-40 grid h-10 w-10 place-items-center rounded-pill bg-white text-slate-800 shadow-xl border border-slate-200/80 transition-transform hover:-translate-y-0.5 active:scale-95"
-          >
-            <ArrowUpRight size={16} className="-rotate-45" />
-          </motion.a>
-        )}
-      </AnimatePresence>
+        <AnimatePresence>
+          {showTop && (
+            <motion.a
+              href="#top"
+              aria-label="Back to top"
+              initial={{ opacity: 0, scale: 0.6, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.6, y: 10 }}
+              transition={{ duration: 0.2 }}
+              className="fixed bottom-6 right-6 z-40 grid h-10 w-10 place-items-center rounded-pill bg-white text-slate-800 shadow-xl border border-slate-200/80 transition-transform hover:-translate-y-0.5 active:scale-95"
+            >
+              <ArrowUpRight size={16} className="-rotate-45" />
+            </motion.a>
+          )}
+        </AnimatePresence>
+      </footer>
     </>
   );
 }

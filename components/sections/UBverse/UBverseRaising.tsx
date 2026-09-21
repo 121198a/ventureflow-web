@@ -66,7 +66,7 @@ export function UBverseRaising() {
           <Reveal
             key={d.name}
             delay={i * 0.1}
-            className="card-fintech-interactive p-6"
+            className="card-fintech-interactive p-4 sm:p-6 w-full max-w-full overflow-hidden"
           >
             <div className="flex items-center justify-between gap-3">
               <div className="flex min-w-0 flex-1 items-center gap-3">

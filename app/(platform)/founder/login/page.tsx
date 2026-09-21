@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Access your fundraising dashboard to manage your deal, track investors, and monitor fundraising progress.",
 };
 
-export default function IssuerLogin() {
+export default function FounderLoginPage() {
   return (
     <AuthLayout
       role="founder"

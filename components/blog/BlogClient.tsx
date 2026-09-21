@@ -192,7 +192,7 @@ export function BlogClient() {
                     Our Recent Briefings
                   </h2>
                   <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl">
-                    Stay informed with our latest equity research, founder playbooks, and verified market signals.
+                    Stay current with our latest stock research, founder guides, and verified market signals.
                   </p>
                 </Reveal>
 

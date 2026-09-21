@@ -1,19 +1,26 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 
 export function UBverseCta() {
-  
+  const [mounted, setMounted] = useState(false);
+  const reduce = useReducedMotion();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <div className="relative z-20 mt-24 sm:mt-28">
-      <div className="absolute inset-x-0 top-0 z-20 -translate-y-1/2 px-4">
+    <div className="relative z-20 mt-14 sm:mt-24 md:mt-28 pb-8 sm:pb-0">
+      <div className="relative px-4 sm:absolute sm:inset-x-0 sm:top-0 sm:-translate-y-1/2">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={mounted && !reduce ? { opacity: 0, y: 20 } : false}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.45 }}
           className="card-fintech mx-auto flex w-full max-w-[1120px] flex-col items-start gap-8 p-6 md:p-10 shadow-lg md:flex-row md:items-center md:justify-between"
         >
           {/* Left Column */}

@@ -8,6 +8,7 @@ import { articles } from "@/lib/newsletter-data";
 import type { Article } from "@/lib/newsletter-data";
 import { Reveal } from "./reveal";
 import { cn } from "@/lib/utils";
+import { useFormDraft } from "@/hooks/useFormDraft";
 
 function BriefCard({ a }: { a: Article }) {
   return (
@@ -26,14 +27,14 @@ function BriefCard({ a }: { a: Article }) {
 }
 
 function SubscribeForm() {
-  const [email, setEmail] = useState("");
+  const { values, setValues, clearDraft } = useFormDraft("newsletter-subscribe", { email: "" });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const trimmed = email.trim();
+    const trimmed = values.email.trim();
     if (!trimmed || !trimmed.includes("@")) {
       setError("Please enter a valid email.");
       return;
@@ -53,6 +54,7 @@ function SubscribeForm() {
         setError(data.error || "Subscription failed. Please try again.");
         return;
       }
+      clearDraft();
       setSent(true);
     } catch {
       setError("Network error. Please try again.");
@@ -66,9 +68,9 @@ function SubscribeForm() {
       <input
         type="email"
         required
-        value={email}
+        value={values.email}
         onChange={(e) => {
-          setEmail(e.target.value);
+          setValues({ email: e.target.value });
           if (error) setError(null);
         }}
         placeholder="you@company.com"
@@ -99,8 +101,7 @@ function Sidebar() {
       <Image src="/logo/unboundx-mark.png" alt="" width={44} height={44} className="size-11 rounded-full object-cover shadow-xs" />
       <h2 className="mt-5 font-editorial text-[1.5rem] leading-tight">The Fundraising Playbook</h2>
       <p className="mt-4 text-[0.9rem] leading-[1.75] text-ink/70">
-        A weekly playbook on the mechanics of private raises — closes, data rooms, investor
-        conditions, and the operational discipline institutional counterparties expect.
+        A weekly guide on how private funding rounds work—from data rooms and term sheets to investor updates and closing details.
       </p>
       <SubscribeForm />
     </aside>
@@ -137,8 +138,7 @@ export function NewsletterList() {
             UBverse
           </Reveal>
           <Reveal as="p" delay={160} className="mt-4 text-[1rem] leading-relaxed text-white/90">
-            Closes, data rooms, investor conditions, and the operational discipline institutional
-            counterparties expect — one playbook at a time.
+            Clear guides on deal terms, data rooms, and closing mechanics for private funding rounds.
           </Reveal>
           <Reveal delay={220}>
             <a href="#briefings" className="group mt-10 flex items-center gap-4">

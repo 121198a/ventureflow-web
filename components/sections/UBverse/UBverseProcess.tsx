@@ -48,7 +48,7 @@ export function UBverseProcess() {
               Follow the company before making a decision.
             </h3>
             <p className="mt-4 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed">
-              Investors can review the company, follow its updates, and watch how the business develops over time. When they are ready to invest, MARV Capital handles the paperwork.
+              Investors can follow company updates and watch how the business grows. When they choose to invest, MARV Capital completes the transaction and paperwork.
             </p>
           </Reveal>
         </div>

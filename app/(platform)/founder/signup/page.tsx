@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Complete your founder application to access investors and launch your raise.",
 };
 
-export default function Signup() {
+export default function FounderSignupPage() {
   return (
     <AuthLayout
       role="founder"

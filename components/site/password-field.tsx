@@ -35,7 +35,7 @@ export function PasswordField({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-md border border-hairline bg-background px-4 py-3 pr-11 text-[0.9rem] outline-none focus:border-brand"
+        className="w-full rounded-xl border border-slate-200/90 bg-slate-50/50 px-4 py-3 pr-11 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all"
         style={{ fontWeight: 500 }}
       />
       <button

@@ -5,15 +5,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { NewsletterSignalIcon } from "@/components/ui/CustomIcons";
 import { Reveal } from "@/components/motion/Reveal";
+import { useFormDraft } from "@/hooks/useFormDraft";
 
 export function NewsletterCTA() {
-  const [email, setEmail] = useState("");
+  const { values, setValues, clearDraft } = useFormDraft("blog-newsletter", { email: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const email = values.email.trim();
     if (!email || !email.includes("@")) return;
 
     setLoading(true);
@@ -23,13 +25,14 @@ export function NewsletterCTA() {
       const res = await fetch("/api/newsletter/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({ email }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) {
         setErrorMessage(data.error || "Unable to subscribe. Please try again.");
         return;
       }
+      clearDraft();
       setSubmitted(true);
     } catch {
       setErrorMessage("Network error. Please try again later.");
@@ -87,8 +90,11 @@ export function NewsletterCTA() {
                       <input
                         type="email"
                         required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={values.email}
+                        onChange={(e) => {
+                          setValues({ email: e.target.value });
+                          if (errorMessage) setErrorMessage(null);
+                        }}
                         placeholder="Enter your work email address"
                         className="input-fintech rounded-full py-3.5 pl-11 pr-4 text-sm"
                       />

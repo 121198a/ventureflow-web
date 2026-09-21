@@ -14,12 +14,12 @@ const steps = [
   },
   {
     title: "Benchmark progress against live market pricing.",
-    body: "As market sessions execute, community members evaluate whether underlying catalysts are materializing as forecasted.",
+    body: "As trading days unfold, the community tracks whether key business catalysts play out as predicted.",
     chip: "Live Price Tracking Active",
   },
   {
     title: "Immutable verdict recorded upon horizon close.",
-    body: "Hits and misses are permanently committed to your public ledger. Credibility is calculated through audited accuracy.",
+    body: "Hits and misses stay permanently on your public track record. Your reputation is built on real, audited results.",
     chip: "Verified Hit Recorded · +36.8%",
   },
 ];
@@ -136,13 +136,23 @@ export function ThesisJourney() {
                   <div
                     className={cn(
                       "transition-all duration-300 flex-1",
-                      active === i ? "opacity-100 translate-x-0" : "opacity-35 hover:opacity-60"
+                      active === i ? "translate-x-0" : ""
                     )}
                   >
-                    <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug">
+                    <h3
+                      className={cn(
+                        "text-base sm:text-lg font-bold tracking-tight leading-snug transition-colors",
+                        active === i ? "text-slate-900" : "text-slate-600 group-hover:text-slate-900"
+                      )}
+                    >
                       {step.title}
                     </h3>
-                    <p className="mt-0.5 max-w-md text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    <p
+                      className={cn(
+                        "mt-0.5 max-w-md text-xs sm:text-sm leading-relaxed transition-colors",
+                        active === i ? "text-slate-600" : "text-slate-500 group-hover:text-slate-600"
+                      )}
+                    >
                       {step.body}
                     </p>
 

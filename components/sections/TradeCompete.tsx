@@ -85,9 +85,9 @@ export function TradeCompete() {
           </p>
 
           <div className="grid grid-cols-[auto_1fr_auto] gap-x-3 sm:gap-x-6 gap-y-4 text-xs sm:text-sm border-t border-slate-100 pt-4">
-            <span className="text-micro font-bold uppercase tracking-wider text-slate-400">RANK</span>
-            <span className="text-micro font-bold uppercase tracking-wider text-slate-400">CLUB</span>
-            <span className="text-micro font-bold uppercase tracking-wider text-slate-400 text-right">HIT RATE</span>
+            <span className="text-micro font-bold uppercase tracking-wider text-slate-600">RANK</span>
+            <span className="text-micro font-bold uppercase tracking-wider text-slate-600">CLUB</span>
+            <span className="text-micro font-bold uppercase tracking-wider text-slate-600 text-right">HIT RATE</span>
 
             {leaderboard.map((row) => (
               <Fragment key={row.rank}>

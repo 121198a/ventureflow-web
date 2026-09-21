@@ -26,7 +26,7 @@ export function UBverseMarketplace() {
           <h2 className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
             The next company worth backing <br />
             could be built in{" "}
-            <span className="inline-block text-blue-600 font-black min-w-[140px] text-left">
+            <span className="inline-block text-blue-600 font-black min-w-[110px] sm:min-w-[140px] text-left">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={categories[categoryIndex]}
@@ -51,8 +51,8 @@ export function UBverseMarketplace() {
       </div>
 
       {/* Laptop Frame Preview Window */}
-      <Reveal delay={0.25} className="mt-12 sm:mt-16 w-full max-w-[564px] mx-auto">
-        <div className="flex justify-center">
+      <Reveal delay={0.25} className="mt-12 sm:mt-16 w-full max-w-[564px] mx-auto overflow-hidden px-1">
+        <div className="flex justify-center w-full max-w-full overflow-hidden">
           <LaptopFrame
             alt="UBverse marketplace showcased on a laptop with live capital raises, spotlight startups, and featured deals"
           />

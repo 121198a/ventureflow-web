@@ -78,7 +78,7 @@ export function UBverseJourney() {
               Show what your company has done.
             </h3>
             <p className="mt-4 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed">
-              Share milestones as they happen: your first prototype, new customers, contracts, hires, and deployments. Each update becomes part of the company&apos;s story, giving investors a clearer view of how the business is actually moving.
+              Share milestones as they happen: your first build, new customers, signed contracts, key hires, and rollouts. Each update joins your company history, giving investors a clear view of your progress.
             </p>
           </Reveal>
         </div>

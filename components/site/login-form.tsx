@@ -14,6 +14,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
   const redirectTo = searchParams.get("redirectTo");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -77,7 +78,9 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
         destination = redirectTo;
       }
 
-      router.push(destination);
+      setTimeout(() => {
+        router.push(destination);
+      }, 500);
     } catch {
       setErrorMessage("Network error. Please try again later.");
     } finally {
@@ -87,12 +90,15 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
 
   if (submitted) {
     return (
-      <div className="max-w-[440px] rounded-lg border border-hairline bg-surface-alt p-6 text-center">
-        <p className="text-[0.95rem] text-ink" style={{ fontWeight: 600 }}>
-          Login Successful
-        </p>
-        <p className="mt-2 text-[0.85rem] leading-relaxed text-ink/70">
-          Welcome back to the {role === "founder" ? "Founder" : "Investor"} portal. Redirecting to your dashboard...
+      <div className="w-full rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6 text-center">
+        <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full bg-emerald-100 text-emerald-600">
+          <svg viewBox="0 0 24 24" className="size-6 stroke-[2.5]" fill="none" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+        </div>
+        <p className="text-base font-bold text-slate-900">Login Successful</p>
+        <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">
+          Welcome back to your {role === "founder" ? "Founder" : "Investor"} portal. Redirecting to your dashboard...
         </p>
       </div>
     );
@@ -101,18 +107,19 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
   const canSubmit = email.trim().length > 3 && password.length > 0 && !loading;
 
   return (
-    <form className="max-w-[440px] space-y-5" onSubmit={handleSubmit} autoComplete="off">
+    <form className="w-full space-y-4 sm:space-y-4.5" onSubmit={handleSubmit} autoComplete="off">
       {errorMessage && (
         <div
           role="alert"
-          className="rounded-md border border-destructive/30 bg-destructive/10 px-4 py-3 text-[0.85rem] text-destructive"
+          className="rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-xs leading-relaxed text-destructive"
         >
           {errorMessage}
         </div>
       )}
 
+      {/* Email Input */}
       <div>
-        <label htmlFor="email" className="mb-2 block text-[0.9rem] text-ink" style={{ fontWeight: 600 }}>
+        <label htmlFor="email" className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-900">
           Enter your email address
         </label>
         <input
@@ -120,7 +127,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
           name="email"
           type="email"
           required
-          autoComplete="off"
+          autoComplete="email"
           data-lpignore="true"
           data-1p-ignore="true"
           data-form-type="other"
@@ -130,19 +137,20 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
             if (errorMessage) setErrorMessage(null);
           }}
           placeholder="Email"
-          className="w-full rounded-md border border-hairline bg-background px-4 py-3 text-[0.9rem] outline-none focus:border-brand"
+          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all"
           style={{ fontWeight: 500 }}
         />
       </div>
 
+      {/* Password Input */}
       <div>
-        <label htmlFor="password" className="mb-2 block text-[0.9rem] text-ink" style={{ fontWeight: 600 }}>
+        <label htmlFor="password" className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-900">
           Enter your password
         </label>
         <PasswordField
           id="password"
           placeholder="Password"
-          autoComplete="new-password"
+          autoComplete="current-password"
           value={password}
           onChange={(val) => {
             setPassword(val);
@@ -151,38 +159,62 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
         />
       </div>
 
-      <div className="flex items-center justify-between">
-        <Link href="/legal/support" className="text-[0.9rem] text-brand underline">
+      {/* Remember Me & Forgot Password Row */}
+      <div className="flex items-center justify-between pt-0.5 text-xs">
+        <label className="flex items-center gap-2 text-slate-600 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+            className="size-4 rounded border-slate-300 accent-blue-600 cursor-pointer"
+          />
+          <span>Remember me</span>
+        </label>
+        <Link
+          href="/legal/support"
+          className="font-medium text-blue-600 hover:text-blue-700 hover:underline"
+        >
           Forgot Password?
         </Link>
-        <Button type="submit" disabled={!canSubmit}>
-          {loading ? (
-            <span className="inline-flex items-center gap-2">
-              <Loader2 className="size-4 animate-spin" />
-              Logging in...
-            </span>
-          ) : (
-            "Login"
-          )}
-        </Button>
       </div>
 
-      <div className="pt-1">
-        <div className="flex items-center gap-4 text-[0.78rem] text-muted-foreground">
-          <span className="h-px flex-1 bg-hairline" />
-          Or continue with
-          <span className="h-px flex-1 bg-hairline" />
+      {/* Login Submit Button */}
+      <button
+        type="submit"
+        disabled={!canSubmit}
+        className="btn-pill-primary w-full py-3 text-sm font-semibold rounded-full shadow-md shadow-blue-600/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all mt-1"
+      >
+        {loading ? (
+          <span className="inline-flex items-center gap-2">
+            <Loader2 className="size-4 animate-spin" />
+            Signing in...
+          </span>
+        ) : (
+          "Login"
+        )}
+      </button>
+
+      {/* Social Divider */}
+      <div className="pt-2">
+        <div className="flex items-center gap-3 text-micro sm:text-xs text-slate-400 font-medium">
+          <span className="h-px flex-1 bg-slate-200" />
+          Or
+          <span className="h-px flex-1 bg-slate-200" />
         </div>
         <div className="mt-3">
           <OAuthButtons role={role} onError={(msg) => setErrorMessage(msg)} />
         </div>
       </div>
 
-      <div className="flex items-center justify-between border-t border-hairline pt-6">
-        <p className="text-[0.85rem] text-ink/70">Don&apos;t have an account on UnBound X yet?</p>
-        <Button href={role === "founder" ? "/signup" : "/investor/signup"} size="sm">
+      {/* Bottom Switch to Sign Up */}
+      <div className="border-t border-slate-100 pt-4 mt-2 text-center text-xs text-slate-600">
+        <span>Don&apos;t have an account on UnBound X yet? </span>
+        <Link
+          href={role === "founder" ? "/signup" : "/investor/signup"}
+          className="font-semibold text-blue-600 hover:text-blue-700 hover:underline"
+        >
           Get Started
-        </Button>
+        </Link>
       </div>
     </form>
   );

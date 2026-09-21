@@ -76,7 +76,7 @@ const cards: Card[] = [
   {
     key: "google",
     side: "left",
-    desktop: "left-[-125px] xl:left-[-150px] top-6 hidden w-[155px] lg:block",
+    desktop: "left-[-125px] xl:left-[-115px] top-6 hidden w-[155px] lg:block",
     body: (
       <>
         <div className="flex items-center justify-between">
@@ -100,7 +100,7 @@ const cards: Card[] = [
   {
     key: "apple",
     side: "right",
-    desktop: "right-[-120px] xl:right-[-145px] top-4 hidden w-[150px] lg:block",
+    desktop: "right-[-120px] xl:right-[-115px] top-4 hidden w-[150px] lg:block",
     body: (
       <>
         <div className="flex items-center justify-between">
@@ -124,7 +124,7 @@ const cards: Card[] = [
   {
     key: "tesla",
     side: "left",
-    desktop: "left-[-135px] xl:left-[-160px] top-[38%] hidden xl:block w-[165px]",
+    desktop: "left-[-135px] xl:left-[-125px] top-[38%] hidden xl:block w-[165px]",
     body: (
       <>
         <div className="flex items-center justify-between">
@@ -148,7 +148,7 @@ const cards: Card[] = [
   {
     key: "research",
     side: "right",
-    desktop: "right-[-135px] xl:right-[-160px] top-[36%] hidden xl:block w-[165px]",
+    desktop: "right-[-135px] xl:right-[-120px] top-[36%] hidden xl:block w-[165px]",
     body: (
       <>
         <div className="flex items-center gap-1.5">
@@ -164,7 +164,7 @@ const cards: Card[] = [
   {
     key: "space",
     side: "left",
-    desktop: "left-[-140px] xl:left-[-165px] bottom-10 hidden 2xl:block w-[190px]",
+    desktop: "left-[-140px] xl:left-[-125px] bottom-10 hidden 2xl:block w-[190px]",
     body: (
       <>
         <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Space Activity</p>
@@ -176,7 +176,7 @@ const cards: Card[] = [
   {
     key: "rank",
     side: "right",
-    desktop: "right-[-120px] xl:right-[-145px] bottom-8 hidden w-[150px] lg:block",
+    desktop: "right-[-120px] xl:right-[-105px] bottom-8 hidden w-[170px] lg:block",
     body: (
       <>
         <div className="flex items-center justify-between">

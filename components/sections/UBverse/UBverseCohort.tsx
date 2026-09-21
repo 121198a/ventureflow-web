@@ -50,8 +50,10 @@ export function UBverseCohort() {
                 key={c.name}
                 onMouseEnter={() => c.popup && setHovered(c.name)}
                 onMouseLeave={() => c.popup && setHovered(null)}
+                onClick={() => c.popup && setHovered(hovered === c.name ? null : c.name)}
                 className={
                   "relative flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 rounded-lg px-3.5 py-3 transition-colors " +
+                  (c.popup ? "cursor-pointer " : "") +
                   (c.active
                     ? "bg-blue-50/70 border border-blue-100"
                     : "hover:bg-slate-50")
