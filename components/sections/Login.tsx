@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { FormEvent, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 import { site } from "@/lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,8 +11,19 @@ import { Loader2 } from "lucide-react";
 import { initiateOAuthSignIn } from "@/lib/supabase/client";
 
 export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "signup" | "login" }) {
-  const [mode, setMode] = useState<"signup" | "login">(initialFlow);
-  const [role, setRole] = useState<"investor" | "founder">("investor");
+  const searchParams = useSearchParams();
+  const flowParam = searchParams?.get("flow");
+  const roleParam = searchParams?.get("role");
+
+  const [mode, setMode] = useState<"signup" | "login">(() => {
+    if (flowParam === "login") return "login";
+    if (flowParam === "signup") return "signup";
+    return initialFlow;
+  });
+  const [role] = useState<"investor" | "founder">(() => {
+    if (roleParam === "founder") return "founder";
+    return "investor";
+  });
   const [emailMode, setEmailMode] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -188,39 +200,27 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                 transition={{ duration: 0.25 }}
               >
                 <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 inline-block">
-                  {isSignup ? `Join ${site.name}` : "Welcome back"}
+                  {isSignup ? (
+                    <>
+                      <span className="text-[#FF4A22]">Join</span>{" "}
+                      <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
+                        UnBound X
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-[#FF4A22]">Log in to</span>{" "}
+                      <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
+                        UnBound X
+                      </span>
+                    </>
+                  )}
                 </h1>
-                <p className="mx-auto mt-2.5 max-w-[340px] text-xs sm:text-sm leading-relaxed text-slate-500">
+                <p className="mx-auto mt-2 max-w-[340px] text-xs sm:text-sm leading-relaxed text-slate-500">
                   {isSignup
                     ? "Discover better investment ideas, track them against the market, and invest with more clarity."
                     : "Log in to keep tracking your theses and building your verified record."}
                 </p>
-
-                {/* Role Switcher */}
-                <div className="mt-6 inline-flex p-1 rounded-full bg-slate-100/90 border border-slate-200 text-xs">
-                  <button
-                    type="button"
-                    onClick={() => setRole("investor")}
-                    className={`px-4 py-1.5 rounded-full font-semibold transition-all ${
-                      role === "investor"
-                        ? "bg-white text-slate-900 shadow-xs"
-                        : "text-slate-500 hover:text-slate-800"
-                    }`}
-                  >
-                    Investor Portal
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setRole("founder")}
-                    className={`px-4 py-1.5 rounded-full font-semibold transition-all ${
-                      role === "founder"
-                        ? "bg-white text-slate-900 shadow-xs"
-                        : "text-slate-500 hover:text-slate-800"
-                    }`}
-                  >
-                    Founder / Issuer
-                  </button>
-                </div>
 
                 {oauthError && (
                   <div
@@ -233,20 +233,20 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                 )}
 
                 {/* Social Login Buttons */}
-                <div className="mt-6 space-y-3">
+                <div className="mt-8 space-y-3">
                   <button
                     type="button"
                     onClick={() => handleOAuth("google")}
                     disabled={loadingProvider !== null}
                     aria-label="Continue with Google"
-                    className="btn-pill-secondary h-12 w-full cursor-pointer shadow-xs disabled:opacity-60"
+                    className="w-full h-12 inline-flex items-center justify-center gap-3 rounded-full border border-slate-200/90 bg-white/90 px-6 text-sm font-medium text-slate-700 shadow-2xs hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer disabled:opacity-60"
                   >
                     {loadingProvider === "google" ? (
                       <Loader2 className="size-4 animate-spin text-blue-600" />
                     ) : (
                       <GoogleIcon />
                     )}
-                    Continue with Google
+                    <span>Continue with Google</span>
                   </button>
 
                   <button
@@ -254,21 +254,21 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                     onClick={() => handleOAuth("apple")}
                     disabled={loadingProvider !== null}
                     aria-label="Continue with Apple"
-                    className="btn-pill-secondary h-12 w-full cursor-pointer shadow-xs disabled:opacity-60"
+                    className="w-full h-12 inline-flex items-center justify-center gap-3 rounded-full border border-slate-200/90 bg-white/90 px-6 text-sm font-medium text-slate-700 shadow-2xs hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer disabled:opacity-60"
                   >
                     {loadingProvider === "apple" ? (
                       <Loader2 className="size-4 animate-spin text-blue-600" />
                     ) : (
                       <AppleIcon />
                     )}
-                    Continue with Apple
+                    <span>Continue with Apple</span>
                   </button>
                 </div>
 
                 {/* Divider */}
                 <div className="my-5 flex items-center gap-4">
                   <div className="h-px flex-1 bg-slate-200" />
-                  <span className="text-xs font-medium text-slate-400">or</span>
+                  <span className="text-xs font-normal text-slate-400">or</span>
                   <div className="h-px flex-1 bg-slate-200" />
                 </div>
 
@@ -276,7 +276,7 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                 <button
                   type="button"
                   onClick={() => setEmailMode(true)}
-                  className="btn-pill-primary h-12 w-full cursor-pointer"
+                  className="w-full h-12 inline-flex items-center justify-center rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-md shadow-blue-600/20 hover:shadow-lg hover:shadow-blue-600/25 active:scale-[0.98] transition-all cursor-pointer"
                 >
                   Continue with email
                 </button>

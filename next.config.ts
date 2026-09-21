@@ -27,7 +27,7 @@ const securityHeaders = [
 
 // Determine build output mode:
 // - 'standalone' (default): Generates a minimal, self-contained server bundle in .next/standalone.
-//   Essential for low-memory VPS, Hostinger Node.js, AWS App Runner/Lightsail, Docker, and free-tier containers.
+//   Essential for low-memory VPS, Hostinger Node.js, Docker, and free-tier containers.
 // - undefined: Standard server build (used if NEXT_OUTPUT_STANDALONE=false).
 const isStandalone = process.env.NEXT_OUTPUT_STANDALONE !== 'false';
 const isUnoptimizedImages =

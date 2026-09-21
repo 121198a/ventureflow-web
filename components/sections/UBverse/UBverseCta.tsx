@@ -57,6 +57,7 @@ export function UBverseCta() {
               >
                 Start your Company Space
               </TransitionLink>
+              
             </div>
             <div>
               <span className="text-xs font-bold text-slate-900 block">

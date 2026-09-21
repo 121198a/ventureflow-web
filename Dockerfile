@@ -1,6 +1,5 @@
 # Multi-stage production Dockerfile for Next.js (Standalone mode)
-# Compatible with: AWS App Runner, AWS Lightsail Containers, Render, Railway, Fly.io,
-# Coolify, CapRover, or any standard Docker/VPS environment.
+# Compatible with: Render, Railway, Fly.io, Coolify, CapRover, or any standard Docker/VPS environment.
 # Keeps final image size minimal (~120MB) and memory usage low (~60-90MB).
 
 FROM node:20-alpine AS base

@@ -64,14 +64,12 @@ export function UBverseHero() {
           transition={{ duration: 0.45, delay: 0.24 }}
           className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
         >
-          {/* Primary Glow CTA — "Create your company Space" is a founder
-              sign-up intent, so it goes to the existing founder application
-              flow rather than the read-only company data feed. */}
+          {/* Primary Glow CTA — "Start your Company Space" goes to the login/signup page */}
           <TransitionLink
             href="/login?flow=signup"
             className="btn-pill-primary group w-full sm:w-auto pl-5 pr-2 min-[360px]:pl-7 min-[360px]:pr-2.5 py-2 text-xs min-[360px]:text-sm cursor-pointer"
           >
-            <span>Create your company Space</span>
+            <span>Start your Company Space</span>
             <span className="flex h-8 w-8 items-center justify-center rounded-pill bg-white/20 group-hover:bg-white/30 transition-colors">
               <ArrowRight className="h-4 w-4 text-white group-hover:translate-x-0.5 transition-transform" />
             </span>

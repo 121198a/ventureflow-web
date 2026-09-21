@@ -1,4 +1,4 @@
-// PM2 process management configuration for Hostinger VPS, AWS EC2/Lightsail,
+// PM2 process management configuration for Hostinger VPS, Linux VPS,
 // DigitalOcean Droplets, Hetzner Cloud, and other Node.js hosting environments.
 // Usage:
 //   pm2 start ecosystem.config.cjs

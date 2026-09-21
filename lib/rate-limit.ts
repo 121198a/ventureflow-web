@@ -55,7 +55,7 @@ export function resetRateLimit(identifier: string) {
 /**
  * Resolves the client IP address across diverse hosting platforms:
  * - Cloudflare (cf-connecting-ip)
- * - Vercel / Netlify / AWS ALB / Nginx (x-forwarded-for, x-real-ip)
+ * - Vercel / Netlify / Nginx (x-forwarded-for, x-real-ip)
  * - Hostinger / VPS reverse proxies
  */
 export function getClientIp(request: Request): string {

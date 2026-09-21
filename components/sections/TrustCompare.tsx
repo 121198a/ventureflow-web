@@ -95,84 +95,86 @@ export function TrustCompare() {
         </Reveal>
 
         {/* With Track Record (Right Side - UnBound X) */}
-        <Reveal direction="right" className="card-fintech-featured gb-animated-line relative w-full min-w-0 flex flex-col p-6 sm:p-8">
-          <span className="absolute -top-3.5 right-6 inline-flex items-center gap-1 rounded-full bg-blue-600 px-3.5 py-1 text-xs font-bold text-white shadow-xs">
+        <Reveal direction="right" className="relative w-full min-w-0 flex flex-col">
+          <span className="absolute -top-3.5 right-6 z-10 inline-flex items-center gap-1 rounded-full bg-blue-600 px-3.5 py-1 text-xs font-bold text-white shadow-xs">
             <ComplianceShieldIcon size={12} />
             <span>UnBound X Verified</span>
           </span>
 
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-xs font-bold uppercase tracking-wider text-blue-700">
-              Audited Public Ledger
-            </p>
-            <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-micro font-bold text-blue-700 border border-blue-100">
-              Immutable
-            </span>
-          </div>
+          <div className="card-fintech-featured gb-animated-line relative w-full min-w-0 flex-1 flex flex-col p-6 sm:p-8">
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-xs font-bold uppercase tracking-wider text-blue-700">
+                Audited Public Ledger
+              </p>
+              <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-micro font-bold text-blue-700 border border-blue-100">
+                Immutable
+              </span>
+            </div>
 
-          <div className="flex-1 rounded-xl border border-slate-200/90 bg-slate-50/50 p-4 sm:p-5 shadow-xs">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-xs shrink-0">
+            <div className="flex-1 rounded-xl border border-slate-200/90 bg-slate-50/50 p-4 sm:p-5 shadow-xs">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-xs shrink-0">
+                    JM
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-slate-900 leading-tight">Jacob Martin</p>
+                    <p className="text-xs text-slate-500">@jmartin &middot; Verified Analyst</p>
+                  </div>
+                </div>
+                <span className="flex items-center gap-1 text-xs text-slate-500 font-medium shrink-0">
+                  90d ago <MoreVertical size={13} />
+                </span>
+              </div>
+
+              <p className="mt-3 text-sm font-bold text-slate-900 leading-snug">
+                Semiconductor valuation rerates as data center capacity commitments expand through Q4
+              </p>
+
+              <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+                Chip plant bookings and strong cloud spending point to steady profit margin growth. The target price is based on 28 times expected future earnings.
+              </p>
+
+              <div className="mt-3 flex items-center gap-3 rounded-lg bg-white px-3 py-2 text-xs font-semibold text-slate-700 border border-slate-100 shadow-2xs">
+                <span>Target <b className="text-slate-900 font-bold">$280</b></span>
+                <span className="text-slate-300">|</span>
+                <span>Horizon <b className="text-slate-900 font-bold">90d</b></span>
+              </div>
+
+              <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <span className="flex items-center gap-3 text-slate-500 font-medium">
+                  <span className="flex items-center gap-1"><ThumbsUp size={13} /> 100</span>
+                  <span className="flex items-center gap-1"><MessageCircle size={13} /> 734</span>
+                </span>
+
+                <span className="flex flex-wrap items-center gap-1.5">
+                  <span className="flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 font-bold text-emerald-700 border border-emerald-200 text-micro">
+                    <CheckCircle2 size={12} /> Hit
+                  </span>
+                  <span className="rounded-full bg-slate-100 px-2 py-0.5 font-semibold text-slate-700 text-micro">
+                    $NVDA
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-4 flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
+              <div className="flex min-w-0 flex-1 items-center gap-2.5">
+                <span className="grid h-9 w-9 place-items-center rounded-lg bg-blue-600 text-xs font-bold text-white shadow-xs shrink-0">
                   JM
                 </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-bold text-slate-900 leading-tight">Jacob Martin</p>
-                  <p className="text-xs text-slate-500">@jmartin &middot; Verified Analyst</p>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-bold text-slate-900 leading-tight">Jacob&apos;s Audited Record</p>
+                  <p className="text-xs text-slate-500 truncate sm:whitespace-normal">41 published theses &middot; 24 confirmed hits &middot; 17 misses publicly archived</p>
                 </div>
               </div>
-              <span className="flex items-center gap-1 text-xs text-slate-500 font-medium shrink-0">
-                90d ago <MoreVertical size={13} />
-              </span>
-            </div>
 
-            <p className="mt-3 text-sm font-bold text-slate-900 leading-snug">
-              Semiconductor valuation rerates as data center capacity commitments expand through Q4
-            </p>
-
-            <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-              Chip plant bookings and strong cloud spending point to steady profit margin growth. The target price is based on 28 times expected future earnings.
-            </p>
-
-            <div className="mt-3 flex items-center gap-3 rounded-lg bg-white px-3 py-2 text-xs font-semibold text-slate-700 border border-slate-100 shadow-2xs">
-              <span>Target <b className="text-slate-900 font-bold">$280</b></span>
-              <span className="text-slate-300">|</span>
-              <span>Horizon <b className="text-slate-900 font-bold">90d</b></span>
-            </div>
-
-            <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2 text-xs">
-              <span className="flex items-center gap-3 text-slate-500 font-medium">
-                <span className="flex items-center gap-1"><ThumbsUp size={13} /> 100</span>
-                <span className="flex items-center gap-1"><MessageCircle size={13} /> 734</span>
-              </span>
-
-              <span className="flex flex-wrap items-center gap-1.5">
-                <span className="flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 font-bold text-emerald-700 border border-emerald-200 text-micro">
-                  <CheckCircle2 size={12} /> Hit
-                </span>
-                <span className="rounded-full bg-slate-100 px-2 py-0.5 font-semibold text-slate-700 text-micro">
-                  $NVDA
-                </span>
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-4 flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-            <div className="flex min-w-0 flex-1 items-center gap-2.5">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-blue-600 text-xs font-bold text-white shadow-xs shrink-0">
-                JM
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-bold text-slate-900 leading-tight">Jacob&apos;s Audited Record</p>
-                <p className="text-xs text-slate-500 truncate sm:whitespace-normal">41 published theses &middot; 24 confirmed hits &middot; 17 misses publicly archived</p>
+              <div className="shrink-0 text-right pl-3">
+                <p className="text-xl font-black text-slate-900 leading-none">
+                  <CountUp value={58.5} decimals={1} suffix="%" />
+                </p>
+                <p className="text-micro font-bold text-slate-500 mt-0.5">Hit rate</p>
               </div>
-            </div>
-
-            <div className="shrink-0 text-right pl-3">
-              <p className="text-xl font-black text-slate-900 leading-none">
-                <CountUp value={58.5} decimals={1} suffix="%" />
-              </p>
-              <p className="text-micro font-bold text-slate-500 mt-0.5">Hit rate</p>
             </div>
           </div>
         </Reveal>
