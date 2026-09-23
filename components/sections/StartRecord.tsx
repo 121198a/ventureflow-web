@@ -328,32 +328,32 @@ function FeedMini() {
       isAll: true,
     },
     {
-      id: "riley",
-      name: "Riley",
+      id: "gaurav",
+      name: "Gaurav",
       time: "Just now",
       badge: "1",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80",
+      image: "/image/about/3.jpg",
     },
     {
-      id: "casey",
-      name: "Casey",
+      id: "dinesh",
+      name: "Dinesh",
       time: "1m ago",
       badge: "3",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80",
+      image: "/image/about/5.jpg",
     },
     {
-      id: "jordan",
-      name: "Jordan",
+      id: "rama",
+      name: "Rama",
       time: "30m ago",
       badge: "2",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80",
+      image: "/image/about/3.jpg",
     },
     {
-      id: "avery",
-      name: "Avery",
+      id: "chetan",
+      name: "Chetan",
       time: "1h ago",
       badge: "1",
-      image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80",
+      image: "/image/about/1.jpg",
     },
   ];
 
@@ -424,19 +424,19 @@ function FeedMini() {
 
         {/* Feed Posts */}
         <div className="space-y-2 p-2.5">
-          {/* Post 1 - Marcelo Hernandez ($BTC Bullish / On track) */}
+          {/* Post 1 - Dinesh Pathak ($BTC Bullish / On track) */}
           <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80"
-                  alt="Marcelo Hernandez"
+                  src="/image/about/5.jpg"
+                  alt="Dinesh Pathak"
                   className="size-5 rounded-full object-cover"
                   loading="lazy"
                 />
                 <div>
-                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Marcelo Hernandez</p>
-                  <p className="text-[8.5px] text-slate-500 leading-tight">@marcelohernandez</p>
+                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Dinesh Pathak</p>
+                  <p className="text-[8.5px] text-slate-500 leading-tight">@dineshpathak</p>
                 </div>
               </div>
               <div className="flex items-center gap-1 text-[9px] text-slate-400">
@@ -486,19 +486,19 @@ function FeedMini() {
             </div>
           </div>
 
-          {/* Post 2 - Marcelo Hernandez ($BTC Bearish / Off track) */}
+          {/* Post 2 - Rama Rao ($BTC Bearish / Off track) */}
           <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80"
-                  alt="Marcelo Hernandez"
+                  src="/image/about/1.jpg"
+                  alt="Rama Rao"
                   className="size-5 rounded-full object-cover"
                   loading="lazy"
                 />
                 <div>
-                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Marcelo Hernandez</p>
-                  <p className="text-[8.5px] text-slate-500 leading-tight">@marcelohernandez</p>
+                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Rama Rao</p>
+                  <p className="text-[8.5px] text-slate-500 leading-tight">@ramarao</p>
                 </div>
               </div>
               <div className="flex items-center gap-1 text-[9px] text-slate-400">
@@ -574,7 +574,7 @@ function FeedMini() {
           </div>
           <div className="flex flex-col items-center gap-[1px] text-slate-500">
             <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80"
+              src="/image/about/3.jpg"
               alt="Profile"
               className="size-3 rounded-full object-cover"
               loading="lazy"
@@ -704,7 +704,7 @@ function InvestMini() {
           </div>
           <div className="flex flex-col items-center gap-[1px] text-slate-500">
             <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80"
+              src="/image/about/3.jpg"
               alt="Profile"
               className="size-3 rounded-full object-cover"
               loading="lazy"
@@ -826,7 +826,7 @@ function VerdictMini() {
           </div>
           <div className="flex flex-col items-center gap-[1px] text-slate-500">
             <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80"
+              src="/image/about/3.jpg"
               alt="Profile"
               className="size-3 rounded-full object-cover"
               loading="lazy"

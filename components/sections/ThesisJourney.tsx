@@ -52,17 +52,17 @@ export function ThesisJourney() {
       className="relative scroll-mt-24 h-[420vh] bg-white border-y border-slate-100"
     >
       {/* Sticky Viewport Frame */}
-      <div className="sticky top-0 flex h-dvh w-full flex-col justify-between overflow-hidden px-4 sm:px-6 pt-16 sm:pt-20 lg:pt-[86px] pb-3 sm:pb-5">
+      <div className="sticky top-0 flex h-dvh w-full flex-col justify-between overflow-hidden px-4 sm:px-6 pt-12 sm:pt-14 lg:pt-[72px] pb-2 sm:pb-3 lg:pb-3.5">
         {/* Header */}
         <div className="mx-auto max-w-[1120px] text-center shrink-0">
           <Reveal>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-slate-50/90 px-3.5 py-1 text-xs font-semibold text-slate-700 shadow-2xs">
-              <FundingTargetIcon size={13} className="text-blue-600" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-slate-50/90 px-3 py-0.5 text-[11px] sm:text-xs font-semibold text-slate-700 shadow-2xs">
+              <FundingTargetIcon size={12} className="text-blue-600" />
               <span>One Thesis &middot; Start to Finish</span>
             </span>
           </Reveal>
           <Reveal delay={0.08}>
-            <h2 className="mx-auto mt-1.5 sm:mt-2 max-w-[800px] text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold leading-tight text-slate-900 tracking-tight">
+            <h2 className="mx-auto mt-1 sm:mt-1.5 max-w-[800px] text-base sm:text-xl lg:text-2xl xl:text-3xl font-extrabold leading-tight text-slate-900 tracking-tight">
               Online, ideas never get a verdict. <br />
               <span className="text-blue-600">This one will</span>.
             </h2>
@@ -72,15 +72,15 @@ export function ThesisJourney() {
         {/* Stepper + Phone Container */}
         <div className="mx-auto w-full max-w-[1020px] my-auto">
           {/* Mobile Stepper Tabs (< lg) */}
-          <div className="flex flex-col items-center gap-1.5 lg:hidden mb-2 sm:mb-3">
-            <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex flex-col items-center gap-1 lg:hidden mb-1 sm:mb-2">
+            <div className="flex items-center gap-1 sm:gap-1.5">
               {steps.map((step, i) => (
                 <button
                   key={step.title}
                   type="button"
                   onClick={() => setActive(i)}
                   className={cn(
-                    "flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold transition-all cursor-pointer",
+                    "flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold transition-all cursor-pointer",
                     active === i
                       ? "bg-blue-600 text-white shadow-xs"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -92,19 +92,19 @@ export function ThesisJourney() {
               ))}
             </div>
             <div className="text-center px-2 max-w-sm">
-              <p className="text-xs sm:text-sm font-bold text-slate-900 leading-snug truncate">
+              <p className="text-[11px] sm:text-xs font-bold text-slate-900 leading-snug truncate">
                 {steps[active].title}
               </p>
-              <span className="mt-0.5 inline-flex items-center gap-1 rounded-pill border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-micro font-medium text-slate-600">
+              <span className="mt-0.5 inline-flex items-center gap-1 rounded-pill border border-slate-200 bg-slate-50 px-2 py-0.2 text-[9px] font-medium text-slate-600">
                 {active === 1 && <span className="h-1.5 w-1.5 rounded-pill bg-emerald-500 animate-pulse" />}
                 {steps[active].chip}
               </span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 xl:gap-10 items-center">
             {/* Left Stepper (Desktop >= lg) */}
-            <div className="hidden lg:flex lg:col-span-7 relative flex-col justify-between h-[280px] pl-2">
+            <div className="hidden lg:flex lg:col-span-7 relative flex-col justify-between h-[230px] xl:h-[250px] pl-2">
               <div
                 className="absolute left-[15px] top-[14px] bottom-[18px] w-[2px] border-l-2 border-dotted border-slate-300 pointer-events-none"
                 aria-hidden="true"
@@ -143,7 +143,7 @@ export function ThesisJourney() {
                   >
                     <h3
                       className={cn(
-                        "text-base sm:text-lg font-bold tracking-tight leading-snug transition-colors",
+                        "text-sm sm:text-base xl:text-lg font-bold tracking-tight leading-snug transition-colors",
                         active === i ? "text-slate-900" : "text-slate-600 group-hover:text-slate-900"
                       )}
                     >
@@ -163,9 +163,9 @@ export function ThesisJourney() {
                         initial={{ opacity: 0, y: 3 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.22 }}
-                        className="mt-2"
+                        className="mt-1.5"
                       >
-                        <span className="inline-flex items-center gap-1.5 rounded-pill border border-slate-200 bg-white px-3.5 py-1 text-xs font-semibold text-slate-700 shadow-2xs">
+                        <span className="inline-flex items-center gap-1.5 rounded-pill border border-slate-200 bg-white px-3 py-0.5 text-xs font-semibold text-slate-700 shadow-2xs">
                           {i === 1 && <span className="h-1.5 w-1.5 rounded-pill bg-emerald-500 animate-pulse" />}
                           {step.chip}
                         </span>
@@ -185,15 +185,15 @@ export function ThesisJourney() {
                 showHomeIndicator={true}
                 time="12:26"
                 batteryPercentage="92%"
-                className="w-[215px] min-[380px]:w-[230px] sm:w-[245px] lg:w-[255px] xl:w-[265px] shadow-2xl"
+                className="h-[min(410px,calc(100dvh-190px))] lg:h-[min(465px,calc(100dvh-175px))] w-[calc(min(410px,calc(100dvh-190px))*0.5)] lg:w-[calc(min(465px,calc(100dvh-175px))*0.5)] max-w-[250px] shadow-2xl"
               >
                 <div className="relative z-10 h-full w-full overflow-hidden bg-white flex flex-col justify-between">
                   {/* Top Action Bar (< and 3-dots) */}
-                  <div className="flex h-[20px] shrink-0 items-center justify-between px-3 text-slate-900 pt-0.5">
-                    <svg className="h-[13px] w-[13px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="flex h-[18px] shrink-0 items-center justify-between px-3 text-slate-900 pt-0.5">
+                    <svg className="h-[12px] w-[12px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
                       <path d="m15 6-6 6 6 6" />
                     </svg>
-                    <span className="flex h-[13px] w-[13px] flex-col items-center justify-center gap-[1.5px] text-slate-600">
+                    <span className="flex h-[12px] w-[12px] flex-col items-center justify-center gap-[1.5px] text-slate-600">
                       <i className="h-[2px] w-[2px] rounded-pill bg-current" />
                       <i className="h-[2px] w-[2px] rounded-pill bg-current" />
                       <i className="h-[2px] w-[2px] rounded-pill bg-current" />
@@ -209,7 +209,7 @@ export function ThesisJourney() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="text-xs font-medium text-slate-600"
+                        className="text-[11px] font-medium text-slate-600"
                       >
                         Asset Thesis &middot; {active === 2 ? "6mo ago" : active === 1 ? "3mo ago" : "4h ago"}
                       </motion.div>
@@ -220,23 +220,23 @@ export function ThesisJourney() {
                     </h4>
 
                     <div className="mt-1 flex gap-1">
-                      <span className="inline-flex items-center rounded-pill border border-slate-200 bg-white px-2 py-0.5 text-xs font-semibold text-slate-800">
+                      <span className="inline-flex items-center rounded-pill border border-slate-200 bg-white px-2 py-0.2 text-[10px] font-semibold text-slate-800">
                         $AMD
                       </span>
-                      <span className="inline-flex items-center rounded-pill border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">
+                      <span className="inline-flex items-center rounded-pill border border-emerald-200 bg-emerald-50 px-2 py-0.2 text-[10px] font-semibold text-emerald-700">
                         Bullish
                       </span>
                     </div>
 
                     {/* Author Info Row */}
-                    <div className="mt-1.5 flex items-center justify-between border-t border-slate-100 pt-1">
+                    <div className="mt-1 flex items-center justify-between border-t border-slate-100 pt-1">
                       <div>
-                        <b className="block text-xs font-bold text-slate-900 leading-none">Arnav Awasthi</b>
-                        <span className="text-xs text-slate-600">@arnav</span>
+                        <b className="block text-[11px] font-bold text-slate-900 leading-none">Arnav Awasthi</b>
+                        <span className="text-[10px] text-slate-600">@arnav</span>
                       </div>
-                      <div className="relative size-[22px] shrink-0 overflow-hidden rounded-full border border-slate-200 bg-slate-100 shadow-2xs">
+                      <div className="relative size-[20px] shrink-0 overflow-hidden rounded-full border border-slate-200 bg-slate-100 shadow-2xs">
                         <img
-                          src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
+                          src="/image/about/2.jpg"
                           alt="Arnav Awasthi profile avatar"
                           className="h-full w-full object-cover"
                           loading="lazy"
@@ -245,7 +245,7 @@ export function ThesisJourney() {
                     </div>
 
                     {/* Editorial Paragraphs */}
-                    <div className="mt-1.5 space-y-1 text-xs text-slate-600 leading-relaxed">
+                    <div className="mt-1 space-y-1 text-[11px] text-slate-600 leading-relaxed">
                       <p className="m-0">
                         On August 4, <span className="font-semibold text-blue-600">$AMD</span> reported the best quarter in the company&apos;s 57-year history. Revenue rose 50 percent to a record $11.5 billion. The data center business more than doubled. Adjusted earnings per share grew 82 percent.
                       </p>
@@ -259,7 +259,7 @@ export function ThesisJourney() {
                         That single sentence is the entire investment case, and the entire risk, compressed into one trading session. A company does not get punished for doubling its largest business unless the market has already paid for the doubling. Which means the only way to make money in <span className="font-semibold text-blue-600">$AMD</span> from here is to be right about something the crowd is not yet paying for.
                       </p>
 
-                      <p className="m-0 text-xs text-slate-600">
+                      <p className="m-0 text-[10px] text-slate-600">
                         There is exactly one such thing, and it is not a chip. It is the moment a monopoly becomes a duopoly, and it is worth more than any product cycle in this story.
                       </p>
                     </div>
@@ -308,7 +308,7 @@ export function ThesisJourney() {
                         <div className="flex flex-col items-center gap-[1px] text-slate-600">
                           <div className="relative size-[14px] shrink-0 overflow-hidden rounded-full border border-slate-200 bg-slate-100">
                             <img
-                              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
+                              src="/image/about/2.jpg"
                               alt="Profile avatar"
                               className="h-full w-full object-cover"
                               loading="lazy"
@@ -322,12 +322,12 @@ export function ThesisJourney() {
                     {/* Sliding Bottom Sheet for Step 1 and 2 (Image 2 and Image 3) */}
                     <div
                       className={cn(
-                        "sheet absolute inset-x-0 bottom-0 z-30 bg-white rounded-t-2xl shadow-xl transition-transform duration-500 ease-out flex flex-col text-left px-3 pt-1.5 pb-2.5 border-t border-slate-200/90",
+                        "sheet absolute inset-x-0 bottom-0 z-30 bg-white rounded-t-2xl shadow-xl transition-transform duration-500 ease-out flex flex-col text-left px-3 pt-1 pb-2 border-t border-slate-200/90",
                         active > 0 ? "translate-y-0" : "translate-y-[105%]"
                       )}
                     >
                       {/* Drag handle */}
-                      <div className="w-8 h-1 rounded-full bg-slate-300 mx-auto mb-1.5 mt-0.5 shrink-0" />
+                      <div className="w-7 h-1 rounded-full bg-slate-300 mx-auto mb-1 mt-0.5 shrink-0" />
 
                       <AnimatePresence mode="wait">
                         <motion.div
@@ -340,14 +340,14 @@ export function ThesisJourney() {
                           {/* AMD Bullish + Current Price */}
                           <div className="flex items-center justify-between">
                             <div>
-                              <p className="text-xs font-bold text-slate-900 leading-tight flex items-center gap-1">
-                                AMD <span className="rounded-md bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700">Bullish</span>
+                              <p className="text-[11px] font-bold text-slate-900 leading-tight flex items-center gap-1">
+                                AMD <span className="rounded-md bg-emerald-100 px-1 py-0.2 text-[9px] font-bold text-emerald-700">Bullish</span>
                               </p>
-                              <p className="text-[10px] text-slate-600 leading-none mt-0.5">Advanced Micro Devices</p>
+                              <p className="text-[9px] text-slate-500 leading-none mt-0.5">Advanced Micro Devices</p>
                             </div>
                             <div className="text-right">
-                              <p className="text-[10px] text-slate-600 leading-tight">Current price</p>
-                              <p className="text-xs font-bold text-slate-900 leading-tight">
+                              <p className="text-[9px] text-slate-500 leading-tight">Current price</p>
+                              <p className="text-[11px] font-bold text-slate-900 leading-tight">
                                 ${active === 2 ? "800.00" : "620.00"}
                               </p>
                             </div>
@@ -356,7 +356,7 @@ export function ThesisJourney() {
                           {/* Banner (Price Moving With Thesis or Target Reached, Thesis Closed) */}
                           <div
                             className={cn(
-                              "mt-1.5 flex items-center justify-center gap-1.5 rounded-lg py-1 px-2 text-xs font-bold",
+                              "mt-1 flex items-center justify-center gap-1.5 rounded-lg py-1 px-2 text-xs font-bold",
                               active === 2
                                 ? "bg-emerald-100 text-emerald-800 border border-emerald-200/60"
                                 : "bg-emerald-50 text-emerald-700 border border-emerald-100"
@@ -365,18 +365,18 @@ export function ThesisJourney() {
                             <span className="grid size-3.5 place-items-center rounded-full bg-emerald-600 text-[9px] font-bold text-white shrink-0">
                               {active === 2 ? "✓" : "↑"}
                             </span>
-                            <span className="text-[11px] leading-tight font-bold">
+                            <span className="text-[10px] leading-tight font-bold">
                               {active === 2 ? "Target Reached, Thesis Closed" : "Price Moving With Thesis"}
                             </span>
                           </div>
 
                           {/* Progress bar section: Entry $500.00 - Target $800.00 */}
-                          <div className="mt-1.5 flex justify-between text-[10px] font-semibold text-slate-700">
+                          <div className="mt-1 flex justify-between text-[9px] font-semibold text-slate-700">
                             <span>Entry $500.00</span>
                             <span>Target $800.00</span>
                           </div>
 
-                          <div className="relative mt-1 h-1.5 w-full rounded-full bg-slate-100">
+                          <div className="relative mt-0.5 h-1.5 w-full rounded-full bg-slate-100">
                             <div
                               className="h-full rounded-full bg-emerald-500 transition-all duration-700 ease-out"
                               style={{ width: active === 2 ? "100%" : "42%" }}
@@ -387,29 +387,29 @@ export function ThesisJourney() {
                             />
                           </div>
 
-                          <div className="mt-1 flex justify-between text-[9px] text-slate-600">
+                          <div className="mt-0.5 flex justify-between text-[8.5px] text-slate-500">
                             <span>Published Aug 14</span>
                             <span>{active === 2 ? "6 of 6 mo elapsed" : "3 of 6 months elapsed"}</span>
                           </div>
 
                           {/* Two stat cards */}
-                          <div className="mt-1.5 grid grid-cols-2 gap-1.5">
-                            <div className="rounded-lg bg-slate-50 border border-slate-100 p-1.5">
-                              <p className="text-[9px] text-slate-600 leading-tight">Return since publish</p>
-                              <p className="text-xs font-bold text-emerald-700 leading-tight mt-0.5">
+                          <div className="mt-1 grid grid-cols-2 gap-1">
+                            <div className="rounded-lg bg-slate-50 border border-slate-100 p-1">
+                              <p className="text-[8.5px] text-slate-500 leading-tight">Return since publish</p>
+                              <p className="text-[11px] font-bold text-emerald-700 leading-tight mt-0.5">
                                 +{active === 2 ? "60.00" : "24.00"}%
                               </p>
                             </div>
-                            <div className="rounded-lg bg-slate-50 border border-slate-100 p-1.5">
-                              <p className="text-[9px] text-slate-600 leading-tight">{active === 2 ? "Result" : "Distance to target"}</p>
-                              <p className="text-xs font-bold text-slate-900 leading-tight mt-0.5">
+                            <div className="rounded-lg bg-slate-50 border border-slate-100 p-1">
+                              <p className="text-[8.5px] text-slate-500 leading-tight">{active === 2 ? "Result" : "Distance to target"}</p>
+                              <p className="text-[11px] font-bold text-slate-900 leading-tight mt-0.5">
                                 {active === 2 ? "Reached" : "60.00% left"}
                               </p>
                             </div>
                           </div>
 
                           {/* View $AMD Button */}
-                          <div className="mt-2 w-full rounded-xl bg-slate-950 py-1.5 text-center text-xs font-bold text-white shadow-xs hover:bg-slate-900 transition-colors cursor-pointer">
+                          <div className="mt-1.5 w-full rounded-xl bg-slate-950 py-1.5 text-center text-[11px] font-bold text-white shadow-xs hover:bg-slate-900 transition-colors cursor-pointer">
                             View $AMD
                           </div>
                         </motion.div>

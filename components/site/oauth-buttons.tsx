@@ -20,6 +20,14 @@ export function OAuthButtons({
 
   const handleOAuth = async (provider: "google" | "apple") => {
     setLocalError(null);
+
+    if (provider === "apple") {
+      const appleMsg = "Apple Sign-In is currently unavailable. Please use Google or email to continue.";
+      setLocalError(appleMsg);
+      if (onError) onError(appleMsg);
+      return;
+    }
+
     setLoadingProvider(provider);
 
     try {
@@ -29,7 +37,7 @@ export function OAuthButtons({
         if (onError) onError(result.error);
       }
     } catch {
-      const fallbackMsg = `Unable to connect to ${provider === "google" ? "Google" : "Apple"} sign-in. Please try again or use email.`;
+      const fallbackMsg = "Unable to connect to Google sign-in. Please try again or use email.";
       setLocalError(fallbackMsg);
       if (onError) onError(fallbackMsg);
     } finally {
@@ -45,11 +53,10 @@ export function OAuthButtons({
     <div className={`space-y-3 ${className}`}>
       {localError && (
         <div
-          role="alert"
-          className="rounded-[14px] border border-amber-500/30 bg-amber-500/10 p-3 text-[0.8rem] leading-relaxed text-amber-700"
+          role="status"
+          className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 text-left"
         >
-          <p className="mb-0.5 font-semibold">Configuration Notice</p>
-          <p>{localError}</p>
+          {localError}
         </div>
       )}
 

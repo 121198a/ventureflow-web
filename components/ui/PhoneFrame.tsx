@@ -19,6 +19,7 @@ export interface PhoneFrameProps {
   children: ReactNode;
   className?: string;
   innerClassName?: string;
+  style?: React.CSSProperties;
   showWifi?: boolean;
   theme?: PhoneFrameTheme;
   customGradient?: string;
@@ -74,6 +75,7 @@ export function PhoneFrame({
   children,
   className = "",
   innerClassName = "",
+  style,
   showWifi = true,
   theme = "hero",
   customGradient,
@@ -90,8 +92,10 @@ export function PhoneFrame({
 
   return (
     <div
+      style={style}
       className={cn(
-        "relative mx-auto aspect-[280/560] w-[min(78vw,240px)] select-none sm:w-[260px] lg:w-[280px]",
+        "relative mx-auto aspect-[280/560] select-none",
+        !className?.includes("w-") && !style?.width && "w-[min(78vw,240px)] sm:w-[260px] lg:w-[280px]",
         className
       )}
     >

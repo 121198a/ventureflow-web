@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LaptopFrame } from "@/components/ui/LaptopFrame";
 import { Reveal } from "@/components/ui/Reveal";
-import { Button } from "@/components/ui/button";
+import { TransitionLink } from "@/components/ui/TransitionLink";
+import { ArrowRight } from "lucide-react";
 
 const categories = ["fintech.", "climate.", "space.", "robotics.", "energy.", "biotech."];
 
@@ -49,23 +50,26 @@ export function UBverseMarketplace() {
             The most innovative companies deserve to be seen. Start your Space, post the work, and let the record speak.
           </p>
         </Reveal>
-
-        <Reveal delay={0.25}>
-          <div className="mt-6">
-            <Button href="/platform" size="md" variant="primary" shape="pill">
-              Start Your Space
-            </Button>
-          </div>
-        </Reveal>
       </div>
 
       {/* Laptop Frame Preview Window */}
-      <Reveal delay={0.25} className="mt-12 sm:mt-16 w-full max-w-[564px] mx-auto overflow-hidden px-1">
+      <Reveal delay={0.25} className="mt-10 sm:mt-14 w-full max-w-[580px] mx-auto overflow-hidden px-1">
         <div className="flex justify-center w-full max-w-full overflow-hidden">
           <LaptopFrame
             alt="UBverse marketplace showcased on a laptop with live capital raises, spotlight startups, and featured deals"
           />
         </div>
+      </Reveal>
+
+      {/* "Start your Space" CTA — visually placed BELOW the laptop */}
+      <Reveal delay={0.3} className="mt-8 sm:mt-10 flex justify-center">
+        <TransitionLink
+          href="/login?flow=signup"
+          className="btn-pill-primary inline-flex items-center gap-2 px-7 py-3.5 text-sm font-bold shadow-md shadow-blue-600/20 hover:shadow-lg hover:shadow-blue-600/25 transition-all cursor-pointer"
+        >
+          <span>Start your Space</span>
+          <ArrowRight className="h-4 w-4" />
+        </TransitionLink>
       </Reveal>
     </section>
   );

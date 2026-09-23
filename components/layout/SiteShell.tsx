@@ -24,7 +24,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
 
   if (isAuthPage) {
     return (
-      <main className="min-h-dvh w-full bg-[#f8fafc] flex flex-col justify-center items-center relative overflow-hidden">
+      <main className="min-h-dvh w-full bg-[#f8fafc] flex flex-col justify-center items-center relative overflow-x-hidden overflow-y-auto">
         {children}
       </main>
     );

@@ -174,7 +174,10 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
           </span>
           <span>Remember me</span>
         </label>
-        <Link href="/legal/support" className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-800">
+        <Link
+          href={role === "investor" ? "/investor/forgot" : "/issuer/forgot"}
+          className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-800"
+        >
           Forgot Password?
         </Link>
       </div>

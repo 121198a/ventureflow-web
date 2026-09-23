@@ -307,9 +307,30 @@ export async function loginBackendUser(credentials: {
       return { success: true, data: json?.data || json, status: res.status };
     }
 
+    // Normalize backend error response: message can be string, array [{ password: "..." }], or object { password: "..." }
+    let errorMessage = "Invalid credentials.";
+    if (typeof json?.message === "string") {
+      errorMessage = json.message;
+    } else if (Array.isArray(json?.message) && json.message.length > 0) {
+      const first = json.message[0];
+      if (typeof first === "string") {
+        errorMessage = first;
+      } else if (typeof first === "object" && first !== null) {
+        const firstVal = Object.values(first)[0];
+        if (typeof firstVal === "string") errorMessage = firstVal;
+        else errorMessage = JSON.stringify(first);
+      }
+    } else if (typeof json?.message === "object" && json?.message !== null) {
+      const firstVal = Object.values(json.message)[0];
+      if (typeof firstVal === "string") errorMessage = firstVal;
+      else errorMessage = JSON.stringify(json.message);
+    } else if (typeof json?.error === "string") {
+      errorMessage = json.error;
+    }
+
     return {
       success: false,
-      error: json?.message || "Invalid credentials.",
+      error: errorMessage,
       status: res.status,
     };
   } catch {

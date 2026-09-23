@@ -4,20 +4,43 @@ import sanitizeHtml from "sanitize-html";
 import { checkRateLimit, resetRateLimit, getClientIp } from "@/lib/rate-limit";
 import { signSessionToken } from "@/lib/crypto";
 
-// Strict Zod schema for server-side validation
+// Strict Zod schema for server-side validation (supports email or phone identifier)
+const isEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+const isPhone = (val: string) => /^\+?[0-9\s\-()]{7,25}$/.test(val);
+
 const loginSchema = z.object({
   email: z
     .string()
     .trim()
     .min(5, "Invalid credentials")
     .max(254, "Invalid credentials")
-    .email("Invalid credentials"),
+    .refine((val) => isEmail(val) || isPhone(val), {
+      message: "Invalid credentials",
+    }),
   password: z
     .string()
     .min(1, "Invalid credentials")
     .max(128, "Invalid credentials"),
   role: z.enum(["founder", "investor"]).default("founder"),
 });
+
+function toErrorString(err: unknown, fallback = "Invalid email or password."): string {
+  if (!err) return fallback;
+  if (typeof err === "string") return err;
+  if (Array.isArray(err) && err.length > 0) {
+    return toErrorString(err[0], fallback);
+  }
+  if (typeof err === "object") {
+    const record = err as Record<string, unknown>;
+    if (typeof record.message === "string") return record.message;
+    if (typeof record.error === "string") return record.error;
+    for (const val of Object.values(record)) {
+      const resolved = toErrorString(val, "");
+      if (resolved) return resolved;
+    }
+  }
+  return fallback;
+}
 
 export async function POST(request: Request) {
   try {
@@ -110,7 +133,7 @@ export async function POST(request: Request) {
       }
 
       if (backendAuth.status === 400 || backendAuth.status === 401) {
-        backendError = backendAuth.error || "Invalid email or password.";
+        backendError = toErrorString(backendAuth.error, "Invalid email or password.");
       }
     } catch (backendErr) {
       if (process.env.NODE_ENV === "development") {
@@ -122,14 +145,16 @@ export async function POST(request: Request) {
     if (supabaseUrl && supabaseKey) {
       try {
         const { supabase } = await import("@/lib/supabase/client");
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password: parsed.data.password,
-        });
+        const isEmailAddress = isEmail(email);
+        const { data, error } = await supabase.auth.signInWithPassword(
+          isEmailAddress
+            ? { email, password: parsed.data.password }
+            : { phone: email, password: parsed.data.password }
+        );
 
         if (error) {
           return NextResponse.json(
-            { success: false, error: backendError || "Invalid email or password." },
+            { success: false, error: toErrorString(backendError) },
             { status: 401 }
           );
         }
@@ -188,7 +213,7 @@ export async function POST(request: Request) {
 
     if (backendError) {
       return NextResponse.json(
-        { success: false, error: backendError },
+        { success: false, error: toErrorString(backendError) },
         { status: 401 }
       );
     }

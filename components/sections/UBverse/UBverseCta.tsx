@@ -33,9 +33,9 @@ export function UBverseCta() {
               give investors a place to follow your progress.
             </p>
             <div className="mt-6">
-              {/* "Start your Company Space" routes to /platform */}
+              {/* "Start your Company Space" routes to /login?flow=signup */}
               <TransitionLink
-                href="/platform"
+                href="/login?flow=signup"
                 className="btn-pill-primary px-6 py-3 text-xs font-bold cursor-pointer"
               >
                 <span>Start your Company Space</span>
@@ -44,27 +44,26 @@ export function UBverseCta() {
             </div>
           </div>
 
-          {/* Right Column (Dual Links) */}
-          <div className="flex flex-col sm:flex-row lg:flex-col gap-6 pt-6 lg:pt-0 border-t lg:border-l border-slate-200 lg:pl-10">
+          {/* Right Column (Dual Links) — clean layout without unwanted top or side borders */}
+          <div className="flex flex-col gap-4 pt-2 sm:pt-0 lg:pl-8">
             <div>
               <span className="text-xs font-bold text-slate-900 block">
                 Building a company?
               </span>
               <TransitionLink
-                href="/platform"
-                className="mt-0.5 inline-block text-xs font-semibold text-blue-600 hover:underline"
+                href="/login?flow=signup"
+                className="mt-0.5 inline-block text-xs font-semibold text-blue-600 hover:underline cursor-pointer"
               >
                 Start your Company Space
               </TransitionLink>
-              
             </div>
-            <div>
+            <div className="pt-3.5 border-t border-slate-100">
               <span className="text-xs font-bold text-slate-900 block">
                 Looking for companies?
               </span>
               <TransitionLink
                 href="/platform"
-                className="mt-0.5 inline-block text-xs font-semibold text-blue-600 hover:underline"
+                className="mt-0.5 inline-block text-xs font-semibold text-blue-600 hover:underline cursor-pointer"
               >
                 Explore what&apos;s being built
               </TransitionLink>

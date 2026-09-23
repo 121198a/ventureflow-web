@@ -123,6 +123,9 @@ export default function AboutSection() {
           </div>
         </Reveal>
       </section>
+      {/*platform page ka jo login page hai wo bhi us mai bhi forget password and email  reset option is there ui will be same but there will
+      be only the to change password directly and i will provide you api that will fit for that you neeed to go through and  
+      work accordingly and rest you neede not to change */}
 
       {/* HARD TO KNOW */}
       <section id="hard-to-know" className="bg-blue-50/70 py-24 border-y border-slate-200/80">

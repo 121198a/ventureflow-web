@@ -47,11 +47,6 @@ export function LaptopFrame({
     video.defaultMuted = true;
     video.playsInline = true;
 
-    // Start within the active open-laptop sequence (1.8s - 5.5s) to avoid initial black frames
-    if (video.readyState >= 1 && (video.currentTime < 1.8 || video.currentTime >= 5.5)) {
-      video.currentTime = 1.8;
-    }
-
     if (!video.paused) {
       setIsPlaying(true);
       return;
@@ -66,7 +61,6 @@ export function LaptopFrame({
           setIsPlaying(true);
         })
         .catch(() => {
-          // Autoplay blocked by mobile browser or low-power mode - high-res poster remains cleanly visible
           isAttemptingPlayRef.current = false;
           setIsPlaying(false);
         });
@@ -110,47 +104,30 @@ export function LaptopFrame({
     video.defaultMuted = true;
     video.playsInline = true;
 
-    const handleLoadedMetadata = () => {
-      // Seek past the initial dark/closed lid animation
-      if (video.duration > 1.8 && video.currentTime < 1.8) {
-        video.currentTime = 1.8;
-      }
+    const handleCanPlay = () => {
       if (autoPlay) attemptPlay();
     };
 
     const handlePlaying = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
 
-    // Keep looping seamlessly inside the active 3D open laptop sequence (1.8s - 5.5s)
-    // so the laptop NEVER fades into black frames during animation loops
-    const handleTimeUpdate = () => {
-      if (video.readyState >= 1 && video.currentTime >= 5.5) {
-        video.currentTime = 1.8;
-      }
-    };
-
-    video.addEventListener("loadedmetadata", handleLoadedMetadata);
+    video.addEventListener("canplay", handleCanPlay);
+    video.addEventListener("loadeddata", handleCanPlay);
     video.addEventListener("play", handlePlaying);
     video.addEventListener("playing", handlePlaying);
     video.addEventListener("pause", handlePause);
-    video.addEventListener("ended", handlePause);
-    video.addEventListener("timeupdate", handleTimeUpdate);
 
-    // Initial mount attempt
-    if (video.readyState >= 1) {
-      if (video.duration > 1.8 && video.currentTime < 1.8) {
-        video.currentTime = 1.8;
-      }
-      if (autoPlay) attemptPlay();
+    // Initial mount attempt if ready
+    if (video.readyState >= 2 && autoPlay) {
+      attemptPlay();
     }
 
     return () => {
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      video.removeEventListener("canplay", handleCanPlay);
+      video.removeEventListener("loadeddata", handleCanPlay);
       video.removeEventListener("play", handlePlaying);
       video.removeEventListener("playing", handlePlaying);
       video.removeEventListener("pause", handlePause);
-      video.removeEventListener("ended", handlePause);
-      video.removeEventListener("timeupdate", handleTimeUpdate);
     };
   }, [autoPlay, attemptPlay]);
 
@@ -167,9 +144,6 @@ export function LaptopFrame({
       video.muted = true;
       video.defaultMuted = true;
       video.playsInline = true;
-      if (video.readyState >= 1 && (video.currentTime < 1.8 || video.currentTime >= 5.5)) {
-        video.currentTime = 1.8;
-      }
       video
         .play()
         .then(() => setIsPlaying(true))
@@ -215,14 +189,14 @@ export function LaptopFrame({
         <div className="absolute top-1 sm:top-1.5 left-1/2 -translate-x-1/2 h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-slate-700/60 z-30 pointer-events-none" />
 
         <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] overflow-hidden bg-slate-950 flex items-center justify-center">
-          {/* Persistent high-res poster layer: ALWAYS visible as baseline so laptop is NEVER black or hidden on any device */}
+          {/* Persistent high-res poster layer: visible as baseline while video loads */}
           <Image
             src={src}
             alt={alt}
             fill
             priority={priority}
             sizes="(max-width: 640px) 100vw, 620px"
-            className="object-contain scale-[1.18] sm:scale-100 origin-center transition-transform duration-300"
+            className="object-contain origin-center"
           />
 
           {!videoError && (
@@ -239,8 +213,8 @@ export function LaptopFrame({
                 setVideoError(true);
               }}
               className={cn(
-                "absolute inset-0 size-full object-contain scale-[1.18] sm:scale-100 origin-center transition-opacity duration-700",
-                isPlaying ? "opacity-100" : "opacity-0 pointer-events-none"
+                "absolute inset-0 size-full object-contain origin-center transition-opacity duration-300",
+                isPlaying ? "opacity-100" : "opacity-95"
               )}
               aria-label={alt}
             />
