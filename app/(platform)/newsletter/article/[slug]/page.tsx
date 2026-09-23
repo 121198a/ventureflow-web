@@ -140,10 +140,30 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticle(slug);
-  if (!article) return { title: "Article not found | UBverse" };
+  if (!article) {
+    return { title: "Article not found | UBverse", robots: { index: false, follow: false } };
+  }
+
+  // Canonical always points at the slug URL, even when this page was reached
+  // via the numeric-id route, so search engines never see this as two pages.
+  const canonicalPath = `/newsletter/article/${article.slug}`;
+  const title = `${article.headline} — UBverse Newsletter`;
+
   return {
-    title: `${article.headline} — UBverse Newsletter`,
+    title,
     description: article.summary,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      title,
+      description: article.summary,
+      type: "article",
+      url: canonicalPath,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: article.summary,
+    },
   };
 }
 

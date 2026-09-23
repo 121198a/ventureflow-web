@@ -64,9 +64,9 @@ export function UBverseHero() {
           transition={{ duration: 0.45, delay: 0.24 }}
           className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
         >
-          {/* Primary Glow CTA — "Start your Company Space" goes to the login/signup page */}
+          {/* Primary Glow CTA — "Start your Company Space" routes to /platform */}
           <TransitionLink
-            href="/login?flow=signup"
+            href="/platform"
             className="btn-pill-primary group w-full sm:w-auto pl-5 pr-2 min-[360px]:pl-7 min-[360px]:pr-2.5 py-2 text-xs min-[360px]:text-sm cursor-pointer"
           >
             <span>Start your Company Space</span>

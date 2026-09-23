@@ -16,7 +16,7 @@ export function BrandLogo({ className = "" }: { className?: string }) {
         />
       </div>
       <span className="truncate text-[1.05rem] sm:text-[1.15rem] font-bold flex items-center gap-1.5 text-slate-900 tracking-tight">
-        <span className="text-[#162447] font-extrabold">UBverse</span>
+        <span className="text-slate-900 font-extrabold">UBverse</span>
         <span className="text-slate-400 text-xs font-normal">by</span>
         <UnboundXBrand className="text-[1.05rem] sm:text-[1.15rem]" />
       </span>

@@ -64,30 +64,49 @@ export async function POST(request: Request) {
       const { subscribeBackendNewsletter } = await import("@/lib/ubverse-api");
       const backendResult = await subscribeBackendNewsletter(email);
       backendSucceeded = backendResult.success;
-      if (!backendResult.success) {
+      if (!backendResult.success && process.env.NODE_ENV === "development") {
         console.warn("[Newsletter] Backend API subscription rejected:", backendResult.message);
       }
     } catch (apiErr) {
-      console.warn("[Newsletter] Backend API subscription warning:", apiErr);
+      if (process.env.NODE_ENV === "development") {
+        console.warn("[Newsletter] Backend API subscription warning:", apiErr);
+      }
     }
 
     // 2. Persist to Supabase if configured
     let supabaseSucceeded = false;
+    let alreadySubscribed = false;
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
     if (supabaseUrl && supabaseKey) {
       try {
         const { supabase } = await import("@/lib/supabase/client");
-        const { error } = await supabase
+
+        // Check for an existing subscriber first so we can honestly report
+        // "already subscribed" instead of silently upserting and calling it new.
+        const { data: existing, error: lookupError } = await supabase
           .from("newsletter_subscribers")
-          .upsert({ email, subscribed_at: new Date().toISOString() }, { onConflict: "email" });
-        supabaseSucceeded = !error;
-        if (error) {
-          console.warn("[Newsletter] Supabase storage error:", error);
+          .select("email")
+          .eq("email", email)
+          .maybeSingle();
+
+        if (!lookupError && existing) {
+          alreadySubscribed = true;
+          supabaseSucceeded = true;
+        } else {
+          const { error } = await supabase
+            .from("newsletter_subscribers")
+            .upsert({ email, subscribed_at: new Date().toISOString() }, { onConflict: "email" });
+          supabaseSucceeded = !error;
+          if (error && process.env.NODE_ENV === "development") {
+            console.warn("[Newsletter] Supabase storage error:", error);
+          }
         }
       } catch (err) {
-        console.warn("[Newsletter] Supabase storage warning:", err);
+        if (process.env.NODE_ENV === "development") {
+          console.warn("[Newsletter] Supabase storage warning:", err);
+        }
       }
     }
 
@@ -102,8 +121,17 @@ export async function POST(request: Request) {
       );
     }
 
+    if (alreadySubscribed) {
+      return NextResponse.json({
+        success: true,
+        alreadySubscribed: true,
+        message: "You're already on the list — no action needed.",
+      });
+    }
+
     return NextResponse.json({
       success: true,
+      alreadySubscribed: false,
       message: "You have been successfully subscribed to our weekly briefing.",
     });
   } catch {

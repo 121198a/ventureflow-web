@@ -218,7 +218,9 @@ export async function getDynamicOfferings(): Promise<Offering[]> {
       return backendCompanies.map(mapBackendCompany);
     }
   } catch (err) {
-    console.warn("[Offerings] Falling back to local offerings data:", err);
+    if (process.env.NODE_ENV === "development") {
+      console.warn("[Offerings] Falling back to local offerings data:", err);
+    }
   }
   return defaultOfferings;
 }
@@ -270,7 +272,9 @@ export async function getDynamicOffering(slug: string): Promise<Offering | null>
         };
       }
     } catch (err) {
-      console.warn(`[Offerings] Error fetching detail for ${baseOffering.slug}:`, err);
+      if (process.env.NODE_ENV === "development") {
+        console.warn(`[Offerings] Error fetching detail for ${baseOffering.slug}:`, err);
+      }
     }
   }
 

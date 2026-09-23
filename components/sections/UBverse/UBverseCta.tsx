@@ -33,10 +33,9 @@ export function UBverseCta() {
               give investors a place to follow your progress.
             </p>
             <div className="mt-6">
-              {/* "Start your Company Space" = founder sign-up intent → the
-                  existing application flow, not the read-only data feed. */}
+              {/* "Start your Company Space" routes to /platform */}
               <TransitionLink
-                href="/login?flow=signup"
+                href="/platform"
                 className="btn-pill-primary px-6 py-3 text-xs font-bold cursor-pointer"
               >
                 <span>Start your Company Space</span>
@@ -52,7 +51,7 @@ export function UBverseCta() {
                 Building a company?
               </span>
               <TransitionLink
-                href="/login?flow=signup"
+                href="/platform"
                 className="mt-0.5 inline-block text-xs font-semibold text-blue-600 hover:underline"
               >
                 Start your Company Space

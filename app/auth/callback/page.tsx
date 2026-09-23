@@ -122,8 +122,10 @@ function AuthCallbackInner() {
         if (!isMounted) return;
         setStatus("success");
 
-        const target = role === "founder" || role === "issuer" ? "/founder/dashboard" : "/investor/dashboard";
-        router.replace(target);
+        const normalizedRole = role.toLowerCase();
+        const target = normalizedRole === "founder" || normalizedRole === "issuer" ? "/founder/dashboard" : "/investor/dashboard";
+        // Hard replace ensures freshly-set HTTP cookies are committed and sent to the server middleware
+        window.location.replace(target);
       } catch (err) {
         if (!isMounted) return;
         setStatus("error");
@@ -166,7 +168,7 @@ function AuthCallbackInner() {
 
       setStatus("success");
       const target = selectedRole === "founder" ? "/founder/dashboard" : "/investor/dashboard";
-      router.replace(target);
+      window.location.replace(target);
     } catch {
       setErrorMessage("Failed to save role configuration. Please try again.");
       setStatus("error");

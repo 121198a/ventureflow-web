@@ -4,31 +4,31 @@ export const authors = {
   maneesh: {
     name: "Maneesh Awasthi",
     role: "Co-Founder & CEO",
-    avatar: "/image/about/1.jpeg",
+    avatar: "/image/about/1.jpg",
     bio: "Over 20 years in institutional finance across equities, derivatives, and capital markets. Formerly co-founded a retail brokerage.",
   },
   arnav: {
     name: "Arnav Awasthi",
     role: "Co-Founder & Head of Product",
-    avatar: "/image/about/2.jpeg",
+    avatar: "/image/about/2.jpg",
     bio: "Aerospace engineer turned fintech product architect. Focused on the verifiable record-keeping layer for retail and venture markets.",
   },
   chetan: {
     name: "Chetan Chauhan",
     role: "Lead Investment Analyst",
-    avatar: "/image/about/3.jpeg",
+    avatar: "/image/about/3.jpg",
     bio: "Specializes in early-stage venture memo architecture, unit economics teardowns, and market horizon tracking.",
   },
   nimisha: {
     name: "Nimisha Pathar",
     role: "Staff Product Designer",
-    avatar: "/image/about/4.jpeg",
+    avatar: "/image/about/4.jpg",
     bio: "Crafts high-density financial interfaces and design systems at UnBound X with an obsession for clarity and signal.",
   },
   dinesh: {
     name: "Dinesh Pathak",
     role: "Principal Systems Engineer",
-    avatar: "/image/about/5.jpeg",
+    avatar: "/image/about/5.jpg",
     bio: "Distributed systems and real-time ledger engineer. Previously built high-throughput order matching and settlement engines.",
   },
 };

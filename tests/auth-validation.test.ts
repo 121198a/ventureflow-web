@@ -118,3 +118,27 @@ test("Auth rate limiting protects endpoints under repeated attempts", () => {
   assert.equal(blocked.allowed, false);
   assert.equal(blocked.remaining, 0);
 });
+
+test("Open redirect prevention sanitizes and validates redirect destinations", async () => {
+  const { sanitizeRedirectUrl } = await import("../lib/utils.ts");
+
+  // Valid internal paths
+  assert.equal(sanitizeRedirectUrl("/investor/dashboard"), "/investor/dashboard");
+  assert.equal(sanitizeRedirectUrl("/founder/dashboard?query=1"), "/founder/dashboard?query=1");
+  assert.equal(sanitizeRedirectUrl("/login"), "/login");
+
+  // Malicious / external / protocol-relative targets rejected and fallback returned
+  assert.equal(sanitizeRedirectUrl("https://evil.com"), "/");
+  assert.equal(sanitizeRedirectUrl("http://evil.com"), "/");
+  assert.equal(sanitizeRedirectUrl("//evil.com"), "/");
+  assert.equal(sanitizeRedirectUrl("/\\evil.com"), "/");
+  assert.equal(sanitizeRedirectUrl("/javascript:alert(1)"), "/");
+  assert.equal(sanitizeRedirectUrl("data:text/html,<script>alert(1)</script>"), "/");
+  assert.equal(sanitizeRedirectUrl("/%2f/evil.com"), "/");
+  assert.equal(sanitizeRedirectUrl(""), "/");
+  assert.equal(sanitizeRedirectUrl(null), "/");
+  assert.equal(sanitizeRedirectUrl(undefined), "/");
+
+  // Custom fallback respected
+  assert.equal(sanitizeRedirectUrl("//evil.com", "/investor/dashboard"), "/investor/dashboard");
+});

@@ -36,7 +36,9 @@ export async function GET(request: Request) {
           });
         }
       } catch (err) {
-        console.warn("[Auth Session] Supabase getUser verification error:", err);
+        if (process.env.NODE_ENV === "development") {
+          console.warn("[Auth Session] Supabase getUser verification error:", err);
+        }
       }
     }
 
@@ -66,7 +68,7 @@ export async function GET(request: Request) {
         authenticated: false,
         user: null,
       },
-      { status: 401 }
+      { status: 200 }
     );
   } catch {
     return NextResponse.json(
@@ -75,7 +77,7 @@ export async function GET(request: Request) {
         user: null,
         error: "Failed to resolve session.",
       },
-      { status: 500 }
+      { status: 200 }
     );
   }
 }

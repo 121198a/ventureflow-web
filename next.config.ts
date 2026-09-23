@@ -5,11 +5,13 @@ const cspHeader = `
   script-src 'self' 'unsafe-eval' 'unsafe-inline';
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data: https:;
+  media-src 'self' blob: data: https:;
   font-src 'self' data:;
   object-src 'none';
   base-uri 'self';
-  form-action 'self';
+  form-action 'self' https://*.supabase.co https://appleid.apple.com https://accounts.google.com;
   frame-ancestors 'none';
+  frame-src 'self' https://*.supabase.co https://appleid.apple.com https://accounts.google.com;
   connect-src 'self' https: wss:;
 `.replace(/\s{2,}/g, ' ').trim();
 
@@ -26,10 +28,9 @@ const securityHeaders = [
 ];
 
 // Determine build output mode:
-// - 'standalone' (default): Generates a minimal, self-contained server bundle in .next/standalone.
-//   Essential for low-memory VPS, Hostinger Node.js, Docker, and free-tier containers.
-// - undefined: Standard server build (used if NEXT_OUTPUT_STANDALONE=false).
-const isStandalone = process.env.NEXT_OUTPUT_STANDALONE !== 'false';
+// - Standalone mode is enabled explicitly when NEXT_OUTPUT_STANDALONE === 'true' (Docker / minimal VPS container).
+// - For standard builds (Vercel, npm run build + npm run start, local preview), output is undefined.
+const isStandalone = process.env.NEXT_OUTPUT_STANDALONE === 'true';
 const isUnoptimizedImages =
   process.env.NEXT_PUBLIC_UNOPTIMIZED_IMAGES === 'true' ||
   process.env.UNOPTIMIZED_IMAGES === 'true';

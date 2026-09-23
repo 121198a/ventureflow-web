@@ -2,19 +2,36 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "default" | "feature" | "interactive" | "highlighted" | "dashboard" | "stat" | "compact" | "elevated";
+  variant?:
+    | "default"
+    | "primary"
+    | "secondary"
+    | "informational"
+    | "feature"
+    | "interactive"
+    | "highlighted"
+    | "dashboard"
+    | "stat"
+    | "compact"
+    | "elevated";
   hoverable?: boolean;
 }
 
 const cardVariants: Record<NonNullable<CardProps["variant"]>, string> = {
   default:
-    "rounded-xl border border-slate-200/90 bg-white text-ink shadow-[0_1px_3px_rgba(15,23,42,0.04),0_1px_2px_rgba(15,23,42,0.02)]",
+    "rounded-xl border border-slate-200/90 bg-white text-ink shadow-xs",
+  primary:
+    "rounded-xl border-2 border-blue-600 bg-white text-ink shadow-md",
+  secondary:
+    "rounded-xl border border-slate-200/90 bg-white text-ink shadow-xs",
+  informational:
+    "rounded-xl border border-blue-100 bg-blue-50/40 text-ink shadow-2xs",
   feature:
-    "rounded-2xl border border-slate-200/90 bg-white text-ink shadow-[0_4px_20px_rgba(15,23,42,0.05)]",
+    "rounded-2xl border border-slate-200/90 bg-white text-ink shadow-md",
   interactive:
-    "rounded-xl border border-slate-200/90 bg-white text-ink shadow-[0_1px_3px_rgba(15,23,42,0.04)] hover:-translate-y-0.5 hover:border-blue-500/30 hover:shadow-[0_12px_28px_rgba(15,23,42,0.07)] active:scale-[0.995] cursor-pointer",
+    "rounded-xl border border-slate-200/90 bg-white text-ink shadow-xs hover:-translate-y-0.5 hover:border-blue-500/30 hover:shadow-md active:scale-[0.995] cursor-pointer",
   highlighted:
-    "rounded-xl border-2 border-blue-600/90 bg-blue-50/20 text-ink shadow-[0_8px_24px_rgba(30,64,175,0.08)]",
+    "rounded-xl border-2 border-blue-600/90 bg-blue-50/20 text-ink shadow-md",
   dashboard:
     "rounded-xl border border-slate-200/80 bg-white text-ink shadow-xs",
   stat:

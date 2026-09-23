@@ -12,7 +12,9 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("Global application error:", error);
+    if (process.env.NODE_ENV === "development") {
+      console.error("Global application error:", error);
+    }
   }, [error]);
 
   return (

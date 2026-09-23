@@ -12,7 +12,9 @@ export default function ErrorBoundary({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("Application error caught by boundary:", error);
+    if (process.env.NODE_ENV === "development") {
+      console.error("Application error caught by boundary:", error);
+    }
   }, [error]);
 
   return (

@@ -13,6 +13,7 @@ import {
   InputField,
 } from "./input-field";
 import { Loader2 } from "lucide-react";
+import { sanitizeRedirectUrl } from "@/lib/utils";
 
 function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" }) {
   const router = useRouter();
@@ -71,18 +72,17 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
             refresh_token: data.session.refresh_token,
           });
         } catch (sessionErr) {
-          console.error("Session persistence error:", sessionErr);
+          if (process.env.NODE_ENV === "development") {
+            console.error("Session persistence error:", sessionErr);
+          }
         }
       }
 
       setSubmitted(true);
       const verifiedRole = data.user?.role || role;
-      let destination =
+      const defaultDest =
         verifiedRole === "founder" ? "/founder/dashboard" : "/investor/dashboard";
-
-      if (redirectTo && redirectTo.startsWith("/") && !redirectTo.startsWith("//")) {
-        destination = redirectTo;
-      }
+      const destination = redirectTo ? sanitizeRedirectUrl(redirectTo, defaultDest) : defaultDest;
 
       setTimeout(() => {
         router.push(destination);
@@ -96,13 +96,13 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
 
   if (submitted) {
     return (
-      <div className="w-full rounded-[20px] border border-[#e0e8f5] bg-[#f8faff] p-6 text-center">
+      <div className="w-full rounded-[20px] border border-blue-100 bg-blue-50/40 p-6 text-center">
         <div className="mx-auto mb-3 grid size-12 place-items-center rounded-full bg-emerald-100 text-emerald-600">
           <svg viewBox="0 0 24 24" className="size-6 stroke-[2.5]" fill="none" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
           </svg>
         </div>
-        <p className="text-base font-bold text-[#0b1a33]">Login Successful</p>
+        <p className="text-base font-bold text-slate-900">Login Successful</p>
         <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
           Welcome back to your {role === "founder" ? "Founder" : "Investor"} portal. Redirecting to your dashboard...
         </p>
@@ -152,13 +152,13 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
 
       {/* Remember me + Forgot password */}
       <div className="flex items-center justify-between gap-3 text-[length:clamp(0.85rem,1.02vw,1.1rem)] font-medium">
-        <label className="flex cursor-pointer select-none items-center gap-3 text-[#1c2740]">
+        <label className="flex cursor-pointer select-none items-center gap-3 text-slate-700">
           <span className="relative grid size-[clamp(1.1rem,1.3vw,1.4rem)] shrink-0 place-items-center">
             <input
               type="checkbox"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
-              className="peer size-full cursor-pointer appearance-none rounded-[5px] border-[1.5px] border-[#8f98a8] bg-white transition-colors checked:border-blue-600 checked:bg-blue-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600/15"
+              className="peer size-full cursor-pointer appearance-none rounded-[5px] border-[1.5px] border-slate-400 bg-white transition-colors checked:border-blue-600 checked:bg-blue-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600/15"
             />
             <svg
               viewBox="0 0 24 24"
@@ -183,7 +183,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
       <button
         type="submit"
         disabled={!canSubmit}
-        className="btn-pill-primary h-[clamp(2.75rem,5.5vh,3.3rem)] w-full text-[length:clamp(1rem,1.14vw,1.2rem)] disabled:cursor-not-allowed disabled:bg-[#c8dffd] disabled:text-white disabled:shadow-none"
+        className="btn-pill-primary h-[clamp(2.75rem,5.5vh,3.3rem)] w-full text-[length:clamp(1rem,1.14vw,1.2rem)] disabled:cursor-not-allowed disabled:bg-blue-200 disabled:text-white disabled:shadow-none"
       >
         {loading ? (
           <span className="inline-flex items-center gap-2">

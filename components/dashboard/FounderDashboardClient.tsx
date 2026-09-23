@@ -295,7 +295,7 @@ export function FounderDashboardClient() {
                 />
               </div>
               <span className="font-bold text-slate-900 flex items-center gap-1.5 text-sm sm:text-base">
-                <span className="text-[#162447] font-extrabold">UBverse</span>
+                <span className="text-slate-900 font-extrabold">UBverse</span>
                 <span className="text-slate-400 text-xs font-normal">by</span>
                 <UnboundXBrand className="text-sm sm:text-base" />
               </span>

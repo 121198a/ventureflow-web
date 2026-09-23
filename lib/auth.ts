@@ -19,6 +19,18 @@ let authRedirectInFlight = false;
 function trackBranchPageview() {
   // Fire-and-forget: any failure here (network, ad-blocker, CSP) must be
   // swallowed silently and must never affect the redirect in openAuth().
+  if (typeof window === "undefined") return;
+
+  // Respect user cookie consent: only track if user explicitly accepted analytics
+  try {
+    const consent = localStorage.getItem("ub_cookie_consent");
+    if (consent !== "accepted") {
+      return;
+    }
+  } catch {
+    return;
+  }
+
   try {
     const payload = JSON.stringify({
       event: "pageview",

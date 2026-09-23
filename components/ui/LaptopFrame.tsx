@@ -36,29 +36,42 @@ export function LaptopFrame({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const isAttemptingPlayRef = useRef(false);
 
   // Initialize and attempt autoplay with proper browser compatibility
   const attemptPlay = useCallback(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || isAttemptingPlayRef.current) return;
 
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
 
     // Start within the active open-laptop sequence (1.8s - 5.5s) to avoid initial black frames
-    if (video.currentTime < 1.8 || video.currentTime >= 5.5) {
+    if (video.readyState >= 1 && (video.currentTime < 1.8 || video.currentTime >= 5.5)) {
       video.currentTime = 1.8;
     }
 
+    if (!video.paused) {
+      setIsPlaying(true);
+      return;
+    }
+
+    isAttemptingPlayRef.current = true;
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise
-        .then(() => setIsPlaying(true))
+        .then(() => {
+          isAttemptingPlayRef.current = false;
+          setIsPlaying(true);
+        })
         .catch(() => {
-          // Autoplay blocked by mobile browser - high-res poster remains cleanly visible
+          // Autoplay blocked by mobile browser or low-power mode - high-res poster remains cleanly visible
+          isAttemptingPlayRef.current = false;
           setIsPlaying(false);
         });
+    } else {
+      isAttemptingPlayRef.current = false;
     }
   }, []);
 
@@ -74,14 +87,14 @@ export function LaptopFrame({
           if (autoPlay) {
             attemptPlay();
           }
-        } else if (entry.intersectionRatio === 0) {
+        } else {
           if (!video.paused) {
             video.pause();
             setIsPlaying(false);
           }
         }
       },
-      { threshold: [0, 0.1, 0.25] }
+      { threshold: 0.1 }
     );
 
     observer.observe(el);
@@ -99,33 +112,33 @@ export function LaptopFrame({
 
     const handleLoadedMetadata = () => {
       // Seek past the initial dark/closed lid animation
-      if (video.currentTime < 1.8) {
+      if (video.duration > 1.8 && video.currentTime < 1.8) {
         video.currentTime = 1.8;
       }
       if (autoPlay) attemptPlay();
     };
 
-    const handlePlay = () => setIsPlaying(true);
+    const handlePlaying = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
 
     // Keep looping seamlessly inside the active 3D open laptop sequence (1.8s - 5.5s)
     // so the laptop NEVER fades into black frames during animation loops
     const handleTimeUpdate = () => {
-      if (video.currentTime >= 5.5) {
+      if (video.readyState >= 1 && video.currentTime >= 5.5) {
         video.currentTime = 1.8;
       }
     };
 
     video.addEventListener("loadedmetadata", handleLoadedMetadata);
-    video.addEventListener("play", handlePlay);
-    video.addEventListener("playing", handlePlay);
+    video.addEventListener("play", handlePlaying);
+    video.addEventListener("playing", handlePlaying);
     video.addEventListener("pause", handlePause);
     video.addEventListener("ended", handlePause);
     video.addEventListener("timeupdate", handleTimeUpdate);
 
     // Initial mount attempt
     if (video.readyState >= 1) {
-      if (video.currentTime < 1.8) {
+      if (video.duration > 1.8 && video.currentTime < 1.8) {
         video.currentTime = 1.8;
       }
       if (autoPlay) attemptPlay();
@@ -133,19 +146,28 @@ export function LaptopFrame({
 
     return () => {
       video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      video.removeEventListener("play", handlePlay);
-      video.removeEventListener("playing", handlePlay);
+      video.removeEventListener("play", handlePlaying);
+      video.removeEventListener("playing", handlePlaying);
       video.removeEventListener("pause", handlePause);
       video.removeEventListener("ended", handlePause);
       video.removeEventListener("timeupdate", handleTimeUpdate);
     };
   }, [autoPlay, attemptPlay]);
 
-  const handleTogglePlay = () => {
+  const handleTogglePlay = (e: React.MouseEvent) => {
+    // Prevent toggle if clicking on interactive children (like links or buttons)
+    if ((e.target as HTMLElement).closest("a, button, input, select")) {
+      return;
+    }
+
     const video = videoRef.current;
     if (!video) return;
+
     if (video.paused) {
-      if (video.currentTime < 1.8 || video.currentTime >= 5.5) {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      if (video.readyState >= 1 && (video.currentTime < 1.8 || video.currentTime >= 5.5)) {
         video.currentTime = 1.8;
       }
       video
@@ -214,7 +236,6 @@ export function LaptopFrame({
               preload="auto"
               poster={src}
               onError={() => {
-                console.warn("[LaptopFrame] Video source load failed, falling back to static poster.");
                 setVideoError(true);
               }}
               className={cn(

@@ -9,18 +9,18 @@ import { cn } from "@/lib/utils";
  */
 export const AUTH_INPUT_CLASS = cn(
   "block w-full h-[clamp(2.75rem,6.4vh,3.8rem)] rounded-[clamp(12px,0.98vw,17px)]",
-  "border border-[#dae4f6] bg-white px-[clamp(1rem,1.4vw,1.5rem)]",
-  "text-[length:clamp(1rem,1.1vw,1.15rem)] font-medium text-[#0b1a33]",
-  "placeholder:font-medium placeholder:text-[#8b94a8]",
+  "border border-slate-200 bg-white px-[clamp(1rem,1.4vw,1.5rem)]",
+  "text-[length:clamp(1rem,1.1vw,1.15rem)] font-medium text-slate-900",
+  "placeholder:font-medium placeholder:text-slate-400",
   "outline-none transition-all",
   "focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
 );
 
 export const AUTH_LABEL_CLASS =
-  "block text-[length:clamp(0.9rem,1.17vw,1.25rem)] font-semibold leading-snug text-[#0b1a33]";
+  "block text-[length:clamp(0.9rem,1.17vw,1.25rem)] font-semibold leading-snug text-slate-900";
 
 export const AUTH_HELPER_CLASS =
-  "text-[length:clamp(0.8rem,0.99vw,1.05rem)] font-medium leading-[1.5] text-[#4d586e]";
+  "text-[length:clamp(0.8rem,0.99vw,1.05rem)] font-medium leading-[1.5] text-slate-600";
 
 /** Vertical rhythm between field groups (28px on the 941px-tall reference). */
 export const AUTH_STACK_GAP = "gap-[clamp(0.9rem,2.9vh,1.75rem)]";

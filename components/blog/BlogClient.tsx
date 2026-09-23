@@ -75,7 +75,9 @@ export function BlogClient() {
           setApiPosts(data.posts);
         }
       } catch (err) {
-        console.error("Search API error:", err);
+        if (process.env.NODE_ENV === "development") {
+          console.error("Search API error:", err);
+        }
       } finally {
         if (isMounted) setIsSearching(false);
       }

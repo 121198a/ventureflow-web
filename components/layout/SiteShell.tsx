@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 import { ArrowRight, ArrowUpRight, ChevronDown, Mail, Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { nav, site, socialLinks } from "@/lib/constants";
 import { AuthButton } from "@/components/ui/AuthButton";
 import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
 import { FaTwitter, FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa";
+import { cn } from "@/lib/utils";
 
 export default function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -53,6 +54,9 @@ export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -80,7 +84,7 @@ export function SiteNav() {
     };
   }, []);
 
-  // Auto-close menus on desktop resize or path change
+  // Auto-close menus on desktop resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 640) {
@@ -91,27 +95,129 @@ export function SiteNav() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Route change cleanup: unconditionally release scroll lock and close drawer
   useEffect(() => {
     setOpen(false);
     setDropdownOpen(false);
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
   }, [pathname]);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll when mobile menu is open without causing layout shift
   useEffect(() => {
     if (open) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = "hidden";
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     };
   }, [open]);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+    triggerRef.current?.focus();
+  }, []);
+
+  // Focus trap and Escape key listener for accessible drawer
+  useEffect(() => {
+    if (!open) return;
+
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+
+    const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const focusableElements = drawer.querySelectorAll<HTMLElement>(focusableSelectors);
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    // Focus the first element (close button)
+    firstElement?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        handleClose();
+        return;
+      }
+
+      if (e.key === "Tab" && focusableElements.length > 0) {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement?.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement?.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open, handleClose]);
 
   // The Login page must never render the shared navbar
   if (pathname === "/login" || pathname?.startsWith("/login")) {
     return null;
   }
+
+  const backdropVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
+
+  const drawerVariants = {
+    hidden: { x: "100%" },
+    visible: {
+      x: 0,
+      transition: {
+        duration: reduceMotion ? 0.01 : 0.32,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+    exit: {
+      x: "100%",
+      transition: {
+        duration: reduceMotion ? 0.01 : 0.24,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  };
+
+  const listVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: reduceMotion ? 0 : 0.04,
+        delayChildren: reduceMotion ? 0 : 0.08,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: 14 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: reduceMotion ? 0.01 : 0.25, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
 
   return (
     <>
@@ -228,6 +334,7 @@ export function SiteNav() {
             </AuthButton>
 
             <button
+              ref={triggerRef}
               aria-label={open ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
@@ -239,108 +346,135 @@ export function SiteNav() {
         </motion.div>
       </header>
 
-      {/* Responsive Full-Screen Light Drawer Mobile Navigation */}
+      {/* Accessible Responsive Mobile Navigation Drawer */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-[100] flex flex-col justify-between bg-white/98 p-5 sm:p-7 text-slate-900 sm:hidden overflow-y-auto backdrop-blur-2xl"
-          >
-            {/* Top Bar inside Overlay */}
-            <div className="relative z-10 mx-auto flex h-[54px] w-full max-w-lg items-center justify-between px-4 rounded-full bg-slate-50 border border-slate-200/90 shadow-sm backdrop-blur-md">
-              <div className="flex items-center gap-2 font-bold text-sm">
-                <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center shadow-2xs border border-slate-200">
-                  <Image
-                    src="/logo/unboundx-mark.png"
-                    width={28}
-                    height={28}
-                    alt=""
-                    className="h-full w-full object-cover rounded-full"
-                  />
+          <div className="fixed inset-0 z-[100] sm:hidden">
+            {/* Backdrop: fades in, clicking it closes drawer */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={backdropVariants}
+              transition={{ duration: reduceMotion ? 0.01 : 0.2 }}
+              onClick={handleClose}
+              aria-hidden="true"
+              className="absolute inset-0 bg-slate-950/40 backdrop-blur-xs"
+            />
+
+            {/* Slide-out Drawer Panel */}
+            <motion.div
+              ref={drawerRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={drawerVariants}
+              className="absolute top-0 right-0 bottom-0 w-full max-w-[340px] min-[400px]:max-w-[360px] bg-white flex flex-col justify-between p-5 sm:p-6 shadow-2xl border-l border-slate-200/80 overflow-y-auto"
+            >
+              {/* Header inside drawer */}
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                <div className="flex items-center gap-2 font-bold text-sm">
+                  <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center shadow-2xs border border-slate-200">
+                    <Image
+                      src="/logo/unboundx-mark.png"
+                      width={28}
+                      height={28}
+                      alt=""
+                      className="h-full w-full object-cover rounded-full"
+                    />
+                  </div>
+                  <UnboundXBrand className="text-base" />
                 </div>
-                <UnboundXBrand className="text-base" />
-              </div>
 
-              <button
-                aria-label="Close menu"
-                onClick={() => setOpen(false)}
-                className="grid h-8 w-8 place-items-center rounded-full bg-slate-200/70 hover:bg-slate-300 text-slate-700 transition-transform active:scale-90 cursor-pointer focus-ring"
-              >
-                <X size={16} />
-              </button>
-            </div>
-
-            {/* Navigation Links Grouping */}
-            <nav className="relative z-10 my-auto flex flex-col gap-6 py-6 text-center max-w-sm mx-auto w-full">
-              <div className="space-y-3">
-                <p className="text-micro font-bold uppercase tracking-wider text-slate-400">Core</p>
-                {nav.map(([label, href]) => {
-                  const isActive = pathname === href || (href !== "/" && pathname?.startsWith(href));
-                  return (
-                    <div key={href}>
-                      <TransitionLink
-                        onClick={() => setOpen(false)}
-                        href={href}
-                        className={`block text-2xl font-extrabold tracking-tight transition-all duration-200 ${
-                          isActive ? "text-blue-600 scale-105" : "text-slate-800 hover:text-blue-600"
-                        }`}
-                      >
-                        {label}
-                      </TransitionLink>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="border-t border-slate-200 pt-4 space-y-2">
-                <p className="text-micro font-bold uppercase tracking-wider text-slate-400">Explore</p>
-                <div className="grid grid-cols-2 gap-2 text-left">
-                  {exploreLinks.map((item) => (
-                    <TransitionLink
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-2.5 transition-colors hover:bg-blue-50/60"
-                    >
-                      <p className="text-xs font-bold text-slate-900 leading-tight">{item.label}</p>
-                      <p className="text-[10px] text-slate-500 mt-0.5 truncate">{item.desc}</p>
-                    </TransitionLink>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-3">
-                <AuthButton
-                  flow="signup"
-                  icon={false}
-                  onClick={() => setOpen(false)}
-                  className="w-full justify-center inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-7 py-3.5 shadow-lg shadow-blue-600/20 transition-transform active:scale-95"
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={handleClose}
+                  className="grid h-8 w-8 place-items-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer focus-ring"
                 >
-                  <span>Get started</span>
-                  <ArrowRight size={15} />
-                </AuthButton>
+                  <X size={16} />
+                </button>
               </div>
-            </nav>
 
-            {/* Bottom Social Icons */}
-            <div className="relative z-10 flex items-center justify-center gap-6 pb-2 text-slate-500 text-base">
-              <a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on X" className="p-2 hover:text-blue-600 transition-colors focus-ring rounded-full">
-                <FaTwitter size={15} />
-              </a>
-              <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on LinkedIn" className="p-2 hover:text-blue-600 transition-colors focus-ring rounded-full">
-                <FaLinkedinIn size={15} />
-              </a>
-              <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Facebook" className="p-2 hover:text-blue-600 transition-colors focus-ring rounded-full">
-                <FaFacebookF size={15} />
-              </a>
-              <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Instagram" className="p-2 hover:text-blue-600 transition-colors focus-ring rounded-full">
-                <FaInstagram size={15} />
-              </a>
-            </div>
-          </motion.div>
+              {/* Staggered Navigation Content */}
+              <motion.nav
+                initial="hidden"
+                animate="visible"
+                variants={listVariants}
+                className="my-auto flex flex-col gap-5 py-5"
+              >
+                <div className="space-y-2">
+                  <p className="text-micro font-bold uppercase tracking-wider text-slate-400">Core</p>
+                  {nav.map(([label, href]) => {
+                    const isActive = pathname === href || (href !== "/" && pathname?.startsWith(href));
+                    return (
+                      <motion.div key={href} variants={itemVariants}>
+                        <TransitionLink
+                          onClick={handleClose}
+                          href={href}
+                          className={cn(
+                            "block text-xl font-extrabold tracking-tight py-1 transition-colors",
+                            isActive ? "text-blue-600" : "text-slate-800 hover:text-blue-600"
+                          )}
+                        >
+                          {label}
+                        </TransitionLink>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                <motion.div variants={itemVariants} className="border-t border-slate-100 pt-4 space-y-2">
+                  <p className="text-micro font-bold uppercase tracking-wider text-slate-400">Explore</p>
+                  <div className="grid grid-cols-1 gap-1.5">
+                    {exploreLinks.map((item) => (
+                      <TransitionLink
+                        key={item.href}
+                        href={item.href}
+                        onClick={handleClose}
+                        className="rounded-lg border border-slate-100 bg-slate-50/70 p-2.5 transition-colors hover:bg-blue-50/60 hover:border-blue-200/60 focus-ring"
+                      >
+                        <p className="text-xs font-bold text-slate-900 leading-tight">{item.label}</p>
+                        <p className="text-[10px] text-slate-500 mt-0.5 truncate">{item.desc}</p>
+                      </TransitionLink>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Primary CTA after links */}
+                <motion.div variants={itemVariants} className="pt-2">
+                  <AuthButton
+                    flow="signup"
+                    icon={false}
+                    onClick={handleClose}
+                    className="w-full justify-center inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-6 py-3 shadow-md shadow-blue-600/20 transition-transform active:scale-95"
+                  >
+                    <span>Get started</span>
+                    <ArrowRight size={15} />
+                  </AuthButton>
+                </motion.div>
+              </motion.nav>
+
+              {/* Bottom Social Icons */}
+              <div className="flex items-center justify-center gap-6 pt-3 border-t border-slate-100 text-slate-500">
+                <a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on X" className="p-1.5 hover:text-blue-600 transition-colors focus-ring rounded-full">
+                  <FaTwitter size={14} />
+                </a>
+                <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on LinkedIn" className="p-1.5 hover:text-blue-600 transition-colors focus-ring rounded-full">
+                  <FaLinkedinIn size={14} />
+                </a>
+                <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Facebook" className="p-1.5 hover:text-blue-600 transition-colors focus-ring rounded-full">
+                  <FaFacebookF size={14} />
+                </a>
+                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Instagram" className="p-1.5 hover:text-blue-600 transition-colors focus-ring rounded-full">
+                  <FaInstagram size={14} />
+                </a>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>

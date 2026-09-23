@@ -5,6 +5,7 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/ui/Reveal";
 import { FundingTargetIcon } from "@/components/ui/CustomIcons";
+import { PhoneFrame } from "@/components/ui/PhoneFrame";
 
 const steps = [
   {
@@ -174,153 +175,86 @@ export function ThesisJourney() {
               ))}
             </div>
 
-            {/* Right: Phone Frame with Pixel-Accurate Status Bar & Notch (Image 2 Gradient Border) */}
+            {/* Right: Standard PhoneFrame with Thesis Theme */}
             <div className="lg:col-span-5 relative flex justify-center items-center">
-              <div
-                aria-hidden="true"
-                className="phone-frame-mockup thesis-phone-size"
+              <PhoneFrame
+                theme="thesis"
+                showWifi={true}
+                showStatusBar={true}
+                showHomeIndicator={true}
+                time="12:26"
+                className="w-[235px] sm:w-[255px] lg:w-[270px] xl:w-[280px] shadow-2xl"
               >
-                {/* 4-Edge Perimeter Precision Gradient Ribbon */}
-                <div
-                  className="relative h-full w-full rounded-[29px] sm:rounded-[33px] p-[2.5px]"
-                  style={{
-                    background:
-                      "conic-gradient(from 190deg at 50% 50%, #2563eb 0deg, #0284c7 90deg, #38bdf8 180deg, #1d4ed8 270deg, #2563eb 360deg)",
-                    boxShadow: "0 0 16px rgba(37, 99, 235, 0.25), inset 0 0 6px rgba(37, 99, 235, 0.25)",
-                  }}
-                >
-                  {/* Outer Bloom */}
-                  <div
-                    className="pointer-events-none absolute inset-0 -z-10 rounded-[29px] sm:rounded-[33px] opacity-70 blur-[3px]"
-                    style={{
-                      background:
-                        "conic-gradient(from 190deg at 50% 50%, #2563eb 0deg, #0284c7 90deg, #38bdf8 180deg, #1d4ed8 270deg, #2563eb 360deg)",
-                    }}
-                  />
+                <div className="relative z-10 h-full w-full overflow-hidden bg-white flex flex-col justify-between">
+                  {/* Top Action Bar (< and 3-dots) */}
+                  <div className="flex h-[20px] shrink-0 items-center justify-between px-3 text-slate-900 pt-0.5">
+                    <svg className="h-[13px] w-[13px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m15 6-6 6 6 6" />
+                    </svg>
+                    <span className="flex h-[13px] w-[13px] flex-col items-center justify-center gap-[1.5px] text-slate-600">
+                      <i className="h-[2px] w-[2px] rounded-pill bg-current" />
+                      <i className="h-[2px] w-[2px] rounded-pill bg-current" />
+                      <i className="h-[2px] w-[2px] rounded-pill bg-current" />
+                    </span>
+                  </div>
 
-                  {/* Screen Glass Container */}
-                  <div className="relative z-10 h-full w-full overflow-hidden rounded-[27px] sm:rounded-[31px] bg-white flex flex-col justify-between">
-                  
-                  {/* Status Bar Section */}
-                  <div>
-                    <div className="relative flex h-[36px] items-center justify-between px-3.5 pt-1 text-xs font-semibold text-slate-900 pointer-events-none">
-                      {/* Left: Time + Chat Bubble + Blue Notification Dot */}
-                      <div className="flex items-center gap-1">
-                        <span className="font-bold tracking-tight text-xs">12:26</span>
-                        <div className="relative flex items-center justify-center">
-                          {/* Chat bubble outline */}
-                          <svg className="h-[10px] w-[10px] text-slate-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-                          </svg>
-                          {/* Blue unread dot */}
-                          <span className="absolute -top-0.5 -right-0.5 h-[4px] w-[4px] rounded-pill bg-[#2563EB]" />
-                        </div>
-                      </div>
+                  {/* Article Content */}
+                  <div className="px-3 pt-0.5 text-left flex-1 min-h-0 overflow-hidden">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={active}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="text-xs font-medium text-slate-600"
+                      >
+                        Asset Thesis &middot; {active === 2 ? "6mo ago" : active === 1 ? "3mo ago" : "4h ago"}
+                      </motion.div>
+                    </AnimatePresence>
 
-                      {/* Center: Correct Compact Pill Dynamic Island */}
-                      <div className="absolute left-1/2 top-1.5 h-[16px] w-[76px] -translate-x-1/2 rounded-pill bg-[#111729]" />
+                    <h4 className="mt-0.5 text-xs font-bold leading-tight tracking-tight text-slate-900">
+                      The Monopoly Tax: Why the Biggest Buyers on Earth Are Funding AMD&apos;s Rise
+                    </h4>
 
-                      {/* Right: Signal, Wi-Fi, 92%, Battery */}
-                      <div className="flex items-center gap-1 text-slate-900">
-                        {/* 4-level Signal Towers */}
-                        <div className="flex items-end gap-[1px] h-[8px] pb-[0.5px]">
-                          <span className="w-[1.5px] h-[2.5px] bg-slate-900 rounded-sm" />
-                          <span className="w-[1.5px] h-[4px] bg-slate-900 rounded-sm" />
-                          <span className="w-[1.5px] h-[5.5px] bg-slate-900 rounded-sm" />
-                          <span className="w-[1.5px] h-[7px] bg-slate-900 rounded-sm" />
-                        </div>
-
-                        {/* Wi-Fi Icon */}
-                        <svg className="h-[9px] w-[9px] text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M12 20h.01" />
-                          <path d="M8.5 16.429a5 5 0 0 1 7 0" />
-                          <path d="M5 12.859a10 10 0 0 1 14 0" />
-                          <path d="M1.5 9.288a15 15 0 0 1 21 0" />
-                        </svg>
-
-                        {/* Battery Percentage */}
-                        <span className="font-bold text-xs tracking-tight">92%</span>
-
-                        {/* Battery Container */}
-                        <div className="relative flex items-center">
-                          <div className="h-[8px] w-[15px] rounded-sm border border-slate-900 p-[1px] flex items-center">
-                            <div className="h-full w-[90%] rounded-sm bg-slate-900" />
-                          </div>
-                          <span className="h-[3px] w-[1px] rounded-r-sm bg-slate-900 -ml-[0.5px]" />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Top Action Bar (< and 3-dots) */}
-                    <div className="flex h-[18px] items-center justify-between px-3 text-slate-900">
-                      <svg className="h-[13px] w-[13px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m15 6-6 6 6 6" />
-                      </svg>
-                      <span className="flex h-[13px] w-[13px] flex-col items-center justify-center gap-[1.5px] text-slate-600">
-                        <i className="h-[2px] w-[2px] rounded-pill bg-current" />
-                        <i className="h-[2px] w-[2px] rounded-pill bg-current" />
-                        <i className="h-[2px] w-[2px] rounded-pill bg-current" />
+                    <div className="mt-1 flex gap-1">
+                      <span className="inline-flex items-center rounded-pill border border-slate-200 bg-white px-2 py-0.5 text-xs font-semibold text-slate-800">
+                        $AMD
+                      </span>
+                      <span className="inline-flex items-center rounded-pill border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">
+                        Bullish
                       </span>
                     </div>
 
-                    {/* Article Content */}
-                    <div className="px-3 pt-0.5 text-left">
-                      <AnimatePresence mode="wait">
-                        <motion.div
-                          key={active}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.4, ease: "easeInOut" }}
-                          className="text-xs font-medium text-slate-600"
-                        >
-                          Asset Thesis &middot; {active === 2 ? "6mo ago" : active === 1 ? "3mo ago" : "4h ago"}
-                        </motion.div>
-                      </AnimatePresence>
-
-                      <h4 className="mt-0.5 text-xs font-bold leading-tight tracking-tight text-slate-900">
-                        The Monopoly Tax: Why the Biggest Buyers on Earth Are Funding AMD&apos;s Rise
-                      </h4>
-
-                      <div className="mt-1 flex gap-1">
-                        <span className="inline-flex items-center rounded-pill border border-slate-200 bg-white px-2 py-0.5 text-xs font-semibold text-slate-800">
-                          $AMD
-                        </span>
-                        <span className="inline-flex items-center rounded-pill border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">
-                          Bullish
-                        </span>
+                    {/* Author Info Row */}
+                    <div className="mt-1.5 flex items-center justify-between border-t border-slate-100 pt-1">
+                      <div>
+                        <b className="block text-xs font-bold text-slate-900 leading-none">Arnav Awasthi</b>
+                        <span className="text-xs text-slate-600">@arnav</span>
                       </div>
+                      <span className="grid h-[22px] w-[22px] place-items-center rounded-pill bg-blue-600 text-[9px] font-bold text-white shadow-2xs">
+                        AA
+                      </span>
+                    </div>
 
-                      {/* Author Info Row */}
-                      <div className="mt-1.5 flex items-center justify-between border-t border-slate-100 pt-1">
-                        <div>
-                          <b className="block text-xs font-bold text-slate-900 leading-none">Arnav Awasthi</b>
-                          <span className="text-xs text-slate-600">@arnav</span>
-                        </div>
-                        <span className="grid h-[22px] w-[22px] place-items-center rounded-pill bg-blue-600 text-[9px] font-bold text-white shadow-2xs">
-                          AA
-                        </span>
-                      </div>
+                    {/* Editorial Paragraphs */}
+                    <div className="mt-1.5 space-y-1 text-xs text-slate-600 leading-relaxed">
+                      <p className="m-0">
+                        On August 4, <span className="font-semibold text-blue-600">$AMD</span> reported the best quarter in the company&apos;s 57-year history. Revenue rose 50 percent to a record $11.5 billion. The data center business more than doubled. Adjusted earnings per share grew 82 percent.
+                      </p>
 
-                      {/* Editorial Paragraphs */}
-                      <div className="mt-1.5 space-y-1 text-xs text-slate-600 leading-relaxed">
-                        <p className="m-0">
-                          On August 4, <span className="font-semibold text-blue-600">$AMD</span> reported the best quarter in the company&apos;s 57-year history. Revenue rose 50 percent to a record $11.5 billion. The data center business more than doubled. Adjusted earnings per share grew 82 percent.
-                        </p>
+                      <p className="m-0 flex items-center gap-1 font-semibold text-slate-900">
+                        <i className="block h-[11px] w-[2px] shrink-0 rounded-pill bg-blue-600" />
+                        <span>The stock fell 9 percent</span>
+                      </p>
 
-                        <p className="m-0 flex items-center gap-1 font-semibold text-slate-900">
-                          <i className="block h-[11px] w-[2px] shrink-0 rounded-pill bg-[#0080FF]" />
-                          <span>The stock fell 9 percent</span>
-                        </p>
+                      <p className="m-0">
+                        That single sentence is the entire investment case, and the entire risk, compressed into one trading session. A company does not get punished for doubling its largest business unless the market has already paid for the doubling. Which means the only way to make money in <span className="font-semibold text-blue-600">$AMD</span> from here is to be right about something the crowd is not yet paying for.
+                      </p>
 
-                        <p className="m-0">
-                          That single sentence is the entire investment case, and the entire risk, compressed into one trading session. A company does not get punished for doubling its largest business unless the market has already paid for the doubling. Which means the only way to make money in <span className="font-semibold text-blue-600">$AMD</span> from here is to be right about something the crowd is not yet paying for.
-                        </p>
-
-                        <p className="m-0 text-xs text-slate-600">
-                          There is exactly one such thing, and it is not a chip. It is the moment a monopoly becomes a duopoly, and it is worth more than any product cycle in this story.
-                        </p>
-                      </div>
+                      <p className="m-0 text-xs text-slate-600">
+                        There is exactly one such thing, and it is not a chip. It is the moment a monopoly becomes a duopoly, and it is worth more than any product cycle in this story.
+                      </p>
                     </div>
                   </div>
 
@@ -366,9 +300,12 @@ export function ThesisJourney() {
                         </div>
                         <div className="flex flex-col items-center gap-[1px] text-slate-600">
                           <span
-                            className="h-[12px] w-[12px] rounded-pill bg-cover bg-center"
-                            style={{ backgroundImage: "url(https://i.pravatar.cc/100?img=12)" }}
-                          />
+                            className="grid h-[12px] w-[12px] place-items-center rounded-full bg-blue-100 text-[7px] font-bold text-blue-700 leading-none select-none"
+                            aria-label="Arnav Awasthi profile avatar"
+                            role="img"
+                          >
+                            AA
+                          </span>
                           <span className="text-xs font-semibold">Profile</span>
                         </div>
                       </div>
@@ -466,15 +403,14 @@ export function ThesisJourney() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </PhoneFrame>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom safety gap */}
-      <div className="h-1 shrink-0" />
+        {/* Bottom safety gap */}
+        <div className="h-1 shrink-0" />
+      </div>
     </div>
-  </div>
   );
 }

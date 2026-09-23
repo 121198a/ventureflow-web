@@ -116,10 +116,10 @@ function AuthBrandPill() {
           className="h-full w-full rounded-full object-contain"
         />
       </span>
-      <span className="flex select-none items-baseline gap-[0.45rem] text-[#0d1b3a]" aria-hidden="true">
+      <span className="flex select-none items-baseline gap-[0.45rem] text-slate-900" aria-hidden="true">
         <span className="text-[length:clamp(1.15rem,1.45vw,1.55rem)] font-extrabold tracking-tight">UBverse</span>
-        <span className="text-[length:clamp(0.8rem,0.9vw,0.95rem)] font-medium text-[#8b96b5]">by</span>
-        <UnboundXBrand className="text-[length:clamp(1.15rem,1.45vw,1.55rem)] !text-[#0d1b3a]" />
+        <span className="text-[length:clamp(0.8rem,0.9vw,0.95rem)] font-medium text-slate-400">by</span>
+        <UnboundXBrand className="text-[length:clamp(1.15rem,1.45vw,1.55rem)] !text-slate-900" />
       </span>
     </Link>
   );
@@ -147,7 +147,7 @@ export function AuthLayout({
   }, []);
 
   return (
-    <div className="relative isolate flex min-h-[100dvh] w-full flex-col overflow-x-clip bg-[#f4f7fe] font-sans text-[#0b1a33]">
+    <div className="relative isolate flex min-h-[100dvh] w-full flex-col overflow-x-clip bg-slate-50 font-sans text-slate-900">
       <AuthBackground />
 
       {/* Brand lock-up (only place the logo appears — never inside the card) */}
@@ -162,26 +162,26 @@ export function AuthLayout({
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-600">{eyebrow}</p>
           )}
 
-          <h1 className="text-[2.25rem] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#03162e] sm:text-[2.75rem] lg:text-[length:clamp(2.4rem,3.7vw,4.25rem)]">
+          <h1 className="text-[2.25rem] font-extrabold leading-[1.1] tracking-[-0.03em] text-slate-900 sm:text-[2.75rem] lg:text-[length:clamp(2.4rem,3.7vw,4.25rem)]">
             {title}
           </h1>
 
-          <p className="mt-4 max-w-xl text-pretty text-[1.05rem] font-medium leading-[1.6] text-[#1c2740] sm:text-[1.15rem] lg:mt-[clamp(0.9rem,2.6vh,1.6rem)] lg:max-w-[min(34vw,600px)] lg:text-[length:clamp(1rem,1.26vw,1.4rem)]">
+          <p className="mt-4 max-w-xl text-pretty text-[1.05rem] font-medium leading-[1.6] text-slate-800 sm:text-[1.15rem] lg:mt-[clamp(0.9rem,2.6vh,1.6rem)] lg:max-w-[min(34vw,600px)] lg:text-[length:clamp(1rem,1.26vw,1.4rem)]">
             {subtitle}
           </p>
 
           {description && (
-            <p className="mt-2 max-w-xl text-[0.95rem] font-medium leading-relaxed text-[#3a465e] sm:text-base lg:max-w-[min(34vw,600px)] lg:text-[length:clamp(0.9rem,1.05vw,1.15rem)]">
+            <p className="mt-2 max-w-xl text-[0.95rem] font-medium leading-relaxed text-slate-600 sm:text-base lg:max-w-[min(34vw,600px)] lg:text-[length:clamp(0.9rem,1.05vw,1.15rem)]">
               {description}
             </p>
           )}
 
           {belowSubtitle ? (
-            <div className="mt-5 text-[0.95rem] font-medium text-[#1c2740] lg:mt-[clamp(1rem,2.8vh,1.8rem)] lg:text-[length:clamp(0.9rem,1.14vw,1.2rem)]">
+            <div className="mt-5 text-[0.95rem] font-medium text-slate-800 lg:mt-[clamp(1rem,2.8vh,1.8rem)] lg:text-[length:clamp(0.9rem,1.14vw,1.2rem)]">
               {belowSubtitle}
             </div>
           ) : switchPrompt && switchLinkText && switchLinkHref ? (
-            <p className="mt-5 text-[0.95rem] font-medium text-[#1c2740] lg:mt-[clamp(1rem,2.8vh,1.8rem)] lg:text-[length:clamp(0.9rem,1.14vw,1.2rem)]">
+            <p className="mt-5 text-[0.95rem] font-medium text-slate-800 lg:mt-[clamp(1rem,2.8vh,1.8rem)] lg:text-[length:clamp(0.9rem,1.14vw,1.2rem)]">
               {switchPrompt}{" "}
               <Link
                 href={switchLinkHref}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
 import { isSupabaseConfigured, getSupabaseClient } from "@/lib/supabase/client";
 
 export interface AuthUser {
@@ -10,27 +9,51 @@ export interface AuthUser {
   role?: "investor" | "founder" | "issuer" | string;
 }
 
-export function useAuthSession() {
-  const router = useRouter();
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [role, setRole] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+interface SessionState {
+  user: AuthUser | null;
+  role: string | null;
+  loading: boolean;
+  initialized: boolean;
+}
 
-  const refreshSession = useCallback(async () => {
+// Module-level session cache and subscriber store
+// Guarantees singleton session resolution with zero duplicate API requests across components
+let globalState: SessionState = {
+  user: null,
+  role: null,
+  loading: true,
+  initialized: false,
+};
+
+const listeners = new Set<() => void>();
+let inFlightPromise: Promise<{ user: AuthUser | null; role: string | null }> | null = null;
+let authSubscriptionInitialized = false;
+
+function updateGlobalState(next: Partial<SessionState>) {
+  globalState = { ...globalState, ...next };
+  listeners.forEach((listener) => listener());
+}
+
+async function fetchSessionInternal(force = false): Promise<{ user: AuthUser | null; role: string | null }> {
+  if (inFlightPromise && !force) {
+    return inFlightPromise;
+  }
+
+  inFlightPromise = (async () => {
     try {
-      // 1. Check server session via API
+      // 1. Check server cryptographic session via API
       const res = await fetch("/api/auth/session", {
         headers: { Accept: "application/json" },
         cache: "no-store",
-      });
+      }).catch(() => null);
 
-      if (res.ok) {
-        const data = await res.json();
+      if (res && res.ok) {
+        const data = await res.json().catch(() => ({}));
         if (data.authenticated && data.user) {
-          setUser(data.user);
-          setRole(data.user.role || null);
-          setLoading(false);
-          return;
+          const user: AuthUser = data.user;
+          const role = data.user.role || null;
+          updateGlobalState({ user, role, loading: false, initialized: true });
+          return { user, role };
         }
       }
 
@@ -38,7 +61,7 @@ export function useAuthSession() {
       if (isSupabaseConfigured()) {
         const client = getSupabaseClient();
         if (client) {
-          const { data } = await client.auth.getSession();
+          const { data } = await client.auth.getSession().catch(() => ({ data: null }));
           if (data?.session?.user) {
             const sbUser = data.session.user;
             const sbRole =
@@ -46,63 +69,113 @@ export function useAuthSession() {
               (sbUser.app_metadata?.role as string) ||
               null;
 
-            setUser({
+            const user: AuthUser = {
               id: sbUser.id,
               email: sbUser.email,
               role: sbRole || undefined,
-            });
-            setRole(sbRole);
-            setLoading(false);
-            return;
+            };
+
+            // Sync verified Supabase session to server cookies so edge middleware validates
+            await fetch("/api/auth/session", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                accessToken: data.session.access_token,
+                refreshToken: data.session.refresh_token,
+                role: sbRole,
+                email: sbUser.email,
+                id: sbUser.id,
+              }),
+            }).catch(() => {});
+
+            updateGlobalState({ user, role: sbRole, loading: false, initialized: true });
+            return { user, role: sbRole };
           }
         }
       }
 
-      setUser(null);
-      setRole(null);
+      // 3. Unauthenticated baseline
+      updateGlobalState({ user: null, role: null, loading: false, initialized: true });
+      return { user: null, role: null };
     } catch {
-      setUser(null);
-      setRole(null);
+      updateGlobalState({ user: null, role: null, loading: false, initialized: true });
+      return { user: null, role: null };
     } finally {
-      setLoading(false);
+      inFlightPromise = null;
     }
-  }, []);
+  })();
+
+  return inFlightPromise;
+}
+
+function initSupabaseSubscription() {
+  if (authSubscriptionInitialized || typeof window === "undefined" || !isSupabaseConfigured()) {
+    return;
+  }
+
+  const client = getSupabaseClient();
+  if (!client) return;
+
+  authSubscriptionInitialized = true;
+  client.auth.onAuthStateChange(async (event, session) => {
+    if (event === "SIGNED_OUT" || !session) {
+      updateGlobalState({ user: null, role: null, loading: false, initialized: true });
+      await fetch("/api/auth/session", { method: "DELETE" }).catch(() => {});
+    } else if (session?.user) {
+      const u = session.user;
+      const r =
+        (u.user_metadata?.role as string) ||
+        (u.app_metadata?.role as string) ||
+        null;
+
+      const user: AuthUser = { id: u.id, email: u.email, role: r || undefined };
+      updateGlobalState({ user, role: r, loading: false, initialized: true });
+
+      // Keep server cookie synced on refresh or signin
+      await fetch("/api/auth/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          accessToken: session.access_token,
+          refreshToken: session.refresh_token,
+          role: r,
+          email: u.email,
+          id: u.id,
+        }),
+      }).catch(() => {});
+    }
+  });
+}
+
+export function useAuthSession() {
+  const [state, setState] = useState<SessionState>(() => globalState);
 
   useEffect(() => {
-    refreshSession();
+    initSupabaseSubscription();
 
-    if (isSupabaseConfigured()) {
-      const client = getSupabaseClient();
-      if (client) {
-        const {
-          data: { subscription },
-        } = client.auth.onAuthStateChange(async (event, session) => {
-          if (event === "SIGNED_OUT" || !session) {
-            setUser(null);
-            setRole(null);
-            setLoading(false);
-          } else if (session?.user) {
-            const u = session.user;
-            const r =
-              (u.user_metadata?.role as string) ||
-              (u.app_metadata?.role as string) ||
-              null;
+    const listener = () => {
+      setState(globalState);
+    };
 
-            setUser({ id: u.id, email: u.email, role: r || undefined });
-            setRole(r);
-            setLoading(false);
-          }
-        });
+    listeners.add(listener);
 
-        return () => {
-          subscription.unsubscribe();
-        };
-      }
+    // Initial fetch if not already initialized
+    if (!globalState.initialized) {
+      fetchSessionInternal();
     }
-  }, [refreshSession]);
+
+    return () => {
+      listeners.delete(listener);
+    };
+  }, []);
+
+  const refreshSession = useCallback(async () => {
+    updateGlobalState({ loading: true });
+    return fetchSessionInternal(true);
+  }, []);
 
   const logout = useCallback(async () => {
-    setLoading(true);
+    updateGlobalState({ loading: true });
     try {
       if (isSupabaseConfigured()) {
         const client = getSupabaseClient();
@@ -115,23 +188,21 @@ export function useAuthSession() {
         method: "POST",
       }).catch(() => {});
 
-      setUser(null);
-      setRole(null);
+      updateGlobalState({ user: null, role: null, loading: false, initialized: true });
 
-      // Invalidate and redirect to login, replacing history to prevent back-navigation to protected pages
+      // Invalidate and hard-redirect to login, wiping client history and preventing back-navigation
       window.location.replace("/login");
     } catch {
+      updateGlobalState({ user: null, role: null, loading: false, initialized: true });
       window.location.replace("/login");
-    } finally {
-      setLoading(false);
     }
   }, []);
 
   return {
-    user,
-    role,
-    loading,
-    isAuthenticated: Boolean(user),
+    user: state.user,
+    role: state.role,
+    loading: state.loading,
+    isAuthenticated: Boolean(state.user),
     logout,
     refreshSession,
   };

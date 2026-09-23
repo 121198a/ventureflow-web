@@ -95,7 +95,9 @@ export function ApplyForm({
       clearDraft();
       setStatus("success");
     } catch (err) {
-      console.error(err);
+      if (process.env.NODE_ENV === "development") {
+        console.error("[Careers Apply] Submission error:", err);
+      }
       setMessage("Something went wrong while submitting. Please try again in a moment.");
       setStatus("error");
     }

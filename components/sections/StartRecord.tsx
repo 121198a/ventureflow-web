@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Reveal } from "@/components/ui/Reveal";
 import { AuthButton } from "@/components/ui/AuthButton";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { AmbientLight } from "@/components/motion/AmbientLight";
+import { cn } from "@/lib/utils";
 
 const phrases = [
   "semiconductor capex cycles.",
@@ -21,6 +22,7 @@ export function StartRecord() {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [activePhoneIndex, setActivePhoneIndex] = useState(0);
 
   useEffect(() => {
     const currentPhrase = phrases[phraseIndex];
@@ -45,33 +47,86 @@ export function StartRecord() {
     return () => clearTimeout(timeout);
   }, [text, isDeleting, phraseIndex]);
 
+  const phones = [
+    {
+      id: "feed",
+      label: "Thesis Feed",
+      theme: "feed" as const,
+      time: "12:26",
+      content: <FeedMini />,
+    },
+    {
+      id: "verdict",
+      label: "Audited Record",
+      theme: "thesis" as const,
+      time: "12:27",
+      content: <VerdictMini />,
+    },
+    {
+      id: "invest",
+      label: "Execution",
+      theme: "invest" as const,
+      time: "12:28",
+      content: <InvestMini />,
+    },
+  ];
+
   return (
     <section className="relative overflow-hidden bg-white px-5 pt-20 sm:pt-28 pb-28 sm:pb-36 lg:pb-44 border-t border-slate-200/80">
       {/* Ambient background lighting */}
       <AmbientLight color="rgba(37, 99, 235, 0.07)" size={550} intensity={0.9} />
 
       <div className="relative z-10 mx-auto grid max-w-[1100px] items-center gap-10 lg:grid-cols-2 lg:gap-14">
-        {/* Dual Phone Perspective Mockup (Image 3 Reference) */}
-        <Reveal direction="left" className="relative order-2 flex justify-center py-6 lg:order-1">
+        {/* Three-Phone Mockup Showcase (Balanced Row on Desktop, Real Carousel on Mobile/Tablet) */}
+        <Reveal direction="left" className="relative order-2 flex flex-col items-center py-6 lg:order-1">
+          {/* Desktop Balanced 3-Phone Triptych (>= lg) */}
           <div
-            className="relative flex items-center justify-center"
+            className="relative hidden lg:flex items-center justify-center w-full h-[460px]"
             style={{ perspective: 1200 }}
           >
             {/* Ambient Multi-layer Floating Floor Shadows */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -bottom-10 left-1/2 h-16 w-[280px] sm:w-[340px] -translate-x-1/2 rounded-full bg-slate-900/15 blur-2xl"
+              className="pointer-events-none absolute -bottom-10 left-1/2 h-16 w-[380px] -translate-x-1/2 rounded-full bg-slate-900/15 blur-2xl"
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -bottom-6 left-1/2 h-8 w-[220px] -translate-x-1/2 rounded-full bg-blue-600/10 blur-xl"
+              className="pointer-events-none absolute -bottom-6 left-1/2 h-8 w-[280px] -translate-x-1/2 rounded-full bg-blue-600/10 blur-xl"
             />
 
-            {/* Foreground Phone (Feed & Thesis Intelligence) */}
+            {/* Left Phone (Audited Record / Verdict) */}
+            <motion.div
+              animate={{
+                y: [0, -8, 0],
+                rotateZ: [-6, -4.5, -6],
+              }}
+              transition={{
+                y: { duration: 5.6, repeat: Infinity, ease: "easeInOut", delay: 0.15 },
+                rotateZ: { duration: 7.0, repeat: Infinity, ease: "easeInOut", delay: 0.1 },
+              }}
+              className="absolute left-4 xl:left-8 z-10 opacity-95"
+              style={{
+                transformStyle: "preserve-3d",
+                transform: "rotateY(10deg) rotateX(6deg) rotateZ(-5.5deg) translateZ(-35px) scale(0.92)",
+              }}
+            >
+              <PhoneFrame
+                theme="thesis"
+                showWifi={true}
+                showStatusBar={true}
+                showHomeIndicator={true}
+                time="12:27"
+                className="w-[220px] xl:w-[235px]"
+              >
+                <VerdictMini />
+              </PhoneFrame>
+            </motion.div>
+
+            {/* Center Phone (Foreground Thesis Formulation Feed) */}
             <motion.div
               animate={{
                 y: [0, -7, 0],
-                rotateZ: [-3, -2, -3],
+                rotateZ: [0, 0.5, 0],
               }}
               transition={{
                 y: { duration: 5.2, repeat: Infinity, ease: "easeInOut" },
@@ -80,7 +135,7 @@ export function StartRecord() {
               className="relative z-20"
               style={{
                 transformStyle: "preserve-3d",
-                transform: "rotateY(-6deg) rotateX(4deg) rotateZ(-3deg)",
+                transform: "rotateY(-2deg) rotateX(4deg) translateZ(15px)",
               }}
             >
               <PhoneFrame
@@ -88,26 +143,26 @@ export function StartRecord() {
                 showWifi={true}
                 showStatusBar={true}
                 showHomeIndicator={true}
-                className="w-[200px] min-[380px]:w-[220px] sm:w-[245px] lg:w-[255px]"
+                className="w-[230px] xl:w-[245px] shadow-2xl"
               >
                 <FeedMini />
               </PhoneFrame>
             </motion.div>
 
-            {/* Background Peeking Phone (Invest & Performance - Image 3 Reference) */}
+            {/* Right Phone (Invest & Execution Performance) */}
             <motion.div
               animate={{
                 y: [0, -9, 0],
-                rotateZ: [7, 8.5, 7],
+                rotateZ: [6, 7.5, 6],
               }}
               transition={{
                 y: { duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 0.35 },
                 rotateZ: { duration: 7.2, repeat: Infinity, ease: "easeInOut", delay: 0.2 },
               }}
-              className="absolute -right-6 -top-4 sm:-right-10 sm:-top-6 z-10 hidden sm:block opacity-95"
+              className="absolute right-4 xl:right-8 z-10 opacity-95"
               style={{
                 transformStyle: "preserve-3d",
-                transform: "rotateY(-12deg) rotateX(8deg) rotateZ(7.5deg) translateZ(-35px) scale(0.94)",
+                transform: "rotateY(-10deg) rotateX(6deg) rotateZ(6deg) translateZ(-35px) scale(0.92)",
               }}
             >
               <PhoneFrame
@@ -116,11 +171,99 @@ export function StartRecord() {
                 showStatusBar={true}
                 showHomeIndicator={true}
                 time="12:28"
-                className="w-[200px] min-[380px]:w-[220px] sm:w-[245px] lg:w-[255px]"
+                className="w-[220px] xl:w-[235px]"
               >
                 <InvestMini />
               </PhoneFrame>
             </motion.div>
+          </div>
+
+          {/* Mobile & Tablet Interactive Carousel (< lg) */}
+          <div className="flex flex-col items-center w-full lg:hidden">
+            {/* Carousel Active Phone */}
+            <div className="relative flex items-center justify-center w-full py-4">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={phones[activePhoneIndex].id}
+                  initial={{ opacity: 0, scale: 0.95, y: 12 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -12 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative z-20 flex justify-center"
+                >
+                  <PhoneFrame
+                    theme={phones[activePhoneIndex].theme}
+                    showWifi={true}
+                    showStatusBar={true}
+                    showHomeIndicator={true}
+                    time={phones[activePhoneIndex].time}
+                    className="w-[220px] min-[380px]:w-[240px] sm:w-[260px] shadow-xl"
+                  >
+                    {phones[activePhoneIndex].content}
+                  </PhoneFrame>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Prev / Next Arrows for Tablet & Mobile Touch Navigation */}
+              <button
+                type="button"
+                onClick={() =>
+                  setActivePhoneIndex((prev) => (prev === 0 ? phones.length - 1 : prev - 1))
+                }
+                className="absolute left-0 sm:left-4 z-30 grid size-9 place-items-center rounded-full bg-white/90 border border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50 transition-colors focus-ring cursor-pointer"
+                aria-label="Previous phone preview"
+              >
+                <ChevronLeft size={18} />
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  setActivePhoneIndex((prev) => (prev === phones.length - 1 ? 0 : prev + 1))
+                }
+                className="absolute right-0 sm:right-4 z-30 grid size-9 place-items-center rounded-full bg-white/90 border border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50 transition-colors focus-ring cursor-pointer"
+                aria-label="Next phone preview"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+
+            {/* Interactive Carousel Pagination Tabs & Dots */}
+            <div className="mt-5 flex flex-col items-center gap-2">
+              <div className="flex items-center gap-1.5 p-1 rounded-full bg-slate-100/90 border border-slate-200/80">
+                {phones.map((phone, idx) => (
+                  <button
+                    key={phone.id}
+                    type="button"
+                    onClick={() => setActivePhoneIndex(idx)}
+                    className={cn(
+                      "px-3 py-1 text-xs font-semibold rounded-full transition-all cursor-pointer",
+                      activePhoneIndex === idx
+                        ? "bg-white text-blue-700 shadow-2xs font-bold"
+                        : "text-slate-600 hover:text-slate-900"
+                    )}
+                  >
+                    {phone.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Dot Indicators */}
+              <div className="flex items-center gap-1.5 mt-1">
+                {phones.map((phone, idx) => (
+                  <button
+                    key={phone.id}
+                    type="button"
+                    onClick={() => setActivePhoneIndex(idx)}
+                    className={cn(
+                      "h-1.5 rounded-full transition-all cursor-pointer",
+                      activePhoneIndex === idx ? "w-6 bg-blue-600" : "w-1.5 bg-slate-300 hover:bg-slate-400"
+                    )}
+                    aria-label={`Go to ${phone.label}`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </Reveal>
 
@@ -229,6 +372,45 @@ function InvestMini() {
         <span className="rounded-pill bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-emerald-700 font-bold text-[10px]">
           +10.00%
         </span>
+      </div>
+    </div>
+  );
+}
+
+function VerdictMini() {
+  return (
+    <div className="flex h-full flex-col justify-between bg-white px-3.5 py-2.5 text-slate-900 select-none">
+      <div>
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-bold text-slate-900 tracking-tight">Public Record</p>
+          <span className="rounded-pill bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-emerald-700 font-bold text-[9px]">
+            Audited
+          </span>
+        </div>
+
+        <div className="mt-2 rounded-xl border border-slate-100 bg-slate-50/80 p-2 text-center shadow-xs">
+          <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Hit Accuracy</p>
+          <p className="text-2xl font-black text-blue-600 leading-tight my-0.5">68.4%</p>
+          <p className="text-[10px] text-slate-500 font-medium">38 closed theses</p>
+        </div>
+
+        <div className="mt-2 rounded-xl border border-slate-100 bg-white p-2 shadow-xs flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="grid h-5 w-5 place-items-center rounded-pill bg-emerald-600 text-[9px] font-bold text-white shadow-xs">
+              ✓
+            </span>
+            <div>
+              <p className="text-[10px] font-bold text-slate-900 leading-tight">$NVDA Call</p>
+              <p className="text-[9px] text-emerald-600 font-semibold">+24.8% Outcome</p>
+            </div>
+          </div>
+          <span className="text-[9px] font-medium text-slate-400">Locked</span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between text-[10px] font-medium text-slate-500 pt-2 border-t border-slate-100">
+        <span>Verified Ledger</span>
+        <span className="text-blue-600 font-semibold">Immutable</span>
       </div>
     </div>
   );

@@ -94,7 +94,7 @@ export function CuratedTracks() {
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-black/5 dark:border-white/10">
+                  <div className={`mt-6 pt-4 border-t ${isFirst ? "border-white/15" : "border-slate-100"}`}>
                     <Link
                       href={`/blog/${track.slug}`}
                       className={`inline-flex items-center gap-1.5 text-xs font-bold transition-all ${

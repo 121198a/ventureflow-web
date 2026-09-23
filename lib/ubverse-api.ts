@@ -106,18 +106,40 @@ const DEFAULT_HEADERS = {
 };
 
 /**
+ * Robust fetch wrapper with hard timeout to prevent external API latency
+ * from blocking builds or rendering loops when remote server is offline.
+ */
+async function fetchWithQuickTimeout(
+  url: string,
+  options: RequestInit = {},
+  timeoutMs = 1500
+): Promise<Response | null> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+    return res;
+  } catch {
+    clearTimeout(timer);
+    return null;
+  }
+}
+
+/**
  * Fetches the public dashboard categories and companies without authentication.
  */
 export async function fetchDashboardCompanies(): Promise<BackendCompanySummary[]> {
   try {
     const url = `${UBVERSE_API_BASE_URL}/ubverse-service/investor-dashboard/dashboard-without-auth`;
-    const res = await fetch(url, {
+    const res = await fetchWithQuickTimeout(url, {
       headers: DEFAULT_HEADERS,
-      next: { revalidate: 60 },
-    });
+    }, 1500);
 
-    if (!res.ok) {
-      console.warn(`[UBverse API] dashboard-without-auth returned status ${res.status}`);
+    if (!res || !res.ok) {
       return [];
     }
 
@@ -132,8 +154,7 @@ export async function fetchDashboardCompanies(): Promise<BackendCompanySummary[]
     }
 
     return companies;
-  } catch (err) {
-    console.error("[UBverse API] Failed to fetch dashboard companies:", err);
+  } catch {
     return [];
   }
 }
@@ -144,20 +165,17 @@ export async function fetchDashboardCompanies(): Promise<BackendCompanySummary[]
 export async function fetchDashboardCategories(): Promise<BackendDashboardCategory[]> {
   try {
     const url = `${UBVERSE_API_BASE_URL}/ubverse-service/investor-dashboard/dashboard-without-auth`;
-    const res = await fetch(url, {
+    const res = await fetchWithQuickTimeout(url, {
       headers: DEFAULT_HEADERS,
-      next: { revalidate: 60 },
-    });
+    }, 1500);
 
-    if (!res.ok) {
-      console.warn(`[UBverse API] dashboard-without-auth returned status ${res.status}`);
+    if (!res || !res.ok) {
       return [];
     }
 
     const json = await res.json();
     return json?.data || [];
-  } catch (err) {
-    console.error("[UBverse API] Failed to fetch dashboard categories:", err);
+  } catch {
     return [];
   }
 }
@@ -206,19 +224,18 @@ export async function fetchIssuerDetail(companyId: string): Promise<BackendIssue
 
   try {
     const url = `${UBVERSE_API_BASE_URL}/ubverse-service/general/get-issuer-detail/${companyId}`;
-    const res = await fetch(url, {
+    const res = await fetchWithQuickTimeout(url, {
       headers: DEFAULT_HEADERS,
       next: { revalidate: 60 },
-    });
+    }, 1500);
 
-    if (!res.ok) {
+    if (!res || !res.ok) {
       return null;
     }
 
     const json = await res.json();
     return json?.data || null;
-  } catch (err) {
-    console.error(`[UBverse API] Failed to fetch issuer detail for ${companyId}:`, err);
+  } catch {
     return null;
   }
 }

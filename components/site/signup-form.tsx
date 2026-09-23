@@ -14,6 +14,7 @@ import {
   FieldLabel,
   InputField,
 } from "./input-field";
+import { sanitizeRedirectUrl } from "@/lib/utils";
 
 const PASSWORD_RULE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
 
@@ -90,19 +91,18 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
             refresh_token: data.session.refresh_token,
           });
         } catch (sessionErr) {
-          console.error("Session persistence error:", sessionErr);
+          if (process.env.NODE_ENV === "development") {
+            console.error("Session persistence error:", sessionErr);
+          }
         }
       }
 
       setSubmitted(true);
       if (data.session) {
         const verifiedRole = data.user?.role || role;
-        let destination =
+        const defaultDest =
           verifiedRole === "founder" ? "/founder/dashboard" : "/investor/dashboard";
-
-        if (redirectTo && redirectTo.startsWith("/") && !redirectTo.startsWith("//")) {
-          destination = redirectTo;
-        }
+        const destination = redirectTo ? sanitizeRedirectUrl(redirectTo, defaultDest) : defaultDest;
 
         setTimeout(() => {
           router.push(destination);
@@ -117,13 +117,13 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
 
   if (submitted) {
     return (
-      <div className="w-full rounded-[20px] border border-[#e0e8f5] bg-[#f8faff] p-6 text-center">
+      <div className="w-full rounded-[20px] border border-blue-100 bg-blue-50/40 p-6 text-center">
         <div className="mx-auto mb-3 grid size-12 place-items-center rounded-full bg-emerald-100 text-emerald-600">
           <svg viewBox="0 0 24 24" className="size-6 stroke-[2.5]" fill="none" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
           </svg>
         </div>
-        <p className="text-base font-bold text-[#0b1a33]">
+        <p className="text-base font-bold text-slate-900">
           {role === "founder" ? "Application Submitted" : "Account Created"}
         </p>
         <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
@@ -208,13 +208,13 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
       </div>
 
       {/* Agreement */}
-      <label className="-mt-[clamp(0.1rem,0.35vh,0.25rem)] flex cursor-pointer select-none items-start gap-[clamp(0.75rem,1.2vw,1.1rem)] text-[length:clamp(0.85rem,1.08vw,1.15rem)] font-medium leading-[1.55] text-[#1c2740]">
+      <label className="-mt-[clamp(0.1rem,0.35vh,0.25rem)] flex cursor-pointer select-none items-start gap-[clamp(0.75rem,1.2vw,1.1rem)] text-[length:clamp(0.85rem,1.08vw,1.15rem)] font-medium leading-[1.55] text-slate-700">
         <span className="relative mt-[0.2em] grid size-[clamp(1.1rem,1.35vw,1.45rem)] shrink-0 place-items-center">
           <input
             type="checkbox"
             checked={agreed}
             onChange={(e) => setAgreed(e.target.checked)}
-            className="peer size-full cursor-pointer appearance-none rounded-[5px] border-[1.5px] border-[#8f98a8] bg-white transition-colors checked:border-blue-600 checked:bg-blue-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600/15"
+            className="peer size-full cursor-pointer appearance-none rounded-[5px] border-[1.5px] border-slate-400 bg-white transition-colors checked:border-blue-600 checked:bg-blue-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600/15"
           />
           <svg
             viewBox="0 0 24 24"

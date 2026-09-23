@@ -76,7 +76,7 @@ const cards: Card[] = [
   {
     key: "google",
     side: "left",
-    desktop: "left-[-125px] xl:left-[-115px] top-6 hidden w-[155px] lg:block",
+    desktop: "top-4 lg:left-[-110px] xl:left-[-125px] 2xl:left-[-135px] hidden lg:block w-[145px] xl:w-[155px]",
     body: (
       <>
         <div className="flex items-center justify-between">
@@ -100,7 +100,7 @@ const cards: Card[] = [
   {
     key: "apple",
     side: "right",
-    desktop: "right-[-120px] xl:right-[-115px] top-4 hidden w-[150px] lg:block",
+    desktop: "top-3 lg:right-[-110px] xl:right-[-125px] 2xl:right-[-135px] hidden lg:block w-[145px] xl:w-[155px]",
     body: (
       <>
         <div className="flex items-center justify-between">
@@ -121,10 +121,10 @@ const cards: Card[] = [
       </>
     ),
   },
-  {
+{
     key: "tesla",
     side: "left",
-    desktop: "left-[-135px] xl:left-[-125px] top-[38%] hidden xl:block w-[165px]",
+    desktop: "top-[36%] lg:left-[-118px] xl:left-[-130px] 2xl:left-[-140px] hidden lg:block w-[150px] xl:w-[165px]",
     body: (
       <>
         <div className="flex items-center justify-between">
@@ -148,7 +148,7 @@ const cards: Card[] = [
   {
     key: "research",
     side: "right",
-    desktop: "right-[-135px] xl:right-[-120px] top-[36%] hidden xl:block w-[165px]",
+    desktop: "top-[35%] lg:right-[-118px] xl:right-[-125px] 2xl:right-[-135px] hidden lg:block w-[150px] xl:w-[165px]",
     body: (
       <>
         <div className="flex items-center gap-1.5">
@@ -164,7 +164,7 @@ const cards: Card[] = [
   {
     key: "space",
     side: "left",
-    desktop: "left-[-140px] xl:left-[-125px] bottom-10 hidden 2xl:block w-[190px]",
+    desktop: "bottom-6 lg:left-[-118px] xl:left-[-130px] 2xl:left-[-142px] hidden lg:block w-[155px] xl:w-[175px]",
     body: (
       <>
         <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Space Activity</p>
@@ -176,7 +176,7 @@ const cards: Card[] = [
   {
     key: "rank",
     side: "right",
-    desktop: "right-[-120px] xl:right-[-105px] bottom-8 hidden w-[170px] lg:block",
+    desktop: "bottom-5 lg:right-[-110px] xl:right-[-120px] 2xl:right-[-130px] hidden lg:block w-[145px] xl:w-[165px]",
     body: (
       <>
         <div className="flex items-center justify-between">
@@ -195,8 +195,19 @@ export function Hero() {
   const reduce = useReducedMotion();
   const phoneControls = useAnimationControls();
   const [mounted, setMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const reducedMotion = mounted && Boolean(reduce);
+
+  useEffect(() => {
+    setMounted(true);
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop, { passive: true });
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
 
   // Scroll synchronization using smooth Lenis integration
   const { scrollYProgress } = useScroll({
@@ -228,19 +239,19 @@ export function Hero() {
   const pointerTiltY = useTransform(smoothPointerX, [-1, 1], [-2.2, 2.2]);
   const pointerTiltX = useTransform(smoothPointerY, [-1, 1], [1.8, -1.8]);
 
-  // Combined smooth rotation for 3D staging
+  // Combined smooth rotation for 3D staging (only on desktop)
   const combinedTiltX = useTransform(
     [pointerTiltX, scrollRotateX],
-    ([p, s]) => (reducedMotion ? 0 : ((p as number) || 0) + ((s as number) || 0))
+    ([p, s]) => (!isDesktop || reducedMotion ? 0 : ((p as number) || 0) + ((s as number) || 0))
   );
   const combinedTiltY = useTransform(
     [pointerTiltY, scrollRotateY],
-    ([p, s]) => (reducedMotion ? 0 : ((p as number) || 0) + ((s as number) || 0))
+    ([p, s]) => (!isDesktop || reducedMotion ? 0 : ((p as number) || 0) + ((s as number) || 0))
   );
-  const scrollYOffset = useTransform(scrollTranslateY, (val) => (reducedMotion ? 0 : val));
+  const scrollYOffset = useTransform(scrollTranslateY, (val) => (!isDesktop || reducedMotion ? 0 : val));
 
   useEffect(() => {
-    setMounted(true);
+    if (!mounted) return;
     if (reduce) {
       phoneControls.set({
         opacity: 1,
@@ -255,34 +266,61 @@ export function Hero() {
 
     let active = true;
     async function sequence() {
-      // 1. Cinematic entrance with controlled rotation & settling
-      await phoneControls.start({
-        opacity: [0.85, 1, 1, 1],
-        y: [40, 8, -2, 0],
-        scale: [0.96, 0.99, 1.004, 1],
-        rotateY: [-18, 22, -8, 0],
-        rotateX: [5, -2, 1, 0],
-        rotateZ: [-1.2, 0.4, -0.15, 0],
-        transition: {
-          duration: 2.2,
-          times: [0, 0.35, 0.72, 1],
-          ease: [0.16, 1, 0.3, 1],
-        },
-      });
+      if (isDesktop) {
+        // Desktop: Cinematic entrance with controlled rotation & settling
+        await phoneControls.start({
+          opacity: [0.85, 1, 1, 1],
+          y: [40, 8, -2, 0],
+          scale: [0.96, 0.99, 1.004, 1],
+          rotateY: [-18, 22, -8, 0],
+          rotateX: [5, -2, 1, 0],
+          rotateZ: [-1.2, 0.4, -0.15, 0],
+          transition: {
+            duration: 2.2,
+            times: [0, 0.35, 0.72, 1],
+            ease: [0.16, 1, 0.3, 1],
+          },
+        });
 
-      if (!active) return;
+        if (!active) return;
 
-      // 2. Calm, subtle floating product-showcase motion
-      phoneControls.start({
-        y: [0, -5, 0],
-        rotateY: [-2.2, 2.2, -2.2],
-        rotateX: [0.6, -0.6, 0.6],
-        transition: {
-          y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-          rotateY: { duration: 7.5, repeat: Infinity, ease: "easeInOut" },
-          rotateX: { duration: 6.5, repeat: Infinity, ease: "easeInOut" },
-        },
-      });
+        // Calm, subtle floating product-showcase motion
+        phoneControls.start({
+          y: [0, -5, 0],
+          rotateY: [-2.2, 2.2, -2.2],
+          rotateX: [0.6, -0.6, 0.6],
+          transition: {
+            y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+            rotateY: { duration: 7.5, repeat: Infinity, ease: "easeInOut" },
+            rotateX: { duration: 6.5, repeat: Infinity, ease: "easeInOut" },
+          },
+        });
+      } else {
+        // Mobile / Tablet: Controlled vertical fade-up with gentle float
+        await phoneControls.start({
+          opacity: [0, 1],
+          y: [24, 0],
+          scale: [0.97, 1],
+          rotateY: 0,
+          rotateX: 0,
+          rotateZ: 0,
+          transition: {
+            duration: 0.8,
+            ease: [0.16, 1, 0.3, 1],
+          },
+        });
+
+        if (!active) return;
+
+        phoneControls.start({
+          y: [0, -6, 0],
+          rotateZ: [0, 0.4, 0],
+          transition: {
+            y: { duration: 5.2, repeat: Infinity, ease: "easeInOut" },
+            rotateZ: { duration: 6.4, repeat: Infinity, ease: "easeInOut" },
+          },
+        });
+      }
     }
 
     sequence();
@@ -290,10 +328,10 @@ export function Hero() {
     return () => {
       active = false;
     };
-  }, [phoneControls, reduce]);
+  }, [phoneControls, reduce, mounted, isDesktop]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (reduce || !mounted) return;
+    if (reduce || !mounted || !isDesktop) return;
     if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
       return;
     }
@@ -397,22 +435,22 @@ export function Hero() {
 
         {/* Right Phone Frame & Floating Widgets */}
         <div
-          className="relative flex h-auto flex-col items-center py-6 lg:h-[560px] lg:min-h-[560px] lg:py-0 w-full"
-          style={{ perspective: 1400 }}
+          className="relative flex h-auto flex-col items-center py-4 sm:py-6 lg:h-[560px] lg:min-h-[560px] lg:py-0 w-full"
+          style={{ perspective: isDesktop ? 1400 : undefined }}
         >
           {/* Subtle Ambient Device Pod (Matching reference image depth) */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -inset-6 sm:-inset-10 -z-10 rounded-xl overflow-hidden bg-gradient-to-b from-sky-50/40 via-white/20 to-slate-50/30 border border-slate-200/50 shadow-sm"
+            className="pointer-events-none absolute -inset-4 sm:-inset-8 -z-10 rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-b from-sky-50/40 via-white/20 to-slate-50/30 border border-slate-200/50 shadow-xs sm:shadow-sm"
           >
             <div className="absolute -top-12 -left-12 h-64 w-64 rounded-full bg-sky-300/20 blur-3xl" />
             <div className="absolute -bottom-12 -right-12 h-64 w-64 rounded-full bg-blue-400/15 blur-3xl" />
           </div>
 
-          {/* 3D Staging Rig (handles pointer tilt, scroll parallax, and perspective anchor) */}
+          {/* Staging Rig (handles 3D pointer tilt & scroll parallax on desktop) */}
           <motion.div
             style={{
-              transformStyle: "preserve-3d",
+              transformStyle: isDesktop ? "preserve-3d" : "flat",
               rotateX: combinedTiltX,
               rotateY: combinedTiltY,
               y: scrollYOffset,
@@ -423,36 +461,41 @@ export function Hero() {
             <motion.div
               initial={{
                 opacity: 0.85,
-                y: 40,
-                scale: 0.96,
-                rotateY: -18,
-                rotateX: 5,
-                rotateZ: -1.2,
+                y: 30,
+                scale: 0.97,
               }}
               animate={phoneControls}
-              className="relative z-40 [transform-style:preserve-3d]"
+              className={`relative z-40 ${isDesktop ? "[transform-style:preserve-3d]" : ""}`}
             >
-              {/* 3D Physical Chassis Side Depth (visible when phone rotates in perspective) */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -z-10 rounded-xl sm:rounded-xl border border-slate-700/60 bg-gradient-to-br from-slate-800 via-[#0a1226] to-slate-900 shadow-[0_24px_60px_-15px_rgba(10,18,38,0.30)]"
-                style={{
-                  transform: "translateZ(-8px)",
-                }}
-              />
+              {/* 3D Physical Chassis Side Depth (visible when phone rotates in perspective on desktop) */}
+              {isDesktop && (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -z-10 rounded-xl border border-slate-700/60 bg-gradient-to-br from-slate-800 via-[#0a1226] to-slate-900 shadow-[0_24px_60px_-15px_rgba(10,18,38,0.30)]"
+                  style={{
+                    transform: "translateZ(-8px)",
+                  }}
+                />
+              )}
 
               {/* Realistic Ambient Floor Shadow */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 h-8 w-[84%] rounded-full bg-slate-950/25 blur-xl"
+                className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 h-8 w-[84%] rounded-full bg-slate-950/20 blur-xl"
                 style={{
-                  transform: "translateZ(-25px)",
+                  transform: isDesktop ? "translateZ(-25px)" : undefined,
                 }}
               />
 
               {/* Phone Frame */}
               <div className="relative">
-                <PhoneFrame theme="hero" showWifi={true} showStatusBar={true} showHomeIndicator={false}>
+                <PhoneFrame
+                  theme="hero"
+                  showWifi={true}
+                  showStatusBar={true}
+                  showHomeIndicator={false}
+                  className="w-[230px] min-[380px]:w-[245px] sm:w-[260px] lg:w-[275px] xl:w-[280px]"
+                >
                   <FeedPreview />
                 </PhoneFrame>
 
@@ -496,15 +539,7 @@ export function Hero() {
                     rotateY: cfg.rotateY,
                     rotateZ: cfg.rotateZ,
                   }}
-                  animate={reducedMotion ? {
-                    opacity: 1,
-                    x: 0,
-                    y: 0,
-                    z: 0,
-                    scale: 1,
-                    rotateY: 0,
-                    rotateZ: 0,
-                  } : {
+                  animate={{
                     opacity: 1,
                     x: 0,
                     y: 0,
@@ -522,16 +557,16 @@ export function Hero() {
                     y: reducedMotion ? 0 : parallaxY,
                   }}
                 >
-                  {/* Sleek Horizontal Connector Line towards Phone (Image 1) */}
+                  {/* Sleek Horizontal Connector Line towards Phone */}
                   <div
                     aria-hidden="true"
                     className={`pointer-events-none absolute top-1/2 -translate-y-1/2 hidden lg:flex items-center ${
                       card.side === "left"
-                        ? "-right-5 xl:-right-6 flex-row"
-                        : "-left-5 xl:-left-6 flex-row-reverse"
+                        ? "-right-4 xl:-right-6 flex-row"
+                        : "-left-4 xl:-left-6 flex-row-reverse"
                     }`}
                   >
-                    <div className="h-[2px] w-5 xl:w-6 bg-slate-900/85" />
+                    <div className="h-[2px] w-4 xl:w-6 bg-slate-900/85" />
                     <div className="h-1.5 w-1.5 rounded-full bg-slate-900" />
                   </div>
 
@@ -541,18 +576,18 @@ export function Hero() {
             })}
           </motion.div>
 
-          {/* Mobile & Tablet Fallback Grid */}
-          <div className="mt-8 grid w-full max-w-md grid-cols-1 min-[380px]:grid-cols-2 gap-3.5 lg:hidden">
-            {cards.slice(0, 4).map((card, index) => (
+          {/* Mobile & Tablet Dedicated Proof Cards Grid */}
+          <div className="mt-8 sm:mt-10 grid w-full max-w-2xl grid-cols-1 min-[380px]:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-3.5 lg:hidden">
+            {cards.map((card, index) => (
               <motion.div
                 key={card.key}
-                className={cardBase}
-                initial={{ opacity: 0, y: 22, scale: 0.96 }}
+                className={`${cardBase} flex flex-col justify-between`}
+                initial={{ opacity: 0, y: 18, scale: 0.97 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{
-                  duration: reducedMotion ? 0 : 0.55,
-                  delay: reducedMotion ? 0 : 0.12 + index * 0.08,
+                  duration: reducedMotion ? 0 : 0.45,
+                  delay: reducedMotion ? 0 : 0.08 + index * 0.06,
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
@@ -649,7 +684,7 @@ function FeedPreview() {
             </div>
           </div>
 
-          <p className="mt-1.5 text-[11px] leading-snug text-slate-600">
+          <p className="mt-1.5 text-[11px] leading-snug text-slate-600 line-clamp-2 sm:line-clamp-3">
             Semiconductor foundry capacity expansion confirms supplier pricing strength through year-end. Target reflects multiple expansion to historical peak.
           </p>
 
@@ -666,7 +701,8 @@ function FeedPreview() {
             <svg viewBox="0 0 180 32" className="h-full w-full" fill="none" aria-hidden="true">
               <path
                 d="M4 26 C22 24 30 22 45 17 S68 20 84 13 S105 15 122 9 S145 11 162 5 S172 6 176 3"
-                stroke="#10b981"
+                stroke="currentColor"
+                className="text-emerald-500"
                 strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"

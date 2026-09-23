@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import { Source_Serif_4 } from "next/font/google";
 import "./globals.css";
@@ -6,7 +6,7 @@ import { ViewTransitions } from "@/components/motion/ViewTransitions";
 import { SmoothScrollProvider } from "@/providers/SmoothScrollProvider";
 import { TopProgressBar } from "@/components/layout/TopProgressBar";
 import { CookieConsent } from "@/components/ui/CookieConsent";
-import { site, SITE_URL } from "@/lib/constants";
+import { site, SITE_URL, socialLinks } from "@/lib/constants";
 
 const sourceSerif4 = Source_Serif_4({
   subsets: ["latin"],
@@ -14,6 +14,12 @@ const sourceSerif4 = Source_Serif_4({
   variable: "--font-source-serif",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -65,9 +71,37 @@ export const metadata: Metadata = {
  * platform header+footer at once) that this split fixes.
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // Organization + WebSite JSON-LD, built only from real values already in
+  // lib/constants.ts (name, tagline, description, live social profile URLs).
+  // No ratings, review counts, or other fields we don't have real data for.
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: site.name,
+    url: SITE_URL,
+    description: site.description,
+    logo: `${SITE_URL}/logo/unboundx-mark.png`,
+    sameAs: Object.values(socialLinks),
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: site.name,
+    url: SITE_URL,
+  };
+
   return (
     <html lang="en" className="scroll-smooth">
       <body id="top" className={`font-sans antialiased bg-white text-slate-900 selection:bg-blue-600 selection:text-white ${sourceSerif4.variable}`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         <Suspense fallback={null}>
           <TopProgressBar />
         </Suspense>

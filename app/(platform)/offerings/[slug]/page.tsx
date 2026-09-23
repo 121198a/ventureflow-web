@@ -15,7 +15,7 @@ export default async function LegacyOfferingRoute({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const offering = (await getDynamicOffering(slug)) || getOffering(slug);
+  const offering = getOffering(slug) || (await getDynamicOffering(slug));
   if (!offering) notFound();
 
   redirect(`/${offering.slug}`);

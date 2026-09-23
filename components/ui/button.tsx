@@ -119,6 +119,7 @@ export function Button({
       type="button"
       className={classes}
       disabled={disabled || loading}
+      aria-disabled={disabled || loading}
       aria-busy={loading}
       {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
     >

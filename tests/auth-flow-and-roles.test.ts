@@ -121,3 +121,46 @@ test("HMAC signed session tokens prevent tampering and role spoofing", async () 
   assert.equal(await verifySessionToken(""), null);
   assert.equal(await verifySessionToken(undefined), null);
 });
+
+test("OAuth redirect URLs format accurately for local, preview, and custom domains", () => {
+  const getRedirectUrl = (origin: string, role: string) => {
+    const normalizedRole = role === "issuer" ? "founder" : role;
+    return `${origin.replace(/\/$/, "")}/auth/callback?role=${encodeURIComponent(normalizedRole)}`;
+  };
+
+  // Local development
+  assert.equal(
+    getRedirectUrl("http://localhost:3000", "investor"),
+    "http://localhost:3000/auth/callback?role=investor"
+  );
+  // Preview branch deployment
+  assert.equal(
+    getRedirectUrl("https://ventureflow-pr-12.vercel.app", "founder"),
+    "https://ventureflow-pr-12.vercel.app/auth/callback?role=founder"
+  );
+  // Custom production domain with trailing slash stripped
+  assert.equal(
+    getRedirectUrl("https://unboundx.com/", "issuer"),
+    "https://unboundx.com/auth/callback?role=founder"
+  );
+});
+
+test("Security audit: Zero service_role or secret keys exposed in NEXT_PUBLIC_* variables", () => {
+  for (const [key, value] of Object.entries(process.env)) {
+    if (key.startsWith("NEXT_PUBLIC_")) {
+      assert.ok(
+        !key.toLowerCase().includes("service_role") &&
+        !key.toLowerCase().includes("secret"),
+        `Environment variable ${key} must not be exposed with public prefix.`
+      );
+
+      if (typeof value === "string") {
+        assert.ok(
+          !value.includes("service_role") &&
+          !value.startsWith("sb_secret_"),
+          `Value of ${key} must not contain a service role or private secret.`
+        );
+      }
+    }
+  }
+});

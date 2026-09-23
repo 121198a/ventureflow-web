@@ -202,14 +202,14 @@ export default function LoginPage({ initialFlow = "signup" }: { initialFlow?: "s
                 <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 inline-block">
                   {isSignup ? (
                     <>
-                      <span className="text-[#04000a]">Join</span>{" "}
+                      <span className="text-slate-900">Join</span>{" "}
                       <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
                         UnBound X
                       </span>
                     </>
                   ) : (
                     <>
-                      <span className="text-[#04000a]">Log in to</span>{" "}
+                      <span className="text-slate-900">Log in to</span>{" "}
                       <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">
                         UnBound X
                       </span>

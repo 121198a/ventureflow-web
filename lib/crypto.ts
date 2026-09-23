@@ -45,16 +45,43 @@ export async function verifyPassword(
   return hash === storedHash;
 }
 
-const SESSION_SECRET =
-  process.env.AUTH_SECRET ||
-  process.env.NEXTAUTH_SECRET ||
-  "ventureflow_secure_session_signing_secret_2026_unboundx";
+// SECURITY: session tokens are HMAC-signed with this secret. If it isn't
+// set, anyone who can read this (public) source knows the exact key used to
+// sign every session cookie and can forge a valid session/role for any user.
+// A hardcoded fallback secret is exactly the "looks like it works" failure
+// mode this project explicitly rules out elsewhere (see Phase 11's "never
+// weaken a check to make login appear to work"), so production now fails
+// loudly instead of silently signing with a known string.
+const CONFIGURED_SESSION_SECRET = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
+let hasWarnedAuthSecret = false;
+
+function getSessionSecret(): string {
+  if (CONFIGURED_SESSION_SECRET) return CONFIGURED_SESSION_SECRET;
+
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "[Auth] AUTH_SECRET (or NEXTAUTH_SECRET) is not set. Refusing to sign session " +
+        "tokens with a hardcoded fallback secret in production. Set AUTH_SECRET to a " +
+        "long random value in your environment configuration."
+    );
+  }
+
+  // Local/dev-only convenience fallback. Never used in production (see above).
+  if (!hasWarnedAuthSecret && process.env.NODE_ENV !== "test") {
+    hasWarnedAuthSecret = true;
+    console.warn(
+      "[Auth] AUTH_SECRET is not set — using an insecure development-only fallback " +
+        "signing key. Set AUTH_SECRET in .env.local before deploying."
+    );
+  }
+  return "dev_only_insecure_fallback_secret_do_not_use_in_production";
+}
 
 async function getHmacKey(): Promise<CryptoKey> {
   const enc = new TextEncoder();
   return crypto.subtle.importKey(
     "raw",
-    enc.encode(SESSION_SECRET),
+    enc.encode(getSessionSecret()),
     { name: "HMAC", hash: "SHA-256" },
     false,
     ["sign", "verify"]

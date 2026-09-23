@@ -17,23 +17,42 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const offering = (await getDynamicOffering(slug)) || getOffering(slug);
+  const offering = getOffering(slug) || (await getDynamicOffering(slug));
   if (!offering) {
     return {
       title: "Offering Not Found | UBverse",
+      robots: { index: false, follow: false },
     };
   }
 
+  const title = `${offering.name} — UBverse`;
+  // Use the company's real long-form description when present so two
+  // companies in the same round don't end up with an identical meta
+  // description ("Funding round: Seed." for every seed-stage company).
+  // Only fall back to the generic round line when no real copy exists.
+  const rawDescription = offering.description?.trim();
+  const description = rawDescription
+    ? rawDescription.length > 155
+      ? `${rawDescription.slice(0, 152)}...`
+      : rawDescription
+    : `Funding round: ${offering.round}.`;
+
   return {
-    title: `${offering.name} — UBverse`,
-    description: `Funding round: ${offering.round}.`,
+    title,
+    description,
     alternates: {
       canonical: `${SITE_URL}/${offering.slug}`,
     },
     openGraph: {
       url: `${SITE_URL}/${offering.slug}`,
-      title: `${offering.name} — UBverse`,
-      description: `Funding round: ${offering.round}.`,
+      title,
+      description,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
@@ -51,7 +70,7 @@ export default async function OfferingDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const offering = (await getDynamicOffering(slug)) || getOffering(slug);
+  const offering = getOffering(slug) || (await getDynamicOffering(slug));
   if (!offering) notFound();
 
   return (

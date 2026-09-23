@@ -64,8 +64,20 @@ export function ChatLauncher() {
               <div className="space-y-2">
                 <p className="font-medium text-ink">Session active</p>
                 <p>An operator will respond to your inquiry shortly.</p>
-                <div className="mt-3 flex gap-2">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (message.trim()) {
+                      setMessage("");
+                    }
+                  }}
+                  className="mt-3 flex gap-2"
+                >
+                  <label htmlFor="chat-message-input" className="sr-only">
+                    Message support
+                  </label>
                   <input
+                    id="chat-message-input"
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
@@ -73,13 +85,14 @@ export function ChatLauncher() {
                     className="flex-1 rounded-md border border-hairline px-3 py-1.5 text-xs focus:border-brand focus:outline-none"
                   />
                   <button
-                    type="button"
-                    onClick={() => setMessage("")}
-                    className="rounded-md bg-brand p-1.5 text-white hover:bg-brand-strong"
+                    type="submit"
+                    aria-label="Send message"
+                    disabled={!message.trim()}
+                    className="rounded-md bg-brand p-1.5 text-white hover:bg-brand-strong disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     <Send className="size-3.5" />
                   </button>
-                </div>
+                </form>
               </div>
             ) : (
               <div>

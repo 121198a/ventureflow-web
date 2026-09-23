@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -19,6 +19,10 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const { user, role } = useAuthSession();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   const dashboardHref =
     role === "founder" || role === "issuer" ? "/founder/dashboard" : "/investor/dashboard";

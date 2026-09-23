@@ -113,7 +113,9 @@ export async function POST(request: Request) {
         backendError = backendAuth.error || "Invalid email or password.";
       }
     } catch (backendErr) {
-      console.warn("[Auth Login] Backend auth attempt warning:", backendErr);
+      if (process.env.NODE_ENV === "development") {
+        console.warn("[Auth Login] Backend auth attempt warning:", backendErr);
+      }
     }
 
     // 5. Delegate to standard authentication provider (Supabase)

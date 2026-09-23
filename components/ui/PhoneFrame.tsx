@@ -3,6 +3,7 @@ import { FaSignal } from "react-icons/fa";
 import { FaBatteryThreeQuarters } from "react-icons/fa6";
 import { LuMessageCircle } from "react-icons/lu";
 import { Wifi } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export type PhoneFrameTheme =
   | "intelligence"
@@ -14,7 +15,7 @@ export type PhoneFrameTheme =
   | "spaces"
   | "custom";
 
-type PhoneFrameProps = {
+export interface PhoneFrameProps {
   children: ReactNode;
   className?: string;
   innerClassName?: string;
@@ -28,7 +29,7 @@ type PhoneFrameProps = {
   showHomeIndicator?: boolean;
   withWatermark?: boolean;
   watermarkText?: string;
-};
+}
 
 // Curated 4-edge corner continuous gradients tailored to content & visual style of Image 2
 const THEME_GRADIENTS: Record<string, { gradient: string; glow: string }> = {
@@ -89,10 +90,10 @@ export function PhoneFrame({
 
   return (
     <div
-      className={
-        "relative mx-auto aspect-[280/560] w-[min(78vw,240px)] select-none sm:w-[260px] lg:w-[280px] " +
+      className={cn(
+        "relative mx-auto aspect-[280/560] w-[min(78vw,240px)] select-none sm:w-[260px] lg:w-[280px]",
         className
-      }
+      )}
     >
       {/* Optional Backdrop behind standalone PhoneFrame */}
       {withWatermark && (
@@ -128,20 +129,20 @@ export function PhoneFrame({
 
           {/* Phone Screen Container */}
           <div
-            className={
-              "relative flex h-full w-full flex-col overflow-hidden rounded-[29px] bg-white sm:rounded-[33px] " +
+            className={cn(
+              "relative flex h-full w-full flex-col overflow-hidden rounded-[29px] bg-white sm:rounded-[33px]",
               innerClassName
-            }
+            )}
           >
             {/* Specular Screen Glass Reflection */}
             <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-16 bg-gradient-to-b from-white/30 via-white/5 to-transparent" />
 
             {/* Status Bar */}
             {showStatusBar && (
-              <div className="relative z-20 flex h-7 shrink-0 items-center px-4 pt-1 text-micro font-semibold text-slate-900">
+              <div className="relative z-20 flex h-7 shrink-0 items-center px-3 sm:px-3.5 pt-1 text-micro font-semibold text-slate-900">
                 {/* Left: Time & Messages Notification */}
-                <div className="flex items-center gap-1.5">
-                  <span className="font-semibold tracking-tight">{time}</span>
+                <div className="flex items-center gap-1">
+                  <span className="font-semibold tracking-tight text-[11px] sm:text-xs">{time}</span>
 
                   <div className="relative">
                     <LuMessageCircle
@@ -155,20 +156,20 @@ export function PhoneFrame({
                 </div>
 
                 {/* Center: Dynamic Island Pill with Camera Dot */}
-                <div className="absolute left-1/2 top-1 flex h-4 w-24 -translate-x-1/2 items-center justify-end px-2 rounded-pill bg-[#060a12] shadow-xs">
+                <div className="absolute left-1/2 top-1 flex h-4 w-16 sm:w-20 -translate-x-1/2 items-center justify-end px-1.5 sm:px-2 rounded-pill bg-[#060a12] shadow-xs">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#151e32] ring-[0.5px] ring-white/20" />
                 </div>
 
                 {/* Right: Cellular Signal, Wi-Fi & Battery */}
-                <div className="ml-auto flex items-center gap-1.5">
+                <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
                   <FaSignal
-                    className="text-micro text-slate-900"
+                    className="text-[10px] text-slate-900"
                     aria-label="Cellular signal"
                   />
 
                   {showWifi && (
                     <Wifi
-                      size={11}
+                      size={10}
                       strokeWidth={2.5}
                       className="text-slate-900"
                       aria-label="WiFi"
@@ -176,9 +177,9 @@ export function PhoneFrame({
                   )}
 
                   <div className="flex items-center gap-0.5">
-                    <span className="text-micro font-bold">{batteryPercentage}</span>
+                    <span className="text-[10px] font-bold">{batteryPercentage}</span>
                     <FaBatteryThreeQuarters
-                      className="text-micro text-slate-900"
+                      className="text-[10px] text-slate-900"
                       aria-label="Battery 75 percent"
                     />
                   </div>
@@ -192,7 +193,7 @@ export function PhoneFrame({
             {/* Bottom Home Indicator Bar */}
             {showHomeIndicator && (
               <div className="pointer-events-none relative z-20 h-4 shrink-0 bg-transparent flex items-center justify-center pb-1">
-                <div className="h-1 w-24 rounded-full bg-slate-900/70" />
+                <div className="h-1 w-20 sm:w-24 rounded-full bg-slate-900/70" />
               </div>
             )}
           </div>

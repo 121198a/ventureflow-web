@@ -38,7 +38,7 @@ export function OAuthButtons({
   };
 
   const socialBtn =
-    "inline-flex h-[clamp(2.75rem,5.75vh,3.4rem)] min-w-[11.5rem] flex-1 items-center justify-center gap-[clamp(0.5rem,0.75vw,0.75rem)] rounded-full border border-[#dfe8f3] bg-white px-4 text-[length:clamp(0.875rem,1.05vw,1.1rem)] font-medium text-[#0b1a33] transition-all hover:border-[#c9d7ee] hover:bg-[#f8faff] hover:shadow-[0_4px_16px_-8px_rgba(60,90,200,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30 disabled:cursor-not-allowed disabled:opacity-60";
+    "inline-flex h-[clamp(2.75rem,5.75vh,3.4rem)] min-w-[11.5rem] flex-1 items-center justify-center gap-[clamp(0.5rem,0.75vw,0.75rem)] rounded-full border border-slate-200 bg-white px-4 text-[length:clamp(0.875rem,1.05vw,1.1rem)] font-medium text-slate-900 transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30 disabled:cursor-not-allowed disabled:opacity-60";
   const iconSize = "size-[clamp(1.1rem,1.3vw,1.4rem)] shrink-0";
 
   return (

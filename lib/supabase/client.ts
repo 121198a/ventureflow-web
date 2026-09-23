@@ -159,7 +159,9 @@ export async function initiateOAuthSignIn(
   }
 
   try {
-    const origin = typeof window !== "undefined" ? window.location.origin : "";
+    const origin =
+      (typeof window !== "undefined" && window.location.origin) ||
+      (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
     const targetRole = options?.role || "investor";
     const redirectTo =
       options?.redirectTo ||
