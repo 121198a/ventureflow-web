@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, X } from "lucide-react";
 import { scrollToTarget } from "@/components/motion/SmoothScroll";
 import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
@@ -23,6 +23,8 @@ export function SiteNav() {
   const { scrollY } = useScroll();
   const pathname = usePathname();
   const onHome = pathname === "/careers" || pathname === "/company/careers" || pathname === "/";
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 24));
 
@@ -37,6 +39,57 @@ export function SiteNav() {
   }, [open]);
 
   useEffect(() => setOpen(false), [pathname]);
+
+  // Keyboard focus trap for the mobile drawer: keeps Tab/Shift+Tab cycling
+  // within the drawer while it's open, and returns focus to the button
+  // that opened it once it closes. Escape-to-close, body-scroll-lock, and
+  // auto-close-on-navigation above are untouched.
+  useEffect(() => {
+    if (!open) return;
+
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+
+    const focusableSelector =
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    const getFocusable = () =>
+      Array.from(drawer.querySelectorAll<HTMLElement>(focusableSelector)).filter(
+        (el) => el.offsetParent !== null
+      );
+
+    const focusables = getFocusable();
+    (focusables[0] ?? drawer).focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const items = getFocusable();
+      if (items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+
+      if (e.shiftKey) {
+        if (active === first || !drawer.contains(active)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (active === last || !drawer.contains(active)) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    const triggerButton = menuButtonRef.current;
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      triggerButton?.focus();
+    };
+  }, [open]);
 
   function go(hash: string) {
     setOpen(false);
@@ -97,6 +150,7 @@ export function SiteNav() {
               <ArrowUpRight size={15} />
             </button>
             <button
+              ref={menuButtonRef}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
@@ -118,6 +172,11 @@ export function SiteNav() {
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={drawerRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile menu"
+            tabIndex={-1}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -121,7 +121,7 @@ const cards: Card[] = [
       </>
     ),
   },
-{
+  {
     key: "tesla",
     side: "left",
     desktop: "top-[36%] lg:left-[-118px] xl:left-[-130px] 2xl:left-[-140px] hidden lg:block w-[150px] xl:w-[165px]",
@@ -724,6 +724,30 @@ function FeedPreview() {
             </div>
             <span className="text-[10px] text-slate-500">2h ago</span>
           </div>
+        </motion.div>
+
+        {/* Public Record strip — same audited-accuracy stat already shown in the
+            surrounding floating cards, reused here to fill the feed screen
+            naturally instead of leaving dead space below the card. */}
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: reduce ? 0 : 0.72,
+            duration: reduce ? 0 : 0.4,
+          }}
+          className="mx-2.5 mt-2 flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50/80 px-2.5 py-2 shadow-xs"
+        >
+          <div className="flex items-center gap-1.5">
+            <ComplianceShieldIcon size={13} className="text-blue-600" />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+              Public Record
+            </span>
+          </div>
+          <span className="text-xs font-extrabold text-blue-600">
+            68.4%<span className="ml-1 font-medium text-slate-500">· 38 closed theses</span>
+          </span>
         </motion.div>
       </div>
 

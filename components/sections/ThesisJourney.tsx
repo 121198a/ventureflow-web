@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useRef, useState } from "react";
@@ -183,7 +184,8 @@ export function ThesisJourney() {
                 showStatusBar={true}
                 showHomeIndicator={true}
                 time="12:26"
-                className="w-[235px] sm:w-[255px] lg:w-[270px] xl:w-[280px] shadow-2xl"
+                batteryPercentage="92%"
+                className="w-[215px] min-[380px]:w-[230px] sm:w-[245px] lg:w-[255px] xl:w-[265px] shadow-2xl"
               >
                 <div className="relative z-10 h-full w-full overflow-hidden bg-white flex flex-col justify-between">
                   {/* Top Action Bar (< and 3-dots) */}
@@ -199,7 +201,7 @@ export function ThesisJourney() {
                   </div>
 
                   {/* Article Content */}
-                  <div className="px-3 pt-0.5 text-left flex-1 min-h-0 overflow-hidden">
+                  <div className="px-3 pt-0.5 pb-2 text-left flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={active}
@@ -232,9 +234,14 @@ export function ThesisJourney() {
                         <b className="block text-xs font-bold text-slate-900 leading-none">Arnav Awasthi</b>
                         <span className="text-xs text-slate-600">@arnav</span>
                       </div>
-                      <span className="grid h-[22px] w-[22px] place-items-center rounded-pill bg-blue-600 text-[9px] font-bold text-white shadow-2xs">
-                        AA
-                      </span>
+                      <div className="relative size-[22px] shrink-0 overflow-hidden rounded-full border border-slate-200 bg-slate-100 shadow-2xs">
+                        <img
+                          src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
+                          alt="Arnav Awasthi profile avatar"
+                          className="h-full w-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
                     </div>
 
                     {/* Editorial Paragraphs */}
@@ -260,7 +267,7 @@ export function ThesisJourney() {
 
                   {/* Bottom Area (Action / Sheet / Navigation) */}
                   <div className="relative shrink-0">
-                    {/* Step 1 Action Bar */}
+                    {/* Step 0 Action Bar */}
                     <AnimatePresence>
                       {active === 0 && (
                         <motion.div
@@ -272,10 +279,10 @@ export function ThesisJourney() {
                         >
                           <div className="border-t border-slate-100 bg-white px-3 py-1.5 flex items-center justify-between">
                             <div>
-                              <span className="block text-xs font-medium text-slate-600">Since published</span>
+                              <span className="block text-[10px] font-medium text-slate-600">Since published</span>
                               <b className="block text-xs font-bold text-emerald-700">+5.00%</b>
                             </div>
-                            <span className="inline-flex h-[24px] px-3 items-center justify-center rounded-pill bg-blue-50 text-xs font-bold text-blue-600 shadow-2xs">
+                            <span className="inline-flex h-[24px] px-3 items-center justify-center rounded-pill bg-sky-50 text-[11px] font-bold text-sky-600 shadow-2xs">
                               View Price Target
                             </span>
                           </div>
@@ -288,116 +295,123 @@ export function ThesisJourney() {
                       <div className="grid w-full grid-cols-4 px-2 text-center items-center">
                         <div className="flex flex-col items-center gap-[1px] text-blue-600">
                           <svg className="h-[12px] w-[12px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                          <span className="text-xs font-bold">Social</span>
+                          <span className="text-[10px] font-bold">Social</span>
                         </div>
                         <div className="flex flex-col items-center gap-[1px] text-slate-600">
                           <svg className="h-[12px] w-[12px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 14v4"/><path d="M11 10v8"/><path d="M15 6v12"/></svg>
-                          <span className="text-xs font-semibold">Invest</span>
+                          <span className="text-[10px] font-semibold">Invest</span>
                         </div>
                         <div className="flex flex-col items-center gap-[1px] text-slate-600">
                           <svg className="h-[12px] w-[12px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34"/><path d="M18 4H6v7a6 6 0 0 0 12 0V4z"/></svg>
-                          <span className="text-xs font-semibold">Compete</span>
+                          <span className="text-[10px] font-semibold">Compete</span>
                         </div>
                         <div className="flex flex-col items-center gap-[1px] text-slate-600">
-                          <span
-                            className="grid h-[12px] w-[12px] place-items-center rounded-full bg-blue-100 text-[7px] font-bold text-blue-700 leading-none select-none"
-                            aria-label="Arnav Awasthi profile avatar"
-                            role="img"
-                          >
-                            AA
-                          </span>
-                          <span className="text-xs font-semibold">Profile</span>
+                          <div className="relative size-[14px] shrink-0 overflow-hidden rounded-full border border-slate-200 bg-slate-100">
+                            <img
+                              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
+                              alt="Profile avatar"
+                              className="h-full w-full object-cover"
+                              loading="lazy"
+                            />
+                          </div>
+                          <span className="text-[10px] font-semibold">Profile</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Sliding Bottom Sheet for Step 2 and 3 */}
+                    {/* Sliding Bottom Sheet for Step 1 and 2 (Image 2 and Image 3) */}
                     <div
                       className={cn(
-                        "sheet absolute inset-x-0 bottom-0 z-30 bg-white rounded-t-xl shadow-lg transition-transform duration-500 flex flex-col text-left p-2 border-t border-slate-100",
+                        "sheet absolute inset-x-0 bottom-0 z-30 bg-white rounded-t-2xl shadow-xl transition-transform duration-500 ease-out flex flex-col text-left px-3 pt-1.5 pb-2.5 border-t border-slate-200/90",
                         active > 0 ? "translate-y-0" : "translate-y-[105%]"
                       )}
                     >
+                      {/* Drag handle */}
+                      <div className="w-8 h-1 rounded-full bg-slate-300 mx-auto mb-1.5 mt-0.5 shrink-0" />
+
                       <AnimatePresence mode="wait">
                         <motion.div
                           key={active}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          transition={{ duration: 0.45, ease: "easeInOut" }}
+                          transition={{ duration: 0.35, ease: "easeInOut" }}
                         >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-xs font-bold text-slate-900 leading-tight">
-                            AMD <span className="ml-0.5 rounded-md bg-emerald-100 px-1 py-0.2 text-xs font-bold text-emerald-700">Bullish</span>
-                          </p>
-                          <p className="text-xs text-slate-600">Advanced Micro Devices</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-xs text-slate-600 leading-tight">Current price</p>
-                          <p className="text-xs font-bold text-slate-900 leading-tight">
-                            ${active === 2 ? "800.00" : "620.00"}
-                          </p>
-                        </div>
-                      </div>
+                          {/* AMD Bullish + Current Price */}
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-xs font-bold text-slate-900 leading-tight flex items-center gap-1">
+                                AMD <span className="rounded-md bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700">Bullish</span>
+                              </p>
+                              <p className="text-[10px] text-slate-600 leading-none mt-0.5">Advanced Micro Devices</p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-[10px] text-slate-600 leading-tight">Current price</p>
+                              <p className="text-xs font-bold text-slate-900 leading-tight">
+                                ${active === 2 ? "800.00" : "620.00"}
+                              </p>
+                            </div>
+                          </div>
 
-                      <div
-                        className={cn(
-                          "mt-0.5 flex items-center justify-center gap-1 rounded-md py-0.5 text-xs font-bold",
-                          active === 2
-                            ? "bg-emerald-100 text-emerald-700"
-                            : "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                        )}
-                      >
-                        {active === 2 ? "✓ Target Reached, Thesis Closed" : "↑ Price Moving With Thesis"}
-                      </div>
+                          {/* Banner (Price Moving With Thesis or Target Reached, Thesis Closed) */}
+                          <div
+                            className={cn(
+                              "mt-1.5 flex items-center justify-center gap-1.5 rounded-lg py-1 px-2 text-xs font-bold",
+                              active === 2
+                                ? "bg-emerald-100 text-emerald-800 border border-emerald-200/60"
+                                : "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                            )}
+                          >
+                            <span className="grid size-3.5 place-items-center rounded-full bg-emerald-600 text-[9px] font-bold text-white shrink-0">
+                              {active === 2 ? "✓" : "↑"}
+                            </span>
+                            <span className="text-[11px] leading-tight font-bold">
+                              {active === 2 ? "Target Reached, Thesis Closed" : "Price Moving With Thesis"}
+                            </span>
+                          </div>
 
-                      <div className="mt-0.5 h-4.5 overflow-hidden rounded bg-slate-50 px-1 border border-slate-100">
-                        <svg viewBox="0 0 180 40" className="h-full w-full" fill="none" aria-hidden="true">
-                          <path
-                            d="M2 31 C20 27 29 30 42 23 S65 27 78 17 S100 20 115 13 S139 15 153 8 S170 11 178 4"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            className="text-emerald-500"
-                          />
-                        </svg>
-                      </div>
+                          {/* Progress bar section: Entry $500.00 - Target $800.00 */}
+                          <div className="mt-1.5 flex justify-between text-[10px] font-semibold text-slate-700">
+                            <span>Entry $500.00</span>
+                            <span>Target $800.00</span>
+                          </div>
 
-                      <div className="mt-0.5 flex justify-between text-xs font-semibold text-slate-600">
-                        <span>Entry $500.00</span>
-                        <span>Target $800.00</span>
-                      </div>
+                          <div className="relative mt-1 h-1.5 w-full rounded-full bg-slate-100">
+                            <div
+                              className="h-full rounded-full bg-emerald-500 transition-all duration-700 ease-out"
+                              style={{ width: active === 2 ? "100%" : "42%" }}
+                            />
+                            <div
+                              className="absolute top-1/2 -translate-y-1/2 size-2.5 rounded-full bg-emerald-600 ring-2 ring-white transition-all duration-700 ease-out"
+                              style={{ left: active === 2 ? "calc(100% - 6px)" : "42%" }}
+                            />
+                          </div>
 
-                      <div className="mt-0.5 h-1 w-full rounded-pill bg-slate-200">
-                        <div
-                          className="h-1 rounded-pill bg-emerald-500 transition-all duration-700 ease-out"
-                          style={{ width: active === 2 ? "100%" : "42%" }}
-                        />
-                      </div>
+                          <div className="mt-1 flex justify-between text-[9px] text-slate-600">
+                            <span>Published Aug 14</span>
+                            <span>{active === 2 ? "6 of 6 mo elapsed" : "3 of 6 months elapsed"}</span>
+                          </div>
 
-                      <div className="mt-0.5 flex justify-between text-xs text-slate-600">
-                        <span>Published Aug 14</span>
-                        <span>{active === 2 ? "6 of 6 mo elapsed" : "3 of 6 mo elapsed"}</span>
-                      </div>
+                          {/* Two stat cards */}
+                          <div className="mt-1.5 grid grid-cols-2 gap-1.5">
+                            <div className="rounded-lg bg-slate-50 border border-slate-100 p-1.5">
+                              <p className="text-[9px] text-slate-600 leading-tight">Return since publish</p>
+                              <p className="text-xs font-bold text-emerald-700 leading-tight mt-0.5">
+                                +{active === 2 ? "60.00" : "24.00"}%
+                              </p>
+                            </div>
+                            <div className="rounded-lg bg-slate-50 border border-slate-100 p-1.5">
+                              <p className="text-[9px] text-slate-600 leading-tight">{active === 2 ? "Result" : "Distance to target"}</p>
+                              <p className="text-xs font-bold text-slate-900 leading-tight mt-0.5">
+                                {active === 2 ? "Reached" : "60.00% left"}
+                              </p>
+                            </div>
+                          </div>
 
-                      <div className="mt-0.5 flex justify-between text-xs pt-0.5 border-t border-slate-100">
-                        <div>
-                          <p className="text-xs text-slate-600">Return since publish</p>
-                          <p className="font-bold text-emerald-700 leading-tight">
-                            +{active === 2 ? "60.00" : "24.00"}%
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-xs text-slate-600">{active === 2 ? "Result" : "Distance to target"}</p>
-                          <p className="font-bold text-slate-800 leading-tight">
-                            {active === 2 ? "Reached" : "60.00% left"}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="mt-1 w-full rounded-md bg-slate-900 py-1 text-center text-xs font-bold text-white shadow-2xs">
-                        View $AMD
-                      </div>
+                          {/* View $AMD Button */}
+                          <div className="mt-2 w-full rounded-xl bg-slate-950 py-1.5 text-center text-xs font-bold text-white shadow-xs hover:bg-slate-900 transition-colors cursor-pointer">
+                            View $AMD
+                          </div>
                         </motion.div>
                       </AnimatePresence>
                     </div>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LaptopFrame } from "@/components/ui/LaptopFrame";
 import { Reveal } from "@/components/ui/Reveal";
+import { Button } from "@/components/ui/button";
 
 const categories = ["fintech.", "climate.", "space.", "robotics.", "energy.", "biotech."];
 
@@ -47,6 +48,14 @@ export function UBverseMarketplace() {
           <p className="mx-auto mt-4 max-w-lg text-sm sm:text-base text-slate-600 leading-relaxed">
             The most innovative companies deserve to be seen. Start your Space, post the work, and let the record speak.
           </p>
+        </Reveal>
+
+        <Reveal delay={0.25}>
+          <div className="mt-6">
+            <Button href="/platform" size="md" variant="primary" shape="pill">
+              Start Your Space
+            </Button>
+          </div>
         </Reveal>
       </div>
 
