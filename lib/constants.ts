@@ -45,7 +45,33 @@ export const site = {
     "UnBound X turns market theses into immutable, verifiable track records. Set targets, specify horizons, and build audited credibility as outcomes unfold.",
 };
 
+function resolveSiteUrl(): string {
+  // 1. Explicitly configured site URL (production custom domain or staging override)
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (envUrl) {
+    return envUrl.replace(/\/$/, "");
+  }
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://development.unboundxinc.us").replace(/\/$/, "");
+  // 2. Vercel deployment environment variables (available in production and preview builds)
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`.replace(/\/$/, "");
+  }
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`.replace(/\/$/, "");
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`.replace(/\/$/, "");
+  }
+
+  // 3. Fallback for local development
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3000";
+  }
+
+  // 4. Default production canonical domain
+  return "https://www.unboundxinc.com";
+}
+
+export const SITE_URL = resolveSiteUrl();
 
 export const MAIN_SITE_URL = process.env.NEXT_PUBLIC_MAIN_SITE_URL || "/";

@@ -9,16 +9,32 @@ import { StartRecord } from "@/components/sections/StartRecord";
 import { site, SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.tagline}`,
+  title: {
+    absolute: "UnBound X — Verifiable Investment Track Records",
+  },
   description: site.description,
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: `${site.name} — ${site.tagline}`,
+    title: "UnBound X — Verifiable Investment Track Records",
     description: site.description,
     url: SITE_URL,
     type: "website",
+    images: [
+      {
+        url: "/brand/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "UnBound X — Verifiable Investment Track Records",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UnBound X — Verifiable Investment Track Records",
+    description: site.description,
+    images: ["/brand/og-image.png"],
   },
 };
 

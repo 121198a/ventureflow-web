@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   title: "Log In or Sign Up | UnBound X",
   description:
     "Access your verified track record or create your account to formulate and track market theses on UnBound X.",
+  robots: {
+    index: false,
+    follow: true,
+  },
+  alternates: {
+    canonical: "/login",
+  },
 };
 
 export default function LoginRoute() {

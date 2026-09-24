@@ -23,10 +23,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: site.name + " — " + site.tagline, template: "%s — " + site.name },
+  title: { default: "UnBound X — Verifiable Investment Track Records", template: "%s — " + site.name },
   description: site.description,
   openGraph: {
-    title: site.name + " — " + site.tagline,
+    title: "UnBound X — Verifiable Investment Track Records",
     description: site.description,
     type: "website",
     url: SITE_URL,
@@ -36,13 +36,13 @@ export const metadata: Metadata = {
         url: "/brand/og-image.png",
         width: 1200,
         height: 630,
-        alt: `${site.name} — ${site.tagline}`,
+        alt: "UnBound X — Verifiable Investment Track Records",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: site.name + " — " + site.tagline,
+    title: "UnBound X — Verifiable Investment Track Records",
     description: site.description,
     images: ["/brand/og-image.png"],
   },

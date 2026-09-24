@@ -48,11 +48,18 @@ export async function generateMetadata({
       title,
       description,
       type: "website",
+      images: [
+        {
+          url: offering.imageUrl || "/brand/og-image.png",
+          alt: offering.name,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [offering.imageUrl || "/brand/og-image.png"],
     },
   };
 }

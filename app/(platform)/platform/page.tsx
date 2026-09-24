@@ -5,16 +5,29 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { Reveal } from "@/components/site/reveal";
 import { OfferingCard } from "@/components/site/offering-card";
 import { offerings, getDynamicOfferings } from "@/lib/offerings-data";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "UBverse by UnBound X — Invest in Private Markets",
+  title: "Deal Marketplace | UBverse",
   description:
     "Review structured deal pages, access founder updates, and complete investments through a registered broker-dealer — with full compliance infrastructure from day one.",
+  alternates: {
+    canonical: "/platform",
+  },
   openGraph: {
-    title: "UBverse by UnBound X — Invest in Private Markets",
+    title: "Deal Marketplace | UBverse — UnBound X",
     description:
       "A single platform to evaluate and invest in private markets with institutional rigor.",
+    url: `${SITE_URL}/platform`,
     type: "website",
+    images: ["/brand/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Deal Marketplace | UBverse — UnBound X",
+    description:
+      "A single platform to evaluate and invest in private markets with institutional rigor.",
+    images: ["/brand/og-image.png"],
   },
 };
 

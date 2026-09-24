@@ -393,6 +393,7 @@ export function Hero() {
               <Magnetic strength={0.2}>
                 <AuthButton
                   flow="signup"
+                  ariaLabel="Start your verified investment record"
                   className="btn-pill-primary px-8 focus-visible:ring-offset-2"
                 >
                   Start your record
@@ -714,6 +715,8 @@ function FeedPreview() {
                 <img
                   src="/image/about/1.jpg"
                   alt="Maneesh Awasthi"
+                  width={20}
+                  height={20}
                   className="size-5 rounded-full object-cover"
                   loading="lazy"
                 />
@@ -729,18 +732,18 @@ function FeedPreview() {
             </div>
 
             <p className="mt-1 text-[10px] font-bold text-slate-900 leading-snug line-clamp-1">
-              I&apos;ve been reflecting on the ongoing discussions about the A.I. Bubble, and here&apos;s my perspective&hellip;
+              Bitcoin institutional treasury accumulation accelerates through spot ETFs&hellip;
             </p>
             <p className="mt-0.5 text-[8.5px] text-slate-600 leading-snug line-clamp-2">
-              In the past five years, we&apos;ve seen an unprecedented influx of retail investors into the market, driven by a desire for n&hellip;
+              Balance sheet demand continues to absorb daily miner issuance as sovereign reserves enter allocation phases&hellip;
             </p>
 
             {/* Target & Horizon Bar */}
             <div className="mt-1.5 flex items-center justify-between rounded-lg bg-slate-50 px-2 py-1 border border-slate-100 text-[9px]">
               <div className="flex items-center gap-2">
-                <span>Target <b className="text-slate-900 font-bold">$280</b></span>
+                <span>Target <b className="text-slate-900 font-bold">$105,000</b></span>
                 <span className="text-slate-300">|</span>
-                <span>Horizon <b className="text-slate-900 font-bold">90d</b></span>
+                <span>Horizon <b className="text-slate-900 font-bold">180d</b></span>
               </div>
               <Compass size={11} className="text-blue-500" />
             </div>
@@ -749,10 +752,10 @@ function FeedPreview() {
             <div className="mt-1.5 flex items-center justify-between text-[9px]">
               <div className="flex items-center gap-2 text-slate-500">
                 <span className="flex items-center gap-0.5">
-                  <ThumbsUp size={9} /> 100
+                  <ThumbsUp size={9} /> 142
                 </span>
                 <span className="flex items-center gap-0.5">
-                  <MessageCircle size={9} /> 734
+                  <MessageCircle size={9} /> 318
                 </span>
               </div>
               <div className="flex items-center gap-1">
@@ -769,13 +772,15 @@ function FeedPreview() {
             </div>
           </div>
 
-          {/* Post 2 - Arnav Awasthi ($BTC Bearish / Off track) */}
+          {/* Post 2 - Arnav Awasthi ($NVDA Bearish / Off track) */}
           <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
                   src="/image/about/2.jpg"
                   alt="Arnav Awasthi"
+                  width={20}
+                  height={20}
                   className="size-5 rounded-full object-cover"
                   loading="lazy"
                 />
@@ -791,16 +796,16 @@ function FeedPreview() {
             </div>
 
             <p className="mt-1 text-[10px] font-bold text-slate-900 leading-snug line-clamp-1">
-              I&apos;ve been reflecting on the ongoing discussions about the A.I. Bubble, and here&apos;s my perspective&hellip;
+              Hyperscaler capex digestion poses near-term margin risk across hardware suppliers&hellip;
             </p>
             <p className="mt-0.5 text-[8.5px] text-slate-600 leading-snug line-clamp-2">
-              In the past five years, we&apos;ve seen an unprecedented influx of retail investors into the market, driven by a desire for n&hellip;
+              Enterprise cloud buyers are extending server lifecycles, signaling cooling hardware refresh momentum through Q4&hellip;
             </p>
 
             {/* Target & Horizon Bar */}
             <div className="mt-1.5 flex items-center justify-between rounded-lg bg-slate-50 px-2 py-1 border border-slate-100 text-[9px]">
               <div className="flex items-center gap-2">
-                <span>Target <b className="text-slate-900 font-bold">$280</b></span>
+                <span>Target <b className="text-slate-900 font-bold">$145</b></span>
                 <span className="text-slate-300">|</span>
                 <span>Horizon <b className="text-slate-900 font-bold">90d</b></span>
               </div>
@@ -811,10 +816,10 @@ function FeedPreview() {
             <div className="mt-1.5 flex items-center justify-between text-[9px]">
               <div className="flex items-center gap-2 text-slate-500">
                 <span className="flex items-center gap-0.5">
-                  <ThumbsUp size={9} /> 100
+                  <ThumbsUp size={9} /> 89
                 </span>
                 <span className="flex items-center gap-0.5">
-                  <MessageCircle size={9} /> 734
+                  <MessageCircle size={9} /> 245
                 </span>
               </div>
               <div className="flex items-center gap-1">
@@ -822,7 +827,7 @@ function FeedPreview() {
                   <span className="size-1 rounded-full bg-amber-500" /> Off track
                 </span>
                 <span className="rounded bg-slate-100 px-1 py-0.2 text-[8px] font-bold text-slate-700">
-                  $BTC
+                  $NVDA
                 </span>
                 <span className="rounded bg-rose-50 border border-rose-200/80 px-1 py-0.2 text-[8px] font-bold text-rose-700">
                   Bearish

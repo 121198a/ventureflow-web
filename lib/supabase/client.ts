@@ -1,43 +1,90 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "./types";
 
-export function isSupabaseConfigured(): boolean {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key =
+export function getSupabaseConfig(): { url: string; key: string } | null {
+  const rawUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const rawKey =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  return Boolean(
-    url &&
-    key &&
-    !url.includes("your-project.supabase.co") &&
-    !key.includes("your-anon-key")
-  );
-}
+  if (!rawUrl || !rawKey) return null;
 
-function createSupabaseClient(): SupabaseClient<Database> | null {
-  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const SUPABASE_PUBLISHABLE_KEY =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const url = rawUrl.trim().replace(/\/+$/, "");
+  const key = rawKey.trim();
 
   if (
-    !SUPABASE_URL ||
-    !SUPABASE_PUBLISHABLE_KEY ||
-    SUPABASE_URL.includes("your-project.supabase.co") ||
-    SUPABASE_PUBLISHABLE_KEY.includes("your-anon-key")
+    !url ||
+    !key ||
+    url.includes("your-project.supabase.co") ||
+    key.includes("your-anon-key") ||
+    key.includes("your-publishable-key")
   ) {
     return null;
   }
 
+  // Ensure scheme is present
+  const normalizedUrl =
+    url.startsWith("http://") || url.startsWith("https://")
+      ? url
+      : `https://${url}`;
+
+  return { url: normalizedUrl, key };
+}
+
+export function isSupabaseConfigured(): boolean {
+  return getSupabaseConfig() !== null;
+}
+
+// In-memory fallback if localStorage is blocked by browser policies or unavailable
+const _memoryStorage = new Map<string, string>();
+const _safeFallbackStorage = {
+  getItem: (key: string): string | null => _memoryStorage.get(key) ?? null,
+  setItem: (key: string, value: string): void => {
+    _memoryStorage.set(key, value);
+  },
+  removeItem: (key: string): void => {
+    _memoryStorage.delete(key);
+  },
+};
+
+function getSafeStorage() {
+  if (typeof window === "undefined") {
+    return undefined;
+  }
   try {
-    return createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+    const probe = "__sb_probe__";
+    window.localStorage.setItem(probe, "1");
+    window.localStorage.removeItem(probe);
+    return window.localStorage;
+  } catch {
+    return _safeFallbackStorage;
+  }
+}
+
+let _lastInitError: string | null = null;
+
+function createSupabaseClient(): SupabaseClient<Database> | null {
+  const config = getSupabaseConfig();
+  if (!config) {
+    return null;
+  }
+
+  try {
+    const isBrowser = typeof window !== "undefined";
+    const storage = getSafeStorage();
+
+    const client = createClient<Database>(config.url, config.key, {
       auth: {
-        persistSession: true,
-        autoRefreshToken: true,
+        persistSession: isBrowser,
+        autoRefreshToken: isBrowser,
+        detectSessionInUrl: isBrowser,
+        ...(storage ? { storage } : {}),
       },
     });
+    _lastInitError = null;
+    return client;
   } catch (err) {
+    _lastInitError = err instanceof Error ? err.message : String(err);
     if (process.env.NODE_ENV !== "production") {
       console.warn("[Supabase] Failed to initialize Supabase client:", err);
     }
@@ -45,11 +92,14 @@ function createSupabaseClient(): SupabaseClient<Database> | null {
   }
 }
 
-let _supabase: SupabaseClient<Database> | null | undefined;
+let _supabase: SupabaseClient<Database> | null = null;
 
 export function getSupabaseClient(): SupabaseClient<Database> | null {
-  if (!isSupabaseConfigured()) return null;
-  if (_supabase === undefined) {
+  if (!isSupabaseConfigured()) {
+    _supabase = null;
+    return null;
+  }
+  if (!_supabase) {
     _supabase = createSupabaseClient();
   }
   return _supabase;
@@ -172,7 +222,9 @@ export async function initiateOAuthSignIn(
       return {
         success: false,
         configurationRequired: true,
-        error: "Supabase client could not be initialized.",
+        error: _lastInitError
+          ? `Supabase client could not be initialized: ${_lastInitError}`
+          : "Supabase client could not be initialized. Please check that NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY are properly configured.",
       };
     }
 

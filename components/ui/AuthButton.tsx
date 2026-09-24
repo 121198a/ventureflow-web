@@ -11,6 +11,7 @@ export function AuthButton({
   className = "",
   icon = true,
   flow = "signup",
+  ariaLabel,
   onClick,
 }: {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ export function AuthButton({
   className?: string;
   icon?: boolean;
   flow?: "signup" | "login";
+  ariaLabel?: string;
   /** Runs before navigation — e.g. closing a mobile nav drawer. */
   onClick?: () => void;
 }) {
@@ -39,6 +41,7 @@ export function AuthButton({
   return (
     <Link
       href={href}
+      aria-label={ariaLabel}
       onClick={() => {
         onClick?.();
       }}

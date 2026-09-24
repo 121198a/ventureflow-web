@@ -9,11 +9,30 @@ import { UBverseRails } from "@/components/sections/UBverse/UBverseRails";
 import { UBverseEconomics } from "@/components/sections/UBverse/UBverseEconomics";
 import { UBverseMarketplace } from "@/components/sections/UBverse/UBverseMarketplace";
 import { UBverseCta } from "@/components/sections/UBverse/UBverseCta";
+import { site, SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "UBverse — by UnBound X",
+  title: "UBverse Private Markets",
   description:
-    "UBverse is where UnBound X's tracked-thesis format extends past the social feed - into startup investing, house research, and Company Spaces investors can actually understand.",
+    "UBverse extends the UnBound X verified thesis format into startup investing, institutional deal rooms, and Company Spaces.",
+  alternates: {
+    canonical: "/ubverse",
+  },
+  openGraph: {
+    title: "UBverse Private Markets — " + site.name,
+    description:
+      "UBverse extends the UnBound X verified thesis format into startup investing, institutional deal rooms, and Company Spaces.",
+    url: `${SITE_URL}/ubverse`,
+    type: "website",
+    images: ["/brand/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UBverse Private Markets — " + site.name,
+    description:
+      "UBverse extends the UnBound X verified thesis format into startup investing, institutional deal rooms, and Company Spaces.",
+    images: ["/brand/og-image.png"],
+  },
 };
 
 export default function UBversePage() {

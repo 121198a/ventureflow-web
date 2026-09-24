@@ -242,7 +242,7 @@ export function SiteNav() {
                 src="/logo/unboundx-mark.png"
                 width={32}
                 height={32}
-                alt=""
+                alt="UnBound X logo"
                 className="h-full w-full object-cover rounded-full transition-transform group-hover:scale-105"
                 priority
               />
@@ -327,6 +327,7 @@ export function SiteNav() {
             <AuthButton
               flow="signup"
               icon={false}
+              ariaLabel="Get started on UnBound X"
               className="hidden sm:inline-flex btn-pill-primary px-5 py-2.5 text-xs sm:text-sm"
             >
               <span>Get started</span>
@@ -382,7 +383,7 @@ export function SiteNav() {
                       src="/logo/unboundx-mark.png"
                       width={28}
                       height={28}
-                      alt=""
+                      alt="UnBound X logo"
                       className="h-full w-full object-cover rounded-full"
                     />
                   </div>
@@ -449,6 +450,7 @@ export function SiteNav() {
                   <AuthButton
                     flow="signup"
                     icon={false}
+                    ariaLabel="Get started on UnBound X"
                     onClick={handleClose}
                     className="w-full justify-center inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-6 py-3 shadow-md shadow-blue-600/20 transition-transform active:scale-95"
                   >
@@ -485,9 +487,9 @@ const footerColumns = [
   {
     heading: "Product",
     links: [
-      ["Thesis Journey", "/#thesis"],
-      ["Collaborative Spaces", "/#spaces"],
-      ["Beyond Social Feeds", "/#beyond-the-feed"],
+      ["Thesis Journey", "/thesis"],
+      ["Collaborative Spaces", "/spaces"],
+      ["Beyond Social Feeds", "/beyond-feed"],
     ],
   },
   {
@@ -502,7 +504,7 @@ const footerColumns = [
   {
     heading: "Company",
     links: [
-      ["About Us", "/about#top"],
+      ["About Us", "/about"],
       ["Careers & Culture", "/careers"],
       ["Market Blog", "/blog"],
       ["Press & Media Kit", "/press"],
@@ -600,7 +602,7 @@ export function SiteFooter() {
                 icon={false}
                 className="mt-5 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all duration-200 hover:bg-blue-700 active:scale-[0.98]"
               >
-                <span>Start your record</span>
+                <span>Start your verified record</span>
                 <ArrowRight size={15} />
               </AuthButton>
             </div>
@@ -631,7 +633,7 @@ export function SiteFooter() {
                   src="/logo/unboundx-mark.png"
                   width={32}
                   height={32}
-                  alt=""
+                  alt="UnBound X logo"
                   className="h-full w-full object-cover rounded-full"
                 />
               </div>

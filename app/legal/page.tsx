@@ -1,11 +1,30 @@
 import type { Metadata } from "next";
 import { LegalShell } from "@/components/legal/LegalShell";
 import { TransitionLink } from "@/components/ui/TransitionLink";
+import { site, SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "UnBound X Legal Hub",
+  title: "Legal & Regulatory Hub",
   description:
-    "Welcome to the Legal Hub for UnBound X. This page provides direct access to all legal policies, disclaimers, and regulatory agreements governing your use of the UnBound X platform and affiliated services.",
+    "Welcome to the Legal Hub for UnBound X. Access platform agreements, disclosures, Form CRS, and regulatory policies governing your use of UnBound X.",
+  alternates: {
+    canonical: "/legal",
+  },
+  openGraph: {
+    title: "Legal & Regulatory Hub — " + site.name,
+    description:
+      "Access platform agreements, disclosures, Form CRS, and regulatory policies governing your use of UnBound X.",
+    url: `${SITE_URL}/legal`,
+    type: "website",
+    images: ["/brand/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Legal & Regulatory Hub — " + site.name,
+    description:
+      "Access platform agreements, disclosures, Form CRS, and regulatory policies governing your use of UnBound X.",
+    images: ["/brand/og-image.png"],
+  },
 };
 
 const platformPolicies = [

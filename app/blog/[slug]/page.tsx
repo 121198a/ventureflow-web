@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${post.title} — ${site.name}`,
+    title: post.title,
     description: post.summary,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
@@ -38,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: `${post.title} — ${site.name}`,
       description: post.summary,
+      images: [post.coverImage],
     },
   };
 }

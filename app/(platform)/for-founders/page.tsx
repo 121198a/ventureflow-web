@@ -9,15 +9,27 @@ import { Reveal } from "@/components/site/reveal";
 import { Stepper, type Step } from "@/components/site/stepper";
 import { RegPathwayGrid, type RegPathway } from "@/components/site/reg-pathway";
 import { Button } from "@/components/ui/button";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "For Founders — Close Your Round Faster | UBverse",
+  title: "For Founders — Close Your Capital Raise | UBverse",
   description:
-    "Run your raise end-to-end on UBverse: investor discovery, smart deal pages, document flows, and guidance at every step.",
+    "Run your raise end-to-end on UBverse: investor discovery, structured deal pages, compliance document flows, and broker-dealer execution.",
+  alternates: {
+    canonical: "/for-founders",
+  },
   openGraph: {
-    title: "For Founders — Close Your Round Faster | UBverse",
-    description: "Investor discovery, smart deal pages, document flows, and guidance at every step.",
+    title: "For Founders — Close Your Capital Raise | UBverse",
+    description: "Investor discovery, structured deal pages, compliance document flows, and broker-dealer execution.",
+    url: `${SITE_URL}/for-founders`,
     type: "website",
+    images: ["/brand/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "For Founders — Close Your Capital Raise | UBverse",
+    description: "Investor discovery, structured deal pages, compliance document flows, and broker-dealer execution.",
+    images: ["/brand/og-image.png"],
   },
 };
 

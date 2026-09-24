@@ -306,6 +306,7 @@ export function StartRecord() {
               <AuthButton
                 flow="signup"
                 icon={false}
+                ariaLabel="Start your verified investment record"
                 className="btn-pill-primary px-8"
               >
                 <span>Start your record</span>
@@ -424,13 +425,15 @@ function FeedMini() {
 
         {/* Feed Posts */}
         <div className="space-y-2 p-2.5">
-          {/* Post 1 - Dinesh Pathak ($BTC Bullish / On track) */}
+          {/* Post 1 - Dinesh Pathak ($ETH Bullish / On track) */}
           <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
                   src="/image/about/5.jpg"
                   alt="Dinesh Pathak"
+                  width={20}
+                  height={20}
                   className="size-5 rounded-full object-cover"
                   loading="lazy"
                 />
@@ -446,18 +449,18 @@ function FeedMini() {
             </div>
 
             <p className="mt-1 text-[10px] font-bold text-slate-900 leading-snug line-clamp-1">
-              I&apos;ve been reflecting on the ongoing discussions about the A.I. Bubble, and here&apos;s my perspective&hellip;
+              Ethereum layer-2 settlement velocity compounds protocol fee burn rates&hellip;
             </p>
             <p className="mt-0.5 text-[8.5px] text-slate-600 leading-snug line-clamp-2">
-              In the past five years, we&apos;ve seen an unprecedented influx of retail investors into the market, driven by a desire for n&hellip;
+              On-chain real-world asset issuance and rollup fee economics indicate sustained transaction growth through Q1&hellip;
             </p>
 
             {/* Target & Horizon Bar */}
             <div className="mt-1.5 flex items-center justify-between rounded-lg bg-slate-50 px-2 py-1 border border-slate-100 text-[9px]">
               <div className="flex items-center gap-2">
-                <span>Target <b className="text-slate-900 font-bold">$280</b></span>
+                <span>Target <b className="text-slate-900 font-bold">$4,200</b></span>
                 <span className="text-slate-300">|</span>
-                <span>Horizon <b className="text-slate-900 font-bold">90d</b></span>
+                <span>Horizon <b className="text-slate-900 font-bold">120d</b></span>
               </div>
               <Compass size={11} className="text-blue-500" />
             </div>
@@ -466,10 +469,10 @@ function FeedMini() {
             <div className="mt-1.5 flex items-center justify-between text-[9px]">
               <div className="flex items-center gap-2 text-slate-500">
                 <span className="flex items-center gap-0.5">
-                  <ThumbsUp size={9} /> 100
+                  <ThumbsUp size={9} /> 120
                 </span>
                 <span className="flex items-center gap-0.5">
-                  <MessageCircle size={9} /> 734
+                  <MessageCircle size={9} /> 482
                 </span>
               </div>
               <div className="flex items-center gap-1">
@@ -477,7 +480,7 @@ function FeedMini() {
                   <span className="size-1 rounded-full bg-emerald-500" /> On track
                 </span>
                 <span className="rounded bg-slate-100 px-1 py-0.2 text-[8px] font-bold text-slate-700">
-                  $BTC
+                  $ETH
                 </span>
                 <span className="rounded bg-emerald-50 border border-emerald-200/80 px-1 py-0.2 text-[8px] font-bold text-emerald-700">
                   Bullish
@@ -486,13 +489,15 @@ function FeedMini() {
             </div>
           </div>
 
-          {/* Post 2 - Rama Rao ($BTC Bearish / Off track) */}
+          {/* Post 2 - Rama Rao ($CRM Bearish / Off track) */}
           <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
                   src="/image/about/1.jpg"
                   alt="Rama Rao"
+                  width={20}
+                  height={20}
                   className="size-5 rounded-full object-cover"
                   loading="lazy"
                 />
@@ -508,18 +513,18 @@ function FeedMini() {
             </div>
 
             <p className="mt-1 text-[10px] font-bold text-slate-900 leading-snug line-clamp-1">
-              I&apos;ve been reflecting on the ongoing discussions about the A.I. Bubble, and here&apos;s my perspective&hellip;
+              Enterprise software multiples face contraction amid consumption pricing shift&hellip;
             </p>
             <p className="mt-0.5 text-[8.5px] text-slate-600 leading-snug line-clamp-2">
-              In the past five years, we&apos;ve seen an unprecedented influx of retail investors into the market, driven by a desire for n&hellip;
+              Customer net expansion rates show elongated procurement cycles across mid-market enterprise SaaS contracts&hellip;
             </p>
 
             {/* Target & Horizon Bar */}
             <div className="mt-1.5 flex items-center justify-between rounded-lg bg-slate-50 px-2 py-1 border border-slate-100 text-[9px]">
               <div className="flex items-center gap-2">
-                <span>Target <b className="text-slate-900 font-bold">$280</b></span>
+                <span>Target <b className="text-slate-900 font-bold">$85</b></span>
                 <span className="text-slate-300">|</span>
-                <span>Horizon <b className="text-slate-900 font-bold">90d</b></span>
+                <span>Horizon <b className="text-slate-900 font-bold">60d</b></span>
               </div>
               <Compass size={11} className="text-blue-500" />
             </div>
@@ -528,10 +533,10 @@ function FeedMini() {
             <div className="mt-1.5 flex items-center justify-between text-[9px]">
               <div className="flex items-center gap-2 text-slate-500">
                 <span className="flex items-center gap-0.5">
-                  <ThumbsUp size={9} /> 100
+                  <ThumbsUp size={9} /> 76
                 </span>
                 <span className="flex items-center gap-0.5">
-                  <MessageCircle size={9} /> 734
+                  <MessageCircle size={9} /> 194
                 </span>
               </div>
               <div className="flex items-center gap-1">
@@ -539,7 +544,7 @@ function FeedMini() {
                   <span className="size-1 rounded-full bg-amber-500" /> Off track
                 </span>
                 <span className="rounded bg-slate-100 px-1 py-0.2 text-[8px] font-bold text-slate-700">
-                  $BTC
+                  $CRM
                 </span>
                 <span className="rounded bg-rose-50 border border-rose-200/80 px-1 py-0.2 text-[8px] font-bold text-rose-700">
                   Bearish

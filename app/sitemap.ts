@@ -10,7 +10,7 @@ import { pressReleases } from "@/lib/press-data";
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // Core canonical static routes
+  // Core canonical static public routes
   const staticRoutes = [
     "",
     "/about",
@@ -28,11 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/ubverse",
     "/ubverse/company",
     "/ubverse/ventures",
-    "/login",
-    "/signup",
-    "/investor/login",
-    "/investor/signup",
-    "/issuer/login",
   ].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: now,

@@ -94,7 +94,9 @@ export async function POST(request: Request) {
 
     const { email, role } = parsed.data;
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+    const supabaseKey =
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     let backendError: string | null = null;
 
     // 4. Delegate to UBverse Backend Authentication

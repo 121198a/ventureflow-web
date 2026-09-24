@@ -15,7 +15,7 @@ import {
 import { CopyBoilerplateButton, ColorSwatch } from "@/components/press/PressClientControls";
 
 export const metadata: Metadata = {
-  title: "Press & Media Kit — " + site.name,
+  title: "Press & Media Kit",
   description:
     "Official press releases, brand assets, executive commentary, and announcements from UnBound X.",
   alternates: {
@@ -27,6 +27,14 @@ export const metadata: Metadata = {
       "Official press releases, brand assets, executive commentary, and announcements from UnBound X.",
     url: `${SITE_URL}/press`,
     type: "website",
+    images: ["/brand/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Press & Media Kit — " + site.name,
+    description:
+      "Official press releases, brand assets, executive commentary, and announcements from UnBound X.",
+    images: ["/brand/og-image.png"],
   },
 };
 

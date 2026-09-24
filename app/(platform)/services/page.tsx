@@ -3,10 +3,27 @@ import { Check, ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { Button } from "@/components/ui/button";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Service Tiers & Pathways | UBverse",
-  description: "Compare UBverse capital raise pathways and operational services for founders.",
+  title: "Service Tiers & Regulatory Pathways | UBverse",
+  description: "Compare UBverse capital raise pathways, regulatory exemptions (Reg CF, Reg A+, Reg D), and compliance services for founders.",
+  alternates: {
+    canonical: "/services",
+  },
+  openGraph: {
+    title: "Service Tiers & Regulatory Pathways | UBverse — UnBound X",
+    description: "Compare UBverse capital raise pathways, regulatory exemptions (Reg CF, Reg A+, Reg D), and compliance services for founders.",
+    url: `${SITE_URL}/services`,
+    type: "website",
+    images: ["/brand/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Service Tiers & Regulatory Pathways | UBverse — UnBound X",
+    description: "Compare UBverse capital raise pathways, regulatory exemptions (Reg CF, Reg A+, Reg D), and compliance services for founders.",
+    images: ["/brand/og-image.png"],
+  },
 };
 
 const tierColumns = [
