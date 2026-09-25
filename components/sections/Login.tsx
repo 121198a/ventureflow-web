@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { initiateOAuthSignIn } from "@/lib/supabase/client";
 import { sanitizeRedirectUrl } from "@/lib/utils";
+import { PhoneInput } from "@/components/site/phone-input";
 
 type AuthFlow = "login" | "signup" | "recover" | "protect" | "support" | "reset";
 type ResetStep = "request" | "confirm";
@@ -100,6 +101,16 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+  // Login Mode (Email vs Phone Number)
+  const [loginMode, setLoginMode] = useState<"email" | "phone">("email");
+  const [loginPhone, setLoginPhone] = useState("");
+  const [loginPhoneE164, setLoginPhoneE164] = useState("");
+
+  // Signup Mode (Email vs Phone Number)
+  const [signupMode, setSignupMode] = useState<"email" | "phone">("email");
+  const [signupPhone, setSignupPhone] = useState("");
+  const [signupPhoneE164, setSignupPhoneE164] = useState("");
 
   // Recovery form fields (Image 2)
   const [recoverFirstName, setRecoverFirstName] = useState("");
@@ -205,10 +216,11 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   // Handle standard Login submission
   const handleLoginSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const cleanIdentifier = identifier.trim();
+    const targetIdentifier =
+      loginMode === "email" ? identifier.trim() : (loginPhoneE164 || loginPhone.trim());
 
-    if (!cleanIdentifier) {
-      setFormError("Enter your email or phone number to continue.");
+    if (!targetIdentifier) {
+      setFormError(loginMode === "email" ? "Enter your email address to continue." : "Enter your phone number to continue.");
       return;
     }
     if (!password) {
@@ -225,7 +237,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: cleanIdentifier,
+          email: targetIdentifier,
           password,
           role,
         }),
@@ -235,7 +247,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
 
       if (!res.ok) {
         if (data.requiresOtp) {
-          const target = data.phone || data.destination || cleanIdentifier;
+          const target = data.phone || data.destination || targetIdentifier;
           setOtpDestination(target);
           setOtpType("phone");
           setOtpStep(true);
@@ -279,18 +291,19 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
 
   // Direct OTP Send handler (supports both email and phone destinations)
   const handleSendOtp = async () => {
-    const cleanId = identifier.trim();
-    const isEmailInput = cleanId.includes("@");
+    const target =
+      loginMode === "email" ? identifier.trim() : (loginPhoneE164 || loginPhone.trim());
+    const isEmailInput = loginMode === "email";
 
-    if (!cleanId) {
-      setFormError("Please enter your email or phone number first.");
+    if (!target) {
+      setFormError(isEmailInput ? "Please enter your email address first." : "Please enter your phone number first.");
       return;
     }
-    if (!isEmailInput && cleanId.replace(/\D/g, "").length < 7) {
+    if (!isEmailInput && target.replace(/\D/g, "").length < 7) {
       setFormError("Please enter a valid phone number.");
       return;
     }
-    if (isEmailInput && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanId)) {
+    if (isEmailInput && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(target)) {
       setFormError("Please enter a valid email address.");
       return;
     }
@@ -308,7 +321,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         body: JSON.stringify({
           action: "send",
           type: targetType,
-          destination: cleanId,
+          destination: target,
           role,
         }),
       });
@@ -320,7 +333,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         return;
       }
 
-      const confirmedDest = data.destination || data.phone || cleanId;
+      const confirmedDest = data.destination || data.phone || target;
       setOtpDestination(confirmedDest);
       setOtpType(data.type || targetType);
       setOtpStep(true);
@@ -422,10 +435,19 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   // Handle Signup submission
   const handleSignupSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const cleanEmail = identifier.trim();
+    const targetDest =
+      signupMode === "email" ? identifier.trim() : (signupPhoneE164 || signupPhone.trim());
 
-    if (!cleanEmail) {
-      setFormError("Enter your email address or phone number.");
+    if (!targetDest) {
+      setFormError(signupMode === "email" ? "Enter your email address." : "Enter your phone number.");
+      return;
+    }
+    if (signupMode === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(targetDest)) {
+      setFormError("Please enter a valid email address.");
+      return;
+    }
+    if (signupMode === "phone" && targetDest.replace(/\D/g, "").length < 7) {
+      setFormError("Please enter a valid phone number.");
       return;
     }
     if (!password) {
@@ -454,7 +476,8 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: cleanEmail,
+          email: targetDest,
+          phone: signupMode === "phone" ? targetDest : undefined,
           password,
           confirmPassword,
           agreed: true,
@@ -483,6 +506,15 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         } catch {
           // Non-blocking fallback
         }
+      }
+
+      // If signup with phone needs OTP confirmation
+      if (signupMode === "phone" && !data.session) {
+        setOtpDestination(targetDest);
+        setOtpType("phone");
+        setOtpStep(true);
+        setOtpMessage("Account created. Please enter the 6-digit confirmation code sent to your phone to activate your account.");
+        return;
       }
 
       setFormSuccess(
@@ -922,53 +954,123 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                   </form>
                 ) : (
                   <form onSubmit={handleLoginSubmit} autoComplete="on" className="mt-5 text-left space-y-3.5">
-                    <div>
-                      <div className="flex items-center justify-between mb-1">
-                        <label
-                          htmlFor="login-identifier"
-                          className="block text-xs font-semibold text-slate-700"
-                        >
-                          Email or Phone number <span className="text-red-500">*</span>
-                        </label>
-                        {identifier.trim().length >= 3 && (
-                          <button
-                            type="button"
-                            disabled={otpSending}
-                            onClick={handleSendOtp}
-                            className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
-                          >
-                            {otpSending
-                              ? "Sending OTP..."
-                              : identifier.includes("@")
-                              ? "Sign in with Email OTP →"
-                              : "Sign in with SMS OTP →"}
-                          </button>
-                        )}
-                      </div>
-                      <input
-                        id="login-identifier"
-                        type="text"
-                        autoComplete="username"
-                        value={identifier}
-                        disabled={isSubmitting}
-                        onChange={(e) => {
-                          setIdentifier(e.target.value);
+                    {/* Auth Mode Toggle */}
+                    <div className="flex rounded-xl bg-slate-100/90 p-1 border border-slate-200/60 mb-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLoginMode("email");
                           if (formError) setFormError(null);
                         }}
-                        placeholder="you@example.com or +1 (555) 000-0000"
-                        required
-                        className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
-                      />
-                      <div className="flex justify-end mt-1.5">
-                        <button
-                          type="button"
-                          onClick={() => navigateFlow("recover")}
-                          className="text-[11px] sm:text-xs text-blue-600 font-medium hover:underline cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 rounded"
-                        >
-                          Forgot your email / phone number?
-                        </button>
-                      </div>
+                        className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+                          loginMode === "email"
+                            ? "bg-white text-slate-900 shadow-2xs font-semibold"
+                            : "text-slate-500 hover:text-slate-800 font-medium"
+                        }`}
+                      >
+                        Email
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLoginMode("phone");
+                          if (formError) setFormError(null);
+                        }}
+                        className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+                          loginMode === "phone"
+                            ? "bg-white text-slate-900 shadow-2xs font-semibold"
+                            : "text-slate-500 hover:text-slate-800 font-medium"
+                        }`}
+                      >
+                        Phone Number
+                      </button>
                     </div>
+
+                    {loginMode === "email" ? (
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label
+                            htmlFor="login-identifier"
+                            className="block text-xs font-semibold text-slate-700"
+                          >
+                            Email address <span className="text-red-500">*</span>
+                          </label>
+                          {identifier.trim().length >= 5 && identifier.includes("@") && (
+                            <button
+                              type="button"
+                              disabled={otpSending}
+                              onClick={handleSendOtp}
+                              className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
+                            >
+                              {otpSending ? "Sending OTP..." : "Sign in with Email OTP →"}
+                            </button>
+                          )}
+                        </div>
+                        <input
+                          id="login-identifier"
+                          type="email"
+                          autoComplete="username"
+                          value={identifier}
+                          disabled={isSubmitting}
+                          onChange={(e) => {
+                            setIdentifier(e.target.value);
+                            if (formError) setFormError(null);
+                          }}
+                          placeholder="you@example.com"
+                          required
+                          className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+                        />
+                        <div className="flex justify-end mt-1.5">
+                          <button
+                            type="button"
+                            onClick={() => navigateFlow("recover")}
+                            className="text-[11px] sm:text-xs text-blue-600 font-medium hover:underline cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 rounded"
+                          >
+                            Forgot your email?
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label
+                            htmlFor="login-phone"
+                            className="block text-xs font-semibold text-slate-700"
+                          >
+                            Phone number <span className="text-red-500">*</span>
+                          </label>
+                          {loginPhone.trim().length >= 7 && (
+                            <button
+                              type="button"
+                              disabled={otpSending}
+                              onClick={handleSendOtp}
+                              className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
+                            >
+                              {otpSending ? "Sending OTP..." : "Sign in with SMS OTP →"}
+                            </button>
+                          )}
+                        </div>
+                        <PhoneInput
+                          id="login-phone"
+                          value={loginPhone}
+                          defaultCountryCode="IN"
+                          onChange={(val, e164) => {
+                            setLoginPhone(val);
+                            setLoginPhoneE164(e164);
+                            if (formError) setFormError(null);
+                          }}
+                        />
+                        <div className="flex justify-end mt-1.5">
+                          <button
+                            type="button"
+                            onClick={() => navigateFlow("recover")}
+                            className="text-[11px] sm:text-xs text-blue-600 font-medium hover:underline cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 rounded"
+                          >
+                            Forgot your phone number?
+                          </button>
+                        </div>
+                      </div>
+                    )}
 
                     <div>
                       <label
@@ -1242,25 +1344,75 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                   </div>
                 ) : (
                   <form onSubmit={handleSignupSubmit} autoComplete="on" className="mt-5 space-y-3.5">
-                    <div>
-                      <label htmlFor="signup-email" className="block text-xs font-semibold text-slate-700 mb-1">
-                        Email address or Phone number <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        id="signup-email"
-                        type="text"
-                        autoComplete="username"
-                        value={identifier}
-                        disabled={isSubmitting}
-                        onChange={(e) => {
-                          setIdentifier(e.target.value);
+                    {/* Signup Mode Toggle */}
+                    <div className="flex rounded-xl bg-slate-100/90 p-1 border border-slate-200/60 mb-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSignupMode("email");
                           if (formError) setFormError(null);
                         }}
-                        placeholder="you@example.com or +1 (555) 000-0000"
-                        required
-                        className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
-                      />
+                        className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+                          signupMode === "email"
+                            ? "bg-white text-slate-900 shadow-2xs font-semibold"
+                            : "text-slate-500 hover:text-slate-800 font-medium"
+                        }`}
+                      >
+                        Email
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSignupMode("phone");
+                          if (formError) setFormError(null);
+                        }}
+                        className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+                          signupMode === "phone"
+                            ? "bg-white text-slate-900 shadow-2xs font-semibold"
+                            : "text-slate-500 hover:text-slate-800 font-medium"
+                        }`}
+                      >
+                        Phone Number
+                      </button>
                     </div>
+
+                    {signupMode === "email" ? (
+                      <div>
+                        <label htmlFor="signup-email" className="block text-xs font-semibold text-slate-700 mb-1">
+                          Email address <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          id="signup-email"
+                          type="email"
+                          autoComplete="username"
+                          value={identifier}
+                          disabled={isSubmitting}
+                          onChange={(e) => {
+                            setIdentifier(e.target.value);
+                            if (formError) setFormError(null);
+                          }}
+                          placeholder="you@example.com"
+                          required
+                          className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+                        />
+                      </div>
+                    ) : (
+                      <div>
+                        <label htmlFor="signup-phone" className="block text-xs font-semibold text-slate-700 mb-1">
+                          Phone number <span className="text-red-500">*</span>
+                        </label>
+                        <PhoneInput
+                          id="signup-phone"
+                          value={signupPhone}
+                          defaultCountryCode="IN"
+                          onChange={(val, e164) => {
+                            setSignupPhone(val);
+                            setSignupPhoneE164(e164);
+                            if (formError) setFormError(null);
+                          }}
+                        />
+                      </div>
+                    )}
 
                     <div>
                       <label htmlFor="signup-password" className="block text-xs font-semibold text-slate-700 mb-1">

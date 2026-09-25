@@ -3,33 +3,11 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronsUpDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ALL_COUNTRIES, combineToE164, type Country } from "@/lib/countries";
 
-export type Country = { name: string; code: string; dial: string };
-
-export const COUNTRIES: Country[] = [
-  { name: "United States", code: "US", dial: "+1" },
-  { name: "India", code: "IN", dial: "+91" },
-  { name: "United Kingdom", code: "GB", dial: "+44" },
-  { name: "Canada", code: "CA", dial: "+1" },
-  { name: "Germany", code: "DE", dial: "+49" },
-  { name: "France", code: "FR", dial: "+33" },
-  { name: "Australia", code: "AU", dial: "+61" },
-  { name: "Singapore", code: "SG", dial: "+65" },
-  { name: "United Arab Emirates", code: "AE", dial: "+971" },
-  { name: "Japan", code: "JP", dial: "+81" },
-  { name: "Spain", code: "ES", dial: "+34" },
-  { name: "Italy", code: "IT", dial: "+39" },
-  { name: "Brazil", code: "BR", dial: "+55" },
-];
-
-export function toE164(dial: string, phone: string): string {
-  const digits = phone.replace(/[^\d]/g, "");
-  const dialDigits = dial.replace(/[^\d]/g, "");
-  if (digits.startsWith(dialDigits)) {
-    return `+${digits}`;
-  }
-  return `${dial}${digits}`;
-}
+export type { Country };
+export const COUNTRIES = ALL_COUNTRIES;
+export const toE164 = combineToE164;
 
 interface PhoneInputProps {
   id?: string;
@@ -48,10 +26,10 @@ export function PhoneInput({
   disabled = false,
   placeholder = "(555) 000-0000",
   className = "",
-  defaultCountryCode = "US",
+  defaultCountryCode = "IN",
 }: PhoneInputProps) {
   const initialCountry =
-    COUNTRIES.find((c) => c.code === defaultCountryCode) || COUNTRIES[0];
+    ALL_COUNTRIES.find((c) => c.code === defaultCountryCode) || ALL_COUNTRIES[0];
   const [selectedCountry, setSelectedCountry] = useState<Country>(initialCountry);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -69,8 +47,8 @@ export function PhoneInput({
 
   const filteredCountries = useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return COUNTRIES;
-    return COUNTRIES.filter(
+    if (!q) return ALL_COUNTRIES;
+    return ALL_COUNTRIES.filter(
       (c) =>
         c.name.toLowerCase().includes(q) ||
         c.code.toLowerCase().includes(q) ||
@@ -79,7 +57,7 @@ export function PhoneInput({
   }, [search]);
 
   const handlePhoneChange = (val: string) => {
-    const e164 = toE164(selectedCountry.dial, val);
+    const e164 = combineToE164(selectedCountry.dial, val);
     onChange(val, e164);
   };
 
@@ -87,7 +65,7 @@ export function PhoneInput({
     setSelectedCountry(c);
     setDropdownOpen(false);
     setSearch("");
-    const e164 = toE164(c.dial, value);
+    const e164 = combineToE164(c.dial, value);
     onChange(value, e164);
   };
 
@@ -101,14 +79,15 @@ export function PhoneInput({
         className
       )}
     >
-      {/* Country dropdown trigger (seamlessly embedded inside input container) */}
+      {/* Country dropdown trigger */}
       <button
         type="button"
         disabled={disabled}
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="h-full px-3.5 flex items-center gap-1.5 text-[length:clamp(0.9rem,1.05vw,1.05rem)] font-medium text-slate-700 hover:bg-slate-50 border-r border-slate-200/80 rounded-l-[clamp(12px,0.98vw,17px)] shrink-0 transition-colors cursor-pointer disabled:opacity-60 select-none"
+        className="h-full px-3 flex items-center gap-1.5 text-[length:clamp(0.85rem,1.05vw,1rem)] font-medium text-slate-700 hover:bg-slate-50 border-r border-slate-200/80 rounded-l-[clamp(12px,0.98vw,17px)] shrink-0 transition-colors cursor-pointer disabled:opacity-60 select-none"
         aria-label="Select country calling code"
       >
+        <span className="text-base leading-none select-none">{selectedCountry.flag}</span>
         <span className="font-semibold text-slate-900">{selectedCountry.code}</span>
         <span className="text-slate-400 font-normal text-xs">{selectedCountry.dial}</span>
         <ChevronsUpDown className="size-3.5 text-slate-400" />
@@ -116,33 +95,36 @@ export function PhoneInput({
 
       {/* Country search dropdown popover */}
       {dropdownOpen && (
-        <div className="absolute left-0 top-[calc(100%+6px)] z-50 w-72 rounded-2xl border border-slate-200 bg-white p-2.5 shadow-xl shadow-slate-900/10">
+        <div className="absolute left-0 top-[calc(100%+6px)] z-50 w-80 rounded-2xl border border-slate-200 bg-white p-2.5 shadow-xl shadow-slate-900/10">
           <div className="relative mb-2">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search country or code"
+              placeholder="Search country, code (+91, +1)..."
               autoFocus
               className="w-full h-9 rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-3 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white"
             />
           </div>
-          <div className="max-h-52 overflow-y-auto divide-y divide-slate-100 text-xs">
+          <div className="max-h-56 overflow-y-auto divide-y divide-slate-100 text-xs">
             {filteredCountries.map((c) => (
               <button
-                key={c.code}
+                key={`${c.code}-${c.dial}`}
                 type="button"
                 onClick={() => handleSelectCountry(c)}
                 className={cn(
                   "w-full px-3 py-2 text-left flex items-center justify-between hover:bg-blue-50/80 rounded-lg transition-colors cursor-pointer",
-                  selectedCountry.code === c.code
+                  selectedCountry.code === c.code && selectedCountry.dial === c.dial
                     ? "bg-blue-50 font-bold text-blue-700"
                     : "text-slate-700 font-medium"
                 )}
               >
-                <span>{c.name}</span>
-                <span className="text-slate-400 font-mono">({c.dial})</span>
+                <span className="flex items-center gap-2">
+                  <span className="text-base select-none">{c.flag}</span>
+                  <span className="truncate max-w-[170px]">{c.name}</span>
+                </span>
+                <span className="text-slate-400 font-mono shrink-0">({c.dial})</span>
               </button>
             ))}
             {filteredCountries.length === 0 && (
