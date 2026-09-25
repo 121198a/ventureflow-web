@@ -43,6 +43,7 @@ const nextConfig: NextConfig = {
   compress: true,
   experimental: {
     authInterrupts: true,
+    optimizePackageImports: ['lucide-react', 'react-icons'],
   },
   images: {
     unoptimized: isUnoptimizedImages,
