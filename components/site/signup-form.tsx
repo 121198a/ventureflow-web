@@ -9,6 +9,7 @@ import { OAuthButtons } from "./oauth-buttons";
 import { AuthDivider, AuthRule } from "./auth-card";
 import { PhoneInput } from "./phone-input";
 import {
+  AUTH_INPUT_CLASS,
   AUTH_HELPER_CLASS,
   AUTH_LABEL_GAP,
   AUTH_STACK_GAP,
@@ -33,6 +34,13 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+
+  // Phone OTP Flow states
+  const [otpStep, setOtpStep] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+  const [otpSentPhone, setOtpSentPhone] = useState("");
+  const [otpSending, setOtpSending] = useState(false);
+  const [otpMessage, setOtpMessage] = useState<string | null>(null);
 
   const isValidEmail = (val: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
@@ -127,6 +135,13 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
         }
       }
 
+      if (authMode === "phone" && !data.session) {
+        setOtpSentPhone(targetIdentifier);
+        setOtpStep(true);
+        setOtpMessage("Account created. Please enter the 6-digit confirmation code sent to your phone to activate your account.");
+        return;
+      }
+
       setSubmitted(true);
       if (data.session) {
         const verifiedRole = data.user?.role || role;
@@ -144,6 +159,173 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
       setLoading(false);
     }
   };
+
+  const handleResendOtp = async () => {
+    if (!otpSentPhone) return;
+    setOtpSending(true);
+    setErrorMessage(null);
+    setOtpMessage(null);
+
+    try {
+      const res = await fetch("/api/auth/otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "send",
+          phone: otpSentPhone,
+          role,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setErrorMessage(data.error || "Unable to resend confirmation code.");
+        return;
+      }
+
+      setOtpMessage("A new verification code has been sent to your phone.");
+    } catch {
+      setErrorMessage("Network error while resending confirmation code.");
+    } finally {
+      setOtpSending(false);
+    }
+  };
+
+  const handleVerifyOtp = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!otpCode.trim() || otpCode.trim().length < 4) {
+      setErrorMessage("Please enter the 6-digit verification code sent to your phone.");
+      return;
+    }
+
+    setLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/auth/otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "verify",
+          phone: otpSentPhone,
+          token: otpCode.trim(),
+          role,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setErrorMessage(data.error || "Invalid or expired confirmation code.");
+        return;
+      }
+
+      if (data.session) {
+        try {
+          const { supabase } = await import("@/lib/supabase/client");
+          await supabase.auth.setSession({
+            access_token: data.session.access_token,
+            refresh_token: data.session.refresh_token,
+          });
+        } catch {
+          // Non-blocking
+        }
+      }
+
+      setSubmitted(true);
+      const verifiedRole = data.user?.role || role;
+      const defaultDest =
+        verifiedRole === "founder" ? "/founder/dashboard" : "/investor/dashboard";
+      const destination = redirectTo ? sanitizeRedirectUrl(redirectTo, defaultDest) : defaultDest;
+
+      setTimeout(() => {
+        router.push(destination);
+      }, 500);
+    } catch {
+      setErrorMessage("Network error during verification. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (otpStep) {
+    return (
+      <form className={`flex w-full flex-col ${AUTH_STACK_GAP}`} onSubmit={handleVerifyOtp} autoComplete="off">
+        {errorMessage && (
+          <div
+            role="alert"
+            className="rounded-[14px] border border-destructive/30 bg-destructive/10 px-4 py-3 text-xs leading-relaxed text-destructive"
+          >
+            {errorMessage}
+          </div>
+        )}
+
+        {otpMessage && (
+          <div className="rounded-[14px] border border-blue-200 bg-blue-50/80 px-4 py-3 text-xs leading-relaxed text-blue-900">
+            {otpMessage}
+          </div>
+        )}
+
+        <div className={`flex flex-col ${AUTH_LABEL_GAP}`}>
+          <FieldLabel htmlFor="otp-signup-token">Enter 6-digit confirmation code</FieldLabel>
+          <input
+            id="otp-signup-token"
+            type="text"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            maxLength={8}
+            placeholder="123456"
+            value={otpCode}
+            onChange={(e) => {
+              setOtpCode(e.target.value.replace(/\D/g, ""));
+              if (errorMessage) setErrorMessage(null);
+            }}
+            className={AUTH_INPUT_CLASS}
+            autoFocus
+          />
+          <p className="text-xs text-slate-500">
+            Enter the code sent to <span className="font-semibold text-slate-700">{otpSentPhone}</span>
+          </p>
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading || otpCode.length < 4}
+          className="btn-pill-primary h-[clamp(2.75rem,5.5vh,3.3rem)] w-full text-[length:clamp(1rem,1.14vw,1.2rem)] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-[clamp(12px,0.98vw,17px)] transition-all disabled:opacity-60 cursor-pointer flex items-center justify-center gap-2"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="size-4 animate-spin" />
+              Confirming Phone...
+            </>
+          ) : (
+            "Confirm & Activate Account"
+          )}
+        </button>
+
+        <div className="flex items-center justify-between text-xs pt-1">
+          <button
+            type="button"
+            disabled={otpSending}
+            onClick={handleResendOtp}
+            className="text-blue-600 font-semibold hover:underline cursor-pointer disabled:opacity-50"
+          >
+            {otpSending ? "Resending..." : "Resend Code"}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setOtpStep(false);
+              setErrorMessage(null);
+            }}
+            className="text-slate-500 hover:text-slate-800 underline cursor-pointer"
+          >
+            Back to Form
+          </button>
+        </div>
+      </form>
+    );
+  }
 
   if (submitted) {
     return (

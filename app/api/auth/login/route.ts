@@ -163,6 +163,24 @@ export async function POST(request: Request) {
         );
 
         if (error) {
+          const isPhoneNotConfirmed =
+            error.message.toLowerCase().includes("phone not confirmed") ||
+            error.message.toLowerCase().includes("phone_not_confirmed");
+
+          if (isPhoneNotConfirmed && !isEmailAddress) {
+            // Automatically dispatch OTP so user can confirm and proceed without friction
+            await supabase.auth.signInWithOtp({ phone: cleanPhone || email }).catch(() => null);
+            return NextResponse.json(
+              {
+                success: false,
+                requiresOtp: true,
+                phone: cleanPhone || email,
+                error: "Phone not confirmed. A 6-digit verification code has been sent to your phone.",
+              },
+              { status: 403 }
+            );
+          }
+
           return NextResponse.json(
             { success: false, error: error.message || toErrorString(backendError) },
             { status: 401 }
