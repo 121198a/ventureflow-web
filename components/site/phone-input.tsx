@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronsUpDown, Search } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export type Country = { name: string; code: string; dial: string };
 
@@ -91,17 +92,25 @@ export function PhoneInput({
   };
 
   return (
-    <div className={`relative flex items-center gap-2 ${className}`} ref={dropdownRef}>
-      {/* Country dropdown trigger */}
+    <div
+      ref={dropdownRef}
+      className={cn(
+        "relative flex items-center w-full h-[clamp(2.75rem,6.4vh,3.8rem)] rounded-[clamp(12px,0.98vw,17px)]",
+        "border border-slate-200 bg-white transition-all",
+        "focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-600/10",
+        className
+      )}
+    >
+      {/* Country dropdown trigger (seamlessly embedded inside input container) */}
       <button
         type="button"
         disabled={disabled}
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="h-[clamp(2.75rem,6.4vh,3.8rem)] rounded-[clamp(12px,0.98vw,17px)] border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 flex items-center gap-1 hover:bg-slate-50 focus:outline-none focus:border-blue-600 transition-all shrink-0 cursor-pointer disabled:opacity-60"
+        className="h-full px-3.5 flex items-center gap-1.5 text-[length:clamp(0.9rem,1.05vw,1.05rem)] font-medium text-slate-700 hover:bg-slate-50 border-r border-slate-200/80 rounded-l-[clamp(12px,0.98vw,17px)] shrink-0 transition-colors cursor-pointer disabled:opacity-60 select-none"
         aria-label="Select country calling code"
       >
-        <span>{selectedCountry.code}</span>
-        <span className="text-xs text-slate-400 font-normal">{selectedCountry.dial}</span>
+        <span className="font-semibold text-slate-900">{selectedCountry.code}</span>
+        <span className="text-slate-400 font-normal text-xs">{selectedCountry.dial}</span>
         <ChevronsUpDown className="size-3.5 text-slate-400" />
       </button>
 
@@ -125,11 +134,12 @@ export function PhoneInput({
                 key={c.code}
                 type="button"
                 onClick={() => handleSelectCountry(c)}
-                className={`w-full px-3 py-2 text-left flex items-center justify-between hover:bg-blue-50/80 rounded-lg transition-colors cursor-pointer ${
+                className={cn(
+                  "w-full px-3 py-2 text-left flex items-center justify-between hover:bg-blue-50/80 rounded-lg transition-colors cursor-pointer",
                   selectedCountry.code === c.code
                     ? "bg-blue-50 font-bold text-blue-700"
-                    : "text-slate-700"
-                }`}
+                    : "text-slate-700 font-medium"
+                )}
               >
                 <span>{c.name}</span>
                 <span className="text-slate-400 font-mono">({c.dial})</span>
@@ -142,7 +152,7 @@ export function PhoneInput({
         </div>
       )}
 
-      {/* Phone number input */}
+      {/* Integrated phone number input */}
       <input
         id={id}
         type="tel"
@@ -151,7 +161,7 @@ export function PhoneInput({
         disabled={disabled}
         onChange={(e) => handlePhoneChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full h-[clamp(2.75rem,6.4vh,3.8rem)] rounded-[clamp(12px,0.98vw,17px)] border border-slate-200 bg-white px-4 text-[length:clamp(0.95rem,1.15vw,1.25rem)] text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all disabled:opacity-60"
+        className="flex-1 h-full bg-transparent px-[clamp(0.85rem,1.2vw,1.25rem)] text-[length:clamp(1rem,1.1vw,1.15rem)] font-medium text-slate-900 placeholder:font-medium placeholder:text-slate-400 outline-none rounded-r-[clamp(12px,0.98vw,17px)] disabled:opacity-60"
       />
     </div>
   );

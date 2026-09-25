@@ -24,10 +24,10 @@ export function PageTransition({ children }: PageTransitionProps) {
   return (
     <motion.div
       key={pathname}
-      initial={{ opacity: 0, y: 6 }}
+      initial={{ opacity: 0.85, y: 2 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.18,
+        duration: 0.12,
         ease: [0.22, 1, 0.36, 1],
       }}
       className="w-full flex-1"

@@ -707,7 +707,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                           setIdentifier(e.target.value);
                           if (formError) setFormError(null);
                         }}
-                        placeholder="you@example.com"
+                        placeholder="you@example.com or +1 (555) 000-0000"
                         required
                         className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
                       />

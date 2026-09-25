@@ -6,7 +6,6 @@ import { ArrowLeft, ArrowRight, CheckCircle2, AlertCircle, Sparkles, RotateCcw, 
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { computeReadinessBriefing, type AssessmentMeta } from "@/lib/newsletter/assessments";
-import { ConsultationModal } from "@/components/newsletter/ConsultationModal";
 import { cn } from "@/lib/utils";
 
 export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
@@ -17,7 +16,6 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
   const [isBriefingReady, setIsBriefingReady] = useState(false);
   const [email, setEmail] = useState("");
   const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
 
   const totalQuestions = meta.questions.length;
   const answeredCount = Object.keys(answers).length;
@@ -409,14 +407,13 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
 
               {/* Action buttons */}
               <div className="flex flex-wrap gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setIsConsultationOpen(true)}
+                <Link
+                  href="/newsletter/book-call"
                   className="flex-1 min-w-[200px] inline-flex items-center justify-center gap-2 rounded-md bg-navy px-4 py-3 text-[0.85rem] font-bold text-white hover:bg-navy/90 transition-colors"
                 >
                   <Calendar className="size-4" />
                   Schedule Working Session
-                </button>
+                </Link>
                 <Link
                   href="/newsletter/how-it-works"
                   className="flex-1 min-w-[200px] inline-flex items-center justify-center gap-2 rounded-md border border-hairline bg-surface px-4 py-3 text-[0.85rem] font-semibold text-ink hover:border-brand transition-colors"
@@ -429,12 +426,6 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
           )}
         </div>
       </main>
-
-      <ConsultationModal
-        isOpen={isConsultationOpen}
-        onClose={() => setIsConsultationOpen(false)}
-        articleHeadline={meta.title}
-      />
 
       <SiteFooter />
     </div>

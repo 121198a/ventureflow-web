@@ -45,6 +45,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={true}
                 aria-current={isActive ? "page" : undefined}
                 className={
                   isActive
@@ -109,6 +110,7 @@ export function SiteHeader() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
+                    prefetch={true}
                     aria-current={isActive ? "page" : undefined}
                     onClick={() => setOpen(false)}
                     className={

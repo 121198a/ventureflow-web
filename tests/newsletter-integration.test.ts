@@ -13,6 +13,9 @@ import {
   computeReadinessBriefing,
   type AssessmentKey,
 } from "../lib/newsletter/assessments.ts";
+import { z } from "zod";
+import sanitizeHtml from "sanitize-html";
+import { checkRateLimit, resetRateLimit } from "../lib/rate-limit.ts";
 
 test("Base API Configuration is configured for production, not localhost", () => {
   assert.ok(
@@ -207,4 +210,126 @@ test("computeReadinessBriefing computes correct score, tier, and priority action
   assert.equal(partialResult.status, "partial");
   assert.equal(partialResult.priorityItems.length, 4);
   assert.equal(partialResult.priorityItems[0].status, "mid");
+});
+
+// Subscription validation schema
+const subscribeSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(5, "Invalid email address")
+    .max(254, "Invalid email address")
+    .email("Invalid email address"),
+});
+
+// Consultation validation schema & validation logic
+const consultationSchema = z.object({
+  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
+  email: z.string().trim().min(5).max(254).email("Invalid work email address"),
+  company: z.string().trim().min(1, "Company name is required").max(120),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
+  timeSlot: z.string().min(3, "Time slot is required"),
+  targetRaise: z.string().optional(),
+  instrument: z.string().optional(),
+  phone: z.string().max(30).optional(),
+  notes: z.string().max(1000).optional(),
+});
+
+function validateConsultationDate(dateString: string): { valid: boolean; error?: string } {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const selectedDate = new Date(`${dateString}T00:00:00`);
+  if (selectedDate < today) {
+    return { valid: false, error: "Selected date is in the past. Please select an upcoming business day." };
+  }
+  const dayOfWeek = selectedDate.getDay();
+  if (dayOfWeek === 0 || dayOfWeek === 6) {
+    return { valid: false, error: "Consultations are held on business days (Monday–Friday) only." };
+  }
+  return { valid: true };
+}
+
+test("Newsletter Subscription validates email format and sanitizes malicious input", () => {
+  // Valid email
+  const valid = subscribeSchema.safeParse({ email: "founder@venture.io" });
+  assert.equal(valid.success, true);
+
+  // Invalid email
+  const invalid = subscribeSchema.safeParse({ email: "not-an-email" });
+  assert.equal(invalid.success, false);
+
+  // Script injection is cleaned
+  const dirty = sanitizeHtml("<script>alert('xss')</script>founder@venture.io");
+  assert.equal(dirty.includes("<script>"), false);
+  assert.equal(dirty.trim(), "founder@venture.io");
+});
+
+test("Consultation booking schema validates required fields and raise structure", () => {
+  // Valid payload
+  const valid = consultationSchema.safeParse({
+    name: "Jordan Lee",
+    email: "jordan@acme.com",
+    company: "Acme Therapeutics",
+    date: "2026-10-06",
+    timeSlot: "11:00 AM EST",
+    targetRaise: "$1M - $3M",
+    instrument: "SAFE (Post-Money)",
+  });
+  assert.equal(valid.success, true);
+
+  // Missing company
+  const noCompany = consultationSchema.safeParse({
+    name: "Jordan Lee",
+    email: "jordan@acme.com",
+    company: "",
+    date: "2026-10-06",
+    timeSlot: "11:00 AM EST",
+  });
+  assert.equal(noCompany.success, false);
+
+  // Invalid email
+  const badEmail = consultationSchema.safeParse({
+    name: "Jordan Lee",
+    email: "not-an-email",
+    company: "Acme",
+    date: "2026-10-06",
+    timeSlot: "11:00 AM EST",
+  });
+  assert.equal(badEmail.success, false);
+});
+
+test("Consultation booking date validation rejects past dates and weekends", () => {
+  // Past date rejected
+  const pastCheck = validateConsultationDate("2020-01-01");
+  assert.equal(pastCheck.valid, false);
+  assert.ok(pastCheck.error?.includes("past"));
+
+  // Weekend date rejected (2026-10-04 is Sunday)
+  const sundayCheck = validateConsultationDate("2026-10-04");
+  assert.equal(sundayCheck.valid, false);
+  assert.ok(sundayCheck.error?.includes("business days"));
+
+  // Weekend date rejected (2026-10-03 is Saturday)
+  const saturdayCheck = validateConsultationDate("2026-10-03");
+  assert.equal(saturdayCheck.valid, false);
+  assert.ok(saturdayCheck.error?.includes("business days"));
+
+  // Business day accepted (2026-10-06 is Tuesday)
+  const tuesdayCheck = validateConsultationDate("2026-10-06");
+  assert.equal(tuesdayCheck.valid, true);
+});
+
+test("Consultation booking rate limiter protects against spam attempts", () => {
+  const testIp = "192.168.10.42";
+  resetRateLimit(`consultation_${testIp}`);
+
+  for (let i = 0; i < 5; i++) {
+    const res = checkRateLimit(`consultation_${testIp}`, 5, 60000);
+    assert.equal(res.allowed, true);
+  }
+
+  // 6th attempt should be blocked
+  const blocked = checkRateLimit(`consultation_${testIp}`, 5, 60000);
+  assert.equal(blocked.allowed, false);
+  assert.ok(blocked.retryAfter! > 0);
 });

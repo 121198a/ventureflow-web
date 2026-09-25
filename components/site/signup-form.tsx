@@ -185,17 +185,17 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
       )}
 
       {/* Auth mode selector */}
-      <div className="flex rounded-xl bg-slate-100 p-1">
+      <div className="flex rounded-[clamp(10px,0.8vw,14px)] bg-slate-100/90 p-1 border border-slate-200/60">
         <button
           type="button"
           onClick={() => {
             setAuthMode("email");
             if (errorMessage) setErrorMessage(null);
           }}
-          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+          className={`flex-1 py-2 text-[length:clamp(0.85rem,0.95vw,0.92rem)] rounded-[clamp(8px,0.65vw,11px)] transition-all font-semibold cursor-pointer select-none ${
             authMode === "email"
-              ? "bg-white text-slate-900 shadow-xs"
-              : "text-slate-500 hover:text-slate-800"
+              ? "bg-white text-slate-900 shadow-2xs font-semibold"
+              : "text-slate-500 hover:text-slate-900 font-medium"
           }`}
         >
           Email
@@ -206,10 +206,10 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
             setAuthMode("phone");
             if (errorMessage) setErrorMessage(null);
           }}
-          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+          className={`flex-1 py-2 text-[length:clamp(0.85rem,0.95vw,0.92rem)] rounded-[clamp(8px,0.65vw,11px)] transition-all font-semibold cursor-pointer select-none ${
             authMode === "phone"
-              ? "bg-white text-slate-900 shadow-xs"
-              : "text-slate-500 hover:text-slate-800"
+              ? "bg-white text-slate-900 shadow-2xs font-semibold"
+              : "text-slate-500 hover:text-slate-900 font-medium"
           }`}
         >
           Phone Number

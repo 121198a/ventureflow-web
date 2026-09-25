@@ -1,5 +1,6 @@
 import sanitizeHtml from "sanitize-html";
 import { z } from "zod";
+import { cache } from "react";
 import {
   ARTICLE_CONFIGS,
   getArticleConfig,
@@ -129,10 +130,11 @@ function parseHtmlToBlocks(rawHtml: string): ArticleBlock[] {
 
 /**
  * Fetches and normalizes a newsletter article from the configured remote API.
+ * Uses React cache() to deduplicate requests between metadata generation and page render.
  * Gracefully falls back to curated verified dataset if the remote API is
  * unreachable, returns 404/500, or returns invalid content.
  */
-export async function getNewsletterArticle(
+export const getNewsletterArticle = cache(async function getNewsletterArticle(
   articleIdOrSlug: string | number,
   optionalSlug?: string
 ): Promise<NewsletterArticleResult | null> {
@@ -148,7 +150,7 @@ export async function getNewsletterArticle(
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 4000);
+    const timeoutId = setTimeout(() => controller.abort(), 1200);
 
     const res = await fetch(config.apiEndpoint, {
       method: "GET",
@@ -255,7 +257,7 @@ export async function getNewsletterArticle(
   }
 
   return null;
-}
+});
 
 /**
  * Returns all article configurations in ordered sequence (1 through 9).

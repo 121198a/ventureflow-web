@@ -1,12 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowRight } from "lucide-react";
-import { AssessmentModal } from "./AssessmentModal";
-import { PlatformWorkflowModal } from "./PlatformWorkflowModal";
-import { ConsultationModal } from "./ConsultationModal";
-import type { AssessmentKey } from "@/lib/newsletter/assessments";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import type { AssessmentKey } from "@/lib/newsletter/assessments";
 
 interface ArticleCTAHandlerProps {
   heading?: string;
@@ -17,7 +13,32 @@ interface ArticleCTAHandlerProps {
   articleHeadline?: string;
   assessmentKey?: AssessmentKey;
   customAction?: "assessment" | "briefing" | "how-it-works" | "book-call";
+  endpoint?: string;
 }
+
+const ARTICLE_CHECK_MAP: Record<string, string> = {
+  "1": "pitch-check",
+  "2": "close-check",
+  "3": "followup-check",
+  "4": "how-it-works",
+  "5": "risk-check",
+  "6": "ownership-check",
+  "7": "valuation-check",
+  "8": "runway-check",
+  "9": "stage-check",
+};
+
+const ASSESSMENT_KEY_SLUG_MAP: Record<string, string> = {
+  pitchCheck: "pitch-check",
+  closeCheck: "close-check",
+  followupCheck: "followup-check",
+  updateCheck: "update-check",
+  riskCheck: "risk-check",
+  ownershipCheck: "ownership-check",
+  valuationCheck: "valuation-check",
+  runwayCheck: "runway-check",
+  stageCheck: "stage-check",
+};
 
 export function ArticleCTAHandler({
   heading,
@@ -25,15 +46,9 @@ export function ArticleCTAHandler({
   buttonLabel,
   note,
   articleId,
-  articleHeadline,
   assessmentKey,
   customAction,
 }: ArticleCTAHandlerProps) {
-  const [isAssessmentOpen, setIsAssessmentOpen] = useState(false);
-  const [isPlatformOpen, setIsPlatformOpen] = useState(false);
-  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
-  const [briefingMode, setBriefingMode] = useState(false);
-
   const labelLower = buttonLabel.toLowerCase();
   const textLower = text.toLowerCase();
 
@@ -69,103 +84,62 @@ export function ArticleCTAHandler({
   const isSpacesLink =
     labelLower.includes("company spaces") || labelLower.includes("explore company");
 
-  const handleClick = () => {
-    if (isBriefing) {
-      setBriefingMode(true);
-      setIsAssessmentOpen(true);
-    } else if (isAssessment) {
-      setBriefingMode(false);
-      setIsAssessmentOpen(true);
-    } else if (isPlatform) {
-      setIsPlatformOpen(true);
-    } else if (isConsultation) {
-      setIsConsultationOpen(true);
-    } else {
-      // Default to platform walkthrough if generic
-      setIsPlatformOpen(true);
+  // Determine standard, seamless destination route
+  const getDestinationHref = (): string => {
+    if (isOfferingsLink) return "/offerings";
+    if (isServicesLink) return "/services";
+    if (isSpacesLink) return "/spaces";
+
+    if (isConsultation) {
+      return "/newsletter/book-call";
     }
+
+    if (isPlatform) {
+      return "/newsletter/how-it-works";
+    }
+
+    const checkSlug =
+      (assessmentKey && ASSESSMENT_KEY_SLUG_MAP[assessmentKey]) ||
+      ARTICLE_CHECK_MAP[String(articleId)] ||
+      "pitch-check";
+
+    if (isBriefing) {
+      return checkSlug === "how-it-works" ? "/newsletter/how-it-works" : `/newsletter/${checkSlug}#briefing`;
+    }
+
+    if (isAssessment) {
+      return checkSlug === "how-it-works" ? "/newsletter/how-it-works" : `/newsletter/${checkSlug}`;
+    }
+
+    return "/newsletter/how-it-works";
   };
 
+  const href = getDestinationHref();
+
   return (
-    <>
-      <div className="mt-8 rounded-lg border border-hairline bg-surface-alt p-7 text-center">
-        {heading && (
-          <p className="font-editorial text-[1.4rem] leading-tight text-ink">{heading}</p>
-        )}
-        <p
-          className={`mx-auto max-w-[480px] text-[0.95rem] leading-relaxed text-ink/75 ${
-            heading ? "mt-3" : ""
-          }`}
-        >
-          {text}
-        </p>
+    <div className="mt-8 rounded-lg border border-hairline bg-surface-alt p-7 text-center">
+      {heading && (
+        <p className="font-editorial text-[1.4rem] leading-tight text-ink">{heading}</p>
+      )}
+      <p
+        className={`mx-auto max-w-[480px] text-[0.95rem] leading-relaxed text-ink/75 ${
+          heading ? "mt-3" : ""
+        }`}
+      >
+        {text}
+      </p>
 
-        {isOfferingsLink ? (
-          <Link
-            href="/offerings"
-            className="group mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong"
-            style={{ fontWeight: 700 }}
-          >
-            {buttonLabel}
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </Link>
-        ) : isServicesLink ? (
-          <Link
-            href="/services"
-            className="group mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong"
-            style={{ fontWeight: 700 }}
-          >
-            {buttonLabel}
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </Link>
-        ) : isSpacesLink ? (
-          <Link
-            href="/spaces"
-            className="group mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong"
-            style={{ fontWeight: 700 }}
-          >
-            {buttonLabel}
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </Link>
-        ) : (
-          <button
-            type="button"
-            onClick={handleClick}
-            className="group mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong cursor-pointer"
-            style={{ fontWeight: 700 }}
-          >
-            {buttonLabel}
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </button>
-        )}
+      <Link
+        href={href}
+        prefetch={true}
+        className="group mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-[0.9rem] text-primary-foreground transition-all duration-200 hover:bg-brand-strong hover:shadow-md hover:shadow-blue-900/10 active:scale-[0.985]"
+        style={{ fontWeight: 700 }}
+      >
+        {buttonLabel}
+        <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+      </Link>
 
-        {note && <p className="mt-3 text-[0.78rem] text-muted-foreground">{note}</p>}
-      </div>
-
-      <AssessmentModal
-        isOpen={isAssessmentOpen}
-        onClose={() => setIsAssessmentOpen(false)}
-        assessmentKey={assessmentKey}
-        articleId={articleId}
-        initialBriefingMode={briefingMode}
-        onOpenConsultation={() => setIsConsultationOpen(true)}
-        onOpenPlatform={() => setIsPlatformOpen(true)}
-      />
-
-      <PlatformWorkflowModal
-        isOpen={isPlatformOpen}
-        onClose={() => setIsPlatformOpen(false)}
-        onOpenConsultation={() => setIsConsultationOpen(true)}
-      />
-
-      <ConsultationModal
-        isOpen={isConsultationOpen}
-        onClose={() => setIsConsultationOpen(false)}
-        articleHeadline={articleHeadline}
-      />
-    </>
+      {note && <p className="mt-3 text-[0.78rem] text-muted-foreground">{note}</p>}
+    </div>
   );
-}
-
-{/* abhi ye hai ki issue is there ye bd write behaviour ka code akrne ka logic hmlog idar likhte hai code mai na ki api 
-  newsletter ka jo abharticle api diaplay karna h wo logic code mai likhna chahiye article ka bhi jo logic baataya usse   */} 
+} 

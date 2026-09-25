@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Calendar, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Calendar, ShieldCheck, Users } from "lucide-react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { Reveal } from "@/components/site/reveal";
@@ -57,27 +57,40 @@ export default function BookCallPage() {
 
           {/* Highlights & Scope */}
           <div className="space-y-6">
+            {/* Who It Is For */}
             <div className="rounded-xl border border-hairline bg-surface p-6">
-              <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand">
-                <Calendar className="size-4" />
-                Session Format
+              <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
+                <Users className="size-4" />
+                Who It Is For
               </h3>
-              <ul className="mt-4 space-y-3 text-xs leading-relaxed text-ink/80">
+              <p className="mt-2 text-xs leading-relaxed text-ink/80">
+                Founders and managing partners actively preparing a private raise (Pre-Seed, Seed, Series A, Reg CF, or Reg D) in the next 1–6 months who need verified terms before meeting lead investors.
+              </p>
+            </div>
+
+            {/* What to Expect */}
+            <div className="rounded-xl border border-hairline bg-surface p-6">
+              <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
+                <Calendar className="size-4" />
+                What to Expect
+              </h3>
+              <ul className="mt-3 space-y-2.5 text-xs leading-relaxed text-ink/80">
                 <li className="flex items-start gap-2">
                   <span className="text-brand font-bold">1.</span>
-                  <span><strong>Five Numbers Audit:</strong> Burn, runway, unit economics, revenue, and ownership math.</span>
+                  <span><strong>Five Numbers Audit:</strong> Burn, runway, unit economics, revenue, and ownership math tested to 10-second recall.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-brand font-bold">2.</span>
-                  <span><strong>Cap Table Modeling:</strong> SAFE conversion, pre vs post-money caps, and pool expansion.</span>
+                  <span><strong>Cap Table Modeling:</strong> SAFE conversion mechanics, valuation cap buffers, and option pool refresh impact on founder equity.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-brand font-bold">3.</span>
-                  <span><strong>Closing Ledger Plan:</strong> Setting clear allocation deadlines to prevent soft circles from decaying.</span>
+                  <span><strong>Closing Ledger Plan:</strong> Structuring clear allocation deadlines to prevent soft circles from decaying.</span>
                 </li>
               </ul>
             </div>
 
+            {/* Confidentiality */}
             <div className="rounded-xl border border-hairline bg-navy p-6 text-white">
               <div className="flex items-center gap-2 text-brand">
                 <ShieldCheck className="size-5" />
@@ -86,7 +99,7 @@ export default function BookCallPage() {
                 </span>
               </div>
               <p className="mt-3 text-xs leading-relaxed text-white/80">
-                All deal terms and financial figures discussed remain strictly confidential.
+                All deal terms, cap tables, and financial figures discussed remain strictly confidential.
                 You keep the customized dilution model and closing roadmap either way.
               </p>
             </div>
