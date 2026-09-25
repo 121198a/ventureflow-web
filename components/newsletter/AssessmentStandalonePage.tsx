@@ -272,9 +272,9 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
                     type="button"
                     disabled={loading}
                     onClick={handleCalculateBriefing}
-                    className="inline-flex items-center gap-1.5 rounded-md bg-brand px-5 py-2.5 text-xs font-bold text-primary-foreground hover:bg-brand-strong transition-colors disabled:opacity-60"
+                    className="inline-flex items-center gap-1.5 rounded-md bg-brand px-5 py-2.5 text-xs font-bold text-primary-foreground hover:bg-brand-strong transition-colors disabled:opacity-60 cursor-pointer shadow-sm"
                   >
-                    {loading ? "Evaluating..." : "Generate Briefing"}
+                    {loading ? "Generating Briefing..." : "View my readiness briefing →"}
                     <ArrowRight className="size-4" />
                   </button>
                 )}

@@ -54,8 +54,8 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
     ctaConfig: {
       assessmentEndpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/pitch-check`,
       assessmentKey: "pitchCheck",
-      howItWorksEndpoint: "https://dev-ubverse.unboundxinc.us/newsletter/book-call",
-      bookCallEndpoint: "https://dev-ubverse.unboundxinc.us/newsletter/book-call",
+      howItWorksEndpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
+      bookCallEndpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/book-call`,
       ctas: [
         {
           id: "cta-1-assessment",
@@ -67,12 +67,19 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
           endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/pitch-check`,
         },
         {
+          id: "cta-1-briefing",
+          text: "Submit your readiness answers to generate an instant institutional diagnostic briefing.",
+          buttonLabel: "View my readiness briefing →",
+          note: "Instant diagnostic summary with priority actions",
+          actionType: "briefing",
+        },
+        {
           id: "cta-1-platform",
           text: "Everything in this briefing lives in one place on UBverse: your five numbers, your documents, and your investor conversations, current before the meeting instead of assembled after it.",
           buttonLabel: "See how the platform works →",
           note: "The complete workflow, step by step · 2 minutes",
           actionType: "how-it-works",
-          endpoint: "https://dev-ubverse.unboundxinc.us/newsletter/book-call",
+          endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
         },
         {
           id: "cta-1-consultation",
@@ -81,7 +88,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
           buttonLabel: "Schedule a consultation →",
           note: "20 minutes · You keep the ledger either way · No pitch",
           actionType: "book-call",
-          endpoint: "https://dev-ubverse.unboundxinc.us/newsletter/book-call",
+          endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/book-call`,
         },
       ],
     },
@@ -197,7 +204,8 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
     fallbackTitle: "Updates Win Investors",
     fallbackHeadline: "Your investor update is part of the raise",
     ctaConfig: {
-      // Article 4's first CTA has no distinct assessment endpoint specified per instructions.
+      assessmentEndpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
+      assessmentKey: "updateCheck",
       howItWorksEndpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
       bookCallEndpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/book-call`,
       ctas: [
@@ -214,7 +222,16 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
           id: "cta-4-briefing",
           text: "Review your update cadence and reporting readiness with our structured briefing tool.",
           buttonLabel: "View my readiness briefing →",
+          note: "Instant diagnostic summary",
           actionType: "briefing",
+        },
+        {
+          id: "cta-4-platform-2",
+          text: "Discover how founders centralize shareholder updates and milestones on UBverse.",
+          buttonLabel: "See how the platform works →",
+          note: "The complete workflow, step by step · 2 minutes",
+          actionType: "how-it-works",
+          endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
         },
         {
           id: "cta-4-consultation",

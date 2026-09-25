@@ -25,6 +25,7 @@ interface AssessmentModalProps {
   onClose: () => void;
   assessmentKey?: AssessmentKey;
   articleId?: string;
+  initialBriefingMode?: boolean;
   onOpenConsultation?: () => void;
   onOpenPlatform?: () => void;
 }
@@ -34,6 +35,7 @@ export function AssessmentModal({
   onClose,
   assessmentKey,
   articleId = "1",
+  initialBriefingMode = false,
   onOpenConsultation,
   onOpenPlatform,
 }: AssessmentModalProps) {
@@ -180,6 +182,15 @@ export function AssessmentModal({
         <div className="overflow-y-auto px-6 py-6 sm:px-8">
           {!isBriefingReady ? (
             <div>
+              {initialBriefingMode && (
+                <div className="mb-5 flex items-center gap-2.5 rounded-lg border border-brand/20 bg-brand/5 px-4 py-2.5 text-[0.82rem] text-brand">
+                  <Sparkles className="size-4 shrink-0 text-brand" />
+                  <span>
+                    Answer the {totalQuestions} checkpoints below to generate and view your institutional readiness briefing.
+                  </span>
+                </div>
+              )}
+
               {/* Progress Bar */}
               <div className="mb-6">
                 <div className="flex items-center justify-between text-[0.75rem] font-semibold text-muted-foreground">
@@ -330,9 +341,9 @@ export function AssessmentModal({
                     type="button"
                     disabled={loading}
                     onClick={handleCalculateBriefing}
-                    className="inline-flex items-center gap-1.5 rounded-md bg-brand px-5 py-2 text-[0.85rem] font-bold text-primary-foreground hover:bg-brand-strong transition-colors disabled:opacity-60"
+                    className="inline-flex items-center gap-1.5 rounded-md bg-brand px-5 py-2 text-[0.85rem] font-bold text-primary-foreground hover:bg-brand-strong transition-colors disabled:opacity-60 cursor-pointer shadow-sm"
                   >
-                    {loading ? "Evaluating..." : "Generate Briefing"}
+                    {loading ? "Generating Briefing..." : "View my readiness briefing →"}
                     <ArrowRight className="size-4" />
                   </button>
                 )}

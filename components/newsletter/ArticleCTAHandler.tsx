@@ -32,6 +32,7 @@ export function ArticleCTAHandler({
   const [isAssessmentOpen, setIsAssessmentOpen] = useState(false);
   const [isPlatformOpen, setIsPlatformOpen] = useState(false);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [briefingMode, setBriefingMode] = useState(false);
 
   const labelLower = buttonLabel.toLowerCase();
   const textLower = text.toLowerCase();
@@ -69,7 +70,11 @@ export function ArticleCTAHandler({
     labelLower.includes("company spaces") || labelLower.includes("explore company");
 
   const handleClick = () => {
-    if (isAssessment || isBriefing) {
+    if (isBriefing) {
+      setBriefingMode(true);
+      setIsAssessmentOpen(true);
+    } else if (isAssessment) {
+      setBriefingMode(false);
       setIsAssessmentOpen(true);
     } else if (isPlatform) {
       setIsPlatformOpen(true);
@@ -142,6 +147,7 @@ export function ArticleCTAHandler({
         onClose={() => setIsAssessmentOpen(false)}
         assessmentKey={assessmentKey}
         articleId={articleId}
+        initialBriefingMode={briefingMode}
         onOpenConsultation={() => setIsConsultationOpen(true)}
         onOpenPlatform={() => setIsPlatformOpen(true)}
       />

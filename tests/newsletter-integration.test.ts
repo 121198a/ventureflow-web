@@ -70,23 +70,36 @@ test("Canonical frontend routes match /newsletter/article/{id}/{slug} and never 
   }
 });
 
-test("Article 1 CTA 1 maps to pitch-check and CTA 2 maps to dev-ubverse book-call", () => {
+test("Article 1 CTA 1 maps to pitch-check and CTA 2 maps to how-it-works and book-call", () => {
   const c1 = ARTICLE_CONFIGS["1"];
   assert.equal(
     c1.ctaConfig.assessmentEndpoint,
     `${NEWSLETTER_API_BASE_URL}/newsletter/pitch-check`
   );
-  assert.ok(
-    c1.ctaConfig.howItWorksEndpoint.includes("/newsletter/book-call")
+  assert.equal(
+    c1.ctaConfig.howItWorksEndpoint,
+    `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`
+  );
+  assert.equal(
+    c1.ctaConfig.bookCallEndpoint,
+    `${NEWSLETTER_API_BASE_URL}/newsletter/book-call`
   );
 
   const ctaAssessment = c1.ctaConfig.ctas.find((c) => c.actionType === "assessment");
   assert.ok(ctaAssessment, "Assessment CTA should exist");
   assert.equal(ctaAssessment!.buttonLabel, "Run the readiness assessment →");
 
+  const ctaBriefing = c1.ctaConfig.ctas.find((c) => c.actionType === "briefing");
+  assert.ok(ctaBriefing, "Briefing CTA should exist in Article 1");
+  assert.equal(ctaBriefing!.buttonLabel, "View my readiness briefing →");
+
   const ctaPlatform = c1.ctaConfig.ctas.find((c) => c.actionType === "how-it-works");
   assert.ok(ctaPlatform, "Platform CTA should exist");
   assert.equal(ctaPlatform!.buttonLabel, "See how the platform works →");
+
+  const ctaConsultation = c1.ctaConfig.ctas.find((c) => c.actionType === "book-call");
+  assert.ok(ctaConsultation, "Consultation CTA should exist");
+  assert.equal(ctaConsultation!.buttonLabel, "Schedule a consultation →");
 });
 
 test("Articles 2-9 CTA configurations match all specified requirements", () => {
@@ -100,10 +113,10 @@ test("Articles 2-9 CTA configurations match all specified requirements", () => {
   const c3 = ARTICLE_CONFIGS["3"];
   assert.equal(c3.ctaConfig.assessmentEndpoint, `${NEWSLETTER_API_BASE_URL}/newsletter/followup-check`);
 
-  // Article 4 (No distinct assessment endpoint)
+  // Article 4 (See how platform works first)
   const c4 = ARTICLE_CONFIGS["4"];
-  assert.equal(c4.ctaConfig.assessmentEndpoint, undefined, "Article 4 must NOT invent an assessment endpoint");
   assert.equal(c4.ctaConfig.howItWorksEndpoint, `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`);
+  assert.equal(c4.ctaConfig.bookCallEndpoint, `${NEWSLETTER_API_BASE_URL}/newsletter/book-call`);
 
   // Article 5
   const c5 = ARTICLE_CONFIGS["5"];

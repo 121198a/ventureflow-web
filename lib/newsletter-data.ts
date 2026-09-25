@@ -107,6 +107,12 @@ const fiveNumbersBody: ArticleBlock[] = [
     note: "8 questions · 2 minutes · confidential",
   },
   {
+    type: "cta",
+    text: "Submit your readiness answers to generate an instant institutional diagnostic briefing.",
+    buttonLabel: "View my readiness briefing →",
+    note: "Instant diagnostic summary with priority actions",
+  },
+  {
     type: "quote",
     text: "\"Unsure about ownership reads as a founder who has not done the math on their own deal.\"",
   },
@@ -344,6 +350,12 @@ const updatesWinInvestorsBody: ArticleBlock[] = [
     text: "Review your update cadence and reporting readiness with our structured briefing tool.",
     buttonLabel: "View my readiness briefing →",
     note: "Instant diagnostic summary",
+  },
+  {
+    type: "cta",
+    text: "Discover how founders centralize shareholder updates and milestones on UBverse.",
+    buttonLabel: "See how the platform works →",
+    note: "The complete workflow, step by step · 2 minutes",
   },
   {
     type: "cta",
