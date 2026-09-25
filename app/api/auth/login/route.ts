@@ -3,31 +3,11 @@ import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
 import { checkRateLimit, resetRateLimit, getClientIp } from "@/lib/rate-limit";
 import { signSessionToken } from "@/lib/crypto";
+import { formatToE164, maskPhoneNumber } from "@/lib/utils";
 
 // Strict Zod schema for server-side validation (supports email or phone identifier)
 const isEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
 const isPhone = (val: string) => /^\+?[0-9\s\-()]{7,25}$/.test(val);
-
-function formatToE164(phone: string): string {
-  const clean = phone.trim();
-  if (clean.startsWith("+")) {
-    return `+${clean.replace(/[^\d]/g, "")}`;
-  }
-  const digits = clean.replace(/[^\d]/g, "");
-  if (digits.length === 12 && digits.startsWith("91")) {
-    return `+${digits}`;
-  }
-  if (digits.length === 11 && digits.startsWith("1")) {
-    return `+${digits}`;
-  }
-  if (digits.length === 10) {
-    if (/^[6-9]/.test(digits)) {
-      return `+91${digits}`;
-    }
-    return `+1${digits}`;
-  }
-  return `+${digits}`;
-}
 
 const loginSchema = z.object({
   email: z
@@ -242,6 +222,9 @@ export async function POST(request: Request) {
             authError.message.toLowerCase().includes("phone_not_confirmed");
 
           if (isPhoneNotConfirmed && !isEmailAddress) {
+            // Audit requirement: Log ONLY masked phone number, never full phone number
+            console.log(`[Auth Login] Auto-dispatching SMS OTP to destination: ${maskPhoneNumber(matchedPhone)}`);
+
             // Automatically dispatch OTP so user can confirm and proceed without friction
             await supabase.auth.signInWithOtp({ phone: matchedPhone }).catch(() => null);
             return NextResponse.json(

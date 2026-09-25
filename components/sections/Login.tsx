@@ -278,7 +278,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   const handleSendOtp = async () => {
     const cleanId = identifier.trim();
     if (!cleanId || cleanId.replace(/\D/g, "").length < 7) {
-      setFormError("Please enter your 10-digit phone number first.");
+      setFormError("Please enter your phone number first.");
       return;
     }
 
@@ -869,10 +869,9 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                       className="w-full h-11 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-sm hover:shadow flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
                     >
                       {isSubmitting ? (
-                        <>
-                          <Loader2 className="size-4 animate-spin" />
-                          Verifying Code...
-                        </>
+                        <span className="flex items-center gap-2">
+                          <Loader2 className="size-4 animate-spin text-white" /> Verifying Code...
+                        </span>
                       ) : (
                         "Verify & Log In"
                       )}
@@ -931,7 +930,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                           setIdentifier(e.target.value);
                           if (formError) setFormError(null);
                         }}
-                        placeholder="you@example.com or +1 (555) 000-0000"
+                        placeholder="you@example.com"
                         required
                         className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
                       />

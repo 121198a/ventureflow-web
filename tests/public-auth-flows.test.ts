@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { z } from "zod";
 import { checkRateLimit, resetRateLimit } from "../lib/rate-limit.ts";
-import { sanitizeRedirectUrl } from "../lib/utils.ts";
+import { sanitizeRedirectUrl, formatToE164, maskPhoneNumber } from "../lib/utils.ts";
 
 // 1. Recover account validation schema
 const recoverSchema = z.object({
@@ -285,13 +285,6 @@ test("Phone authentication accepts international and local phone numbers and nor
   const isEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
   const isPhone = (val: string) => /^\+?[0-9\s\-()]{7,25}$/.test(val);
 
-  function formatToE164(phone: string): string {
-    const digits = phone.replace(/[^\d+]/g, "");
-    if (digits.startsWith("+")) return digits;
-    if (digits.length === 10) return `+1${digits}`;
-    return `+${digits}`;
-  }
-
   // Valid phone tests
   assert.equal(isPhone("+1 (555) 123-4567"), true);
   assert.equal(isPhone("+91 98765 43210"), true);
@@ -302,10 +295,20 @@ test("Phone authentication accepts international and local phone numbers and nor
   assert.equal(isPhone("123"), false);
   assert.equal(isPhone("invalid-phone"), false);
 
-  // E.164 formatting tests
-  assert.equal(formatToE164("+1 (555) 123-4567"), "+15551234567");
-  assert.equal(formatToE164("5551234567"), "+15551234567");
+  // E.164 formatting tests with distinct phone numbers
+  // Number 1: Indian Mobile (+91)
   assert.equal(formatToE164("+91 9876543210"), "+919876543210");
+  assert.equal(formatToE164("8002488825"), "+918002488825");
+
+  // Number 2: US Mobile (+1)
+  assert.equal(formatToE164("+1 (415) 555-2671"), "+14155552671");
+  assert.equal(formatToE164("+14155552671"), "+14155552671");
+
+  // Masked logging security audit: ensures only masked numbers are printed (never full PII)
+  assert.equal(maskPhoneNumber("+919876543210"), "+9198******10");
+  assert.equal(maskPhoneNumber("+918002488825"), "+9180******25");
+  assert.equal(maskPhoneNumber("+14155552671"), "+1415*****71");
+  assert.ok(!maskPhoneNumber("+919876543210").includes("9876543210"), "Masked output must not contain full number");
 
   // Phone is distinct from email
   assert.equal(isEmail("+15551234567"), false);

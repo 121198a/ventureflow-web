@@ -3,27 +3,7 @@ import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
 import { checkRateLimit, resetRateLimit, getClientIp } from "@/lib/rate-limit";
 import { signSessionToken } from "@/lib/crypto";
-
-function formatToE164(phone: string): string {
-  const clean = phone.trim();
-  if (clean.startsWith("+")) {
-    return `+${clean.replace(/[^\d]/g, "")}`;
-  }
-  const digits = clean.replace(/[^\d]/g, "");
-  if (digits.length === 12 && digits.startsWith("91")) {
-    return `+${digits}`;
-  }
-  if (digits.length === 11 && digits.startsWith("1")) {
-    return `+${digits}`;
-  }
-  if (digits.length === 10) {
-    if (/^[6-9]/.test(digits)) {
-      return `+91${digits}`;
-    }
-    return `+1${digits}`;
-  }
-  return `+${digits}`;
-}
+import { formatToE164, maskPhoneNumber } from "@/lib/utils";
 
 const isPhone = (val: string) => /^\+?[0-9\s\-()]{7,25}$/.test(val);
 
@@ -100,6 +80,10 @@ export async function POST(request: Request) {
       }
 
       const cleanPhone = formatToE164(parsed.data.phone);
+
+      // Audit requirement: Log ONLY masked phone number, never full phone number
+      console.log(`[Auth OTP] Sending SMS OTP to destination: ${maskPhoneNumber(cleanPhone)}`);
+
       const { error } = await supabase.auth.signInWithOtp({
         phone: cleanPhone,
         options: {
