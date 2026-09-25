@@ -98,3 +98,22 @@ export function maskPhoneNumber(phone: string): string {
   const starCount = Math.max(2, clean.length - 7);
   return `${prefix}${"*".repeat(starCount)}${suffix}`;
 }
+
+/**
+ * Masks an email address for secure audit logging without exposing PII.
+ * Example: jordan.lee@company.com -> jo*********e@company.com
+ */
+export function maskEmail(email: string): string {
+  const clean = email.trim();
+  const atIndex = clean.indexOf("@");
+  if (atIndex <= 0) return clean.replace(/.(?=.{2})/g, "*");
+  const local = clean.slice(0, atIndex);
+  const domain = clean.slice(atIndex);
+  if (local.length <= 2) {
+    return `${local[0] || "*"}*${domain}`;
+  }
+  const prefix = local.slice(0, 2);
+  const suffix = local.slice(-1);
+  const stars = "*".repeat(Math.max(2, local.length - 3));
+  return `${prefix}${stars}${suffix}${domain}`;
+}

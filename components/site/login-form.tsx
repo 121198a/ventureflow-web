@@ -130,10 +130,18 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
   };
 
   const handleSendOtp = async () => {
-    const targetPhone = phoneE164 || phone.trim();
-    if (!targetPhone || targetPhone.replace(/\D/g, "").length < 7) {
-      setErrorMessage("Please enter a valid phone number before requesting an OTP code.");
-      return;
+    const target = authMode === "email" ? email.trim() : (phoneE164 || phone.trim());
+
+    if (authMode === "email") {
+      if (!target || !isValidEmail(target)) {
+        setErrorMessage("Please enter a valid email address before requesting an OTP code.");
+        return;
+      }
+    } else {
+      if (!target || target.replace(/\D/g, "").length < 7) {
+        setErrorMessage("Please enter a valid phone number before requesting an OTP code.");
+        return;
+      }
     }
 
     setOtpSending(true);
@@ -146,7 +154,8 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "send",
-          phone: targetPhone,
+          type: authMode,
+          destination: target,
           role,
         }),
       });
@@ -158,9 +167,10 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
         return;
       }
 
-      setOtpSentPhone(data.phone || targetPhone);
+      const confirmedDest = data.destination || data.phone || target;
+      setOtpSentPhone(confirmedDest);
       setOtpStep(true);
-      setOtpMessage(data.message || `Verification code sent to ${data.phone || targetPhone}.`);
+      setOtpMessage(data.message || `Verification code sent to ${confirmedDest}.`);
     } catch {
       setErrorMessage("Network error while sending verification code.");
     } finally {
@@ -171,7 +181,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
   const handleVerifyOtp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!otpCode.trim() || otpCode.trim().length < 4) {
-      setErrorMessage("Please enter the 6-digit verification code sent to your phone.");
+      setErrorMessage("Please enter the 6-digit verification code.");
       return;
     }
 
@@ -184,7 +194,8 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "verify",
-          phone: otpSentPhone,
+          type: authMode,
+          destination: otpSentPhone,
           token: otpCode.trim(),
           role,
         }),
@@ -277,7 +288,8 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
             autoFocus
           />
           <p className="text-xs text-slate-500">
-            Sent via SMS to <span className="font-semibold text-slate-700">{otpSentPhone}</span>
+            Code sent to <span className="font-semibold text-slate-700">{otpSentPhone}</span>
+            {authMode === "email" ? " (check your email inbox/spam)" : " via SMS"}
           </p>
         </div>
 
@@ -370,16 +382,32 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
 
       {/* Email / Phone input */}
       {authMode === "email" ? (
-        <InputField
-          id="email"
-          label="Enter your email address"
-          placeholder="Email"
-          value={email}
-          onChange={(val) => {
-            setEmail(val);
-            if (errorMessage) setErrorMessage(null);
-          }}
-        />
+        <div className={`flex flex-col ${AUTH_LABEL_GAP}`}>
+          <div className="flex items-center justify-between">
+            <FieldLabel htmlFor="email">Enter your email address</FieldLabel>
+            {email.trim().length >= 5 && email.includes("@") && (
+              <button
+                type="button"
+                disabled={otpSending}
+                onClick={handleSendOtp}
+                className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
+              >
+                {otpSending ? "Sending code..." : "Sign in with Email OTP →"}
+              </button>
+            )}
+          </div>
+          <InputField
+            id="email"
+            label="Enter your email address"
+            hideLabel={true}
+            placeholder="Email"
+            value={email}
+            onChange={(val) => {
+              setEmail(val);
+              if (errorMessage) setErrorMessage(null);
+            }}
+          />
+        </div>
       ) : (
         <div className={`flex flex-col ${AUTH_LABEL_GAP}`}>
           <div className="flex items-center justify-between">

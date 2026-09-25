@@ -117,10 +117,11 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   // Reset form fields
   const [resetToken, setResetToken] = useState(tokenParam);
 
-  // Phone OTP Flow states
+  // Phone & Email OTP Flow states
   const [otpStep, setOtpStep] = useState(false);
   const [otpCode, setOtpCode] = useState("");
-  const [otpSentPhone, setOtpSentPhone] = useState("");
+  const [otpDestination, setOtpDestination] = useState("");
+  const [otpType, setOtpType] = useState<"phone" | "email">("email");
   const [otpSending, setOtpSending] = useState(false);
   const [otpMessage, setOtpMessage] = useState<string | null>(null);
 
@@ -234,7 +235,9 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
 
       if (!res.ok) {
         if (data.requiresOtp) {
-          setOtpSentPhone(data.phone || cleanIdentifier);
+          const target = data.phone || data.destination || cleanIdentifier;
+          setOtpDestination(target);
+          setOtpType("phone");
           setOtpStep(true);
           setOtpMessage(data.error || "Phone not confirmed. A 6-digit verification code has been sent to your phone.");
           setFormError(null);
@@ -274,11 +277,21 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
     }
   };
 
-  // Direct OTP Send handler (for SMS login)
+  // Direct OTP Send handler (supports both email and phone destinations)
   const handleSendOtp = async () => {
     const cleanId = identifier.trim();
-    if (!cleanId || cleanId.replace(/\D/g, "").length < 7) {
-      setFormError("Please enter your phone number first.");
+    const isEmailInput = cleanId.includes("@");
+
+    if (!cleanId) {
+      setFormError("Please enter your email or phone number first.");
+      return;
+    }
+    if (!isEmailInput && cleanId.replace(/\D/g, "").length < 7) {
+      setFormError("Please enter a valid phone number.");
+      return;
+    }
+    if (isEmailInput && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanId)) {
+      setFormError("Please enter a valid email address.");
       return;
     }
 
@@ -286,13 +299,16 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
     setFormError(null);
     setOtpMessage(null);
 
+    const targetType = isEmailInput ? "email" : "phone";
+
     try {
       const res = await fetch("/api/auth/otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "send",
-          phone: cleanId,
+          type: targetType,
+          destination: cleanId,
           role,
         }),
       });
@@ -304,9 +320,11 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         return;
       }
 
-      setOtpSentPhone(data.phone || cleanId);
+      const confirmedDest = data.destination || data.phone || cleanId;
+      setOtpDestination(confirmedDest);
+      setOtpType(data.type || targetType);
       setOtpStep(true);
-      setOtpMessage(data.message || `Verification code sent to ${data.phone || cleanId}.`);
+      setOtpMessage(data.message || `Verification code sent to ${confirmedDest}.`);
     } catch {
       setFormError("Network error while sending verification code. Please try again.");
     } finally {
@@ -314,7 +332,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
     }
   };
 
-  // Verify OTP submission handler
+  // Verify OTP submission handler (supports both email and phone)
   const handleVerifyOtp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!otpCode.trim() || otpCode.trim().length < 4) {
@@ -331,7 +349,8 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "verify",
-          phone: otpSentPhone,
+          type: otpType,
+          destination: otpDestination,
           token: otpCode.trim(),
           role,
         }),
@@ -356,7 +375,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         }
       }
 
-      setFormSuccess("Phone verified successfully! Redirecting to your dashboard...");
+      setFormSuccess("Authentication successful! Redirecting to your dashboard...");
       const destination = getDestinationUrl(data.user?.role);
       setTimeout(() => {
         window.location.assign(destination);
@@ -369,7 +388,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   };
 
   const handleResendOtp = async () => {
-    if (!otpSentPhone) return;
+    if (!otpDestination) return;
     setOtpSending(true);
     setFormError(null);
 
@@ -379,7 +398,8 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "send",
-          phone: otpSentPhone,
+          type: otpType,
+          destination: otpDestination,
           role,
         }),
       });
@@ -391,7 +411,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         return;
       }
 
-      setOtpMessage("A new 6-digit verification code has been dispatched via SMS.");
+      setOtpMessage(data.message || `A new verification code has been dispatched to ${otpDestination}.`);
     } catch {
       setFormError("Network error while resending verification code.");
     } finally {
@@ -859,7 +879,8 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                         className="w-full h-12 rounded-xl border border-slate-200/90 bg-white px-3.5 text-center text-xl tracking-[0.28em] font-mono font-bold text-slate-900 placeholder:tracking-normal placeholder:font-sans placeholder:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
                       />
                       <p className="mt-1.5 text-xs text-slate-500">
-                        Code sent to <span className="font-semibold text-slate-700">{otpSentPhone}</span>
+                        Code sent to <span className="font-semibold text-slate-700">{otpDestination}</span>
+                        {otpType === "email" ? " (check your inbox/spam)" : " via SMS"}
                       </p>
                     </div>
 
@@ -909,14 +930,18 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                         >
                           Email or Phone number <span className="text-red-500">*</span>
                         </label>
-                        {identifier.replace(/\D/g, "").length >= 7 && !identifier.includes("@") && (
+                        {identifier.trim().length >= 3 && (
                           <button
                             type="button"
                             disabled={otpSending}
                             onClick={handleSendOtp}
                             className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
                           >
-                            {otpSending ? "Sending OTP..." : "Sign in with SMS OTP →"}
+                            {otpSending
+                              ? "Sending OTP..."
+                              : identifier.includes("@")
+                              ? "Sign in with Email OTP →"
+                              : "Sign in with SMS OTP →"}
                           </button>
                         )}
                       </div>
@@ -930,7 +955,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                           setIdentifier(e.target.value);
                           if (formError) setFormError(null);
                         }}
-                        placeholder="you@example.com"
+                        placeholder="you@example.com or +1 (555) 000-0000"
                         required
                         className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
                       />

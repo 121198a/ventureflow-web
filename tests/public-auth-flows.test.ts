@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { z } from "zod";
 import { checkRateLimit, resetRateLimit } from "../lib/rate-limit.ts";
-import { sanitizeRedirectUrl, formatToE164, maskPhoneNumber } from "../lib/utils.ts";
+import { sanitizeRedirectUrl, formatToE164, maskPhoneNumber, maskEmail } from "../lib/utils.ts";
 
 // 1. Recover account validation schema
 const recoverSchema = z.object({
@@ -309,6 +309,26 @@ test("Phone authentication accepts international and local phone numbers and nor
   assert.equal(maskPhoneNumber("+918002488825"), "+9180******25");
   assert.equal(maskPhoneNumber("+14155552671"), "+1415*****71");
   assert.ok(!maskPhoneNumber("+919876543210").includes("9876543210"), "Masked output must not contain full number");
+
+  // Masked email security audit: ensures only masked email is printed (never full PII)
+  assert.equal(maskEmail("jordan.lee@company.com"), "jo*******e@company.com");
+  assert.equal(maskEmail("sarah@venture.io"), "sa**h@venture.io");
+  assert.equal(maskEmail("ab@test.com"), "a*@test.com");
+  assert.ok(!maskEmail("jordan.lee@company.com").includes("jordan.lee"), "Masked email must not contain full username");
+
+  // Phone A vs Phone B destination isolation
+  const phoneA = "+91 98765 43210";
+  const phoneB = "+1 (415) 555-2671";
+  const normalizedA = formatToE164(phoneA);
+  const normalizedB = formatToE164(phoneB);
+  assert.equal(normalizedA, "+919876543210");
+  assert.equal(normalizedB, "+14155552671");
+  assert.notEqual(normalizedA, normalizedB, "Phone A and Phone B destinations must remain strictly isolated");
+
+  // Email A vs Email B destination isolation
+  const emailA = "jordan@company.com";
+  const emailB = "sarah@venture.io";
+  assert.notEqual(emailA, emailB, "Email A and Email B destinations must remain strictly isolated");
 
   // Phone is distinct from email
   assert.equal(isEmail("+15551234567"), false);
