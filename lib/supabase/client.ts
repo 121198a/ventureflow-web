@@ -192,21 +192,23 @@ export interface OAuthSignInResult {
 }
 
 /**
- * Initiates a real Supabase OAuth sign-in flow for Google or Apple.
+ * Initiates a real Supabase OAuth sign-in flow for Google or Facebook.
  * Complies with strict rule: never fakes success or mock credentials.
  * If Supabase or provider credentials are not configured, returns a clear
  * configuration description.
  */
 export async function initiateOAuthSignIn(
-  provider: "google" | "apple",
+  provider: "google" | "facebook" | "apple",
   options?: { redirectTo?: string; role?: "investor" | "founder" }
 ): Promise<OAuthSignInResult> {
+  const providerLabel =
+    provider === "google" ? "Google" : provider === "facebook" ? "Facebook" : "Apple";
+
   if (!isSupabaseConfigured()) {
-    const providerName = provider === "google" ? "Google" : "Apple";
     return {
       success: false,
       configurationRequired: true,
-      error: `Supabase environment variables are not configured. To enable ${providerName} sign-in, set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local, then enable the ${providerName} provider in your Supabase project under Authentication -> Providers.`,
+      error: `Supabase environment variables are not configured. To enable ${providerLabel} sign-in, set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local, then enable the ${providerLabel} provider in your Supabase project under Authentication -> Providers.`,
     };
   }
 
@@ -231,7 +233,7 @@ export async function initiateOAuthSignIn(
     }
 
     const { data, error } = await client.auth.signInWithOAuth({
-      provider,
+      provider: provider as "google" | "facebook",
       options: {
         redirectTo,
         queryParams: {
@@ -251,8 +253,8 @@ export async function initiateOAuthSignIn(
         success: false,
         configurationRequired: isProviderDisabled,
         error: isProviderDisabled
-          ? `${provider === "google" ? "Google" : "Apple"} OAuth provider is not enabled in your Supabase Dashboard. Navigate to Authentication -> Providers -> ${provider === "google" ? "Google" : "Apple"} to enable it with client credentials.`
-          : error.message || `Failed to initiate ${provider} authentication.`,
+          ? `${providerLabel} OAuth provider is not enabled in your Supabase Dashboard. Navigate to Authentication -> Providers -> ${providerLabel} to enable it with client credentials.`
+          : error.message || `Failed to initiate ${providerLabel} authentication.`,
       };
     }
 
@@ -265,7 +267,7 @@ export async function initiateOAuthSignIn(
 
     return {
       success: false,
-      error: `No authorization redirect URL received from ${provider} provider. Please verify your Supabase OAuth redirect URL settings.`,
+      error: `No authorization redirect URL received from ${providerLabel} provider. Please verify your Supabase OAuth redirect URL settings.`,
     };
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Unknown OAuth error";

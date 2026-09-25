@@ -18,6 +18,7 @@ import {
   CheckCircle2,
   AlertCircle,
   Info,
+  ArrowRight,
 } from "lucide-react";
 import { initiateOAuthSignIn } from "@/lib/supabase/client";
 import { sanitizeRedirectUrl } from "@/lib/utils";
@@ -140,7 +141,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   const [formError, setFormError] = useState<string | null>(null);
   const [formSuccess, setFormSuccess] = useState<string | null>(null);
   const [oauthError, setOauthError] = useState<string | null>(null);
-  const [loadingProvider, setLoadingProvider] = useState<"google" | "apple" | null>(null);
+  const [loadingProvider, setLoadingProvider] = useState<"google" | "facebook" | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Sync state with URL changes
@@ -190,8 +191,8 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
     return sanitizeRedirectUrl(redirectParam, defaultDashboard);
   };
 
-  // Google / Apple OAuth initiation
-  const handleOAuth = async (provider: "google" | "apple") => {
+  // Google / Facebook OAuth initiation
+  const handleOAuth = async (provider: "google" | "facebook") => {
     setOauthError(null);
     setFormError(null);
 
@@ -205,7 +206,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
       setOauthError(
         parseErrorMessage(
           err,
-          `Unable to initiate ${provider === "google" ? "Google" : "Apple"} authentication. Please try again.`
+          `Unable to initiate ${provider === "google" ? "Google" : "Facebook"} authentication. Please try again.`
         )
       );
     } finally {
@@ -755,6 +756,662 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
     }
   };
 
+  const renderLoginForm = () => (
+    <div className="w-full">
+      <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
+        Welcome back.
+      </h2>
+      <p className="mt-1 text-xs sm:text-sm text-slate-500 font-normal">
+        Pick up where you left off.
+      </p>
+
+      {/* Status & Error Alerts */}
+      {oauthError && (
+        <div
+          role="alert"
+          className="mt-3 rounded-xl border border-amber-500/30 bg-amber-500/10 p-2.5 text-left text-xs leading-relaxed text-amber-900"
+        >
+          <p className="font-semibold flex items-center gap-1.5 mb-0.5">
+            <AlertCircle className="size-3.5 text-amber-700 shrink-0" />
+            Notice
+          </p>
+          <p>{parseErrorMessage(oauthError)}</p>
+        </div>
+      )}
+
+      {formError && (
+        <div
+          role="alert"
+          className="mt-3 rounded-xl border border-red-200 bg-red-50/90 p-2.5 text-left text-xs leading-relaxed text-red-700 flex items-start gap-2"
+        >
+          <AlertCircle className="size-4 text-red-600 shrink-0 mt-0.5" />
+          <span>{parseErrorMessage(formError)}</span>
+        </div>
+      )}
+
+      {formSuccess ? (
+        <div
+          role="status"
+          className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50/90 p-4 text-center"
+        >
+          <CheckCircle2 className="size-7 text-emerald-600 mx-auto mb-1.5" />
+          <p className="text-xs font-semibold text-emerald-900">{parseErrorMessage(formSuccess)}</p>
+        </div>
+      ) : otpStep ? (
+        /* OTP Verification Screen */
+        <form onSubmit={handleVerifyOtp} className="mt-4 text-left space-y-3.5">
+          {otpMessage && (
+            <div className="rounded-xl border border-blue-200 bg-blue-50/90 p-2.5 text-xs leading-relaxed text-blue-900 flex items-start gap-2">
+              <Info className="size-4 text-blue-600 shrink-0 mt-0.5" />
+              <span>{otpMessage}</span>
+            </div>
+          )}
+
+          <div>
+            <label htmlFor="login-otp-code" className="block text-xs font-semibold text-slate-700 mb-1">
+              Enter 6-digit confirmation code <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="login-otp-code"
+              type="text"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              maxLength={8}
+              placeholder="123456"
+              value={otpCode}
+              disabled={isSubmitting}
+              autoFocus
+              onChange={(e) => {
+                setOtpCode(e.target.value.replace(/\D/g, ""));
+                if (formError) setFormError(null);
+              }}
+              className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-center text-xl tracking-[0.28em] font-mono font-bold text-slate-900 placeholder:tracking-normal placeholder:font-sans placeholder:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+            />
+            <p className="mt-1 text-[11px] text-slate-500">
+              Code sent to <span className="font-semibold text-slate-700">{otpDestination}</span>
+              {otpType === "email" ? " (check your inbox/spam)" : " via SMS"}
+            </p>
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting || otpCode.length < 4}
+            className="w-full h-10 rounded-full bg-[#1677ff] hover:bg-blue-600 text-white font-semibold text-xs sm:text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="size-3.5 animate-spin text-white" /> Verifying Code...
+              </span>
+            ) : (
+              "Verify & Log In"
+            )}
+          </button>
+
+          <div className="flex items-center justify-between text-xs pt-1">
+            <button
+              type="button"
+              disabled={otpSending}
+              onClick={handleResendOtp}
+              className="text-blue-600 font-semibold hover:underline cursor-pointer disabled:opacity-50 text-[11px]"
+            >
+              {otpSending ? "Resending..." : "Resend Code"}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setOtpStep(false);
+                setFormError(null);
+                setOtpMessage(null);
+              }}
+              className="text-slate-500 hover:text-slate-800 underline cursor-pointer text-[11px]"
+            >
+              Back to Password Login
+            </button>
+          </div>
+        </form>
+      ) : (
+        <form onSubmit={handleLoginSubmit} autoComplete="on" className="mt-4 text-left space-y-3">
+          {/* Auth Mode Toggle */}
+          <div className="flex rounded-xl bg-slate-100/90 p-1 border border-slate-200/60 mb-2">
+            <button
+              type="button"
+              onClick={() => {
+                setLoginMode("email");
+                if (formError) setFormError(null);
+              }}
+              className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+                loginMode === "email"
+                  ? "bg-white text-slate-900 shadow-2xs font-semibold"
+                  : "text-slate-500 hover:text-slate-800 font-medium"
+              }`}
+            >
+              Email
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setLoginMode("phone");
+                if (formError) setFormError(null);
+              }}
+              className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+                loginMode === "phone"
+                  ? "bg-white text-slate-900 shadow-2xs font-semibold"
+                  : "text-slate-500 hover:text-slate-800 font-medium"
+              }`}
+            >
+              Phone Number
+            </button>
+          </div>
+
+          {loginMode === "email" ? (
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label
+                  htmlFor="login-identifier"
+                  className="block text-xs font-semibold text-slate-700"
+                >
+                  Email address <span className="text-red-500">*</span>
+                </label>
+                {identifier.trim().length >= 5 && identifier.includes("@") && (
+                  <button
+                    type="button"
+                    disabled={otpSending}
+                    onClick={handleSendOtp}
+                    className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
+                  >
+                    {otpSending ? "Sending OTP..." : "Sign in with Email OTP →"}
+                  </button>
+                )}
+              </div>
+              <input
+                id="login-identifier"
+                type="email"
+                autoComplete="username"
+                value={identifier}
+                disabled={isSubmitting}
+                onChange={(e) => {
+                  setIdentifier(e.target.value);
+                  if (formError) setFormError(null);
+                }}
+                placeholder="you@example.com"
+                required
+                className="w-full h-10 rounded-xl border border-slate-200/90 bg-white px-3.5 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+              />
+              <div className="flex justify-end mt-1">
+                <button
+                  type="button"
+                  onClick={() => navigateFlow("recover")}
+                  className="text-[11px] text-blue-600 font-medium hover:underline cursor-pointer"
+                >
+                  Forgot your email?
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label
+                  htmlFor="login-phone"
+                  className="block text-xs font-semibold text-slate-700"
+                >
+                  Phone number <span className="text-red-500">*</span>
+                </label>
+                {loginPhone.trim().length >= 7 && (
+                  <button
+                    type="button"
+                    disabled={otpSending}
+                    onClick={handleSendOtp}
+                    className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
+                  >
+                    {otpSending ? "Sending OTP..." : "Sign in with SMS OTP →"}
+                  </button>
+                )}
+              </div>
+              <PhoneInput
+                id="login-phone"
+                value={loginPhone}
+                defaultCountryCode="IN"
+                onChange={(val, e164) => {
+                  setLoginPhone(val);
+                  setLoginPhoneE164(e164);
+                  if (formError) setFormError(null);
+                }}
+              />
+              <div className="flex justify-end mt-1">
+                <button
+                  type="button"
+                  onClick={() => navigateFlow("recover")}
+                  className="text-[11px] text-blue-600 font-medium hover:underline cursor-pointer"
+                >
+                  Forgot your phone number?
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div>
+            <label
+              htmlFor="login-password"
+              className="block text-xs font-semibold text-slate-700 mb-1"
+            >
+              Password <span className="text-red-500">*</span>
+            </label>
+            <div className="relative">
+              <input
+                id="login-password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
+                value={password}
+                disabled={isSubmitting}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (formError) setFormError(null);
+                }}
+                placeholder="Enter your password"
+                required
+                className="w-full h-10 rounded-xl border border-slate-200/90 bg-white px-3.5 pr-10 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
+              >
+                {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+              </button>
+            </div>
+            <div className="flex justify-end mt-1">
+              <button
+                type="button"
+                onClick={() => navigateFlow("reset", { step: "request" })}
+                className="text-[11px] text-blue-600 font-medium hover:underline cursor-pointer"
+              >
+                Forgot password?
+              </button>
+            </div>
+          </div>
+
+          {/* Submit Log In */}
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full h-10 mt-2 inline-flex items-center justify-center rounded-full bg-[#1677ff] hover:bg-blue-600 text-white text-xs sm:text-sm font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="size-3.5 animate-spin text-white" /> Signing in...
+              </span>
+            ) : (
+              "Log in"
+            )}
+          </button>
+
+          {/* Divider */}
+          <div className="my-2.5 flex items-center gap-3">
+            <div className="h-px flex-1 bg-slate-200" />
+            <span className="text-[11px] font-normal text-slate-400 select-none">or continue with</span>
+            <div className="h-px flex-1 bg-slate-200" />
+          </div>
+
+          {/* Social Login 2-Column Grid */}
+          <div className="grid grid-cols-2 gap-2.5">
+            <button
+              type="button"
+              onClick={() => handleOAuth("google")}
+              disabled={loadingProvider !== null || isSubmitting}
+              aria-label="Continue with Google"
+              className="h-10 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
+            >
+              {loadingProvider === "google" ? (
+                <Loader2 className="size-3.5 animate-spin text-blue-600" />
+              ) : (
+                <GoogleIcon />
+              )}
+              <span>Google</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleOAuth("facebook")}
+              disabled={loadingProvider !== null || isSubmitting}
+              aria-label="Continue with Facebook"
+              className="h-10 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
+            >
+              {loadingProvider === "facebook" ? (
+                <Loader2 className="size-3.5 animate-spin text-blue-600" />
+              ) : (
+                <FacebookIcon />
+              )}
+              <span>Facebook</span>
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
+
+  const renderSignupForm = () => (
+    <div className="w-full">
+      <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
+        Create Account
+      </h2>
+      <p className="mt-1 text-xs sm:text-sm text-slate-500">
+        Join UnBound X to build your verified track record.
+      </p>
+
+      {/* Status & Error Alerts */}
+      {oauthError && (
+        <div
+          role="alert"
+          className="mt-3 rounded-xl border border-amber-500/30 bg-amber-500/10 p-2.5 text-left text-xs leading-relaxed text-amber-900"
+        >
+          <p className="font-semibold flex items-center gap-1.5 mb-0.5">
+            <AlertCircle className="size-3.5 text-amber-700 shrink-0" />
+            Notice
+          </p>
+          <p>{parseErrorMessage(oauthError)}</p>
+        </div>
+      )}
+
+      {formError && (
+        <div
+          role="alert"
+          className="mt-3 rounded-xl border border-red-200 bg-red-50/90 p-2.5 text-left text-xs leading-relaxed text-red-700 flex items-start gap-2"
+        >
+          <AlertCircle className="size-4 text-red-600 shrink-0 mt-0.5" />
+          <span>{parseErrorMessage(formError)}</span>
+        </div>
+      )}
+
+      {formSuccess ? (
+        <div
+          role="status"
+          className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50/90 p-4 text-center"
+        >
+          <CheckCircle2 className="size-7 text-emerald-600 mx-auto mb-1.5" />
+          <p className="text-xs font-semibold text-emerald-900">{parseErrorMessage(formSuccess)}</p>
+        </div>
+      ) : otpStep ? (
+        <form onSubmit={handleVerifyOtp} className="mt-4 text-left space-y-3.5">
+          {otpMessage && (
+            <div className="rounded-xl border border-blue-200 bg-blue-50/90 p-2.5 text-xs leading-relaxed text-blue-900 flex items-start gap-2">
+              <Info className="size-4 text-blue-600 shrink-0 mt-0.5" />
+              <span>{otpMessage}</span>
+            </div>
+          )}
+          <div>
+            <label htmlFor="signup-otp-code" className="block text-xs font-semibold text-slate-700 mb-1">
+              Enter 6-digit confirmation code <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="signup-otp-code"
+              type="text"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              maxLength={8}
+              placeholder="123456"
+              value={otpCode}
+              disabled={isSubmitting}
+              autoFocus
+              onChange={(e) => {
+                setOtpCode(e.target.value.replace(/\D/g, ""));
+                if (formError) setFormError(null);
+              }}
+              className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-center text-xl tracking-[0.28em] font-mono font-bold text-slate-900 placeholder:tracking-normal placeholder:font-sans placeholder:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+            />
+            <p className="mt-1 text-[11px] text-slate-500">
+              Code sent to <span className="font-semibold text-slate-700">{otpDestination}</span>
+            </p>
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting || otpCode.length < 4}
+            className="w-full h-10 rounded-full bg-[#1677ff] hover:bg-blue-600 text-white font-semibold text-xs sm:text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="size-3.5 animate-spin text-white" /> Confirming...
+              </span>
+            ) : (
+              "Confirm & Activate Account"
+            )}
+          </button>
+
+          <div className="flex items-center justify-between text-xs pt-1">
+            <button
+              type="button"
+              disabled={otpSending}
+              onClick={handleResendOtp}
+              className="text-blue-600 font-semibold hover:underline cursor-pointer disabled:opacity-50 text-[11px]"
+            >
+              {otpSending ? "Resending..." : "Resend Code"}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setOtpStep(false);
+                setFormError(null);
+                setOtpMessage(null);
+              }}
+              className="text-slate-500 hover:text-slate-800 underline cursor-pointer text-[11px]"
+            >
+              Back to Signup Form
+            </button>
+          </div>
+        </form>
+      ) : (
+        <form onSubmit={handleSignupSubmit} autoComplete="on" className="mt-4 text-left space-y-3">
+          {/* Signup Mode Toggle */}
+          <div className="flex rounded-xl bg-slate-100/90 p-1 border border-slate-200/60 mb-2">
+            <button
+              type="button"
+              onClick={() => {
+                setSignupMode("email");
+                if (formError) setFormError(null);
+              }}
+              className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+                signupMode === "email"
+                  ? "bg-white text-slate-900 shadow-2xs font-semibold"
+                  : "text-slate-500 hover:text-slate-800 font-medium"
+              }`}
+            >
+              Email
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setSignupMode("phone");
+                if (formError) setFormError(null);
+              }}
+              className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+                signupMode === "phone"
+                  ? "bg-white text-slate-900 shadow-2xs font-semibold"
+                  : "text-slate-500 hover:text-slate-800 font-medium"
+              }`}
+            >
+              Phone Number
+            </button>
+          </div>
+
+          {signupMode === "email" ? (
+            <div>
+              <label htmlFor="signup-email" className="block text-xs font-semibold text-slate-700 mb-1">
+                Email address <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="signup-email"
+                type="email"
+                autoComplete="username"
+                value={identifier}
+                disabled={isSubmitting}
+                onChange={(e) => {
+                  setIdentifier(e.target.value);
+                  if (formError) setFormError(null);
+                }}
+                placeholder="you@example.com"
+                required
+                className="w-full h-10 rounded-xl border border-slate-200/90 bg-white px-3.5 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+              />
+            </div>
+          ) : (
+            <div>
+              <label htmlFor="signup-phone" className="block text-xs font-semibold text-slate-700 mb-1">
+                Phone number <span className="text-red-500">*</span>
+              </label>
+              <PhoneInput
+                id="signup-phone"
+                value={signupPhone}
+                defaultCountryCode="IN"
+                onChange={(val, e164) => {
+                  setSignupPhone(val);
+                  setSignupPhoneE164(e164);
+                  if (formError) setFormError(null);
+                }}
+              />
+            </div>
+          )}
+
+          <div>
+            <label htmlFor="signup-password" className="block text-xs font-semibold text-slate-700 mb-1">
+              Password <span className="text-red-500">*</span>
+            </label>
+            <div className="relative">
+              <input
+                id="signup-password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                value={password}
+                disabled={isSubmitting}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (formError) setFormError(null);
+                }}
+                placeholder="Min. 8 characters"
+                required
+                className="w-full h-10 rounded-xl border border-slate-200/90 bg-white px-3.5 pr-10 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
+              >
+                {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="signup-confirm" className="block text-xs font-semibold text-slate-700 mb-1">
+              Confirm password <span className="text-red-500">*</span>
+            </label>
+            <div className="relative">
+              <input
+                id="signup-confirm"
+                type={showConfirmPassword ? "text" : "password"}
+                autoComplete="new-password"
+                value={confirmPassword}
+                disabled={isSubmitting}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                  if (formError) setFormError(null);
+                }}
+                placeholder="Re-enter password"
+                required
+                className="w-full h-10 rounded-xl border border-slate-200/90 bg-white px-3.5 pr-10 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
+              >
+                {showConfirmPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-2 pt-0.5">
+            <input
+              id="signup-agreed"
+              type="checkbox"
+              checked={agreedToTerms}
+              onChange={(e) => setAgreedToTerms(e.target.checked)}
+              className="mt-0.5 size-3.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+              required
+            />
+            <label htmlFor="signup-agreed" className="text-[11px] text-slate-500 leading-snug">
+              I agree to the{" "}
+              <TransitionLink href="/legal/terms-condition" className="text-blue-600 hover:underline">
+                Terms of Use
+              </TransitionLink>{" "}
+              and{" "}
+              <TransitionLink href="/legal/privacy-policy" className="text-blue-600 hover:underline">
+                Privacy Policy
+              </TransitionLink>
+              .
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full h-10 mt-2 inline-flex items-center justify-center rounded-full bg-[#1677ff] hover:bg-blue-600 text-white text-xs sm:text-sm font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="size-3.5 animate-spin text-white" /> Creating account...
+              </span>
+            ) : (
+              "Create Account"
+            )}
+          </button>
+
+          {/* Divider */}
+          <div className="my-2.5 flex items-center gap-3">
+            <div className="h-px flex-1 bg-slate-200" />
+            <span className="text-[11px] font-normal text-slate-400 select-none">or continue with</span>
+            <div className="h-px flex-1 bg-slate-200" />
+          </div>
+
+          {/* Social Login 2-Column Grid */}
+          <div className="grid grid-cols-2 gap-2.5">
+            <button
+              type="button"
+              onClick={() => handleOAuth("google")}
+              disabled={loadingProvider !== null || isSubmitting}
+              aria-label="Continue with Google"
+              className="h-10 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
+            >
+              {loadingProvider === "google" ? (
+                <Loader2 className="size-3.5 animate-spin text-blue-600" />
+              ) : (
+                <GoogleIcon />
+              )}
+              <span>Google</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleOAuth("facebook")}
+              disabled={loadingProvider !== null || isSubmitting}
+              aria-label="Continue with Facebook"
+              className="h-10 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
+            >
+              {loadingProvider === "facebook" ? (
+                <Loader2 className="size-3.5 animate-spin text-blue-600" />
+              ) : (
+                <FacebookIcon />
+              )}
+              <span>Facebook</span>
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
+
   // Is header with brand on left and back button on right?
   const showTopNavHeader = flow !== "login" || signupEmailMode;
 
@@ -812,716 +1469,265 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
 
       {/* Main Centered Content Card */}
       <div className="relative z-10 flex flex-1 items-center justify-center my-auto py-4 sm:py-6">
-        <section className="w-full max-w-[420px] px-2 sm:px-0 text-center">
+        <section
+          className={`w-full ${
+            flow === "login" || flow === "signup" ? "max-w-[1040px]" : "max-w-[440px]"
+          } px-2 sm:px-4 text-center transition-all duration-300`}
+        >
           <AnimatePresence mode="wait">
-            {/* 1. LOGIN VIEW (Matches Attachment 1 / Image 1) */}
-            {flow === "login" && (
+            {/* 1. DUAL-PANEL SPLIT CARD FOR LOGIN & SIGNUP */}
+            {(flow === "login" || flow === "signup") && (
               <motion.div
-                key="flow-login"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.22 }}
+                key="flow-auth-split-card"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.25 }}
+                className="relative w-full min-h-[660px] rounded-3xl border border-slate-200/90 bg-white shadow-2xl shadow-blue-950/15 overflow-hidden"
               >
-                {/* Brand Logo with Ambient Aura */}
-                <div className="relative mx-auto mb-4 grid h-16 w-16 sm:h-20 sm:w-20 place-items-center">
-                  <div
-                    className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-600 opacity-20 blur-md"
-                    aria-hidden="true"
-                  />
-                  <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-full overflow-hidden shadow-[0_16px_40px_rgba(168,85,247,0.22)] border border-white/80 bg-white">
-                    <Image
-                      src="/logo/unboundx-mark.png"
-                      width={80}
-                      height={80}
-                      alt={site.name}
-                      className="h-full w-full object-cover rounded-full"
-                      priority
-                    />
+                {/* DESKTOP SPLIT SLIDING CARD (hidden on mobile, visible on lg+) */}
+                <div className="hidden lg:block relative w-full h-[660px] overflow-hidden">
+                  {/* Left stationary panel: Signup Form */}
+                  <div className="absolute top-0 left-0 w-1/2 h-full z-10 p-8 xl:p-12 flex flex-col justify-center overflow-y-auto">
+                    <motion.div
+                      animate={{
+                        opacity: flow === "signup" ? 1 : 0,
+                        x: flow === "signup" ? 0 : -24,
+                        pointerEvents: flow === "signup" ? "auto" : "none",
+                      }}
+                      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                      className="w-full max-w-[360px] mx-auto text-left"
+                    >
+                      {renderSignupForm()}
+                    </motion.div>
                   </div>
+
+                  {/* Right stationary panel: Login Form */}
+                  <div className="absolute top-0 right-0 w-1/2 h-full z-10 p-8 xl:p-12 flex flex-col justify-center overflow-y-auto">
+                    <motion.div
+                      animate={{
+                        opacity: flow === "login" ? 1 : 0,
+                        x: flow === "login" ? 0 : 24,
+                        pointerEvents: flow === "login" ? "auto" : "none",
+                      }}
+                      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                      className="w-full max-w-[360px] mx-auto text-left"
+                    >
+                      {renderLoginForm()}
+                    </motion.div>
+                  </div>
+
+                  {/* Sliding Hero / Overlay Panel */}
+                  <motion.div
+                    animate={{ x: flow === "signup" ? "100%" : "0%" }}
+                    transition={{ duration: 0.65, ease: [0.25, 1, 0.5, 1] }}
+                    className="absolute top-0 left-0 w-1/2 h-full z-20 overflow-hidden shadow-2xl pointer-events-auto select-none"
+                  >
+                    {/* Double-width inner container sliding in opposite direction */}
+                    <motion.div
+                      animate={{ x: flow === "signup" ? "-50%" : "0%" }}
+                      transition={{ duration: 0.65, ease: [0.25, 1, 0.5, 1] }}
+                      className="relative h-full w-[200%] flex"
+                    >
+                      {/* Left half of overlay: Active during Login (invites to Sign Up) */}
+                      <div className="relative w-1/2 h-full flex flex-col justify-between p-10 xl:p-12 text-white">
+                        <Image
+                          src="/images/auth-artwork.webp"
+                          alt="UnBound X Authentication"
+                          fill
+                          priority
+                          className="object-cover -z-10"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#06122b]/95 via-[#0b214a]/88 to-[#1e0d3b]/92 -z-10" />
+
+                        {/* Top brand */}
+                        <div className="flex items-center gap-2.5">
+                          <div className="size-8 rounded-full overflow-hidden border border-white/40 shadow-xs bg-white/10 backdrop-blur-sm p-0.5">
+                            <Image
+                              src="/logo/unboundx-mark.png"
+                              alt="UnBound X"
+                              width={32}
+                              height={32}
+                              className="size-full rounded-full object-cover"
+                            />
+                          </div>
+                          <span className="font-bold text-sm tracking-wide text-white/90">UnBound X</span>
+                        </div>
+
+                        {/* Middle message */}
+                        <div className="my-auto py-6 text-left">
+                          <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-[11px] font-semibold text-blue-200 uppercase tracking-wider mb-3">
+                            New to the platform?
+                          </span>
+                          <h2 className="text-3xl xl:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                            Start your verified track record.
+                          </h2>
+                          <p className="mt-3 text-sm text-slate-200/90 leading-relaxed max-w-[320px]">
+                            Discover high-conviction investment ideas, lock entries, and build an auditable record as outcomes unfold.
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => navigateFlow("signup")}
+                            className="mt-7 inline-flex items-center gap-2 rounded-full border-2 border-white bg-white/10 px-7 py-3 text-sm font-bold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-slate-900 cursor-pointer select-none active:scale-95"
+                          >
+                            <span>Let&apos;s Get Started</span>
+                            <ArrowRight className="size-4" />
+                          </button>
+                        </div>
+
+                        {/* Bottom security pill */}
+                        <div className="flex items-center gap-2 text-[11px] text-slate-300">
+                          <ShieldCheck className="size-4 text-emerald-400" />
+                          <span>Institutional security &bull; Private &bull; Audited</span>
+                        </div>
+                      </div>
+
+                      {/* Right half of overlay: Active during Signup (invites to Log In) */}
+                      <div className="relative w-1/2 h-full flex flex-col justify-between p-10 xl:p-12 text-white">
+                        <Image
+                          src="/images/auth-artwork.webp"
+                          alt="UnBound X Authentication"
+                          fill
+                          priority
+                          className="object-cover -z-10"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#06122b]/95 via-[#0b214a]/88 to-[#1e0d3b]/92 -z-10" />
+
+                        {/* Top brand */}
+                        <div className="flex items-center gap-2.5">
+                          <div className="size-8 rounded-full overflow-hidden border border-white/40 shadow-xs bg-white/10 backdrop-blur-sm p-0.5">
+                            <Image
+                              src="/logo/unboundx-mark.png"
+                              alt="UnBound X"
+                              width={32}
+                              height={32}
+                              className="size-full rounded-full object-cover"
+                            />
+                          </div>
+                          <span className="font-bold text-sm tracking-wide text-white/90">UnBound X</span>
+                        </div>
+
+                        {/* Middle message */}
+                        <div className="my-auto py-6 text-left">
+                          <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-[11px] font-semibold text-blue-200 uppercase tracking-wider mb-3">
+                            Already a member?
+                          </span>
+                          <h2 className="text-3xl xl:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                            Welcome back.
+                          </h2>
+                          <p className="mt-3 text-sm text-slate-200/90 leading-relaxed max-w-[320px]">
+                            Pick up where you left off. Sign in to access your verified track record, portfolio, and research.
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => navigateFlow("login")}
+                            className="mt-7 inline-flex items-center gap-2 rounded-full border-2 border-white bg-white/10 px-7 py-3 text-sm font-bold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-slate-900 cursor-pointer select-none active:scale-95"
+                          >
+                            <span>Sign In to Account</span>
+                            <ArrowRight className="size-4" />
+                          </button>
+                        </div>
+
+                        {/* Bottom security pill */}
+                        <div className="flex items-center gap-2 text-[11px] text-slate-300">
+                          <ShieldCheck className="size-4 text-emerald-400" />
+                          <span>Institutional security &bull; Private &bull; Audited</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </motion.div>
                 </div>
 
-                <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                  Welcome back.
-                </h1>
-                <p className="mx-auto mt-1 text-xs sm:text-sm text-slate-500 font-normal">
-                  Pick up where you left off.
-                </p>
+                {/* MOBILE / TABLET STACKED LAYOUT (visible on mobile, hidden on lg+) */}
+                <div className="block lg:hidden w-full">
+                  {/* Compact Hero Banner */}
+                  <div className="relative h-36 w-full overflow-hidden p-5 flex flex-col justify-between text-white text-left">
+                    <Image
+                      src="/images/auth-artwork.webp"
+                      alt="UnBound X"
+                      fill
+                      priority
+                      className="object-cover -z-10"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#06122b]/95 via-[#0b214a]/88 to-[#1e0d3b]/92 -z-10" />
 
-                {/* Status & Error Alerts */}
-                {oauthError && (
-                  <div
-                    role="alert"
-                    className="mt-3.5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-left text-xs leading-relaxed text-amber-900"
-                  >
-                    <p className="font-semibold flex items-center gap-1.5 mb-0.5">
-                      <AlertCircle className="size-3.5 text-amber-700 shrink-0" />
-                      Notice
-                    </p>
-                    <p>{parseErrorMessage(oauthError)}</p>
-                  </div>
-                )}
-
-                {formError && (
-                  <div
-                    role="alert"
-                    className="mt-3.5 rounded-xl border border-red-200 bg-red-50/90 p-3 text-left text-xs leading-relaxed text-red-700 flex items-start gap-2"
-                  >
-                    <AlertCircle className="size-4 text-red-600 shrink-0 mt-0.5" />
-                    <span>{parseErrorMessage(formError)}</span>
-                  </div>
-                )}
-
-                {formSuccess ? (
-                  <div
-                    role="status"
-                    className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50/90 p-4 text-center"
-                  >
-                    <CheckCircle2 className="size-8 text-emerald-600 mx-auto mb-2" />
-                    <p className="text-sm font-semibold text-emerald-900">{parseErrorMessage(formSuccess)}</p>
-                  </div>
-                ) : otpStep ? (
-                  /* OTP Verification Screen */
-                  <form onSubmit={handleVerifyOtp} className="mt-5 text-left space-y-4">
-                    {otpMessage && (
-                      <div className="rounded-xl border border-blue-200 bg-blue-50/90 p-3 text-xs leading-relaxed text-blue-900 flex items-start gap-2">
-                        <Info className="size-4 text-blue-600 shrink-0 mt-0.5" />
-                        <span>{otpMessage}</span>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Image src="/logo/unboundx-mark.png" alt="UnBound X" width={24} height={24} className="rounded-full" />
+                        <span className="font-bold text-xs tracking-wide">UnBound X</span>
                       </div>
-                    )}
+                      <span className="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+                        <ShieldCheck className="size-3" /> Secure Auth
+                      </span>
+                    </div>
 
                     <div>
-                      <label htmlFor="login-otp-code" className="block text-xs font-semibold text-slate-700 mb-1">
-                        Enter 6-digit confirmation code <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        id="login-otp-code"
-                        type="text"
-                        inputMode="numeric"
-                        autoComplete="one-time-code"
-                        maxLength={8}
-                        placeholder="123456"
-                        value={otpCode}
-                        disabled={isSubmitting}
-                        autoFocus
-                        onChange={(e) => {
-                          setOtpCode(e.target.value.replace(/\D/g, ""));
-                          if (formError) setFormError(null);
-                        }}
-                        className="w-full h-12 rounded-xl border border-slate-200/90 bg-white px-3.5 text-center text-xl tracking-[0.28em] font-mono font-bold text-slate-900 placeholder:tracking-normal placeholder:font-sans placeholder:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
-                      />
-                      <p className="mt-1.5 text-xs text-slate-500">
-                        Code sent to <span className="font-semibold text-slate-700">{otpDestination}</span>
-                        {otpType === "email" ? " (check your inbox/spam)" : " via SMS"}
+                      <h2 className="text-xl font-extrabold tracking-tight">
+                        {flow === "signup" ? "Join UnBound X" : "Welcome Back"}
+                      </h2>
+                      <p className="text-[11px] text-slate-200 truncate">
+                        {flow === "signup"
+                          ? "Start building your verified track record"
+                          : "Pick up where you left off"}
                       </p>
                     </div>
+                  </div>
 
-                    <button
-                      type="submit"
-                      disabled={isSubmitting || otpCode.length < 4}
-                      className="w-full h-11 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-sm hover:shadow flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
-                    >
-                      {isSubmitting ? (
-                        <span className="flex items-center gap-2">
-                          <Loader2 className="size-4 animate-spin text-white" /> Verifying Code...
-                        </span>
+                  {/* Mobile Segmented Toggle */}
+                  <div className="px-5 pt-4">
+                    <div className="flex rounded-xl bg-slate-100 p-1 border border-slate-200/60">
+                      <button
+                        type="button"
+                        onClick={() => navigateFlow("login")}
+                        className={`flex-1 py-1.5 text-xs rounded-lg transition-all font-semibold cursor-pointer ${
+                          flow === "login"
+                            ? "bg-white text-slate-900 shadow-2xs"
+                            : "text-slate-500 hover:text-slate-800"
+                        }`}
+                      >
+                        Sign In
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => navigateFlow("signup")}
+                        className={`flex-1 py-1.5 text-xs rounded-lg transition-all font-semibold cursor-pointer ${
+                          flow === "signup"
+                            ? "bg-white text-slate-900 shadow-2xs"
+                            : "text-slate-500 hover:text-slate-800"
+                        }`}
+                      >
+                        Sign Up
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Mobile Active Form Container */}
+                  <div className="p-5 sm:p-6 text-left">
+                    <AnimatePresence mode="wait">
+                      {flow === "signup" ? (
+                        <motion.div
+                          key="mobile-signup"
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -8 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {renderSignupForm()}
+                        </motion.div>
                       ) : (
-                        "Verify & Log In"
+                        <motion.div
+                          key="mobile-login"
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -8 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {renderLoginForm()}
+                        </motion.div>
                       )}
-                    </button>
-
-                    <div className="flex items-center justify-between text-xs pt-1">
-                      <button
-                        type="button"
-                        disabled={otpSending}
-                        onClick={handleResendOtp}
-                        className="text-blue-600 font-semibold hover:underline cursor-pointer disabled:opacity-50"
-                      >
-                        {otpSending ? "Resending..." : "Resend Code"}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setOtpStep(false);
-                          setFormError(null);
-                          setOtpMessage(null);
-                        }}
-                        className="text-slate-500 hover:text-slate-800 underline cursor-pointer"
-                      >
-                        Back to Password Login
-                      </button>
-                    </div>
-                  </form>
-                ) : (
-                  <form onSubmit={handleLoginSubmit} autoComplete="on" className="mt-5 text-left space-y-3.5">
-                    {/* Auth Mode Toggle */}
-                    <div className="flex rounded-xl bg-slate-100/90 p-1 border border-slate-200/60 mb-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setLoginMode("email");
-                          if (formError) setFormError(null);
-                        }}
-                        className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
-                          loginMode === "email"
-                            ? "bg-white text-slate-900 shadow-2xs font-semibold"
-                            : "text-slate-500 hover:text-slate-800 font-medium"
-                        }`}
-                      >
-                        Email
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setLoginMode("phone");
-                          if (formError) setFormError(null);
-                        }}
-                        className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
-                          loginMode === "phone"
-                            ? "bg-white text-slate-900 shadow-2xs font-semibold"
-                            : "text-slate-500 hover:text-slate-800 font-medium"
-                        }`}
-                      >
-                        Phone Number
-                      </button>
-                    </div>
-
-                    {loginMode === "email" ? (
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <label
-                            htmlFor="login-identifier"
-                            className="block text-xs font-semibold text-slate-700"
-                          >
-                            Email address <span className="text-red-500">*</span>
-                          </label>
-                          {identifier.trim().length >= 5 && identifier.includes("@") && (
-                            <button
-                              type="button"
-                              disabled={otpSending}
-                              onClick={handleSendOtp}
-                              className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
-                            >
-                              {otpSending ? "Sending OTP..." : "Sign in with Email OTP →"}
-                            </button>
-                          )}
-                        </div>
-                        <input
-                          id="login-identifier"
-                          type="email"
-                          autoComplete="username"
-                          value={identifier}
-                          disabled={isSubmitting}
-                          onChange={(e) => {
-                            setIdentifier(e.target.value);
-                            if (formError) setFormError(null);
-                          }}
-                          placeholder="you@example.com"
-                          required
-                          className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
-                        />
-                        <div className="flex justify-end mt-1.5">
-                          <button
-                            type="button"
-                            onClick={() => navigateFlow("recover")}
-                            className="text-[11px] sm:text-xs text-blue-600 font-medium hover:underline cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 rounded"
-                          >
-                            Forgot your email?
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <label
-                            htmlFor="login-phone"
-                            className="block text-xs font-semibold text-slate-700"
-                          >
-                            Phone number <span className="text-red-500">*</span>
-                          </label>
-                          {loginPhone.trim().length >= 7 && (
-                            <button
-                              type="button"
-                              disabled={otpSending}
-                              onClick={handleSendOtp}
-                              className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
-                            >
-                              {otpSending ? "Sending OTP..." : "Sign in with SMS OTP →"}
-                            </button>
-                          )}
-                        </div>
-                        <PhoneInput
-                          id="login-phone"
-                          value={loginPhone}
-                          defaultCountryCode="IN"
-                          onChange={(val, e164) => {
-                            setLoginPhone(val);
-                            setLoginPhoneE164(e164);
-                            if (formError) setFormError(null);
-                          }}
-                        />
-                        <div className="flex justify-end mt-1.5">
-                          <button
-                            type="button"
-                            onClick={() => navigateFlow("recover")}
-                            className="text-[11px] sm:text-xs text-blue-600 font-medium hover:underline cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 rounded"
-                          >
-                            Forgot your phone number?
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    <div>
-                      <label
-                        htmlFor="login-password"
-                        className="block text-xs font-semibold text-slate-700 mb-1"
-                      >
-                        Password <span className="text-red-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <input
-                          id="login-password"
-                          type={showPassword ? "text" : "password"}
-                          autoComplete="current-password"
-                          value={password}
-                          disabled={isSubmitting}
-                          onChange={(e) => {
-                            setPassword(e.target.value);
-                            if (formError) setFormError(null);
-                          }}
-                          placeholder="Enter your password"
-                          required
-                          className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          aria-label={showPassword ? "Hide password" : "Show password"}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
-                        >
-                          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                        </button>
-                      </div>
-                      <div className="flex justify-end mt-1.5">
-                        <button
-                          type="button"
-                          onClick={() => navigateFlow("reset", { step: "request" })}
-                          className="text-[11px] sm:text-xs text-blue-600 font-medium hover:underline cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 rounded"
-                        >
-                          Forgot password?
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Submit Log In */}
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full h-11 mt-3 inline-flex items-center justify-center rounded-full bg-[#1677ff] hover:bg-blue-600 text-white text-sm font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-                    >
-                      {isSubmitting ? (
-                        <span className="flex items-center gap-2">
-                          <Loader2 className="size-4 animate-spin text-white" /> Signing in...
-                        </span>
-                      ) : (
-                        "Log in"
-                      )}
-                    </button>
-                  </form>
-                )}
-
-                {/* Divider */}
-                <div className="my-4 flex items-center gap-4">
-                  <div className="h-px flex-1 bg-slate-200" />
-                  <span className="text-xs font-normal text-slate-400 select-none">or</span>
-                  <div className="h-px flex-1 bg-slate-200" />
-                </div>
-
-                {/* Social Login 2-Column Grid */}
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => handleOAuth("google")}
-                    disabled={loadingProvider !== null || isSubmitting}
-                    aria-label="Continue with Google"
-                    className="h-11 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200/90 bg-white/95 px-4 text-sm font-medium text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
-                  >
-                    {loadingProvider === "google" ? (
-                      <Loader2 className="size-4 animate-spin text-blue-600" />
-                    ) : (
-                      <GoogleIcon />
-                    )}
-                    <span>Google</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleOAuth("apple")}
-                    disabled={loadingProvider !== null || isSubmitting}
-                    aria-label="Continue with Apple"
-                    className="h-11 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200/90 bg-white/95 px-4 text-sm font-medium text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
-                  >
-                    {loadingProvider === "apple" ? (
-                      <Loader2 className="size-4 animate-spin text-blue-600" />
-                    ) : (
-                      <AppleIcon />
-                    )}
-                    <span>Apple</span>
-                  </button>
-                </div>
-
-                {/* Footer Switch */}
-                <p className="mt-6 text-xs sm:text-sm text-slate-500">
-                  Don&apos;t have an account?{" "}
-                  <button
-                    type="button"
-                    onClick={() => navigateFlow("signup")}
-                    className="font-bold text-blue-600 hover:underline cursor-pointer"
-                  >
-                    Sign up
-                  </button>
-                </p>
-              </motion.div>
-            )}
-
-            {/* 2. SIGNUP VIEW */}
-            {flow === "signup" && !signupEmailMode && (
-              <motion.div
-                key="flow-signup-landing"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.22 }}
-              >
-                <div className="relative mx-auto mb-4 grid h-16 w-16 sm:h-20 sm:w-20 place-items-center">
-                  <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-full overflow-hidden shadow-[0_16px_40px_rgba(168,85,247,0.22)] border border-white/80 bg-white">
-                    <Image
-                      src="/logo/unboundx-mark.png"
-                      width={80}
-                      height={80}
-                      alt={site.name}
-                      className="h-full w-full object-cover rounded-full"
-                      priority
-                    />
+                    </AnimatePresence>
                   </div>
                 </div>
-
-                <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                  Join UnBound X
-                </h1>
-                <p className="mx-auto mt-2 max-w-[340px] text-xs sm:text-sm leading-relaxed text-slate-500">
-                  Discover better investment ideas, track them against the market, and invest with more clarity.
-                </p>
-
-                {oauthError && (
-                  <div
-                    role="alert"
-                    className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-left text-xs leading-relaxed text-amber-900"
-                  >
-                    <p className="font-semibold flex items-center gap-1.5 mb-0.5">
-                      <AlertCircle className="size-3.5 text-amber-700 shrink-0" />
-                      Notice
-                    </p>
-                    <p>{parseErrorMessage(oauthError)}</p>
-                  </div>
-                )}
-
-                {/* Social Buttons */}
-                <div className="mt-6 space-y-3">
-                  <button
-                    type="button"
-                    onClick={() => handleOAuth("google")}
-                    disabled={loadingProvider !== null}
-                    aria-label="Continue with Google"
-                    className="w-full h-11 sm:h-12 inline-flex items-center justify-center gap-3 rounded-full border border-slate-200/90 bg-white/95 px-6 text-sm font-medium text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
-                  >
-                    {loadingProvider === "google" ? (
-                      <Loader2 className="size-4 animate-spin text-blue-600" />
-                    ) : (
-                      <GoogleIcon />
-                    )}
-                    <span>Continue with Google</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleOAuth("apple")}
-                    disabled={loadingProvider !== null}
-                    aria-label="Continue with Apple"
-                    className="w-full h-11 sm:h-12 inline-flex items-center justify-center gap-3 rounded-full border border-slate-200/90 bg-white/95 px-6 text-sm font-medium text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
-                  >
-                    {loadingProvider === "apple" ? (
-                      <Loader2 className="size-4 animate-spin text-blue-600" />
-                    ) : (
-                      <AppleIcon />
-                    )}
-                    <span>Continue with Apple</span>
-                  </button>
-                </div>
-
-                {/* Divider */}
-                <div className="my-4 flex items-center gap-4">
-                  <div className="h-px flex-1 bg-slate-200" />
-                  <span className="text-xs font-normal text-slate-400">or</span>
-                  <div className="h-px flex-1 bg-slate-200" />
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setSignupEmailMode(true)}
-                  className="w-full h-11 sm:h-12 inline-flex items-center justify-center rounded-full bg-[#1677ff] hover:bg-blue-600 text-white text-sm font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer"
-                >
-                  Continue with email or phone
-                </button>
-
-                <p className="mt-5 text-xs leading-relaxed text-slate-400">
-                  By continuing, you agree to our{" "}
-                  <TransitionLink href="/legal/terms-condition" className="font-semibold text-blue-600 hover:underline">
-                    Terms
-                  </TransitionLink>{" "}
-                  and acknowledge our{" "}
-                  <TransitionLink href="/legal/privacy-policy" className="font-semibold text-blue-600 hover:underline">
-                    Privacy Policy
-                  </TransitionLink>
-                  .
-                </p>
-
-                <p className="mt-4 text-xs sm:text-sm text-slate-500">
-                  Already have an account?{" "}
-                  <button
-                    type="button"
-                    onClick={() => navigateFlow("login")}
-                    className="font-bold text-blue-600 hover:underline cursor-pointer"
-                  >
-                    Log in
-                  </button>
-                </p>
-              </motion.div>
-            )}
-
-            {/* 2b. SIGNUP EMAIL REGISTRATION FORM */}
-            {flow === "signup" && signupEmailMode && (
-              <motion.div
-                key="flow-signup-form"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.22 }}
-                className="text-left"
-              >
-                <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 text-center">
-                  Create your account
-                </h1>
-                <p className="mt-1 text-xs sm:text-sm text-slate-500 text-center leading-relaxed">
-                  Enter your credentials to create your UnBound X account.
-                </p>
-
-                {formError && (
-                  <div
-                    role="alert"
-                    className="mt-4 rounded-xl border border-red-200 bg-red-50/90 p-3 text-xs leading-relaxed text-red-700 flex items-start gap-2"
-                  >
-                    <AlertCircle className="size-4 text-red-600 shrink-0 mt-0.5" />
-                    <span>{parseErrorMessage(formError)}</span>
-                  </div>
-                )}
-
-                {formSuccess ? (
-                  <div
-                    role="status"
-                    className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-center"
-                  >
-                    <CheckCircle2 className="size-8 text-emerald-600 mx-auto mb-2" />
-                    <p className="text-sm font-semibold text-emerald-900">{parseErrorMessage(formSuccess)}</p>
-                    <button
-                      type="button"
-                      onClick={() => navigateFlow("login")}
-                      className="mt-4 inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-2 text-xs font-semibold text-white hover:bg-blue-700"
-                    >
-                      Return to Log in
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSignupSubmit} autoComplete="on" className="mt-5 space-y-3.5">
-                    {/* Signup Mode Toggle */}
-                    <div className="flex rounded-xl bg-slate-100/90 p-1 border border-slate-200/60 mb-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSignupMode("email");
-                          if (formError) setFormError(null);
-                        }}
-                        className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
-                          signupMode === "email"
-                            ? "bg-white text-slate-900 shadow-2xs font-semibold"
-                            : "text-slate-500 hover:text-slate-800 font-medium"
-                        }`}
-                      >
-                        Email
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSignupMode("phone");
-                          if (formError) setFormError(null);
-                        }}
-                        className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
-                          signupMode === "phone"
-                            ? "bg-white text-slate-900 shadow-2xs font-semibold"
-                            : "text-slate-500 hover:text-slate-800 font-medium"
-                        }`}
-                      >
-                        Phone Number
-                      </button>
-                    </div>
-
-                    {signupMode === "email" ? (
-                      <div>
-                        <label htmlFor="signup-email" className="block text-xs font-semibold text-slate-700 mb-1">
-                          Email address <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          id="signup-email"
-                          type="email"
-                          autoComplete="username"
-                          value={identifier}
-                          disabled={isSubmitting}
-                          onChange={(e) => {
-                            setIdentifier(e.target.value);
-                            if (formError) setFormError(null);
-                          }}
-                          placeholder="you@example.com"
-                          required
-                          className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
-                        />
-                      </div>
-                    ) : (
-                      <div>
-                        <label htmlFor="signup-phone" className="block text-xs font-semibold text-slate-700 mb-1">
-                          Phone number <span className="text-red-500">*</span>
-                        </label>
-                        <PhoneInput
-                          id="signup-phone"
-                          value={signupPhone}
-                          defaultCountryCode="IN"
-                          onChange={(val, e164) => {
-                            setSignupPhone(val);
-                            setSignupPhoneE164(e164);
-                            if (formError) setFormError(null);
-                          }}
-                        />
-                      </div>
-                    )}
-
-                    <div>
-                      <label htmlFor="signup-password" className="block text-xs font-semibold text-slate-700 mb-1">
-                        Password <span className="text-red-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <input
-                          id="signup-password"
-                          type={showPassword ? "text" : "password"}
-                          autoComplete="new-password"
-                          value={password}
-                          disabled={isSubmitting}
-                          onChange={(e) => {
-                            setPassword(e.target.value);
-                            if (formError) setFormError(null);
-                          }}
-                          placeholder="Min. 8 characters"
-                          required
-                          className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          aria-label={showPassword ? "Hide password" : "Show password"}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
-                        >
-                          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                        </button>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="signup-confirm" className="block text-xs font-semibold text-slate-700 mb-1">
-                        Confirm password <span className="text-red-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <input
-                          id="signup-confirm"
-                          type={showConfirmPassword ? "text" : "password"}
-                          autoComplete="new-password"
-                          value={confirmPassword}
-                          disabled={isSubmitting}
-                          onChange={(e) => {
-                            setConfirmPassword(e.target.value);
-                            if (formError) setFormError(null);
-                          }}
-                          placeholder="Re-enter your password"
-                          required
-                          className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
-                        >
-                          {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-2 pt-1">
-                      <input
-                        id="signup-agreed"
-                        type="checkbox"
-                        checked={agreedToTerms}
-                        onChange={(e) => setAgreedToTerms(e.target.checked)}
-                        className="mt-0.5 size-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                        required
-                      />
-                      <label htmlFor="signup-agreed" className="text-xs text-slate-500 leading-snug">
-                        I agree to the{" "}
-                        <TransitionLink href="/legal/terms-condition" className="text-blue-600 hover:underline">
-                          Terms of Use
-                        </TransitionLink>{" "}
-                        and{" "}
-                        <TransitionLink href="/legal/privacy-policy" className="text-blue-600 hover:underline">
-                          Privacy Policy
-                        </TransitionLink>
-                        .
-                      </label>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full h-11 mt-4 inline-flex items-center justify-center rounded-full bg-[#1677ff] hover:bg-blue-600 text-white text-sm font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer disabled:opacity-60"
-                    >
-                      {isSubmitting ? (
-                        <span className="flex items-center gap-2">
-                          <Loader2 className="size-4 animate-spin text-white" /> Creating account...
-                        </span>
-                      ) : (
-                        "Create Account"
-                      )}
-                    </button>
-                  </form>
-                )}
-
-                <p className="mt-4 text-center text-xs sm:text-sm text-slate-500">
-                  Already have an account?{" "}
-                  <button
-                    type="button"
-                    onClick={() => navigateFlow("login")}
-                    className="font-bold text-blue-600 hover:underline cursor-pointer"
-                  >
-                    Log in
-                  </button>
-                </p>
               </motion.div>
             )}
 
@@ -2116,10 +2322,10 @@ function GoogleIcon() {
   );
 }
 
-function AppleIcon() {
+function FacebookIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="shrink-0 text-slate-900">
-      <path d="M17.05 12.54c-.02-2.16 1.76-3.2 1.84-3.25a3.94 3.94 0 0 0-3.12-1.69c-1.32-.14-2.58.79-3.25.79-.68 0-1.71-.77-2.81-.75a4.14 4.14 0 0 0-3.5 2.13c-1.5 2.6-.38 6.43 1.07 8.53.71 1.03 1.54 2.18 2.64 2.14 1.06-.04 1.46-.69 2.75-.69 1.28 0 1.65.69 2.76.67 1.14-.02 1.86-1.04 2.55-2.07.8-1.16 1.13-2.29 1.15-2.35-.03-.01-2.2-.84-2.23-3.46ZM14.92 6.2a3.86 3.86 0 0 0 .88-2.77 3.93 3.93 0 0 0-2.54 1.31 3.68 3.68 0 0 0-.91 2.66 3.25 3.25 0 0 0 2.57-1.2Z" />
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true" className="shrink-0">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
     </svg>
   );
 }

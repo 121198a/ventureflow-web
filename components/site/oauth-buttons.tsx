@@ -15,19 +15,11 @@ export function OAuthButtons({
   onError,
   className = "",
 }: OAuthButtonsProps) {
-  const [loadingProvider, setLoadingProvider] = useState<"google" | "apple" | null>(null);
+  const [loadingProvider, setLoadingProvider] = useState<"google" | "facebook" | null>(null);
   const [localError, setLocalError] = useState<string | null>(null);
 
-  const handleOAuth = async (provider: "google" | "apple") => {
+  const handleOAuth = async (provider: "google" | "facebook") => {
     setLocalError(null);
-
-    if (provider === "apple") {
-      const appleMsg = "Apple Sign-In is currently unavailable. Please use Google or email to continue.";
-      setLocalError(appleMsg);
-      if (onError) onError(appleMsg);
-      return;
-    }
-
     setLoadingProvider(provider);
 
     try {
@@ -37,7 +29,7 @@ export function OAuthButtons({
         if (onError) onError(result.error);
       }
     } catch {
-      const fallbackMsg = "Unable to connect to Google sign-in. Please try again or use email.";
+      const fallbackMsg = `Unable to connect to ${provider === "google" ? "Google" : "Facebook"} sign-in. Please try again or use email.`;
       setLocalError(fallbackMsg);
       if (onError) onError(fallbackMsg);
     } finally {
@@ -95,19 +87,19 @@ export function OAuthButtons({
 
         <button
           type="button"
-          onClick={() => handleOAuth("apple")}
+          onClick={() => handleOAuth("facebook")}
           disabled={loadingProvider !== null}
-          aria-label="Continue with Apple"
+          aria-label="Continue with Facebook"
           className={socialBtn}
         >
-          {loadingProvider === "apple" ? (
+          {loadingProvider === "facebook" ? (
             <Loader2 className={`${iconSize} animate-spin text-brand`} />
           ) : (
-            <svg viewBox="0 0 24 24" className="size-[clamp(1.2rem,1.5vw,1.6rem)] shrink-0" fill="currentColor" aria-hidden>
-              <path d="M17.05 12.04c-.03-2.7 2.2-4 2.3-4.06-1.26-1.84-3.22-2.1-3.92-2.13-1.67-.17-3.26.98-4.1.98-.85 0-2.15-.96-3.54-.93-1.82.03-3.5 1.06-4.44 2.68-1.9 3.29-.49 8.15 1.36 10.82.9 1.31 1.98 2.78 3.39 2.73 1.36-.05 1.87-.88 3.52-.88 1.63 0 2.11.88 3.55.85 1.47-.02 2.4-1.33 3.29-2.65 1.04-1.52 1.47-3 1.49-3.07-.03-.02-2.85-1.1-2.88-4.34ZM14.4 4.02c.75-.9 1.25-2.16 1.11-3.42-1.08.04-2.38.72-3.16 1.61-.7.79-1.31 2.07-1.15 3.29 1.19.09 2.42-.6 3.2-1.48Z" />
+            <svg viewBox="0 0 24 24" className="size-[clamp(1.2rem,1.5vw,1.6rem)] shrink-0" fill="#1877F2" aria-hidden>
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
             </svg>
           )}
-          <span>Continue with Apple</span>
+          <span>Continue with Facebook</span>
         </button>
       </div>
     </div>
