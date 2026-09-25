@@ -117,6 +117,13 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   // Reset form fields
   const [resetToken, setResetToken] = useState(tokenParam);
 
+  // Phone OTP Flow states
+  const [otpStep, setOtpStep] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+  const [otpSentPhone, setOtpSentPhone] = useState("");
+  const [otpSending, setOtpSending] = useState(false);
+  const [otpMessage, setOtpMessage] = useState<string | null>(null);
+
   // Feedback states
   const [formError, setFormError] = useState<string | null>(null);
   const [formSuccess, setFormSuccess] = useState<string | null>(null);
@@ -226,6 +233,14 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
+        if (data.requiresOtp) {
+          setOtpSentPhone(data.phone || cleanIdentifier);
+          setOtpStep(true);
+          setOtpMessage(data.error || "Phone not confirmed. A 6-digit verification code has been sent to your phone.");
+          setFormError(null);
+          return;
+        }
+
         setFormError(
           res.status === 429
             ? "Too many login attempts. Please wait a few minutes before trying again."
@@ -256,6 +271,131 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
       setFormError("A network error occurred. Please check your internet connection and try again.");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // Direct OTP Send handler (for SMS login)
+  const handleSendOtp = async () => {
+    const cleanId = identifier.trim();
+    if (!cleanId || cleanId.replace(/\D/g, "").length < 7) {
+      setFormError("Please enter your 10-digit phone number first.");
+      return;
+    }
+
+    setOtpSending(true);
+    setFormError(null);
+    setOtpMessage(null);
+
+    try {
+      const res = await fetch("/api/auth/otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "send",
+          phone: cleanId,
+          role,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.success) {
+        setFormError(parseErrorMessage(data.error, "Failed to send verification code. Please try again."));
+        return;
+      }
+
+      setOtpSentPhone(data.phone || cleanId);
+      setOtpStep(true);
+      setOtpMessage(data.message || `Verification code sent to ${data.phone || cleanId}.`);
+    } catch {
+      setFormError("Network error while sending verification code. Please try again.");
+    } finally {
+      setOtpSending(false);
+    }
+  };
+
+  // Verify OTP submission handler
+  const handleVerifyOtp = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!otpCode.trim() || otpCode.trim().length < 4) {
+      setFormError("Please enter the 6-digit verification code.");
+      return;
+    }
+
+    setFormError(null);
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch("/api/auth/otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "verify",
+          phone: otpSentPhone,
+          token: otpCode.trim(),
+          role,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.success) {
+        setFormError(parseErrorMessage(data.error || data.message, "Invalid or expired verification code."));
+        return;
+      }
+
+      if (data.session) {
+        try {
+          const { supabase } = await import("@/lib/supabase/client");
+          await supabase.auth.setSession({
+            access_token: data.session.access_token,
+            refresh_token: data.session.refresh_token,
+          });
+        } catch {
+          // Non-blocking
+        }
+      }
+
+      setFormSuccess("Phone verified successfully! Redirecting to your dashboard...");
+      const destination = getDestinationUrl(data.user?.role);
+      setTimeout(() => {
+        window.location.assign(destination);
+      }, 500);
+    } catch {
+      setFormError("A network error occurred. Please check your internet connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    if (!otpSentPhone) return;
+    setOtpSending(true);
+    setFormError(null);
+
+    try {
+      const res = await fetch("/api/auth/otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "send",
+          phone: otpSentPhone,
+          role,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.success) {
+        setFormError(parseErrorMessage(data.error, "Unable to resend verification code. Please try again."));
+        return;
+      }
+
+      setOtpMessage("A new 6-digit verification code has been dispatched via SMS.");
+    } catch {
+      setFormError("Network error while resending verification code.");
+    } finally {
+      setOtpSending(false);
     }
   };
 
@@ -688,15 +828,99 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                     <CheckCircle2 className="size-8 text-emerald-600 mx-auto mb-2" />
                     <p className="text-sm font-semibold text-emerald-900">{parseErrorMessage(formSuccess)}</p>
                   </div>
+                ) : otpStep ? (
+                  /* OTP Verification Screen */
+                  <form onSubmit={handleVerifyOtp} className="mt-5 text-left space-y-4">
+                    {otpMessage && (
+                      <div className="rounded-xl border border-blue-200 bg-blue-50/90 p-3 text-xs leading-relaxed text-blue-900 flex items-start gap-2">
+                        <Info className="size-4 text-blue-600 shrink-0 mt-0.5" />
+                        <span>{otpMessage}</span>
+                      </div>
+                    )}
+
+                    <div>
+                      <label htmlFor="login-otp-code" className="block text-xs font-semibold text-slate-700 mb-1">
+                        Enter 6-digit confirmation code <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="login-otp-code"
+                        type="text"
+                        inputMode="numeric"
+                        autoComplete="one-time-code"
+                        maxLength={8}
+                        placeholder="123456"
+                        value={otpCode}
+                        disabled={isSubmitting}
+                        autoFocus
+                        onChange={(e) => {
+                          setOtpCode(e.target.value.replace(/\D/g, ""));
+                          if (formError) setFormError(null);
+                        }}
+                        className="w-full h-12 rounded-xl border border-slate-200/90 bg-white px-3.5 text-center text-xl tracking-[0.28em] font-mono font-bold text-slate-900 placeholder:tracking-normal placeholder:font-sans placeholder:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+                      />
+                      <p className="mt-1.5 text-xs text-slate-500">
+                        Code sent to <span className="font-semibold text-slate-700">{otpSentPhone}</span>
+                      </p>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || otpCode.length < 4}
+                      className="w-full h-11 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-sm hover:shadow flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="size-4 animate-spin" />
+                          Verifying Code...
+                        </>
+                      ) : (
+                        "Verify & Log In"
+                      )}
+                    </button>
+
+                    <div className="flex items-center justify-between text-xs pt-1">
+                      <button
+                        type="button"
+                        disabled={otpSending}
+                        onClick={handleResendOtp}
+                        className="text-blue-600 font-semibold hover:underline cursor-pointer disabled:opacity-50"
+                      >
+                        {otpSending ? "Resending..." : "Resend Code"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setOtpStep(false);
+                          setFormError(null);
+                          setOtpMessage(null);
+                        }}
+                        className="text-slate-500 hover:text-slate-800 underline cursor-pointer"
+                      >
+                        Back to Password Login
+                      </button>
+                    </div>
+                  </form>
                 ) : (
                   <form onSubmit={handleLoginSubmit} autoComplete="on" className="mt-5 text-left space-y-3.5">
                     <div>
-                      <label
-                        htmlFor="login-identifier"
-                        className="block text-xs font-semibold text-slate-700 mb-1"
-                      >
-                        Email or Phone number <span className="text-red-500">*</span>
-                      </label>
+                      <div className="flex items-center justify-between mb-1">
+                        <label
+                          htmlFor="login-identifier"
+                          className="block text-xs font-semibold text-slate-700"
+                        >
+                          Email or Phone number <span className="text-red-500">*</span>
+                        </label>
+                        {identifier.replace(/\D/g, "").length >= 7 && !identifier.includes("@") && (
+                          <button
+                            type="button"
+                            disabled={otpSending}
+                            onClick={handleSendOtp}
+                            className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
+                          >
+                            {otpSending ? "Sending OTP..." : "Sign in with SMS OTP →"}
+                          </button>
+                        )}
+                      </div>
                       <input
                         id="login-identifier"
                         type="text"

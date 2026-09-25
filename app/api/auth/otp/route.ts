@@ -5,9 +5,23 @@ import { checkRateLimit, resetRateLimit, getClientIp } from "@/lib/rate-limit";
 import { signSessionToken } from "@/lib/crypto";
 
 function formatToE164(phone: string): string {
-  const digits = phone.replace(/[^\d+]/g, "");
-  if (digits.startsWith("+")) return digits;
-  if (digits.length === 10) return `+1${digits}`;
+  const clean = phone.trim();
+  if (clean.startsWith("+")) {
+    return `+${clean.replace(/[^\d]/g, "")}`;
+  }
+  const digits = clean.replace(/[^\d]/g, "");
+  if (digits.length === 12 && digits.startsWith("91")) {
+    return `+${digits}`;
+  }
+  if (digits.length === 11 && digits.startsWith("1")) {
+    return `+${digits}`;
+  }
+  if (digits.length === 10) {
+    if (/^[6-9]/.test(digits)) {
+      return `+91${digits}`;
+    }
+    return `+1${digits}`;
+  }
   return `+${digits}`;
 }
 
@@ -124,17 +138,42 @@ export async function POST(request: Request) {
         );
       }
 
-      const cleanPhone = formatToE164(parsed.data.phone);
       const token = parsed.data.token;
       const role = parsed.data.role;
 
-      const { data, error } = await supabase.auth.verifyOtp({
-        phone: cleanPhone,
-        token,
-        type: "sms",
-      });
+      const rawDigits = parsed.data.phone.replace(/[^\d]/g, "");
+      const candidates = [
+        formatToE164(parsed.data.phone),
+        parsed.data.phone.startsWith("+") ? parsed.data.phone : `+${rawDigits}`,
+        rawDigits.length === 10 ? `+91${rawDigits}` : null,
+        rawDigits.length === 10 ? `+1${rawDigits}` : null,
+        rawDigits,
+      ].filter((c): c is string => Boolean(c));
 
-      if (error || !data.user) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let data: any = null;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let error: any = null;
+      let verifiedPhone: string = formatToE164(parsed.data.phone);
+
+      for (const phoneCand of Array.from(new Set(candidates))) {
+        const result = await supabase.auth.verifyOtp({
+          phone: phoneCand,
+          token,
+          type: "sms",
+        });
+
+        if (result.data?.user) {
+          data = result.data;
+          error = null;
+          verifiedPhone = phoneCand;
+          break;
+        }
+
+        error = result.error;
+      }
+
+      if (error || !data?.user) {
         return NextResponse.json(
           { success: false, error: error?.message || "Invalid or expired verification code." },
           { status: 400 }
@@ -154,7 +193,7 @@ export async function POST(request: Request) {
         message: "Phone verified successfully. Session established.",
         user: {
           id: data.user.id,
-          phone: data.user.phone || cleanPhone,
+          phone: data.user.phone || verifiedPhone,
           role: verifiedRole,
         },
         session: data.session,
@@ -162,7 +201,7 @@ export async function POST(request: Request) {
 
       const vfToken = await signSessionToken({
         id: data.user.id,
-        phone: data.user.phone || cleanPhone,
+        phone: data.user.phone || verifiedPhone,
         role: verifiedRole,
       });
 
@@ -177,7 +216,7 @@ export async function POST(request: Request) {
       res.cookies.set("vf_auth", "1", { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
       res.cookies.set(
         "vf_user",
-        JSON.stringify({ id: data.user.id, phone: data.user.phone || cleanPhone, role: verifiedRole }),
+        JSON.stringify({ id: data.user.id, phone: data.user.phone || verifiedPhone, role: verifiedRole }),
         { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" }
       );
 

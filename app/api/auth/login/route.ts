@@ -9,9 +9,23 @@ const isEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
 const isPhone = (val: string) => /^\+?[0-9\s\-()]{7,25}$/.test(val);
 
 function formatToE164(phone: string): string {
-  const digits = phone.replace(/[^\d+]/g, "");
-  if (digits.startsWith("+")) return digits;
-  if (digits.length === 10) return `+1${digits}`;
+  const clean = phone.trim();
+  if (clean.startsWith("+")) {
+    return `+${clean.replace(/[^\d]/g, "")}`;
+  }
+  const digits = clean.replace(/[^\d]/g, "");
+  if (digits.length === 12 && digits.startsWith("91")) {
+    return `+${digits}`;
+  }
+  if (digits.length === 11 && digits.startsWith("1")) {
+    return `+${digits}`;
+  }
+  if (digits.length === 10) {
+    if (/^[6-9]/.test(digits)) {
+      return `+91${digits}`;
+    }
+    return `+1${digits}`;
+  }
   return `+${digits}`;
 }
 
@@ -156,25 +170,85 @@ export async function POST(request: Request) {
         const { supabase } = await import("@/lib/supabase/client");
         const isEmailAddress = isEmail(email) && !isPhone(email);
         const cleanPhone = !isEmailAddress ? formatToE164(email) : null;
-        const { data, error } = await supabase.auth.signInWithPassword(
-          isEmailAddress
-            ? { email, password: parsed.data.password }
-            : { phone: cleanPhone || email, password: parsed.data.password }
-        );
 
-        if (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let data: any = null;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let authError: any = null;
+        let matchedPhone: string = cleanPhone || email;
+
+        if (isEmailAddress) {
+          const res = await supabase.auth.signInWithPassword({
+            email,
+            password: parsed.data.password,
+          });
+          data = res.data;
+          authError = res.error;
+        } else {
+          // Robust candidate checking: handles E.164 (+91, +1), local numbers, and raw digits
+          const rawDigits = email.replace(/[^\d]/g, "");
+          const candidates: string[] = [];
+
+          if (email.startsWith("+")) {
+            candidates.push(`+${rawDigits}`);
+          } else {
+            if (rawDigits.length === 10) {
+              if (/^[6-9]/.test(rawDigits)) {
+                candidates.push(`+91${rawDigits}`);
+                candidates.push(`+1${rawDigits}`);
+              } else {
+                candidates.push(`+1${rawDigits}`);
+                candidates.push(`+91${rawDigits}`);
+              }
+            } else if (rawDigits.length === 12 && rawDigits.startsWith("91")) {
+              candidates.push(`+${rawDigits}`);
+            } else if (rawDigits.length === 11 && rawDigits.startsWith("1")) {
+              candidates.push(`+${rawDigits}`);
+            } else {
+              candidates.push(`+${rawDigits}`);
+            }
+            candidates.push(rawDigits);
+          }
+
+          for (const cand of Array.from(new Set(candidates))) {
+            const res = await supabase.auth.signInWithPassword({
+              phone: cand,
+              password: parsed.data.password,
+            });
+
+            if (res.data?.user) {
+              data = res.data;
+              authError = null;
+              matchedPhone = cand;
+              break;
+            }
+
+            if (res.error) {
+              authError = res.error;
+              matchedPhone = cand;
+              const isPhoneNotConfirmed =
+                res.error.message.toLowerCase().includes("phone not confirmed") ||
+                res.error.message.toLowerCase().includes("phone_not_confirmed");
+              if (isPhoneNotConfirmed) {
+                break;
+              }
+            }
+          }
+        }
+
+        if (authError) {
           const isPhoneNotConfirmed =
-            error.message.toLowerCase().includes("phone not confirmed") ||
-            error.message.toLowerCase().includes("phone_not_confirmed");
+            authError.message.toLowerCase().includes("phone not confirmed") ||
+            authError.message.toLowerCase().includes("phone_not_confirmed");
 
           if (isPhoneNotConfirmed && !isEmailAddress) {
             // Automatically dispatch OTP so user can confirm and proceed without friction
-            await supabase.auth.signInWithOtp({ phone: cleanPhone || email }).catch(() => null);
+            await supabase.auth.signInWithOtp({ phone: matchedPhone }).catch(() => null);
             return NextResponse.json(
               {
                 success: false,
                 requiresOtp: true,
-                phone: cleanPhone || email,
+                phone: matchedPhone,
                 error: "Phone not confirmed. A 6-digit verification code has been sent to your phone.",
               },
               { status: 403 }
@@ -182,7 +256,7 @@ export async function POST(request: Request) {
           }
 
           return NextResponse.json(
-            { success: false, error: error.message || toErrorString(backendError) },
+            { success: false, error: authError.message || toErrorString(backendError) },
             { status: 401 }
           );
         }
