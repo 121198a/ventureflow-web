@@ -7,6 +7,7 @@ import { Info, Loader2 } from "lucide-react";
 import { PasswordField } from "./password-field";
 import { OAuthButtons } from "./oauth-buttons";
 import { AuthDivider, AuthRule } from "./auth-card";
+import { PhoneInput } from "./phone-input";
 import {
   AUTH_HELPER_CLASS,
   AUTH_LABEL_GAP,
@@ -22,7 +23,10 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo");
+  const [authMode, setAuthMode] = useState<"email" | "phone">("email");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [phoneE164, setPhoneE164] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
@@ -30,18 +34,43 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
+  const isValidEmail = (val: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+
   const passwordsMatch = password.length > 0 && password === confirmPassword;
   const passwordValid = PASSWORD_RULE.test(password);
-  const canContinue = email.length > 3 && passwordValid && passwordsMatch && agreed && !loading;
+  const canContinue =
+    (authMode === "email" ? email.trim().length > 3 : phone.trim().length >= 7) &&
+    passwordValid &&
+    passwordsMatch &&
+    agreed &&
+    !loading;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage(null);
 
-    const trimmedEmail = email.trim();
-    if (!trimmedEmail) {
-      setErrorMessage("Please enter your email address.");
-      return;
+    const targetIdentifier =
+      authMode === "email" ? email.trim() : (phoneE164 || phone.trim());
+
+    if (authMode === "email") {
+      if (!targetIdentifier) {
+        setErrorMessage("Please enter your email address.");
+        return;
+      }
+      if (!isValidEmail(targetIdentifier)) {
+        setErrorMessage("Please enter a valid email address.");
+        return;
+      }
+    } else {
+      if (!phone.trim()) {
+        setErrorMessage("Please enter your phone number.");
+        return;
+      }
+      if (phone.replace(/\D/g, "").length < 7) {
+        setErrorMessage("Please enter a valid phone number.");
+        return;
+      }
     }
 
     if (!passwordValid) {
@@ -68,7 +97,8 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: trimmedEmail,
+          email: targetIdentifier,
+          phone: authMode === "phone" ? targetIdentifier : undefined,
           password,
           confirmPassword,
           agreed,
@@ -154,17 +184,64 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
         </div>
       )}
 
-      {/* Email address */}
-      <InputField
-        id="email"
-        label="What is your email address?"
-        placeholder="Email"
-        value={email}
-        onChange={(val) => {
-          setEmail(val);
-          if (errorMessage) setErrorMessage(null);
-        }}
-      />
+      {/* Auth mode selector */}
+      <div className="flex rounded-xl bg-slate-100 p-1">
+        <button
+          type="button"
+          onClick={() => {
+            setAuthMode("email");
+            if (errorMessage) setErrorMessage(null);
+          }}
+          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+            authMode === "email"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-500 hover:text-slate-800"
+          }`}
+        >
+          Email
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setAuthMode("phone");
+            if (errorMessage) setErrorMessage(null);
+          }}
+          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+            authMode === "phone"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-500 hover:text-slate-800"
+          }`}
+        >
+          Phone Number
+        </button>
+      </div>
+
+      {/* Email / Phone address */}
+      {authMode === "email" ? (
+        <InputField
+          id="email"
+          label="What is your email address?"
+          placeholder="Email"
+          value={email}
+          onChange={(val) => {
+            setEmail(val);
+            if (errorMessage) setErrorMessage(null);
+          }}
+        />
+      ) : (
+        <div className={`flex flex-col ${AUTH_LABEL_GAP}`}>
+          <FieldLabel htmlFor="phone">What is your phone number?</FieldLabel>
+          <PhoneInput
+            id="phone"
+            value={phone}
+            onChange={(val, e164) => {
+              setPhone(val);
+              setPhoneE164(e164);
+              if (errorMessage) setErrorMessage(null);
+            }}
+          />
+        </div>
+      )}
 
       {/* Password + requirements */}
       <div className="flex flex-col">

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getArticle } from "@/lib/newsletter-data";
+import { getNewsletterArticle } from "@/lib/newsletter/api";
 
 export async function GET(
   _request: Request,
@@ -7,9 +7,9 @@ export async function GET(
 ) {
   try {
     const { slug } = await params;
-    const article = getArticle(slug);
+    const result = await getNewsletterArticle(slug);
 
-    if (!article) {
+    if (!result) {
       return NextResponse.json(
         { success: false, error: `Article not found for identifier: ${slug}` },
         { status: 404 }
@@ -19,7 +19,9 @@ export async function GET(
     return NextResponse.json(
       {
         success: true,
-        article,
+        article: result.article,
+        config: result.config,
+        source: result.source,
       },
       {
         status: 200,

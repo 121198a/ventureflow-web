@@ -8,6 +8,13 @@ import { signSessionToken } from "@/lib/crypto";
 const isEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
 const isPhone = (val: string) => /^\+?[0-9\s\-()]{7,25}$/.test(val);
 
+function formatToE164(phone: string): string {
+  const digits = phone.replace(/[^\d+]/g, "");
+  if (digits.startsWith("+")) return digits;
+  if (digits.length === 10) return `+1${digits}`;
+  return `+${digits}`;
+}
+
 const loginSchema = z.object({
   email: z
     .string()
@@ -147,16 +154,17 @@ export async function POST(request: Request) {
     if (supabaseUrl && supabaseKey) {
       try {
         const { supabase } = await import("@/lib/supabase/client");
-        const isEmailAddress = isEmail(email);
+        const isEmailAddress = isEmail(email) && !isPhone(email);
+        const cleanPhone = !isEmailAddress ? formatToE164(email) : null;
         const { data, error } = await supabase.auth.signInWithPassword(
           isEmailAddress
             ? { email, password: parsed.data.password }
-            : { phone: email, password: parsed.data.password }
+            : { phone: cleanPhone || email, password: parsed.data.password }
         );
 
         if (error) {
           return NextResponse.json(
-            { success: false, error: toErrorString(backendError) },
+            { success: false, error: error.message || toErrorString(backendError) },
             { status: 401 }
           );
         }
@@ -171,7 +179,8 @@ export async function POST(request: Request) {
           success: true,
           user: {
             id: data.user?.id,
-            email: data.user?.email || email,
+            email: data.user?.email || (isEmailAddress ? email : undefined),
+            phone: data.user?.phone || (!isEmailAddress ? (cleanPhone || email) : undefined),
             role: verifiedRole,
           },
           session: data.session,

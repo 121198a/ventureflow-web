@@ -265,7 +265,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
     const cleanEmail = identifier.trim();
 
     if (!cleanEmail) {
-      setFormError("Enter a valid email address.");
+      setFormError("Enter your email address or phone number.");
       return;
     }
     if (!password) {
@@ -922,7 +922,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                   onClick={() => setSignupEmailMode(true)}
                   className="w-full h-11 sm:h-12 inline-flex items-center justify-center rounded-full bg-[#1677ff] hover:bg-blue-600 text-white text-sm font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer"
                 >
-                  Continue with email
+                  Continue with email or phone
                 </button>
 
                 <p className="mt-5 text-xs leading-relaxed text-slate-400">
@@ -996,19 +996,19 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                   <form onSubmit={handleSignupSubmit} autoComplete="on" className="mt-5 space-y-3.5">
                     <div>
                       <label htmlFor="signup-email" className="block text-xs font-semibold text-slate-700 mb-1">
-                        Email address <span className="text-red-500">*</span>
+                        Email address or Phone number <span className="text-red-500">*</span>
                       </label>
                       <input
                         id="signup-email"
-                        type="email"
-                        autoComplete="email"
+                        type="text"
+                        autoComplete="username"
                         value={identifier}
                         disabled={isSubmitting}
                         onChange={(e) => {
                           setIdentifier(e.target.value);
                           if (formError) setFormError(null);
                         }}
-                        placeholder="you@example.com"
+                        placeholder="you@example.com or +1 (555) 000-0000"
                         required
                         className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
                       />

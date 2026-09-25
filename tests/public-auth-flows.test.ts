@@ -281,3 +281,34 @@ test("Error parser safely normalizes nested error objects containing password ke
     "Fallback message"
   );
 });
+
+test("Phone authentication accepts international and local phone numbers and normalizes to E.164", () => {
+  const isEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  const isPhone = (val: string) => /^\+?[0-9\s\-()]{7,25}$/.test(val);
+
+  function formatToE164(phone: string): string {
+    const digits = phone.replace(/[^\d+]/g, "");
+    if (digits.startsWith("+")) return digits;
+    if (digits.length === 10) return `+1${digits}`;
+    return `+${digits}`;
+  }
+
+  // Valid phone tests
+  assert.equal(isPhone("+1 (555) 123-4567"), true);
+  assert.equal(isPhone("+91 98765 43210"), true);
+  assert.equal(isPhone("5551234567"), true);
+  assert.equal(isPhone("+44 20 7946 0958"), true);
+
+  // Invalid phone tests
+  assert.equal(isPhone("123"), false);
+  assert.equal(isPhone("invalid-phone"), false);
+
+  // E.164 formatting tests
+  assert.equal(formatToE164("+1 (555) 123-4567"), "+15551234567");
+  assert.equal(formatToE164("5551234567"), "+15551234567");
+  assert.equal(formatToE164("+91 9876543210"), "+919876543210");
+
+  // Phone is distinct from email
+  assert.equal(isEmail("+15551234567"), false);
+  assert.equal(isEmail("founder@example.com"), true);
+});

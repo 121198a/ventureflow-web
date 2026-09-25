@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { PasswordField } from "./password-field";
 import { OAuthButtons } from "./oauth-buttons";
 import { AuthDivider, AuthRule } from "./auth-card";
+import { PhoneInput } from "./phone-input";
 import {
   AUTH_LABEL_GAP,
   AUTH_STACK_GAP,
@@ -19,7 +20,10 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo");
+  const [authMode, setAuthMode] = useState<"email" | "phone">("email");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [phoneE164, setPhoneE164] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -29,19 +33,36 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
   const isValidEmail = (val: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
 
+  const isValidPhone = (val: string) =>
+    /^\+?[0-9\s\-()]{7,25}$/.test(val.trim());
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage(null);
 
-    const trimmedEmail = email.trim();
-    if (!trimmedEmail || !password) {
-      setErrorMessage("Please enter both email and password.");
-      return;
-    }
+    const targetIdentifier =
+      authMode === "email" ? email.trim() : (phoneE164 || phone.trim());
 
-    if (!isValidEmail(trimmedEmail)) {
-      setErrorMessage("Please enter a valid email address.");
-      return;
+    if (authMode === "email") {
+      if (!targetIdentifier || !password) {
+        setErrorMessage("Please enter both email and password.");
+        return;
+      }
+
+      if (!isValidEmail(targetIdentifier) && !isValidPhone(targetIdentifier)) {
+        setErrorMessage("Please enter a valid email address.");
+        return;
+      }
+    } else {
+      if (!phone.trim() || !password) {
+        setErrorMessage("Please enter both phone number and password.");
+        return;
+      }
+
+      if (phone.replace(/\D/g, "").length < 7) {
+        setErrorMessage("Please enter a valid phone number.");
+        return;
+      }
     }
 
     setLoading(true);
@@ -51,7 +72,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: trimmedEmail,
+          email: targetIdentifier,
           password,
           role,
         }),
@@ -110,7 +131,10 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
     );
   }
 
-  const canSubmit = email.trim().length > 3 && password.length > 0 && !loading;
+  const canSubmit =
+    (authMode === "email" ? email.trim().length > 3 : phone.trim().length >= 7) &&
+    password.length > 0 &&
+    !loading;
 
   return (
     <form className={`flex w-full flex-col ${AUTH_STACK_GAP}`} onSubmit={handleSubmit} autoComplete="off">
@@ -123,17 +147,64 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
         </div>
       )}
 
-      {/* Email */}
-      <InputField
-        id="email"
-        label="Enter your email address"
-        placeholder="Email"
-        value={email}
-        onChange={(val) => {
-          setEmail(val);
-          if (errorMessage) setErrorMessage(null);
-        }}
-      />
+      {/* Auth mode selector */}
+      <div className="flex rounded-xl bg-slate-100 p-1">
+        <button
+          type="button"
+          onClick={() => {
+            setAuthMode("email");
+            if (errorMessage) setErrorMessage(null);
+          }}
+          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+            authMode === "email"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-500 hover:text-slate-800"
+          }`}
+        >
+          Email
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setAuthMode("phone");
+            if (errorMessage) setErrorMessage(null);
+          }}
+          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+            authMode === "phone"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-500 hover:text-slate-800"
+          }`}
+        >
+          Phone Number
+        </button>
+      </div>
+
+      {/* Email / Phone input */}
+      {authMode === "email" ? (
+        <InputField
+          id="email"
+          label="Enter your email address"
+          placeholder="Email"
+          value={email}
+          onChange={(val) => {
+            setEmail(val);
+            if (errorMessage) setErrorMessage(null);
+          }}
+        />
+      ) : (
+        <div className={`flex flex-col ${AUTH_LABEL_GAP}`}>
+          <FieldLabel htmlFor="phone">Enter your phone number</FieldLabel>
+          <PhoneInput
+            id="phone"
+            value={phone}
+            onChange={(val, e164) => {
+              setPhone(val);
+              setPhoneE164(e164);
+              if (errorMessage) setErrorMessage(null);
+            }}
+          />
+        </div>
+      )}
 
       {/* Password */}
       <div className={`flex flex-col ${AUTH_LABEL_GAP}`}>

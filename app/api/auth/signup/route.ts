@@ -6,31 +6,45 @@ import { signSessionToken } from "@/lib/crypto";
 
 // Strong password complexity: min 8, uppercase, lowercase, number, symbol
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+const isEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+const isPhone = (val: string) => /^\+?[0-9\s\-()]{7,25}$/.test(val);
 
-const signupSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .min(5, "Invalid email address.")
-    .max(254, "Email address is too long.")
-    .email("Please provide a valid email address."),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters.")
-    .max(128, "Password is too long.")
-    .regex(
-      PASSWORD_REGEX,
-      "Password must contain an uppercase letter, lowercase letter, number, and special character."
-    ),
-  confirmPassword: z.string(),
-  agreed: z.boolean().refine((val) => val === true, {
-    message: "You must agree to the Terms of Use and Privacy Policy.",
-  }),
-  role: z.enum(["founder", "investor"]).default("founder"),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords do not match.",
-  path: ["confirmPassword"],
-});
+function formatToE164(phone: string): string {
+  const digits = phone.replace(/[^\d+]/g, "");
+  if (digits.startsWith("+")) return digits;
+  if (digits.length === 10) return `+1${digits}`;
+  return `+${digits}`;
+}
+
+const signupSchema = z
+  .object({
+    email: z
+      .string()
+      .trim()
+      .min(5, "Please provide a valid email or phone number.")
+      .max(254, "Identifier is too long.")
+      .refine((val) => isEmail(val) || isPhone(val), {
+        message: "Please provide a valid email address or phone number.",
+      }),
+    phone: z.string().optional(),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters.")
+      .max(128, "Password is too long.")
+      .regex(
+        PASSWORD_REGEX,
+        "Password must contain an uppercase letter, lowercase letter, number, and special character."
+      ),
+    confirmPassword: z.string(),
+    agreed: z.boolean().refine((val) => val === true, {
+      message: "You must agree to the Terms of Use and Privacy Policy.",
+    }),
+    role: z.enum(["founder", "investor"]).default("founder"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match.",
+    path: ["confirmPassword"],
+  });
 
 export async function POST(request: Request) {
   try {
@@ -81,7 +95,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const { email, password, role } = parsed.data;
+    const { email, phone, password, role } = parsed.data;
+    const isEmailAddress = isEmail(email) && !isPhone(email);
+    const cleanPhone = phone ? formatToE164(phone) : (!isEmailAddress ? formatToE164(email) : null);
 
     // 4. Delegate to Auth provider (Supabase / Auth0)
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -92,18 +108,27 @@ export async function POST(request: Request) {
     if (supabaseUrl && supabaseKey) {
       try {
         const { supabase } = await import("@/lib/supabase/client");
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: { role },
-          },
-        });
+        const { data, error } = await supabase.auth.signUp(
+          isEmailAddress
+            ? {
+                email,
+                password,
+                options: {
+                  data: { role },
+                },
+              }
+            : {
+                phone: cleanPhone || email,
+                password,
+                options: {
+                  data: { role },
+                },
+              }
+        );
 
         if (error) {
-          // Generic user-facing message to prevent email harvesting
           return NextResponse.json(
-            { success: false, error: "Unable to create account. Please try again." },
+            { success: false, error: error.message || "Unable to create account. Please try again." },
             { status: 400 }
           );
         }
@@ -112,7 +137,12 @@ export async function POST(request: Request) {
         const res = NextResponse.json({
           success: true,
           message: "Account created successfully.",
-          user: { id: data.user?.id, email: data.user?.email, role },
+          user: {
+            id: data.user?.id,
+            email: data.user?.email || (isEmailAddress ? email : undefined),
+            phone: data.user?.phone || (!isEmailAddress ? (cleanPhone || email) : undefined),
+            role,
+          },
           session: data.session,
         });
 

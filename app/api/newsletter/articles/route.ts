@@ -1,13 +1,22 @@
 import { NextResponse } from "next/server";
 import { articles } from "@/lib/newsletter-data";
+import { ARTICLE_CONFIGS } from "@/lib/newsletter/config";
 
 export async function GET() {
   try {
+    const formatted = articles.map((a) => {
+      const config = ARTICLE_CONFIGS[a.id];
+      return {
+        ...a,
+        frontendPath: config ? config.frontendPath : `/newsletter/article/${a.id}/${a.slug}`,
+      };
+    });
+
     return NextResponse.json(
       {
         success: true,
-        total: articles.length,
-        articles,
+        total: formatted.length,
+        articles: formatted,
       },
       {
         status: 200,

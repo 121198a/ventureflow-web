@@ -186,7 +186,7 @@ export function NewsletterList() {
                 {articles.map((a, i) => (
                   <Reveal key={a.slug} delay={i * 70}>
                     <Link
-                      href={`/newsletter/article/${a.slug}`}
+                      href={`/newsletter/article/${a.id}/${a.slug}`}
                       className="flex flex-col rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-brand"
                     >
                       <BriefCard a={a} />
@@ -201,7 +201,7 @@ export function NewsletterList() {
                 {articles.map((a) => (
                   <Link
                     key={a.slug}
-                    href={`/newsletter/article/${a.slug}`}
+                    href={`/newsletter/article/${a.id}/${a.slug}`}
                     className="grid grid-cols-1 gap-6 py-8 outline-none focus-visible:ring-2 focus-visible:ring-brand md:grid-cols-[300px_1fr] md:items-start"
                   >
                     <BriefCard a={a} />

@@ -103,7 +103,7 @@ const fiveNumbersBody: ArticleBlock[] = [
   {
     type: "cta",
     text: "How many of the five could you answer in ten seconds, right now? The assessment checks eight.",
-    buttonLabel: "Run the readiness assessment",
+    buttonLabel: "Run the readiness assessment →",
     note: "8 questions · 2 minutes · confidential",
   },
   {
@@ -133,7 +133,7 @@ const fiveNumbersBody: ArticleBlock[] = [
   {
     type: "cta",
     text: "Everything in this briefing lives in one place on UBverse: your five numbers, your documents, and your investor conversations, current before the meeting instead of assembled after it.",
-    buttonLabel: "See how the platform works",
+    buttonLabel: "See how the platform works →",
     note: "The complete workflow, step by step · 2 minutes",
   },
   {
@@ -158,7 +158,7 @@ const fiveNumbersBody: ArticleBlock[] = [
     type: "cta",
     heading: "Raising in the next six months?",
     text: "A twenty-minute working session with our capital markets team. Your five numbers, pressure-tested the way an investor would test them.",
-    buttonLabel: "Schedule a consultation",
+    buttonLabel: "Schedule a consultation →",
     note: "20 minutes · You keep the ledger either way · No pitch",
   },
   {
@@ -197,10 +197,28 @@ const interestIsntDealsBody: ArticleBlock[] = [
     label: "Closing Rule — Operational Discipline",
     text: "\"Never consider a check closed until subscription documents are counter-signed and funds have cleared escrow through a registered broker-dealer.\"",
   },
+  {
+    type: "cta",
+    text: "How quickly could you close your committed round right now? The closing assessment audits 8 legal and operational rails.",
+    buttonLabel: "Run the readiness assessment →",
+    note: "8 questions · 2 minutes · confidential",
+  },
+  {
+    type: "cta",
+    text: "Submit your readiness answers to generate an instant institutional diagnostic briefing.",
+    buttonLabel: "View my readiness briefing →",
+    note: "Instant diagnostic summary with priority actions",
+  },
   { type: "h2", roman: "II", text: "The three conditions that ensure a close" },
   {
     type: "p",
     text: "Closing fast requires three non-negotiable foundations: standardized SAFE or convertible notes with unambiguous terms, verified investor accreditation upfront, and a dedicated closing ledger tracking every allocated dollar in real time.",
+  },
+  {
+    type: "cta",
+    text: "Discover how UBverse standardizes SAFE instruments, investor accreditation, and live closing ledgers.",
+    buttonLabel: "See how the platform works →",
+    note: "Institutional closing rails · 2 min",
   },
   {
     type: "recap",
@@ -215,7 +233,7 @@ const interestIsntDealsBody: ArticleBlock[] = [
     type: "cta",
     heading: "Raising in the next six months?",
     text: "A twenty-minute working session with our capital markets team. Your round, mapped across the Closing Ledger — every investor, every open item.",
-    buttonLabel: "Schedule a consultation",
+    buttonLabel: "Schedule a consultation →",
     note: "20 minutes · You keep the ledger either way · No pitch",
   },
   {
@@ -259,10 +277,34 @@ const reopenColdLeadsBody: ArticleBlock[] = [
   },
   {
     type: "cta",
+    text: "Does your investor follow-up carry verifiable progress or generic checking-in? Audit your outreach.",
+    buttonLabel: "Run the readiness assessment →",
+    note: "8 questions · 2 minutes · confidential",
+  },
+  {
+    type: "cta",
+    text: "View your investor engagement readiness score and communication diagnostic report.",
+    buttonLabel: "View my readiness briefing →",
+    note: "Instant diagnostic summary with priority actions",
+  },
+  {
+    type: "cta",
+    text: "UBverse provides transparent deal tracking and data rooms that keep investors informed without awkward email bumps.",
+    buttonLabel: "See how the platform works →",
+    note: "Explore platform features · 2 minutes",
+  },
+  {
+    type: "cta",
     heading: "Need help reviving stalled discussions?",
     text: "Let our capital markets team audit your investor communication pipeline.",
-    buttonLabel: "Schedule a consultation",
+    buttonLabel: "Schedule a consultation →",
     note: "20 minutes · Confidential",
+  },
+  {
+    type: "emailCapture",
+    heading: "Keep this briefing",
+    text: "Receive the written version, with the checklist, as a document.",
+    buttonLabel: "Send it to me",
   },
 ];
 
@@ -294,8 +336,27 @@ const updatesWinInvestorsBody: ArticleBlock[] = [
     type: "cta",
     heading: "Automate your investor communications",
     text: "UBverse provides company spaces where updates, data rooms, and cap tables live securely together.",
-    buttonLabel: "Explore company spaces",
+    buttonLabel: "See how the platform works →",
     note: "Free to set up",
+  },
+  {
+    type: "cta",
+    text: "Review your update cadence and reporting readiness with our structured briefing tool.",
+    buttonLabel: "View my readiness briefing →",
+    note: "Instant diagnostic summary",
+  },
+  {
+    type: "cta",
+    heading: "Want help designing your monthly investor memo?",
+    text: "Connect with our team to establish an investor update framework that keeps LPs engaged.",
+    buttonLabel: "Schedule a consultation →",
+    note: "20 minutes · Confidential",
+  },
+  {
+    type: "emailCapture",
+    heading: "Keep this briefing",
+    text: "Receive the written version, with the checklist, as a document.",
+    buttonLabel: "Send it to me",
   },
 ];
 
@@ -326,8 +387,33 @@ const whatCouldKillItBody: ArticleBlock[] = [
     type: "cta",
     heading: "Prepare your diligence data room",
     text: "Audit your venture disclosures before your first institutional partner meeting.",
-    buttonLabel: "Start diligence prep",
+    buttonLabel: "Run the readiness assessment →",
     note: "Structured review · 20 min",
+  },
+  {
+    type: "cta",
+    text: "Get your custom risk mitigation briefing based on institutional diligence criteria.",
+    buttonLabel: "View my readiness briefing →",
+    note: "Instant diagnostic summary",
+  },
+  {
+    type: "cta",
+    text: "Explore how UBverse structures disclosures and diligence Q&A for high-growth offerings.",
+    buttonLabel: "See how the platform works →",
+    note: "Institutional diligence framework",
+  },
+  {
+    type: "cta",
+    heading: "Need diligence advisory?",
+    text: "Schedule a 20-minute working session with our team to review your risk disclosures.",
+    buttonLabel: "Schedule a consultation →",
+    note: "20 minutes · Confidential",
+  },
+  {
+    type: "emailCapture",
+    heading: "Keep this briefing",
+    text: "Receive the written version, with the checklist, as a document.",
+    buttonLabel: "Send it to me",
   },
 ];
 
@@ -359,8 +445,33 @@ const postRoundOwnershipBody: ArticleBlock[] = [
     type: "cta",
     heading: "Model your cap table on UBverse",
     text: "Interactive scenario modeling for founders raising priced rounds or convertible notes.",
-    buttonLabel: "Open cap table tools",
+    buttonLabel: "Run the readiness assessment →",
     note: "Precise dilution math",
+  },
+  {
+    type: "cta",
+    text: "Generate your post-round ownership and pool refresh diagnostic briefing.",
+    buttonLabel: "View my readiness briefing →",
+    note: "Instant dilution audit",
+  },
+  {
+    type: "cta",
+    text: "See how cap tables and convertible notes convert in real-time on UBverse.",
+    buttonLabel: "See how the platform works →",
+    note: "Explore cap table tools",
+  },
+  {
+    type: "cta",
+    heading: "Cap table advisory session",
+    text: "Review SAFE conversion scenarios and option pool expansion with a capital markets analyst.",
+    buttonLabel: "Schedule a consultation →",
+    note: "20 minutes · Confidential",
+  },
+  {
+    type: "emailCapture",
+    heading: "Keep this briefing",
+    text: "Receive the written version, with the checklist, as a document.",
+    buttonLabel: "Send it to me",
   },
 ];
 
@@ -390,8 +501,32 @@ const theNumberYouSayFirstBody: ArticleBlock[] = [
     type: "cta",
     heading: "Benchmark your round",
     text: "Compare valuation ranges with active deals currently raising on UBverse.",
-    buttonLabel: "View active offerings",
+    buttonLabel: "Run the readiness assessment →",
     note: "Real private market data",
+  },
+  {
+    type: "cta",
+    text: "Receive your valuation anchoring diagnostic briefing.",
+    buttonLabel: "View my readiness briefing →",
+    note: "Instant diagnostic summary",
+  },
+  {
+    type: "cta",
+    text: "Learn how UBverse structures milestone-anchored terms for institutional leads.",
+    buttonLabel: "See how the platform works →",
+  },
+  {
+    type: "cta",
+    heading: "Valuation benchmark review",
+    text: "Review recent round comps and valuation range defensibility with our team.",
+    buttonLabel: "Schedule a consultation →",
+    note: "20 minutes · Confidential",
+  },
+  {
+    type: "emailCapture",
+    heading: "Keep this briefing",
+    text: "Receive the written version, with the checklist, as a document.",
+    buttonLabel: "Send it to me",
   },
 ];
 
@@ -422,8 +557,32 @@ const howMuchRunwayBody: ArticleBlock[] = [
     type: "cta",
     heading: "Need a capital model review?",
     text: "Our analysts examine burn rates and runway targets with institutional rigor.",
-    buttonLabel: "Book a consultation",
+    buttonLabel: "Run the readiness assessment →",
     note: "20 minutes · Confidential",
+  },
+  {
+    type: "cta",
+    text: "Review your milestone-to-burn buffer diagnostic.",
+    buttonLabel: "View my readiness briefing →",
+    note: "Instant runway audit",
+  },
+  {
+    type: "cta",
+    text: "See how founders align runway targets with round allocations on UBverse.",
+    buttonLabel: "See how the platform works →",
+  },
+  {
+    type: "cta",
+    heading: "Capital modeling session",
+    text: "Stress test your burn, zero-cash date, and milestone timing before pitching.",
+    buttonLabel: "Schedule a consultation →",
+    note: "20 minutes · Confidential",
+  },
+  {
+    type: "emailCapture",
+    heading: "Keep this briefing",
+    text: "Receive the written version, with the checklist, as a document.",
+    buttonLabel: "Send it to me",
   },
 ];
 
@@ -454,8 +613,32 @@ const youDontGraduateBody: ArticleBlock[] = [
     type: "cta",
     heading: "Assess your round readiness",
     text: "Evaluate which regulatory and capital pathway matches your current stage of company development.",
-    buttonLabel: "Compare service tiers",
+    buttonLabel: "Run the readiness assessment →",
     note: "Reg CF · Reg D · Reg A+",
+  },
+  {
+    type: "cta",
+    text: "Generate your round proof and stage qualification diagnostic report.",
+    buttonLabel: "View my readiness briefing →",
+    note: "Instant stage readiness audit",
+  },
+  {
+    type: "cta",
+    text: "Discover how UBverse navigates exemptions and investor syndicates across stages.",
+    buttonLabel: "See how the platform works →",
+  },
+  {
+    type: "cta",
+    heading: "Exemption & stage consultation",
+    text: "Evaluate Reg CF, Reg D 506(c), or institutional syndicates with our team.",
+    buttonLabel: "Schedule a consultation →",
+    note: "20 minutes · Confidential",
+  },
+  {
+    type: "emailCapture",
+    heading: "Keep this briefing",
+    text: "Receive the written version, with the checklist, as a document.",
+    buttonLabel: "Send it to me",
   },
 ];
 

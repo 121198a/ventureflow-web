@@ -66,6 +66,8 @@ let _lastInitError: string | null = null;
 function createSupabaseClient(): SupabaseClient<Database> | null {
   const config = getSupabaseConfig();
   if (!config) {
+    _lastInitError =
+      "Missing or invalid NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY. Please restart your dev server after updating .env.local, or add them in your hosting provider's dashboard.";
     return null;
   }
 

@@ -51,12 +51,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // Dynamic newsletter articles — slug URL only. The numeric-id route still
-  // resolves (for old links) but is intentionally left out of the sitemap
-  // and carries a canonical tag back to the slug URL, so it's never indexed
-  // as a second copy of the same article (Phase 23: no duplicate content).
+  // Dynamic newsletter articles — canonical /newsletter/article/{id}/{slug}
   const newsletterRoutes = articles.map((article) => ({
-    url: `${SITE_URL}/newsletter/article/${article.slug}`,
+    url: `${SITE_URL}/newsletter/article/${article.id}/${article.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.7,
