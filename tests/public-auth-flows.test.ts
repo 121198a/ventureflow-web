@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { z } from "zod";
-import sanitizeHtml from "sanitize-html";
 import { checkRateLimit, resetRateLimit } from "../lib/rate-limit.ts";
 import { sanitizeRedirectUrl } from "../lib/utils.ts";
 

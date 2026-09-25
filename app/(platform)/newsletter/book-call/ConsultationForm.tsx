@@ -451,7 +451,7 @@ END:VCALENDAR`;
 
           {/* Time Slot Picker */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-ink/75 mb-2.5 flex items-center gap-1.5">
+            <label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink/75 mb-2.5">
               <Clock className="size-3.5 text-brand" />
               Available Time Slots ({formattedSelectedDate || "Select a date"})
             </label>
