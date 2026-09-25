@@ -28,7 +28,7 @@ export const authors = {
   dinesh: {
     name: "Dinesh Pathak",
     role: "Principal Systems Engineer",
-    avatar: "/image/about/5.jpg",
+    avatar: "/image/about/3.jpg",
     bio: "Distributed systems and real-time ledger engineer. Previously built high-throughput order matching and settlement engines.",
   },
 };

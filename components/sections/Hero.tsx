@@ -637,7 +637,7 @@ function FeedPreview() {
       name: "Dinesh",
       time: "1h ago",
       badge: "1",
-      image: "/image/about/4.jpg",
+      image: "/image/about/3.jpg",
     },
   ];
 

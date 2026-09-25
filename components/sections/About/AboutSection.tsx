@@ -18,10 +18,10 @@ const ABOUT_PHOTOS = [
 
 const HERO_AVATARS = [
   { src: ABOUT_PHOTOS[0], className: "left-[8%] top-[6%] h-14 w-14 sm:h-16 sm:w-16" },
-  { src: ABOUT_PHOTOS[1], className: "right-[9%] top-[8%] h-14 w-14 sm:h-16 sm:w-16" },
-  { src: ABOUT_PHOTOS[2], className: "right-[4%] top-[46%] h-11 w-11 sm:h-12 sm:w-12" },
-  { src: ABOUT_PHOTOS[3], className: "left-[14%] bottom-[10%] h-12 w-12 sm:h-14 sm:w-14" },
-  { src: ABOUT_PHOTOS[4], className: "right-[16%] bottom-[6%] h-11 w-11 sm:h-12 sm:w-12" },
+  { src: ABOUT_PHOTOS[3], className: "right-[9%] top-[8%] h-14 w-14 sm:h-16 sm:w-16" },
+  { src: ABOUT_PHOTOS[1], className: "right-[4%] top-[46%] h-11 w-11 sm:h-12 sm:w-12" },
+  { src: ABOUT_PHOTOS[4], className: "left-[14%] bottom-[10%] h-12 w-12 sm:h-14 sm:w-14" },
+  { src: ABOUT_PHOTOS[2], className: "right-[16%] bottom-[6%] h-11 w-11 sm:h-12 sm:w-12" },
 ] as const;
 
 const COMPARISON_ROWS: [string, boolean | "soon", boolean | "soon", boolean | "soon"][] = [
@@ -50,11 +50,11 @@ const FOUNDERS = [
 
 const TEAM = [
   { name: "Gaurav Madhogaria", role: "Engineering Lead", photo: ABOUT_PHOTOS[2] },
-  { name: "Dinesh Pathak", role: "Systems Architecture", photo: ABOUT_PHOTOS[3] },
-  { name: "Rama Rao", role: "Market Operations", photo: ABOUT_PHOTOS[4] },
-  { name: "Chetan Chauhan", role: "Investment Research", photo: ABOUT_PHOTOS[0] },
-  { name: "Dhruvi Turakhia", role: "Product Strategy", photo: ABOUT_PHOTOS[1] },
-  { name: "Nimisha Pathar", role: "Product Design", photo: ABOUT_PHOTOS[2] },
+  { name: "Dinesh Pathak", role: "Systems Architecture", photo: ABOUT_PHOTOS[2] },
+  { name: "Rama Rao", role: "Market Operations", photo: ABOUT_PHOTOS[0] },
+  { name: "Chetan Chauhan", role: "Investment Research", photo: ABOUT_PHOTOS[1] },
+  { name: "Dhruvi Turakhia", role: "Product Strategy", photo: ABOUT_PHOTOS[4] },
+  { name: "Nimisha Pathar", role: "Product Design", photo: ABOUT_PHOTOS[3] },
 ] as const;
 
 function Mark({ value }: { value: boolean | "soon" }) {

@@ -340,7 +340,7 @@ function FeedMini() {
       name: "Dinesh",
       time: "1m ago",
       badge: "3",
-      image: "/image/about/5.jpg",
+      image: "/image/about/3.jpg",
     },
     {
       id: "rama",
@@ -430,7 +430,7 @@ function FeedMini() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
-                  src="/image/about/5.jpg"
+                  src="/image/about/3.jpg"
                   alt="Dinesh Pathak"
                   width={20}
                   height={20}
