@@ -1642,7 +1642,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                 {/* MOBILE / TABLET STACKED LAYOUT (visible on mobile, hidden on lg+) */}
                 <div className="block lg:hidden w-full">
                   {/* Compact Hero Banner */}
-                  <div className="relative h-36 w-full overflow-hidden p-5 flex flex-col justify-between text-white text-left">
+                  <div className="relative isolate h-36 w-full overflow-hidden p-5 flex flex-col justify-between text-white text-left">
                     <Image
                       src="/images/auth-artwork.webp"
                       alt="UnBound X"

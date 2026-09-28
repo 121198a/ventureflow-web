@@ -365,8 +365,8 @@ export default function AboutSection() {
         </div>
       </section>
 
-      <div className="relative z-20 mt-24 sm:mt-28">
-        <div className="absolute inset-x-0 top-0 z-20 -translate-y-1/2 px-4">
+      <div className="relative z-20 mt-14 pb-8 md:mt-28 md:pb-0">
+        <div className="relative z-20 px-4 md:absolute md:inset-x-0 md:top-0 md:-translate-y-1/2">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
