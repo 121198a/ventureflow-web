@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronsUpDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ALL_COUNTRIES, combineToE164, type Country } from "@/lib/countries";
+import { ALL_COUNTRIES, combineToE164, parseLocalPhone, type Country } from "@/lib/countries";
 
 export type { Country };
 export const COUNTRIES = ALL_COUNTRIES;
@@ -24,7 +24,7 @@ export function PhoneInput({
   value,
   onChange,
   disabled = false,
-  placeholder = "(555) 000-0000",
+  placeholder = "Phone number",
   className = "",
   defaultCountryCode = "IN",
 }: PhoneInputProps) {
@@ -56,17 +56,30 @@ export function PhoneInput({
     );
   }, [search]);
 
+  // The country selector owns the calling code; the text field only ever holds
+  // the local number. Anything typed/pasted with a "+91"-style prefix is split
+  // so the code is never duplicated and never has to be typed by the user.
   const handlePhoneChange = (val: string) => {
-    const e164 = combineToE164(selectedCountry.dial, val);
-    onChange(val, e164);
+    const { local, foreignDial } = parseLocalPhone(selectedCountry.dial, val);
+    let country = selectedCountry;
+    if (foreignDial) {
+      // Pasted an international number for another country -> follow it.
+      const match = ALL_COUNTRIES.find((c) => c.dial === foreignDial);
+      if (match) {
+        country = match;
+        setSelectedCountry(match);
+      }
+    }
+    onChange(local, combineToE164(country.dial, local));
   };
 
   const handleSelectCountry = (c: Country) => {
     setSelectedCountry(c);
     setDropdownOpen(false);
     setSearch("");
-    const e164 = combineToE164(c.dial, value);
-    onChange(value, e164);
+    // Re-derive from the existing local number with the NEW calling code.
+    const { local } = parseLocalPhone(c.dial, value);
+    onChange(local, combineToE164(c.dial, local));
   };
 
   return (

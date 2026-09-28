@@ -473,6 +473,15 @@ select {
   scrollbar-color: #cbd5e1 transparent;
 }
 
+/* Utility to completely hide scrollbars while allowing scrolling if needed */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* UBverse Platform Footer */
 .ftr-scn {
   background-color: #eef2f8;

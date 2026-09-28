@@ -4,11 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, Menu } from "lucide-react";
 import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
 import { AuthButton } from "@/components/ui/AuthButton";
-import { cn } from "@/lib/utils";
+import { GradientMobileMenu, gradientCtaClass } from "@/components/layout/GradientMobileMenu";
 
 const blogNavLinks = [
   { label: "Home", href: "/blog" },
@@ -22,7 +22,6 @@ export function BlogNav() {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
-  const reduceMotion = useReducedMotion();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -114,49 +113,6 @@ export function BlogNav() {
     };
   }, [open, handleClose]);
 
-  const backdropVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  };
-
-  const drawerVariants = {
-    hidden: { x: "100%" },
-    visible: {
-      x: 0,
-      transition: {
-        duration: reduceMotion ? 0.01 : 0.32,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-    exit: {
-      x: "100%",
-      transition: {
-        duration: reduceMotion ? 0.01 : 0.24,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const listVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: reduceMotion ? 0 : 0.04,
-        delayChildren: reduceMotion ? 0 : 0.08,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: 14 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: reduceMotion ? 0.01 : 0.25, ease: [0.16, 1, 0.3, 1] },
-    },
-  };
-
   return (
     <>
       <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
@@ -237,102 +193,31 @@ export function BlogNav() {
         </motion.div>
       </header>
 
-      {/* Mobile Drawer */}
+      {/* Full-screen gradient mobile menu */}
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-[100] sm:hidden">
-            {/* Backdrop */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={backdropVariants}
-              transition={{ duration: reduceMotion ? 0.01 : 0.2 }}
-              onClick={handleClose}
-              aria-hidden="true"
-              className="absolute inset-0 bg-slate-950/40 backdrop-blur-xs"
-            />
-
-            {/* Slide-out Drawer Panel */}
-            <motion.div
-              ref={drawerRef}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Blog navigation"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={drawerVariants}
-              className="absolute top-0 right-0 bottom-0 w-full max-w-[340px] bg-white flex flex-col justify-between p-5 sm:p-6 shadow-2xl border-l border-slate-200/80 overflow-y-auto"
-            >
-              {/* Top Bar inside Drawer */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                <div className="flex items-center gap-2.5">
-                  <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center">
-                    <Image
-                      src="/logo/unboundx-mark.png"
-                      width={28}
-                      height={28}
-                      alt="UnBound X"
-                      className="h-full w-full object-cover rounded-full"
-                    />
-                  </div>
-                  <UnboundXBrand className="text-base" />
-                </div>
-
-                <button
-                  type="button"
-                  aria-label="Close menu"
-                  onClick={handleClose}
-                  className="grid h-8 w-8 place-items-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-transform active:scale-90 cursor-pointer"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-
-              {/* Mobile Nav Links */}
-              <motion.nav
-                initial="hidden"
-                animate="visible"
-                variants={listVariants}
-                className="flex flex-col gap-4 py-8 my-auto"
+          <GradientMobileMenu
+            drawerRef={drawerRef}
+            ariaLabel="Blog navigation"
+            onClose={handleClose}
+            brandHref="/blog"
+            items={blogNavLinks.map((item) => ({
+              label: item.label,
+              href: item.href,
+              active: pathname === item.href,
+            }))}
+            cta={
+              <AuthButton
+                flow="signup"
+                icon={false}
+                onClick={handleClose}
+                className={gradientCtaClass}
               >
-                {blogNavLinks.map((item) => {
-                  const isActive = pathname === item.href;
-                  return (
-                    <motion.div key={item.label} variants={itemVariants}>
-                      <Link
-                        href={item.href}
-                        onClick={handleClose}
-                        className={cn(
-                          "block text-xl font-bold tracking-tight transition-colors py-1",
-                          isActive ? "text-blue-600 font-extrabold" : "text-slate-800 hover:text-blue-600"
-                        )}
-                      >
-                        {item.label}
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-
-                <motion.div variants={itemVariants} className="pt-4 border-t border-slate-100">
-                  <AuthButton
-                    flow="signup"
-                    icon={false}
-                    onClick={handleClose}
-                    className="w-full justify-center inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-6 py-3 shadow-md shadow-blue-500/25 transition-all active:scale-95"
-                  >
-                    <span>Get started</span>
-                    <ArrowRight size={14} />
-                  </AuthButton>
-                </motion.div>
-              </motion.nav>
-
-              <div className="text-center text-xs font-medium text-slate-500 tracking-wide pb-2 pt-4 border-t border-slate-100">
-                UnBound X Editorial &amp; Market Intelligence
-              </div>
-            </motion.div>
-          </div>
+                <span>Get started</span>
+                <ArrowRight size={16} />
+              </AuthButton>
+            }
+          />
         )}
       </AnimatePresence>
     </>

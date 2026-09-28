@@ -1,10 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { notFound } from "next/navigation";
 import { ErrorView } from "@/components/ui/ErrorView";
 
+// QA-only route for manually exercising the 500 error boundary. Hidden
+// outside production builds so it isn't left publicly reachable after launch.
 export default function Test500Page() {
   const [shouldCrash, setShouldCrash] = useState(false);
+
+  if (process.env.NODE_ENV === "production") {
+    notFound();
+  }
 
   if (shouldCrash) {
     throw new Error("Simulated 500 error: caught by Next.js ErrorBoundary");

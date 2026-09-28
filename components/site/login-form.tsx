@@ -356,7 +356,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
             setAuthMode("email");
             if (errorMessage) setErrorMessage(null);
           }}
-          className={`flex-1 py-2 text-[length:clamp(0.85rem,0.95vw,0.92rem)] rounded-[clamp(8px,0.65vw,11px)] transition-all font-semibold cursor-pointer select-none ${
+          className={`flex-1 py-1.5 text-[length:clamp(0.8rem,0.9vw,0.88rem)] rounded-[clamp(8px,0.65vw,11px)] transition-all font-semibold cursor-pointer select-none ${
             authMode === "email"
               ? "bg-white text-slate-900 shadow-2xs font-semibold"
               : "text-slate-500 hover:text-slate-900 font-medium"
@@ -370,7 +370,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
             setAuthMode("phone");
             if (errorMessage) setErrorMessage(null);
           }}
-          className={`flex-1 py-2 text-[length:clamp(0.85rem,0.95vw,0.92rem)] rounded-[clamp(8px,0.65vw,11px)] transition-all font-semibold cursor-pointer select-none ${
+          className={`flex-1 py-1.5 text-[length:clamp(0.8rem,0.9vw,0.88rem)] rounded-[clamp(8px,0.65vw,11px)] transition-all font-semibold cursor-pointer select-none ${
             authMode === "phone"
               ? "bg-white text-slate-900 shadow-2xs font-semibold"
               : "text-slate-500 hover:text-slate-900 font-medium"
@@ -449,9 +449,9 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
       </div>
 
       {/* Remember me + Forgot password */}
-      <div className="flex items-center justify-between gap-3 text-[length:clamp(0.85rem,1.02vw,1.1rem)] font-medium">
-        <label className="flex cursor-pointer select-none items-center gap-3 text-slate-700">
-          <span className="relative grid size-[clamp(1.1rem,1.3vw,1.4rem)] shrink-0 place-items-center">
+      <div className="flex items-center justify-between gap-3 text-[length:clamp(0.8rem,0.92vw,0.98rem)] font-medium">
+        <label className="flex cursor-pointer select-none items-center gap-2.5 text-slate-700">
+          <span className="relative grid size-[clamp(1rem,1.2vw,1.25rem)] shrink-0 place-items-center">
             <input
               type="checkbox"
               checked={rememberMe}
@@ -484,7 +484,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
       <button
         type="submit"
         disabled={!canSubmit}
-        className="btn-pill-primary h-[clamp(2.75rem,5.5vh,3.3rem)] w-full text-[length:clamp(1rem,1.14vw,1.2rem)] disabled:cursor-not-allowed disabled:bg-blue-200 disabled:text-white disabled:shadow-none"
+        className="btn-pill-primary h-[clamp(2.4rem,4.4vh,3rem)] w-full text-[length:clamp(0.92rem,1.05vw,1.1rem)] disabled:cursor-not-allowed disabled:bg-blue-200 disabled:text-white disabled:shadow-none"
       >
         {loading ? (
           <span className="inline-flex items-center gap-2">
@@ -497,15 +497,15 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
       </button>
 
       {/* Social */}
-      <div className="flex flex-col gap-[clamp(0.7rem,1.9vh,1.15rem)]">
+      <div className="flex flex-col gap-[clamp(0.5rem,1.4vh,0.85rem)]">
         <AuthDivider />
         <OAuthButtons role={role} onError={(msg) => setErrorMessage(msg)} />
       </div>
 
       {/* Switch to Get Started */}
-      <div className="flex flex-col gap-[clamp(0.9rem,2.7vh,1.6rem)]">
+      <div className="flex flex-col gap-[clamp(0.6rem,1.8vh,1.1rem)]">
         <AuthRule />
-        <p className="text-center text-[length:clamp(0.85rem,1.02vw,1.1rem)] font-medium text-[#1c2740]">
+        <p className="text-center text-[length:clamp(0.8rem,0.92vw,0.98rem)] font-medium text-[#1c2740]">
           <span>Don&apos;t have an account on UnBound X yet? </span>
           <Link
             href={role === "founder" ? "/signup" : "/investor/signup"}

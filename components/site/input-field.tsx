@@ -8,24 +8,24 @@ import { cn } from "@/lib/utils";
  * (Figtree is inherited from the site — never set a font-family here.)
  */
 export const AUTH_INPUT_CLASS = cn(
-  "block w-full h-[clamp(2.75rem,6.4vh,3.8rem)] rounded-[clamp(12px,0.98vw,17px)]",
-  "border border-slate-200 bg-white px-[clamp(1rem,1.4vw,1.5rem)]",
-  "text-[length:clamp(1rem,1.1vw,1.15rem)] font-medium text-slate-900",
+  "block w-full h-[clamp(2.4rem,4.4vh,3.1rem)] rounded-[clamp(10px,0.85vw,14px)]",
+  "border border-slate-200 bg-white px-[clamp(0.85rem,1.2vw,1.25rem)]",
+  "text-[length:clamp(0.88rem,1vw,1.05rem)] font-medium text-slate-900",
   "placeholder:font-medium placeholder:text-slate-400",
   "outline-none transition-all",
   "focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
 );
 
 export const AUTH_LABEL_CLASS =
-  "block text-[length:clamp(0.9rem,1.17vw,1.25rem)] font-semibold leading-snug text-slate-900";
+  "block text-[length:clamp(0.82rem,0.95vw,1.05rem)] font-semibold leading-snug text-slate-900";
 
 export const AUTH_HELPER_CLASS =
-  "text-[length:clamp(0.8rem,0.99vw,1.05rem)] font-medium leading-[1.5] text-slate-600";
+  "text-[length:clamp(0.75rem,0.85vw,0.9rem)] font-medium leading-[1.4] text-slate-600";
 
 /** Vertical rhythm between field groups (28px on the 941px-tall reference). */
-export const AUTH_STACK_GAP = "gap-[clamp(0.9rem,2.9vh,1.75rem)]";
+export const AUTH_STACK_GAP = "gap-[clamp(0.55rem,1.6vh,1.15rem)]";
 /** Gap between a label and its control (15px on the reference). */
-export const AUTH_LABEL_GAP = "gap-[clamp(0.4rem,1.45vh,0.9rem)]";
+export const AUTH_LABEL_GAP = "gap-[clamp(0.2rem,0.7vh,0.5rem)]";
 
 export function FieldLabel({
   htmlFor,

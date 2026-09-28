@@ -85,6 +85,12 @@ export async function GET(request: Request) {
 /**
  * POST /api/auth/session
  * Allows client to sync an active session into HTTP cookies after OAuth or client-side login.
+ *
+ * SECURITY: the caller supplies an `accessToken` (from a real Supabase
+ * sign-in / OAuth redirect), but email/id/role are NEVER trusted from the
+ * request body — they are always re-derived from Supabase after verifying
+ * the access token server-side. Otherwise anyone could POST an arbitrary
+ * {email, role: "founder"} and mint themselves a valid signed session.
  */
 export async function POST(request: Request) {
   try {
@@ -92,8 +98,6 @@ export async function POST(request: Request) {
       accessToken?: string;
       refreshToken?: string;
       role?: string;
-      email?: string;
-      id?: string;
     } = {};
 
     try {
@@ -102,35 +106,62 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "Invalid payload" }, { status: 400 });
     }
 
-    const { accessToken, role = "investor", email, id } = body;
-    const res = NextResponse.json({ success: true });
+    const { accessToken, role: requestedRole } = body;
 
-    if (email) {
-      const vfToken = await signSessionToken({ id: id || email, email, role });
-      res.cookies.set("vf_token", vfToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7,
-      });
-      res.cookies.set("vf_user", JSON.stringify({ id: id || email, email, role }), {
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7,
-        sameSite: "lax",
-      });
+    if (!accessToken || !isSupabaseConfigured()) {
+      return NextResponse.json(
+        { success: false, error: "A valid access token is required to create a session." },
+        { status: 401 }
+      );
     }
 
+    // Verify the token directly against Supabase and derive identity/role
+    // from the verified user record — never from client-supplied fields.
+    const { supabase } = await import("@/lib/supabase/client");
+    const { data, error } = await supabase.auth.getUser(accessToken);
+
+    if (error || !data?.user) {
+      return NextResponse.json(
+        { success: false, error: "Invalid or expired access token." },
+        { status: 401 }
+      );
+    }
+
+    const verifiedUser = data.user;
+    const verifiedRole =
+      (verifiedUser.user_metadata?.role as string | undefined) ||
+      (verifiedUser.app_metadata?.role as string | undefined) ||
+      // Only used if Supabase has no role on file yet (e.g. first OAuth
+      // login); still comes from the caller's declared intent, not an
+      // identity claim, and carries no extra privilege by itself.
+      requestedRole ||
+      "investor";
+
+    const email = verifiedUser.email;
+    const id = verifiedUser.id;
+
+    const res = NextResponse.json({ success: true, user: { id, email, role: verifiedRole } });
+
+    const vfToken = await signSessionToken({ id, email, role: verifiedRole });
+    res.cookies.set("vf_token", vfToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+    res.cookies.set("vf_user", JSON.stringify({ id, email, role: verifiedRole }), {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "lax",
+    });
     res.cookies.set("vf_auth", "1", { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
-    res.cookies.set("vf_role", role, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
-
-    if (accessToken) {
-      res.cookies.set("sb_access_token", accessToken, {
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7,
-        sameSite: "lax",
-      });
-    }
+    res.cookies.set("vf_role", verifiedRole, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+    res.cookies.set("sb_access_token", accessToken, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "lax",
+    });
 
     return res;
   } catch {

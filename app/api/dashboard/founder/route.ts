@@ -16,7 +16,6 @@ export async function GET(request: Request) {
     const bearerToken = authHeader?.replace(/^Bearer\s+/i, "").trim();
     const sbAccessToken = bearerToken || cookieStore.get("sb_access_token")?.value;
     const vfToken = cookieStore.get("vf_token")?.value;
-    const vfAuth = cookieStore.get("vf_auth")?.value;
 
     let isAuthenticated = false;
     let verifiedRole: string | null = null;
@@ -48,12 +47,10 @@ export async function GET(request: Request) {
       }
     }
 
-    // 3. Fallback to vf_auth cookie for local sessions
-    if (!isAuthenticated && vfAuth === "1") {
-      isAuthenticated = true;
-      const rawRole = cookieStore.get("vf_role")?.value?.toLowerCase();
-      if (rawRole) verifiedRole = rawRole;
-    }
+    // NOTE: we deliberately do NOT fall back to trusting a bare "vf_auth=1"
+    // or "vf_role" cookie here. Those cookies are unsigned and can be set by
+    // anyone via devtools, so they must never grant access on their own —
+    // only a verified vf_token (HMAC) or a Supabase-verified access token do.
 
     // Enforce authentication
     if (!isAuthenticated) {

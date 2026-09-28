@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { BrandLogoLink } from "./brand-logo";
 import { Button } from "@/components/ui/button";
 import { useAuthSession } from "@/hooks/useAuthSession";
+import { AnimatePresence } from "framer-motion";
+import { GradientMobileMenu, gradientCtaClass } from "@/components/layout/GradientMobileMenu";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -20,9 +22,23 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { user, role } = useAuthSession();
 
+  const drawerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  // Scroll lock + Escape-to-close while the full-screen menu is open
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   const dashboardHref =
     role === "founder" || role === "issuer" ? "/founder/dashboard" : "/investor/dashboard";
@@ -95,39 +111,36 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile nav panel */}
-      {open && (
-        <nav className="border-t border-hairline bg-surface px-5 py-4 sm:hidden">
-          <ul className="space-y-1">
-            {nav.map((item) => {
-              const isActive =
+      {/* Full-screen gradient mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <GradientMobileMenu
+            drawerRef={drawerRef}
+            ariaLabel="Mobile navigation"
+            onClose={() => setOpen(false)}
+            brandHref="/"
+            items={nav.map((item) => ({
+              label: item.label,
+              href: item.href,
+              active:
                 item.href === "/"
                   ? pathname === "/"
                   : item.href === "/platform"
                   ? pathname === "/platform"
-                  : pathname.startsWith(item.href);
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    prefetch={true}
-                    aria-current={isActive ? "page" : undefined}
-                    onClick={() => setOpen(false)}
-                    className={
-                      isActive
-                        ? "block rounded-md px-3 py-2.5 text-[0.95rem] text-brand bg-accent"
-                        : "block rounded-md px-3 py-2.5 text-[0.95rem] text-ink/85 hover:bg-accent"
-                    }
-                    style={{ fontWeight: 500 }}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      )}
+                  : pathname.startsWith(item.href),
+            }))}
+            cta={
+              <Link
+                href={user ? dashboardHref : "/signup"}
+                onClick={() => setOpen(false)}
+                className={gradientCtaClass}
+              >
+                {user ? "Dashboard" : "Sign Up / Log In"}
+              </Link>
+            }
+          />
+        )}
+      </AnimatePresence>
     </header>
   );
 }

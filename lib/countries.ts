@@ -147,19 +147,85 @@ export const ALL_COUNTRIES: Country[] = [
   { name: "Zimbabwe", code: "ZW", dial: "+263", flag: "🇿🇼" },
 ];
 
+const digitsOf = (v: string) => v.replace(/[^\d]/g, "");
+
+/** Countries whose national numbers legitimately keep a leading 0 in E.164. */
+const KEEPS_LEADING_ZERO = new Set(["39", "378", "379"]);
+
+/** Longest calling code that the given international digits start with. */
+export function findCountryByInternationalDigits(digits: string): Country | undefined {
+  let best: Country | undefined;
+  let bestLen = 0;
+  for (const c of ALL_COUNTRIES) {
+    const d = digitsOf(c.dial);
+    if (digits.startsWith(d) && d.length > bestLen) {
+      best = c;
+      bestLen = d.length;
+    }
+  }
+  return best;
+}
+
 /**
- * Combines a dialing prefix and local phone digits into valid E.164.
- * Example: dial "+91", phone "8002488825" -> "+918002488825"
+ * Splits whatever the user typed/pasted into the *local* (national) number for
+ * the selected calling code. The country selector owns the calling code, so
+ * the returned `local` never contains it:
+ *   dial "+91", "8002488825"    -> local "8002488825"
+ *   dial "+91", "+918002488825" -> local "8002488825"  (no duplicated +91)
+ *   dial "+91", "918002488825"  -> local "8002488825"
+ *   dial "+91", "9123456789"    -> local "9123456789"  (valid local number that
+ *                                                       merely starts with "91")
+ * `foreignDial` is set when the input is an explicit "+"/"00" international
+ * number for a DIFFERENT calling code than the selected one.
+ */
+export function parseLocalPhone(
+  dial: string,
+  input: string
+): { local: string; foreignDial?: string } {
+  const dialDigits = digitsOf(dial);
+  const raw = input.trim();
+  const explicitIntl = raw.startsWith("+") || raw.startsWith("00");
+  let digits = digitsOf(raw);
+  if (raw.startsWith("00")) digits = digits.slice(2);
+
+  if (explicitIntl) {
+    if (digits.startsWith(dialDigits)) return { local: digits.slice(dialDigits.length) };
+    const other = findCountryByInternationalDigits(digits);
+    if (other) {
+      const od = digitsOf(other.dial);
+      return { local: digits.slice(od.length), foreignDial: other.dial };
+    }
+    return { local: digits };
+  }
+
+  // No "+": only treat a leading calling code as a prefix when what remains is
+  // long enough to be a full national number, so real local numbers that happen
+  // to start with the same digits (e.g. India 91xxxxxxxx) are left alone.
+  if (digits.startsWith(dialDigits) && digits.length - dialDigits.length >= 9) {
+    return { local: digits.slice(dialDigits.length) };
+  }
+
+  // Keep the user's own formatting (spaces, dashes, brackets) while typing.
+  return { local: raw.replace(/[^\d\s\-().]/g, "") };
+}
+
+/**
+ * Combines a dialing prefix and a local number into valid E.164 without ever
+ * duplicating the country code.
+ * Example: dial "+91", phone "8002488825"    -> "+918002488825"
+ *          dial "+91", phone "+918002488825" -> "+918002488825"
  */
 export function combineToE164(dial: string, phone: string): string {
-  const cleanPhone = phone.trim();
-  if (cleanPhone.startsWith("+")) {
-    return `+${cleanPhone.replace(/[^\d]/g, "")}`;
+  const dialDigits = digitsOf(dial);
+  const { local, foreignDial } = parseLocalPhone(dial, phone);
+  let national = digitsOf(local);
+  if (!national) return "";
+  if (foreignDial) return `+${digitsOf(foreignDial)}${national}`;
+  // Drop a national trunk prefix ("07911 123456" -> 7911123456) except where the
+  // 0 is part of the number.
+  if (national.startsWith("0") && !KEEPS_LEADING_ZERO.has(dialDigits)) {
+    national = national.replace(/^0+/, "");
+    if (!national) return "";
   }
-  const digits = cleanPhone.replace(/[^\d]/g, "");
-  const dialDigits = dial.replace(/[^\d]/g, "");
-  if (digits.startsWith(dialDigits)) {
-    return `+${digits}`;
-  }
-  return `+${dialDigits}${digits}`;
+  return `+${dialDigits}${national}`;
 }

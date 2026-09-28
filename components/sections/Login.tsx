@@ -537,6 +537,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
     }
   };
 
+
   // Handle Recover Account submission (Image 2)
   const handleRecoverSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -1416,7 +1417,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   const showTopNavHeader = flow !== "login" || signupEmailMode;
 
   return (
-    <main className="min-h-dvh w-full bg-gradient-to-br from-[#fdf2fa] via-[#f3f7ff] to-[#eaf6ff] text-slate-900 flex flex-col justify-between px-4 py-4 sm:px-8 sm:py-6 relative overflow-x-hidden overflow-y-auto selection:bg-blue-100 selection:text-blue-900">
+    <main className="min-h-dvh lg:h-dvh w-full bg-gradient-to-br from-[#fdf2fa] via-[#f3f7ff] to-[#eaf6ff] text-slate-900 flex flex-col justify-between px-4 py-3 sm:px-8 sm:py-4 relative overflow-x-hidden overflow-y-auto lg:overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden selection:bg-blue-100 selection:text-blue-900">
       {/* Background Soft Pastel Ambient Glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute left-1/2 top-[-140px] h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-white/70 blur-3xl" />
@@ -1468,7 +1469,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
       </header>
 
       {/* Main Centered Content Card */}
-      <div className="relative z-10 flex flex-1 items-center justify-center my-auto py-4 sm:py-6">
+      <div className="relative z-10 flex flex-1 items-center justify-center my-auto py-2 sm:py-3">
         <section
           className={`w-full ${
             flow === "login" || flow === "signup" ? "max-w-[1040px]" : "max-w-[440px]"
@@ -1483,12 +1484,12 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.25 }}
-                className="relative w-full min-h-[660px] rounded-3xl border border-slate-200/90 bg-white shadow-2xl shadow-blue-950/15 overflow-hidden"
+                className="relative w-full lg:min-h-[540px] xl:min-h-[560px] rounded-3xl border border-slate-200/90 bg-white shadow-2xl shadow-blue-950/15 overflow-hidden"
               >
                 {/* DESKTOP SPLIT SLIDING CARD (hidden on mobile, visible on lg+) */}
-                <div className="hidden lg:block relative w-full h-[660px] overflow-hidden">
+                <div className="hidden lg:block relative w-full h-[540px] xl:h-[560px] overflow-hidden">
                   {/* Left stationary panel: Signup Form */}
-                  <div className="absolute top-0 left-0 w-1/2 h-full z-10 p-8 xl:p-12 flex flex-col justify-center overflow-y-auto">
+                  <div className="absolute top-0 left-0 w-1/2 h-full z-10 p-6 xl:p-8 flex flex-col justify-center overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                     <motion.div
                       animate={{
                         opacity: flow === "signup" ? 1 : 0,
@@ -1503,7 +1504,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                   </div>
 
                   {/* Right stationary panel: Login Form */}
-                  <div className="absolute top-0 right-0 w-1/2 h-full z-10 p-8 xl:p-12 flex flex-col justify-center overflow-y-auto">
+                  <div className="absolute top-0 right-0 w-1/2 h-full z-10 p-6 xl:p-8 flex flex-col justify-center overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                     <motion.div
                       animate={{
                         opacity: flow === "login" ? 1 : 0,
@@ -1530,7 +1531,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                       className="relative h-full w-[200%] flex"
                     >
                       {/* Left half of overlay: Active during Login (invites to Sign Up) */}
-                      <div className="relative w-1/2 h-full flex flex-col justify-between p-10 xl:p-12 text-white">
+                      <div className="relative w-1/2 h-full flex flex-col justify-between p-8 xl:p-10 text-white">
                         <Image
                           src="/images/auth-artwork.webp"
                           alt="UnBound X Authentication"
@@ -1555,20 +1556,20 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                         </div>
 
                         {/* Middle message */}
-                        <div className="my-auto py-6 text-left">
-                          <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-[11px] font-semibold text-blue-200 uppercase tracking-wider mb-3">
+                        <div className="my-auto py-3 text-left">
+                          <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-[11px] font-semibold text-blue-200 uppercase tracking-wider mb-2.5">
                             New to the platform?
                           </span>
-                          <h2 className="text-3xl xl:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                          <h2 className="text-2xl xl:text-3xl font-extrabold tracking-tight leading-tight text-white">
                             Start your verified track record.
                           </h2>
-                          <p className="mt-3 text-sm text-slate-200/90 leading-relaxed max-w-[320px]">
+                          <p className="mt-2 text-xs sm:text-sm text-slate-200/90 leading-relaxed max-w-[320px]">
                             Discover high-conviction investment ideas, lock entries, and build an auditable record as outcomes unfold.
                           </p>
                           <button
                             type="button"
                             onClick={() => navigateFlow("signup")}
-                            className="mt-7 inline-flex items-center gap-2 rounded-full border-2 border-white bg-white/10 px-7 py-3 text-sm font-bold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-slate-900 cursor-pointer select-none active:scale-95"
+                            className="mt-5 inline-flex items-center gap-2 rounded-full border-2 border-white bg-white/10 px-6 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-slate-900 cursor-pointer select-none active:scale-95"
                           >
                             <span>Let&apos;s Get Started</span>
                             <ArrowRight className="size-4" />
@@ -1583,7 +1584,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                       </div>
 
                       {/* Right half of overlay: Active during Signup (invites to Log In) */}
-                      <div className="relative w-1/2 h-full flex flex-col justify-between p-10 xl:p-12 text-white">
+                      <div className="relative w-1/2 h-full flex flex-col justify-between p-8 xl:p-10 text-white">
                         <Image
                           src="/images/auth-artwork.webp"
                           alt="UnBound X Authentication"
@@ -1608,20 +1609,20 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                         </div>
 
                         {/* Middle message */}
-                        <div className="my-auto py-6 text-left">
-                          <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-[11px] font-semibold text-blue-200 uppercase tracking-wider mb-3">
+                        <div className="my-auto py-3 text-left">
+                          <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-[11px] font-semibold text-blue-200 uppercase tracking-wider mb-2.5">
                             Already a member?
                           </span>
-                          <h2 className="text-3xl xl:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                          <h2 className="text-2xl xl:text-3xl font-extrabold tracking-tight leading-tight text-white">
                             Welcome back.
                           </h2>
-                          <p className="mt-3 text-sm text-slate-200/90 leading-relaxed max-w-[320px]">
+                          <p className="mt-2 text-xs sm:text-sm text-slate-200/90 leading-relaxed max-w-[320px]">
                             Pick up where you left off. Sign in to access your verified track record, portfolio, and research.
                           </p>
                           <button
                             type="button"
                             onClick={() => navigateFlow("login")}
-                            className="mt-7 inline-flex items-center gap-2 rounded-full border-2 border-white bg-white/10 px-7 py-3 text-sm font-bold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-slate-900 cursor-pointer select-none active:scale-95"
+                            className="mt-5 inline-flex items-center gap-2 rounded-full border-2 border-white bg-white/10 px-6 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-slate-900 cursor-pointer select-none active:scale-95"
                           >
                             <span>Sign In to Account</span>
                             <ArrowRight className="size-4" />
@@ -2292,7 +2293,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
       </div>
 
       {/* Subtle Bottom Footer */}
-      <footer className="relative z-10 w-full max-w-5xl mx-auto py-2 text-center text-[11px] text-slate-400 select-none">
+      <footer className="relative z-10 w-full max-w-5xl mx-auto py-1 text-center text-[11px] text-slate-400 select-none shrink-0">
         &copy; {new Date().getFullYear()} UnBound X Inc. All rights reserved.
       </footer>
     </main>
