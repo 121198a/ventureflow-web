@@ -68,7 +68,7 @@ export function GradientMobileMenu({
   });
 
   const itemClass = (active?: boolean) =>
-    `block w-full py-1.5 text-center text-[clamp(1.75rem,7.5vw,2.25rem)] font-extrabold leading-tight tracking-tight transition-colors ${
+    `block w-full py-2 text-center text-3xl font-extrabold tracking-tight transition-colors ${
       active ? "text-white" : "text-white/55 hover:text-white"
     }`;
 
@@ -126,8 +126,7 @@ export function GradientMobileMenu({
       </div>
 
       {/* Centered links */}
-      <nav className="relative z-10 mx-auto my-auto flex w-full max-w-lg flex-col items-center gap-[clamp(1rem,3.2vh,1.75rem)] py-[clamp(1rem,4vh,2rem)]">
-        <div className="flex w-full flex-col items-center gap-0.5">
+      <nav className="relative z-10 mx-auto my-auto flex w-full max-w-lg flex-col items-center py-8">
         {items.map((item, i) => (
           <motion.div key={item.label} className="w-full" {...itemMotion(i)}>
             {item.href ? (
@@ -146,20 +145,19 @@ export function GradientMobileMenu({
             )}
           </motion.div>
         ))}
-        </div>
 
         {secondary && secondary.length > 0 && (
-          <motion.div className="w-full" {...itemMotion(items.length)}>
-            <p className="mb-3 text-center text-[11px] font-bold uppercase tracking-widest text-white/60">
+          <motion.div className="mt-5 w-full" {...itemMotion(items.length)}>
+            <p className="mb-2 text-center text-[11px] font-bold uppercase tracking-widest text-white/50">
               {secondaryLabel}
             </p>
-            <div className="flex flex-wrap justify-center gap-x-2 gap-y-2.5">
+            <div className="flex flex-wrap justify-center gap-2">
               {secondary.map((s) => (
                 <Link
                   key={s.href}
                   href={s.href}
                   onClick={onClose}
-                  className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-4 text-[13px] font-semibold leading-none text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20"
+                  className="rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white/85 backdrop-blur-sm transition-colors hover:bg-white/20"
                 >
                   {s.label}
                 </Link>
@@ -169,14 +167,14 @@ export function GradientMobileMenu({
         )}
 
         {cta && (
-          <motion.div className="pt-1" {...itemMotion(items.length + 1)}>
+          <motion.div className="mt-8" {...itemMotion(items.length + 1)}>
             {cta}
           </motion.div>
         )}
       </nav>
 
       {/* Social icons */}
-      <div className="relative z-10 mx-auto flex shrink-0 items-center justify-center gap-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-1 text-white/70">
+      <div className="relative z-10 mx-auto flex shrink-0 items-center justify-center gap-6 pb-6 pt-2 text-white/60">
         <a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on X" className="p-2 transition-colors hover:text-white">
           <FaTwitter size={18} />
         </a>

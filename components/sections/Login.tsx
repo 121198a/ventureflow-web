@@ -537,7 +537,6 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
     }
   };
 
-
   // Handle Recover Account submission (Image 2)
   const handleRecoverSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -1537,6 +1536,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                           alt="UnBound X Authentication"
                           fill
                           priority
+                          sizes="(min-width: 1024px) 520px, 0px"
                           className="object-cover -z-10"
                         />
                         <div className="absolute inset-0 bg-gradient-to-br from-[#06122b]/95 via-[#0b214a]/88 to-[#1e0d3b]/92 -z-10" />
@@ -1590,6 +1590,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                           alt="UnBound X Authentication"
                           fill
                           priority
+                          sizes="(min-width: 1024px) 520px, 0px"
                           className="object-cover -z-10"
                         />
                         <div className="absolute inset-0 bg-gradient-to-br from-[#06122b]/95 via-[#0b214a]/88 to-[#1e0d3b]/92 -z-10" />
@@ -1642,12 +1643,13 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                 {/* MOBILE / TABLET STACKED LAYOUT (visible on mobile, hidden on lg+) */}
                 <div className="block lg:hidden w-full">
                   {/* Compact Hero Banner */}
-                  <div className="relative isolate h-36 w-full overflow-hidden p-5 flex flex-col justify-between text-white text-left">
+                  <div className="relative h-36 w-full overflow-hidden p-5 flex flex-col justify-between text-white text-left">
                     <Image
                       src="/images/auth-artwork.webp"
                       alt="UnBound X"
                       fill
                       priority
+                      sizes="100vw"
                       className="object-cover -z-10"
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-[#06122b]/95 via-[#0b214a]/88 to-[#1e0d3b]/92 -z-10" />

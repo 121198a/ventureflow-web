@@ -43,7 +43,7 @@ const FOUNDERS = [
   {
     name: "Arnav Awasthi",
     role: "Co-Founder, COO, Head of Product",
-    photo: ABOUT_PHOTOS[2],
+    photo: ABOUT_PHOTOS[1],
     bio: "Fintech product builder and engineer focused on verified track records for everyday investors and private markets.",
   },
 ] as const;
@@ -52,8 +52,8 @@ const TEAM = [
   { name: "Gaurav Madhogaria", role: "Engineering Lead", photo: ABOUT_PHOTOS[2] },
   { name: "Dinesh Pathak", role: "Systems Architecture", photo: ABOUT_PHOTOS[2] },
   { name: "Rama Rao", role: "Market Operations", photo: ABOUT_PHOTOS[0] },
-  { name: "Chetan Chauhan", role: "Investment Research", photo: ABOUT_PHOTOS[0] },
-  { name: "Dhruvi Turakhia", role: "Product Strategy", photo: ABOUT_PHOTOS[1] },
+  { name: "Chetan Chauhan", role: "Investment Research", photo: ABOUT_PHOTOS[1] },
+  { name: "Dhruvi Turakhia", role: "Product Strategy", photo: ABOUT_PHOTOS[4] },
   { name: "Nimisha Pathar", role: "Product Design", photo: ABOUT_PHOTOS[3] },
 ] as const;
 
@@ -365,8 +365,8 @@ export default function AboutSection() {
         </div>
       </section>
 
-      <div className="relative z-20 mt-14 pb-8 md:mt-28 md:pb-0">
-        <div className="relative z-20 px-4 md:absolute md:inset-x-0 md:top-0 md:-translate-y-1/2">
+      <div className="relative z-20 mt-24 sm:mt-28">
+        <div className="absolute inset-x-0 top-0 z-20 -translate-y-1/2 px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}

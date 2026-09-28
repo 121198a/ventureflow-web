@@ -145,8 +145,12 @@ export function FounderDashboardClient() {
       const json = await res.json();
       if (json.success) {
         setData(json);
-        if (json.issuerDetail?.companyInformation?._id && !selectedCompanyId) {
-          setSelectedCompanyId(json.issuerDetail.companyInformation._id);
+        // Functional update so this callback never needs selectedCompanyId as a
+        // dependency (that instability was re-firing the mount effect below and
+        // causing a second /api/dashboard/founder request on every load).
+        const newCompanyId = json.issuerDetail?.companyInformation?._id;
+        if (newCompanyId) {
+          setSelectedCompanyId((prev) => prev || newCompanyId);
         }
       } else {
         throw new Error(json.error || "Unable to fetch founder deal information.");
@@ -156,7 +160,7 @@ export function FounderDashboardClient() {
     } finally {
       setLoading(false);
     }
-  }, [selectedCompanyId]);
+  }, []);
 
   useEffect(() => {
     fetchFounderData();
