@@ -367,17 +367,17 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
       )}
 
       {/* Auth mode selector */}
-      <div className="flex rounded-[clamp(10px,0.8vw,14px)] bg-slate-100/90 p-1 border border-slate-200/60">
+      <div className="flex rounded-xl bg-[#eef2f8] p-1 border border-slate-200/60 mb-1">
         <button
           type="button"
           onClick={() => {
             setAuthMode("email");
             if (errorMessage) setErrorMessage(null);
           }}
-          className={`flex-1 py-2 text-[length:clamp(0.85rem,0.95vw,0.92rem)] rounded-[clamp(8px,0.65vw,11px)] transition-all font-semibold cursor-pointer select-none ${
+          className={`flex-1 py-2 text-xs sm:text-sm rounded-lg transition-all font-semibold cursor-pointer select-none ${
             authMode === "email"
-              ? "bg-white text-slate-900 shadow-2xs font-semibold"
-              : "text-slate-500 hover:text-slate-900 font-medium"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-600 hover:text-slate-900 font-medium"
           }`}
         >
           Email
@@ -388,10 +388,10 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
             setAuthMode("phone");
             if (errorMessage) setErrorMessage(null);
           }}
-          className={`flex-1 py-2 text-[length:clamp(0.85rem,0.95vw,0.92rem)] rounded-[clamp(8px,0.65vw,11px)] transition-all font-semibold cursor-pointer select-none ${
+          className={`flex-1 py-2 text-xs sm:text-sm rounded-lg transition-all font-semibold cursor-pointer select-none ${
             authMode === "phone"
-              ? "bg-white text-slate-900 shadow-2xs font-semibold"
-              : "text-slate-500 hover:text-slate-900 font-medium"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-600 hover:text-slate-900 font-medium"
           }`}
         >
           Phone Number
@@ -488,7 +488,7 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
           </svg>
         </span>
         <span className="lg:pr-[1.2vw]">
-          By creating an account, I agree to the UBverse{" "}
+          By creating an account, I agree to the VentureFlow{" "}
           <Link
             href="/legal/terms-condition"
             target="_blank"
@@ -507,7 +507,7 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
           </Link>{" "}
           and{" "}
           <Link
-            href="/legal/ubverse-disclaimer-for-unboundx"
+            href="/legal/workspace-disclaimer-for-ventureflow"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-700 underline underline-offset-2 hover:text-blue-800"
@@ -525,21 +525,21 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
       </div>
 
       {/* Footer row: disclosures + Continue */}
-      <div className="flex flex-col gap-[clamp(0.9rem,2.65vh,1.6rem)]">
+      <div className="flex flex-col gap-3.5 pt-2">
         <AuthRule />
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-4 pt-1">
           <Link
-            href="/legal/investment-disclaimers"
+            href="/legal/workspace-disclaimer-for-ventureflow"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[length:clamp(0.85rem,1.06vw,1.15rem)] font-medium text-blue-700 underline underline-offset-2 hover:text-blue-800"
+            className="text-xs sm:text-[13px] font-medium text-blue-600 underline underline-offset-2 hover:text-blue-700"
           >
             Disclaimers and Disclosures
           </Link>
           <button
             type="submit"
             disabled={!canContinue}
-            className="btn-pill-primary h-[clamp(2.6rem,5.3vh,3.2rem)] min-w-[clamp(7.5rem,9.4vw,10rem)] px-8 text-[length:clamp(1rem,1.14vw,1.2rem)] disabled:cursor-not-allowed disabled:bg-[#c8dffd] disabled:text-white disabled:shadow-none"
+            className="inline-flex items-center justify-center h-10 px-8 rounded-full bg-[#5b8ee8] hover:bg-[#4a7dd7] text-white text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
           >
             {loading ? (
               <span className="inline-flex items-center gap-2">
