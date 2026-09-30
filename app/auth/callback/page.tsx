@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Loader2, AlertTriangle, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { isSupabaseConfigured, getSupabaseClient } from "@/lib/supabase/client";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowBrand } from "@/components/ui/VentureFlowBrand";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -183,10 +183,10 @@ function AuthCallbackInner() {
         {/* Logo */}
         <div className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-full overflow-hidden shadow-md border border-white">
           <Image
-            src="/logo/unboundx-mark.png"
+            src="/logo/vf-mark.png"
             width={64}
             height={64}
-            alt="UnBound X"
+            alt="VentureFlow"
             className="h-full w-full object-cover rounded-full"
             priority
           />
@@ -197,7 +197,7 @@ function AuthCallbackInner() {
             <Loader2 className="mx-auto size-8 animate-spin text-brand" />
             <h1 className="text-xl font-bold tracking-tight">Verifying Secure Session</h1>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-              Exchanging security credentials with UnBound X. You will be redirected shortly...
+              Exchanging security credentials with VentureFlow. You will be redirected shortly...
             </p>
           </div>
         )}
@@ -219,7 +219,7 @@ function AuthCallbackInner() {
               <h1 className="text-xl font-bold tracking-tight text-ink">Account Role Setup</h1>
               <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
                 Your authenticated profile does not have an assigned product role yet. Please choose
-                how you plan to use UnBound X:
+                how you plan to use VentureFlow:
               </p>
             </div>
 
@@ -315,7 +315,7 @@ function AuthCallbackInner() {
         )}
 
         <div className="mt-8 pt-4 border-t border-hairline/60">
-          <UnboundXBrand className="text-sm font-bold opacity-75" />
+          <VentureFlowBrand className="text-sm font-bold opacity-75" />
         </div>
       </div>
     </main>
