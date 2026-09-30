@@ -1,15 +1,15 @@
 /**
- * Base configuration and article endpoint registry for UBverse Newsletter.
+ * Base configuration and article endpoint registry for VentureFlow Newsletter.
  *
  * All remote data requests target the production/development API base (defaulting
- * to https://development.unboundxinc.us) and never depend on localhost:3000.
+ * to https://api.ventureflow.example) and never depend on localhost:3000.
  */
 
 import type { AssessmentKey } from "./assessments";
 
 export const NEWSLETTER_API_BASE_URL =
   process.env.NEXT_PUBLIC_NEWSLETTER_API_BASE_URL ||
-  "https://development.unboundxinc.us";
+  "https://api.ventureflow.example";
 
 export type ArticleCTA = {
   id: string;
@@ -75,7 +75,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         },
         {
           id: "cta-1-platform",
-          text: "Everything in this briefing lives in one place on UBverse: your five numbers, your documents, and your investor conversations, current before the meeting instead of assembled after it.",
+          text: "Everything in this briefing lives in one place on VentureFlow: your five numbers, your documents, and your investor conversations, current before the meeting instead of assembled after it.",
           buttonLabel: "See how the platform works →",
           note: "The complete workflow, step by step · 2 minutes",
           actionType: "how-it-works",
@@ -111,7 +111,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
       ctas: [
         {
           id: "cta-2-assessment",
-          text: "Evaluate your closing infrastructure across 8 non-negotiable legal and escrow checkpoints.",
+          text: "Evaluate your readiness across 8 practical checkpoints.",
           buttonLabel: "Run the readiness assessment →",
           note: "8 questions · 2 minutes · confidential",
           actionType: "assessment",
@@ -126,7 +126,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         },
         {
           id: "cta-2-platform",
-          text: "Discover how UBverse standardizes SAFE instruments, investor accreditation, and live closing ledgers.",
+          text: "Discover how VentureFlow standardizes SAFE instruments, investor accreditation, and live closing ledgers.",
           buttonLabel: "See how the platform works →",
           note: "Institutional closing rails · 2 min",
           actionType: "how-it-works",
@@ -176,7 +176,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         },
         {
           id: "cta-3-platform",
-          text: "See how founders manage deal momentum and follow-up threads on UBverse.",
+          text: "See how founders manage deal momentum and follow-up threads on VentureFlow.",
           buttonLabel: "See how the platform works →",
           actionType: "how-it-works",
           endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
@@ -212,7 +212,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         {
           id: "cta-4-platform",
           heading: "Automate your investor communications",
-          text: "UBverse provides company spaces where updates, data rooms, and cap tables live securely together.",
+          text: "VentureFlow provides company spaces where updates, data rooms, and cap tables live securely together.",
           buttonLabel: "See how the platform works →",
           note: "Free to set up",
           actionType: "how-it-works",
@@ -227,7 +227,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         },
         {
           id: "cta-4-platform-2",
-          text: "Discover how founders centralize shareholder updates and milestones on UBverse.",
+          text: "Discover how founders centralize shareholder updates and milestones on VentureFlow.",
           buttonLabel: "See how the platform works →",
           note: "The complete workflow, step by step · 2 minutes",
           actionType: "how-it-works",
@@ -278,7 +278,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         },
         {
           id: "cta-5-platform",
-          text: "Explore how UBverse structures disclosures and diligence Q&A for high-growth offerings.",
+          text: "Explore how VentureFlow structures disclosures and diligence Q&A for high-growth offerings.",
           buttonLabel: "See how the platform works →",
           actionType: "how-it-works",
           endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
@@ -313,7 +313,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
       ctas: [
         {
           id: "cta-6-assessment",
-          heading: "Model your cap table on UBverse",
+          heading: "Model your cap table on VentureFlow",
           text: "Interactive scenario modeling for founders raising priced rounds or convertible notes.",
           buttonLabel: "Run the readiness assessment →",
           note: "Precise dilution math",
@@ -328,7 +328,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         },
         {
           id: "cta-6-platform",
-          text: "See how cap tables and convertible notes convert in real-time on UBverse.",
+          text: "See how cap tables and convertible notes convert in real-time on VentureFlow.",
           buttonLabel: "See how the platform works →",
           actionType: "how-it-works",
           endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
@@ -364,7 +364,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         {
           id: "cta-7-assessment",
           heading: "Benchmark your round",
-          text: "Compare valuation ranges with active deals currently raising on UBverse.",
+          text: "Compare valuation ranges with active deals currently raising on VentureFlow.",
           buttonLabel: "Run the readiness assessment →",
           note: "Real private market data",
           actionType: "assessment",
@@ -378,7 +378,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         },
         {
           id: "cta-7-platform",
-          text: "Learn how UBverse structures milestone-anchored terms for institutional leads.",
+          text: "Learn how VentureFlow structures milestone-anchored terms for institutional leads.",
           buttonLabel: "See how the platform works →",
           actionType: "how-it-works",
           endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
@@ -428,7 +428,7 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         },
         {
           id: "cta-8-platform",
-          text: "See how founders align runway targets with round allocations on UBverse.",
+          text: "See how founders align runway targets with round allocations on VentureFlow.",
           buttonLabel: "See how the platform works →",
           actionType: "how-it-works",
           endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
@@ -464,9 +464,9 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         {
           id: "cta-9-assessment",
           heading: "Assess your round readiness",
-          text: "Evaluate which regulatory and capital pathway matches your current stage of company development.",
+          text: "Evaluate which next steps match your current stage of company development.",
           buttonLabel: "Run the readiness assessment →",
-          note: "Reg CF · Reg D · Reg A+",
+          note: "Stage-based guidance",
           actionType: "assessment",
           endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/stage-check`,
         },
@@ -478,15 +478,15 @@ export const ARTICLE_CONFIGS: Record<string, ArticleConfig> = {
         },
         {
           id: "cta-9-platform",
-          text: "Discover how UBverse navigates exemptions and investor syndicates across stages.",
+          text: "Discover how VentureFlow keeps profiles, documents and introductions together across stages.",
           buttonLabel: "See how the platform works →",
           actionType: "how-it-works",
           endpoint: `${NEWSLETTER_API_BASE_URL}/newsletter/how-it-works`,
         },
         {
           id: "cta-9-consultation",
-          heading: "Exemption & stage consultation",
-          text: "Evaluate Reg CF, Reg D 506(c), or institutional syndicates with our team.",
+          heading: "Stage walkthrough",
+          text: "Talk through your stage and next steps with our team.",
           buttonLabel: "Schedule a consultation →",
           note: "20 minutes · Confidential",
           actionType: "book-call",
