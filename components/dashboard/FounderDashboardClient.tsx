@@ -26,9 +26,9 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useAuthSession } from "@/hooks/useAuthSession";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowBrand } from "@/components/ui/VentureFlowBrand";
 import { Button } from "@/components/ui/button";
-import type { BackendIssuerDetailData, BackendCompanySummary } from "@/lib/ubverse-api";
+import type { BackendIssuerDetailData, BackendCompanySummary } from "@/lib/workspace-api";
 import { DashboardSearch } from "./DashboardSearch";
 import { DashboardPagination } from "./DashboardPagination";
 import { EmptySearchResult } from "./EmptySearchResult";
@@ -49,44 +49,44 @@ interface ComplianceCheckpoint {
 const defaultCheckpoints: ComplianceCheckpoint[] = [
   {
     id: "chk-1",
-    title: "Securities Counsel Retained",
-    authority: "Snell & Wilmer LLP",
-    description: "Offering circular and legal engagement letter active.",
+    title: "Profile Completed",
+    authority: "Workspace",
+    description: "Company story, category and contact details added.",
     status: "Verified",
   },
   {
     id: "chk-2",
-    title: "Broker-Dealer Offering Agreement",
-    authority: "MARV Capital, Inc. (FINRA / SIPC)",
-    description: "Broker-dealer underwriting and compliance oversight executed.",
+    title: "Documents Uploaded",
+    authority: "Workspace",
+    description: "Key files added and access settings reviewed.",
     status: "Active",
   },
   {
     id: "chk-3",
-    title: "Form D / Form C Submission",
-    authority: "U.S. Securities and Exchange Commission (SEC EDGAR)",
-    description: "Notice of exempt offering of securities filed with EDGAR.",
+    title: "Team Invited",
+    authority: "Workspace",
+    description: "Collaborators invited to the workspace.",
     status: "In Progress",
   },
   {
     id: "chk-4",
-    title: "Escrow Account & Bank Clearance",
-    authority: "FDIC Insured Depository Institution",
-    description: "Segregated subscription escrow account provisioned.",
+    title: "Privacy Settings Reviewed",
+    authority: "Workspace",
+    description: "Visibility of profile sections confirmed.",
     status: "Verified",
   },
   {
     id: "chk-5",
-    title: "Bad Actor Disqualification Check",
-    authority: "SEC Rule 506(d) / Rule 262",
-    description: "Background checks completed for covered persons and 20%+ beneficial owners.",
+    title: "Contact Details Confirmed",
+    authority: "Workspace",
+    description: "Primary contact and notification email verified.",
     status: "Verified",
   },
   {
     id: "chk-6",
-    title: "Form BD BrokerCheck Verification",
-    authority: "FINRA Central Registration Depository (CRD)",
-    description: "Broker-dealer registration status verified on BrokerCheck.",
+    title: "Introductions Enabled",
+    authority: "Workspace",
+    description: "Introduction requests are open for your profile.",
     status: "Active",
   },
 ];
@@ -290,18 +290,18 @@ export function FounderDashboardClient() {
             <Link href="/" className="inline-flex items-center gap-2">
               <div className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full shadow-2xs">
                 <Image
-                  src="/logo/unboundx-mark.png"
-                  alt="UBverse"
+                  src="/logo/vf-mark.png"
+                  alt="VentureFlow"
                   width={28}
                   height={28}
                   className="h-full w-full object-cover rounded-full"
                   priority
                 />
               </div>
-              <span className="font-bold text-slate-900 flex items-center gap-1.5 text-sm sm:text-base">
-                <span className="text-slate-900 font-extrabold">UBverse</span>
+              <span className="font-bold text-slate-900 flex items-baseline gap-1 text-sm sm:text-base">
+                <VentureFlowBrand className="text-sm sm:text-base" />
                 <span className="text-slate-400 text-xs font-normal">by</span>
-                <UnboundXBrand className="text-sm sm:text-base" />
+                <span className="text-slate-900 font-bold">Veyron X</span>
               </span>
             </Link>
 
@@ -320,7 +320,7 @@ export function FounderDashboardClient() {
             <button
               type="button"
               onClick={logout}
-              title="Sign out of UnBound X"
+              title="Sign out of VentureFlow"
               className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-red-600 transition-colors shadow-2xs cursor-pointer"
             >
               <LogOut className="size-3.5" />
@@ -379,10 +379,10 @@ export function FounderDashboardClient() {
               <div className="rounded-lg bg-slate-50 p-3 text-xs text-slate-600 border border-slate-100">
                 <p className="font-semibold text-slate-800 flex items-center gap-1.5">
                   <ShieldCheck className="size-3.5 text-emerald-600" />
-                  Funding Portal Guard
+                  Workspace Guard
                 </p>
                 <p className="mt-1 text-[11px] leading-relaxed text-slate-500">
-                  MARV Capital, Inc. compliance engine monitors investor accreditation and SEC filings.
+                  Access controls keep shared documents visible only to the people you choose.
                 </p>
               </div>
             </div>
@@ -433,11 +433,11 @@ export function FounderDashboardClient() {
                     Capital Raise Console
                   </div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-                    {companyInfo?.companyLegalName || "Issuer Deal Workspace"}
+                    {companyInfo?.companyLegalName || "Founder Workspace"}
                   </h1>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                     {companyInfo?.companyDescription ||
-                      "Manage your offering structure, review accredited investor interest, and coordinate SEC filings."}
+                      "Manage your startup profile, documents and introduction requests."}
                   </p>
                   <div className="pt-2 flex flex-wrap gap-3">
                     <Link
@@ -516,27 +516,27 @@ export function FounderDashboardClient() {
                       <p className="mt-3 text-2xl font-bold tracking-tight text-slate-900">
                         {formattedMin}
                       </p>
-                      <p className="mt-1 text-[11px] text-slate-500">Per accredited participant</p>
+                      <p className="mt-1 text-[11px] text-slate-500">Per workspace member</p>
                     </div>
 
                     <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-2xs">
                       <div className="flex items-center justify-between text-slate-500">
-                        <span className="text-xs font-semibold">Securities Filing</span>
+                        <span className="text-xs font-semibold">Profile Status</span>
                         <ShieldCheck className="size-4 text-amber-500" />
                       </div>
                       <p className="mt-3 text-sm font-bold text-slate-900">
-                        {companyInfo?.securityFilling || "Reg D Rule 506(b)"}
+                        {companyInfo?.securityFilling || "Active"}
                       </p>
-                      <p className="mt-1 text-[11px] text-slate-500">Broker-Dealer: MARV Capital, Inc.</p>
+                      <p className="mt-1 text-[11px] text-slate-500">Managed in workspace settings</p>
                     </div>
                   </div>
 
                   {/* Company Summary Card */}
                   <div className="rounded-xl border border-slate-200/80 bg-white p-6 shadow-2xs space-y-4">
                     <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                      <h3 className="text-sm font-bold text-slate-900">Registered Issuer Information</h3>
+                      <h3 className="text-sm font-bold text-slate-900">Company Information</h3>
                       <span className="text-[10px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
-                        ACTIVE FILING
+                        ACTIVE
                       </span>
                     </div>
 
@@ -554,15 +554,15 @@ export function FounderDashboardClient() {
                         </span>
                       </div>
                       <div>
-                        <span className="text-slate-400 block font-medium">Securities Counsel</span>
+                        <span className="text-slate-400 block font-medium">Categories</span>
                         <span className="font-semibold text-slate-900">
-                          {issuer.aboutUs?.legalFirm || issuer.aboutUs?.valueLegalFirm || "Snell & Wilmer"}
+                          {issuer.aboutUs?.categories?.join(", ") || "--"}
                         </span>
                       </div>
                       <div>
-                        <span className="text-slate-400 block font-medium">Broker-Dealer Offeror</span>
+                        <span className="text-slate-400 block font-medium">Workspace Status</span>
                         <span className="font-semibold text-slate-900">
-                          {issuer.aboutUs?.legalOfferor || issuer.aboutUs?.valueLegalOfferor || "MARV Capital, Inc."}
+                          Active
                         </span>
                       </div>
                     </div>
@@ -574,7 +574,7 @@ export function FounderDashboardClient() {
               <div className="rounded-xl border border-slate-200/80 bg-white p-6 shadow-2xs">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                   <h3 className="text-sm font-bold text-slate-900">Live Investor Activity</h3>
-                  <span className="text-[11px] font-mono text-slate-400">INQUIRIES & ESCROW</span>
+                  <span className="text-[11px] font-mono text-slate-400">INQUIRIES</span>
                 </div>
                 <div className="py-10 text-center">
                   <div className="mx-auto grid size-12 place-items-center rounded-full bg-slate-100 text-slate-400 mb-3">
@@ -598,7 +598,7 @@ export function FounderDashboardClient() {
                   Offering Structure & Deal Terms
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-500">
-                  Verified financial terms and security structures registered on UBverse
+                  Verified financial terms and security structures registered on VentureFlow
                 </p>
               </div>
 
@@ -677,7 +677,7 @@ export function FounderDashboardClient() {
                     Registered Issuer Deals
                   </h1>
                   <p className="text-xs sm:text-sm text-slate-500">
-                    Verified company offerings and deal structures registered on UBverse
+                    Verified company offerings and deal structures registered on VentureFlow
                   </p>
                 </div>
                 <span className="text-xs font-semibold text-slate-500 bg-white border border-slate-200 rounded-md px-3 py-1.5 shadow-2xs w-fit">
@@ -794,7 +794,7 @@ export function FounderDashboardClient() {
                                   Filing
                                 </span>
                                 <span className="font-bold text-slate-800 truncate block">
-                                  {c.securitiesFiling || "Reg D"}
+                                  {c.fundingRoundStage || "Profile"}
                                 </span>
                               </div>
                             </div>
@@ -869,10 +869,10 @@ export function FounderDashboardClient() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-                    Verification & Compliance Documents
+                    Workspace Documents
                   </h1>
                   <p className="text-xs sm:text-sm text-slate-500">
-                    SEC filing documentation, escrow arrangements, and legal review
+                    Decks, one-pagers and supporting files
                   </p>
                 </div>
                 <span className="text-xs font-semibold text-slate-500 bg-white border border-slate-200 rounded-md px-3 py-1.5 shadow-2xs w-fit">
@@ -895,7 +895,7 @@ export function FounderDashboardClient() {
                 />
 
                 <span className="text-xs text-slate-500">
-                  Regulatory clearance via FINRA & SEC EDGAR
+                  Access is controlled by workspace owners
                 </span>
               </div>
 
@@ -992,11 +992,11 @@ export function FounderDashboardClient() {
                 <div className="md:col-span-2 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xs space-y-4">
                   <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
                     <Headphones className="size-4 text-blue-600" />
-                    Dedicated Issuer Advisory
+                    Workspace Support
                   </h2>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Need guidance regarding offering limits, Reg CF financial reviews, or marketing
-                    guidelines under Rule 506(c)? Message our issuer advisory desk directly.
+                    Need help with your profile, documents or introductions?
+                    Message the VentureFlow support team directly.
                   </p>
 
                   <form onSubmit={handleSupportSend} className="space-y-3 pt-2">
@@ -1036,15 +1036,15 @@ export function FounderDashboardClient() {
                     <div>
                       <span className="font-semibold text-slate-700 block">Deal Operations</span>
                       <a
-                        href="mailto:info@unboundxinc.com"
+                        href="mailto:info@ventureflow.example"
                         className="text-blue-600 hover:underline font-mono"
                       >
-                        info@unboundxinc.com
+                        info@ventureflow.example
                       </a>
                     </div>
                     <div>
-                      <span className="font-semibold text-slate-700 block">Lead Broker-Dealer</span>
-                      <p className="text-slate-500">MARV Capital, Inc.</p>
+                      <span className="font-semibold text-slate-700 block">Support</span>
+                      <p className="text-slate-500">VentureFlow team</p>
                     </div>
                     <div className="pt-3 border-t border-slate-100">
                       <Link
@@ -1096,7 +1096,7 @@ export function FounderDashboardClient() {
                   <div className="rounded-lg border border-slate-100 bg-slate-50 p-3">
                     <span className="text-slate-500 block font-medium">Portal Access</span>
                     <span className="font-semibold text-slate-900">
-                      UnBound X Founder & Issuer Suite
+                      VentureFlow Founder & Issuer Suite
                     </span>
                   </div>
                 </div>
