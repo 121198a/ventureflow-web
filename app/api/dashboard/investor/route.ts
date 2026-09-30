@@ -6,7 +6,7 @@ import {
   fetchAuthenticatedInvestorDashboard,
   type BackendCompanySummary,
   type BackendDashboardCategory,
-} from "@/lib/ubverse-api";
+} from "@/lib/workspace-api";
 import { verifySessionToken } from "@/lib/crypto";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 
