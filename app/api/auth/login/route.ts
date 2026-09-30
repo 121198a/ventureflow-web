@@ -100,9 +100,9 @@ export async function POST(request: Request) {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     let backendError: string | null = null;
 
-    // 4. Delegate to UBverse Backend Authentication
+    // 4. Delegate to VentureFlow Backend Authentication
     try {
-      const { loginBackendUser } = await import("@/lib/ubverse-api");
+      const { loginBackendUser } = await import("@/lib/workspace-api");
       const backendAuth = await loginBackendUser({
         email,
         password: parsed.data.password,
