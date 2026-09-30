@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 import { site } from "@/lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowBrand } from "@/components/ui/VentureFlowBrand";
 import {
   Loader2,
   Eye,
@@ -1096,7 +1096,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         Create Account
       </h2>
       <p className="mt-1 text-xs sm:text-sm text-slate-500">
-        Join UnBound X to build your verified track record.
+        Join VentureFlow to build your verified track record.
       </p>
 
       {/* Status & Error Alerts */}
@@ -1430,11 +1430,11 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
         <TransitionLink
           href="/"
           className="inline-flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg p-1"
-          aria-label="UnBound X Home"
+          aria-label="VentureFlow Home"
         >
           <div className="relative h-7 w-7 sm:h-8 sm:w-8 overflow-hidden rounded-full flex items-center justify-center shadow-2xs">
             <Image
-              src="/logo/unboundx-mark.png"
+              src="/logo/vf-mark.png"
               width={32}
               height={32}
               alt={site.name}
@@ -1442,7 +1442,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
               priority
             />
           </div>
-          <UnboundXBrand className="text-base sm:text-lg font-bold" />
+          <VentureFlowBrand className="text-base sm:text-lg font-bold" />
         </TransitionLink>
 
         {showTopNavHeader && (
@@ -1533,7 +1533,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                       <div className="relative w-1/2 h-full flex flex-col justify-between p-8 xl:p-10 text-white">
                         <Image
                           src="/images/auth-artwork.webp"
-                          alt="UnBound X Authentication"
+                          alt="VentureFlow Authentication"
                           fill
                           priority
                           sizes="(min-width: 1024px) 520px, 0px"
@@ -1545,14 +1545,14 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                         <div className="flex items-center gap-2.5">
                           <div className="size-8 rounded-full overflow-hidden border border-white/40 shadow-xs bg-white/10 backdrop-blur-sm p-0.5">
                             <Image
-                              src="/logo/unboundx-mark.png"
-                              alt="UnBound X"
+                              src="/logo/vf-mark.png"
+                              alt="VentureFlow"
                               width={32}
                               height={32}
                               className="size-full rounded-full object-cover"
                             />
                           </div>
-                          <span className="font-bold text-sm tracking-wide text-white/90">UnBound X</span>
+                          <span className="font-bold text-sm tracking-wide text-white/90">VentureFlow</span>
                         </div>
 
                         {/* Middle message */}
@@ -1587,7 +1587,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                       <div className="relative w-1/2 h-full flex flex-col justify-between p-8 xl:p-10 text-white">
                         <Image
                           src="/images/auth-artwork.webp"
-                          alt="UnBound X Authentication"
+                          alt="VentureFlow Authentication"
                           fill
                           priority
                           sizes="(min-width: 1024px) 520px, 0px"
@@ -1599,14 +1599,14 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                         <div className="flex items-center gap-2.5">
                           <div className="size-8 rounded-full overflow-hidden border border-white/40 shadow-xs bg-white/10 backdrop-blur-sm p-0.5">
                             <Image
-                              src="/logo/unboundx-mark.png"
-                              alt="UnBound X"
+                              src="/logo/vf-mark.png"
+                              alt="VentureFlow"
                               width={32}
                               height={32}
                               className="size-full rounded-full object-cover"
                             />
                           </div>
-                          <span className="font-bold text-sm tracking-wide text-white/90">UnBound X</span>
+                          <span className="font-bold text-sm tracking-wide text-white/90">VentureFlow</span>
                         </div>
 
                         {/* Middle message */}
@@ -1646,7 +1646,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                   <div className="relative h-36 w-full overflow-hidden p-5 flex flex-col justify-between text-white text-left">
                     <Image
                       src="/images/auth-artwork.webp"
-                      alt="UnBound X"
+                      alt="VentureFlow"
                       fill
                       priority
                       sizes="100vw"
@@ -1656,8 +1656,8 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
 
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Image src="/logo/unboundx-mark.png" alt="UnBound X" width={24} height={24} className="rounded-full" />
-                        <span className="font-bold text-xs tracking-wide">UnBound X</span>
+                        <Image src="/logo/vf-mark.png" alt="VentureFlow" width={24} height={24} className="rounded-full" />
+                        <span className="font-bold text-xs tracking-wide">VentureFlow</span>
                       </div>
                       <span className="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
                         <ShieldCheck className="size-3" /> Secure Auth
@@ -1666,7 +1666,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
 
                     <div>
                       <h2 className="text-xl font-extrabold tracking-tight">
-                        {flow === "signup" ? "Join UnBound X" : "Welcome Back"}
+                        {flow === "signup" ? "Join VentureFlow" : "Welcome Back"}
                       </h2>
                       <p className="text-[11px] text-slate-200 truncate">
                         {flow === "signup"
@@ -2296,7 +2296,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
 
       {/* Subtle Bottom Footer */}
       <footer className="relative z-10 w-full max-w-5xl mx-auto py-1 text-center text-[11px] text-slate-400 select-none shrink-0">
-        &copy; {new Date().getFullYear()} UnBound X Inc. All rights reserved.
+        &copy; {new Date().getFullYear()} VentureFlow All rights reserved.
       </footer>
     </main>
   );
