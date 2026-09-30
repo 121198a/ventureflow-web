@@ -26,9 +26,9 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { useAuthSession } from "@/hooks/useAuthSession";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowBrand } from "@/components/ui/VentureFlowBrand";
 import { Button } from "@/components/ui/button";
-import type { BackendCompanySummary } from "@/lib/ubverse-api";
+import type { BackendCompanySummary } from "@/lib/workspace-api";
 import { DashboardSearch } from "./DashboardSearch";
 import { DashboardPagination } from "./DashboardPagination";
 import { EmptySearchResult } from "./EmptySearchResult";
@@ -252,18 +252,18 @@ export function InvestorDashboardClient() {
             <Link href="/" className="inline-flex items-center gap-2">
               <div className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full shadow-2xs">
                 <Image
-                  src="/logo/unboundx-mark.png"
-                  alt="UBverse"
+                  src="/logo/vf-mark.png"
+                  alt="VentureFlow"
                   width={28}
                   height={28}
                   className="h-full w-full object-cover rounded-full"
                   priority
                 />
               </div>
-              <span className="font-bold text-slate-900 flex items-center gap-1.5 text-sm sm:text-base">
-                <span className="text-slate-900 font-extrabold">UBverse</span>
+              <span className="font-bold text-slate-900 flex items-baseline gap-1 text-sm sm:text-base">
+                <VentureFlowBrand className="text-sm sm:text-base" />
                 <span className="text-slate-400 text-xs font-normal">by</span>
-                <UnboundXBrand className="text-sm sm:text-base" />
+                <span className="text-slate-900 font-bold">Veyron X</span>
               </span>
             </Link>
 
@@ -282,7 +282,7 @@ export function InvestorDashboardClient() {
             <button
               type="button"
               onClick={logout}
-              title="Sign out of UnBound X"
+              title="Sign out of VentureFlow"
               className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-red-600 transition-colors shadow-2xs cursor-pointer"
             >
               <LogOut className="size-3.5" />
@@ -324,7 +324,7 @@ export function InvestorDashboardClient() {
                   Verified Investor
                 </p>
                 <p className="mt-1 text-[11px] leading-relaxed text-slate-500">
-                  Compliance and securities access enabled for Reg D and Regulation CF offerings.
+                  Investor workspace enabled: discovery, saved lists and introductions.
                 </p>
               </div>
             </div>
@@ -411,7 +411,7 @@ export function InvestorDashboardClient() {
                   <p className="mt-3 text-2xl font-bold tracking-tight text-slate-900">
                     {loading ? "..." : allCompanies.length}
                   </p>
-                  <p className="mt-1 text-[11px] text-slate-500">Verified companies live on UBverse</p>
+                  <p className="mt-1 text-[11px] text-slate-500">Verified companies live on VentureFlow</p>
                 </div>
 
                 <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-2xs">
@@ -429,9 +429,9 @@ export function InvestorDashboardClient() {
                     <ShieldCheck className="size-4 text-emerald-600" />
                   </div>
                   <p className="mt-3 text-sm font-bold text-emerald-700 flex items-center gap-1.5">
-                    <CheckCircle2 className="size-4" /> SEC Qualified Portal
+                    <CheckCircle2 className="size-4" /> Workspace Active
                   </p>
-                  <p className="mt-1 text-[11px] text-slate-500">Reg D & Reg CF disclosures active</p>
+                  <p className="mt-1 text-[11px] text-slate-500">Profile and access settings active</p>
                 </div>
               </div>
 
@@ -443,7 +443,7 @@ export function InvestorDashboardClient() {
                       Live Investment Opportunities
                     </h2>
                     <p className="text-xs text-slate-500">
-                      Direct from UnBound X / UBverse verified issuer registry
+                      Direct from VentureFlow verified issuer registry
                     </p>
                   </div>
                   <button
@@ -505,9 +505,9 @@ export function InvestorDashboardClient() {
                     <div className="mx-auto grid size-12 place-items-center rounded-full bg-slate-100 text-slate-400 mb-3">
                       <Building2 className="size-6" />
                     </div>
-                    <p className="text-sm font-bold text-slate-800">No active allocations yet</p>
+                    <p className="text-sm font-bold text-slate-800">No saved startups yet</p>
                     <p className="mt-1 text-xs text-slate-500 max-w-xs mx-auto leading-relaxed">
-                      Explore verified opportunities on UBverse and initiate your first allocation.
+                      Explore verified opportunities on VentureFlow and initiate your first allocation.
                     </p>
                     <button
                       type="button"
@@ -548,7 +548,7 @@ export function InvestorDashboardClient() {
                     Investment Opportunities
                   </h1>
                   <p className="text-xs sm:text-sm text-slate-500">
-                    Real-time offerings fetched directly from the UBverse issuer service
+                    Real-time offerings fetched directly from the VentureFlow issuer service
                   </p>
                 </div>
                 <button
@@ -664,10 +664,10 @@ export function InvestorDashboardClient() {
                 <div className="mx-auto grid size-16 place-items-center rounded-full bg-blue-50 text-blue-600 mb-4">
                   <Building2 className="size-8" />
                 </div>
-                <h2 className="text-lg font-bold text-slate-900">No active allocations yet</h2>
+                <h2 className="text-lg font-bold text-slate-900">No saved startups yet</h2>
                 <p className="mt-2 text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
-                  As you complete subscription agreements through our registered broker-dealer, your
-                  share ownership, vesting schedules, and verified position values will render here.
+                  As you save startups and track conversations, your pipeline and notes
+                  will appear here.
                 </p>
                 <div className="mt-6">
                   <Button onClick={() => setActiveTab("opportunities")}>
@@ -721,7 +721,7 @@ export function InvestorDashboardClient() {
                   </div>
                   <h2 className="text-lg font-bold text-slate-900">No verified theses recorded yet</h2>
                   <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
-                    UnBound X turns market theses into immutable, verifiable track records. Set
+                    VentureFlow turns market theses into immutable, verifiable track records. Set
                     targets, specify horizons, and build audited credibility as outcomes unfold.
                   </p>
                   <Button
@@ -849,7 +849,7 @@ export function InvestorDashboardClient() {
                               required
                               value={thesisCompany}
                               onChange={(e) => setThesisCompany(e.target.value)}
-                              placeholder="e.g. Infopulse Tech or AI FinTech"
+                              placeholder="e.g. Northstar Labs or AI FinTech"
                               className="w-full rounded-md border border-slate-200 px-3 py-2 text-xs outline-none focus:border-blue-600"
                             />
                           </div>
@@ -920,10 +920,10 @@ export function InvestorDashboardClient() {
             <div className="space-y-6 animate-in fade-in duration-200">
               <div>
                 <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-                  Capital Markets Support
+                  Workspace Support
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-500">
-                  Direct connection with UBverse broker-dealer and capital markets operators
+                  Direct connection with the VentureFlow support team
                 </p>
               </div>
 
@@ -931,11 +931,11 @@ export function InvestorDashboardClient() {
                 <div className="md:col-span-2 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xs space-y-4">
                   <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
                     <Headphones className="size-4 text-blue-600" />
-                    Dedicated Deal Desk Dispatch
+                    Contact Support
                   </h2>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Have questions regarding Regulation D accreditation, escrow timelines, or issuer
-                    disclosures? Send an authenticated message directly to our deal operations team.
+                    Have questions about your profile, saved startups or introductions?
+                    Send an authenticated message directly to our support team.
                   </p>
 
                   <form onSubmit={handleSupportSend} className="space-y-3 pt-2">
@@ -975,19 +975,19 @@ export function InvestorDashboardClient() {
                     <div>
                       <span className="font-semibold text-slate-700 block">Support Desk</span>
                       <a
-                        href="mailto:info@unboundxinc.com"
+                        href="mailto:info@ventureflow.example"
                         className="text-blue-600 hover:underline font-mono"
                       >
-                        info@unboundxinc.com
+                        info@ventureflow.example
                       </a>
                     </div>
                     <div>
-                      <span className="font-semibold text-slate-700 block">Broker-Dealer Inquiry</span>
-                      <p className="text-slate-500">MARV Capital, Inc. (FINRA / SIPC)</p>
+                      <span className="font-semibold text-slate-700 block">Support</span>
+                      <p className="text-slate-500">VentureFlow team</p>
                     </div>
                     <div className="pt-3 border-t border-slate-100">
                       <Link
-                        href="/legal/investment-disclaimers"
+                        href="/legal/workspace-disclaimer-for-ventureflow"
                         className="text-blue-600 hover:underline inline-flex items-center gap-1 font-medium"
                       >
                         Disclaimers & Disclosures <ExternalLink className="size-3" />
@@ -1035,7 +1035,7 @@ export function InvestorDashboardClient() {
                   <div className="rounded-lg border border-slate-100 bg-slate-50 p-3">
                     <span className="text-slate-500 block font-medium">Portal Access</span>
                     <span className="font-semibold text-slate-900">
-                      UnBound X Verified Investor Suite
+                      VentureFlow Verified Investor Suite
                     </span>
                   </div>
                 </div>
