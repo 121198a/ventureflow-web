@@ -44,7 +44,7 @@ export function FeaturedArticle({ post }: FeaturedArticleProps) {
               </span>
             </div>
 
-            {/* Floating Live Metric Overlay Badges — matching UnBound X thesis ledger visual language */}
+            {/* Floating Live Metric Overlay Badges — matching VentureFlow thesis ledger visual language */}
             <div className="absolute bottom-4 left-4 right-4 z-10 flex flex-wrap items-end justify-between gap-3">
               <div className="rounded-xl border border-white/15 bg-slate-900/85 p-3 text-white backdrop-blur-md shadow-lg max-w-[200px] sm:max-w-[240px]">
                 <div className="flex items-center justify-between text-[11px] text-slate-300 font-medium">
