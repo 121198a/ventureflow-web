@@ -8,14 +8,7 @@ import { StatRow } from "./stat-row";
 import { Button } from "@/components/ui/button";
 import { ShareDealModal } from "./share-deal-modal";
 import { LoginRequiredModal } from "./login-required-modal";
-import {
-  FundingTargetIcon,
-  WalletInvestmentIcon,
-  GrowthChartIcon,
-  PartnershipRingsIcon,
-  CompanyBuildingIcon,
-  DocumentFilingIcon,
-} from "@/components/ui/CustomIcons";
+import { CompanyBuildingIcon, PartnershipRingsIcon } from "@/components/ui/CustomIcons";
 
 function GatedRow({ items }: { items: { label: string; hint?: boolean }[] }) {
   return (
@@ -47,10 +40,8 @@ export function DealDetail({ offering }: { offering: Offering }) {
     longDescription && !expanded ? offering.description.slice(0, 220).trimEnd() + "…" : offering.description;
 
   const sidebarStats = [
-    { value: offering.goal, label: "Funding Goal", icon: <FundingTargetIcon size={14} /> },
-    { value: offering.min, label: "Min. Investment", icon: <WalletInvestmentIcon size={14} /> },
-    { value: offering.stats.interestIndicated ?? "--", label: "Interest Indicated", icon: <GrowthChartIcon size={14} /> },
-    { value: offering.stats.committed ?? "--", label: "Committed", icon: <PartnershipRingsIcon size={14} /> },
+    { value: offering.category, label: "Category", icon: <CompanyBuildingIcon size={14} /> },
+    { value: offering.location, label: "Location", icon: <PartnershipRingsIcon size={14} /> },
   ];
 
   return (
@@ -63,7 +54,7 @@ export function DealDetail({ offering }: { offering: Offering }) {
               {offering.status}
             </span>
             <span className="rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-bold text-blue-700">
-              {offering.filing}
+              {offering.tag}
             </span>
           </div>
           <ShareDealModal slug={offering.slug} />
@@ -88,7 +79,7 @@ export function DealDetail({ offering }: { offering: Offering }) {
               )}
             </p>
             <Button variant="outline" size="sm" className="mt-6" onClick={() => setLoginOpen(true)}>
-              Indicate Interest
+              Request Introduction
             </Button>
           </div>
           <div
@@ -117,30 +108,13 @@ export function DealDetail({ offering }: { offering: Offering }) {
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_360px]">
           <div>
-            {/* Capital Raise Overview (gated) */}
+            {/* Workspace (gated) */}
             <section>
               <h2 className="text-[1.3rem]" style={{ fontWeight: 800 }}>
-                Capital Raise Overview
+                Workspace
               </h2>
               <div className="mt-4 border-t border-hairline pt-6">
-                <GatedRow items={[{ label: "Funding Goal" }, { label: "Funding Instrument" }]} />
-              </div>
-            </section>
-
-            {/* Investors (gated) */}
-            <section className="mt-10">
-              <h2 className="text-[1.3rem]" style={{ fontWeight: 800 }}>
-                Investors
-              </h2>
-              <div className="mt-4 border-t border-hairline pt-6">
-                <GatedRow
-                  items={[
-                    { label: "Total" },
-                    { label: "New This Round", hint: true },
-                    { label: "Lead Investor" },
-                    { label: "Average Check Size", hint: true },
-                  ]}
-                />
+                <GatedRow items={[{ label: "Documents" }, { label: "Introductions" }, { label: "Notes" }, { label: "Messages" }]} />
               </div>
             </section>
 
@@ -149,28 +123,7 @@ export function DealDetail({ offering }: { offering: Offering }) {
               <h2 className="text-[1.3rem]" style={{ fontWeight: 800 }}>
                 About
               </h2>
-              <div className="mt-4 grid grid-cols-1 gap-8 border-t border-hairline pt-6 sm:grid-cols-2">
-                <div>
-                  <p className="flex items-center gap-1.5 text-[0.9rem] text-ink/70">
-                    <CompanyBuildingIcon size={15} className="text-muted-foreground" />
-                    <span>Legal Offeror</span>
-                  </p>
-                  <p className="mt-1 text-[0.95rem] text-ink" style={{ fontWeight: 600 }}>
-                    {offering.legalOfferor}
-                  </p>
-                </div>
-                <div>
-                  <p className="flex items-center gap-1.5 text-[0.9rem] text-ink/70">
-                    <DocumentFilingIcon size={15} className="text-muted-foreground" />
-                    <span>Law Firm</span>
-                  </p>
-                  <p className="mt-1 text-[0.95rem] text-ink" style={{ fontWeight: 600 }}>
-                    {offering.lawFirm}
-                  </p>
-                </div>
-              </div>
-
-              <h3 className="mt-8 text-[1.1rem] text-brand" style={{ fontWeight: 700 }}>
+              <h3 className="mt-2 text-[1.1rem] text-brand" style={{ fontWeight: 700 }}>
                 What is {offering.name}
               </h3>
               <p className="mt-3 text-[0.92rem] leading-relaxed text-ink/75">{offering.aboutBody}</p>
@@ -198,25 +151,16 @@ export function DealDetail({ offering }: { offering: Offering }) {
           {/* Sidebar */}
           <aside className="h-fit rounded-lg border border-hairline p-6 lg:sticky lg:top-24">
             <p className="text-[0.9rem] text-ink/70">
-              Current Funding Round:{" "}
+              Stage:{" "}
               <span className="text-brand" style={{ fontWeight: 700 }}>
                 {offering.round}
               </span>
             </p>
             <div className="mt-5 border-t border-hairline pt-5">
-              <StatRow items={sidebarStats.slice(0, 2)} />
-              <div className="mt-5">
-                <StatRow items={sidebarStats.slice(2, 4)} />
-              </div>
-            </div>
-            <div className="mt-5">
-              <p className="text-[0.78rem] text-muted-foreground">Funded</p>
-              <p className="mt-1 text-[0.95rem] text-ink" style={{ fontWeight: 800 }}>
-                {offering.stats.funded ?? "--"}
-              </p>
+              <StatRow items={sidebarStats} />
             </div>
             <Button className="mt-6 w-full rounded-md" variant="outline" onClick={() => setLoginOpen(true)}>
-              Indicate Interest
+              Request Introduction
             </Button>
             <div className="mt-3 grid grid-cols-2 gap-3">
               <button
@@ -225,7 +169,7 @@ export function DealDetail({ offering }: { offering: Offering }) {
                 className="rounded-md border border-brand/50 px-3 py-2.5 text-[0.82rem] text-brand transition-colors hover:bg-brand/5"
                 style={{ fontWeight: 600 }}
               >
-                Deal Deck
+                Overview
               </button>
               <button
                 type="button"
@@ -233,7 +177,7 @@ export function DealDetail({ offering }: { offering: Offering }) {
                 className="rounded-md border border-brand/50 px-3 py-2.5 text-[0.82rem] text-brand transition-colors hover:bg-brand/5"
                 style={{ fontWeight: 600 }}
               >
-                Data Room
+                Documents
               </button>
             </div>
           </aside>
