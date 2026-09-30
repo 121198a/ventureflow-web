@@ -3,7 +3,7 @@ import { AuthLayout } from "@/components/site/auth-layout";
 import { ForgotPasswordForm } from "@/components/site/forgot-password-form";
 
 export const metadata: Metadata = {
-  title: "Forgot Password? | UBverse by UnBound X",
+  title: "Forgot Password? | VentureFlow by Veyron X",
   description:
     "We'll send you a 4-digit verification code to confirm your identity and help you set a new password.",
 };
