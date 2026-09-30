@@ -372,6 +372,36 @@ select {
   text-underline-offset: 2px;
 }
 
+.gb-legal-content ul,
+.gb-legal-content ol {
+  margin: 0 0 1rem;
+  padding-left: 1.4rem;
+}
+.gb-legal-content ul { list-style: disc; }
+.gb-legal-content ol { list-style: decimal; }
+.gb-legal-content li { margin: 0.35rem 0; padding-left: 0.2rem; }
+.gb-legal-content .cms-table-wrap {
+  margin: 0 0 1.25rem;
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+.gb-legal-content table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 14px; }
+.gb-legal-content th { background: #f8fafc; color: #0f172a; font-weight: 700; text-align: left; }
+.gb-legal-content th,
+.gb-legal-content td { padding: 0.65rem 0.9rem; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+.gb-legal-content tr:last-child td { border-bottom: 0; }
+.gb-legal-content .cms-callout {
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid #bfdbfe;
+  border-left: 3px solid #2563eb;
+  border-radius: 12px;
+  background: #f5f9ff;
+}
+.gb-legal-content .cms-callout p:last-child { margin-bottom: 0; }
+.gb-legal-content .cms-link-block { margin: 0 0 1rem; }
+
 /* CMS / Legal Shell Layout */
 .legal-shell {
   min-height: 100vh;
@@ -482,7 +512,7 @@ select {
   scrollbar-width: none;
 }
 
-/* UBverse Platform Footer */
+/* VentureFlow Platform Footer */
 .ftr-scn {
   background-color: #eef2f8;
   border-top: 2px solid #f0f0f0;
@@ -584,13 +614,6 @@ select {
   color: #2563eb;
 }
 
-.ftr-item ul.useful-links .finra {
-  color: #64748b;
-  margin-top: 12px;
-  margin-bottom: 4px;
-  font-size: 12px;
-  line-height: 1.5;
-}
 
 .disclaimer-section {
   margin: 0px auto;
