@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin, Clock } from "lucide-react";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowFullBrand } from "@/components/ui/VentureFlowBrand";
+import { FULL_BRAND } from "@/lib/constants";
 
 export function SiteFooter() {
   return (
@@ -11,14 +12,14 @@ export function SiteFooter() {
           <Link href="/careers" className="flex items-center gap-2.5">
             <div className="relative h-7 w-7 overflow-hidden rounded-full flex items-center justify-center shadow-2xs">
               <Image
-                src="/logo/unboundx-mark.png"
+                src="/logo/vf-mark.png"
                 width={28}
                 height={28}
-                alt="UnBound X"
+                alt="VentureFlow"
                 className="h-full w-full object-cover rounded-full"
               />
             </div>
-            <UnboundXBrand className="text-lg font-bold" />
+            <VentureFlowFullBrand className="text-lg font-bold" />
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-text-secondary">
             Building the record-keeping layer for retail investing — with a
@@ -28,11 +29,11 @@ export function SiteFooter() {
         <div className="text-sm text-text-secondary">
           <p className="eyebrow">Talent</p>
           <a
-            href="mailto:careers@unboundxinc.com"
+            href="mailto:careers@ventureflow.example"
             className="mt-4 inline-flex items-center gap-2 font-semibold text-foreground hover:text-brand"
           >
             <Mail size={15} className="shrink-0 text-brand" aria-hidden />
-            <span className="break-all">careers@unboundxinc.com</span>
+            <span className="break-all">careers@ventureflow.example</span>
           </a>
           <p className="mt-2 flex items-center gap-2">
             <Clock size={15} className="text-brand" aria-hidden />
@@ -48,7 +49,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-border px-6 py-6 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} UnBound X. All rights reserved.
+        © {new Date().getFullYear()} {FULL_BRAND}. All rights reserved.
       </div>
     </footer>
   );
