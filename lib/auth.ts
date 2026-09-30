@@ -1,4 +1,4 @@
-import { AUTH_URL, BRANCH_PAGEVIEW_URL } from "@/lib/constants";
+import { AUTH_URL, ANALYTICS_PAGEVIEW_URL } from "@/lib/constants";
 
 /**
  * Authentication Redirect Contract — implements the single specified flow
@@ -6,10 +6,10 @@ import { AUTH_URL, BRANCH_PAGEVIEW_URL } from "@/lib/constants";
  *
  *   1. Track the click through Branch (best-effort, fire-and-forget).
  *   2. Open the existing login route in a NEW TAB, current tab stays open.
- *   3. A Branch failure must never block or delay reaching the login page.
+ *   3. An analytics failure must never block or delay reaching the login page.
  *   4. Rapid/duplicate clicks must never open more than one login tab.
  *
- * `https://api2.branch.io/v1/pageview` (BRANCH_PAGEVIEW_URL) is the
+ * The pageview endpoint (ANALYTICS_PAGEVIEW_URL, optional) is the
  * tracking call only — it is never used as the navigation destination.
  */
 
@@ -31,6 +31,7 @@ function trackBranchPageview() {
     return;
   }
 
+  if (!ANALYTICS_PAGEVIEW_URL) return;
   try {
     const payload = JSON.stringify({
       event: "pageview",
@@ -40,13 +41,13 @@ function trackBranchPageview() {
 
     if (typeof navigator !== "undefined" && navigator.sendBeacon) {
       const sent = navigator.sendBeacon(
-        BRANCH_PAGEVIEW_URL,
+        ANALYTICS_PAGEVIEW_URL,
         new Blob([payload], { type: "application/json" }),
       );
       if (sent) return;
     }
 
-    fetch(BRANCH_PAGEVIEW_URL, {
+    fetch(ANALYTICS_PAGEVIEW_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: payload,
@@ -62,7 +63,7 @@ function trackBranchPageview() {
 /**
  * The ONE place that decides what happens when someone clicks a CTA that
  * should start sign-up/login — "Get started", "Start your record", "Create
- * your club's Space", "Explore UnBound X", and so on.
+ * your club's Space", "Explore VentureFlow", and so on.
  *
  * Every such CTA across the app calls this instead of navigating via
  * <Link>/<TransitionLink>, so behavior (Branch tracking, new tab, no
