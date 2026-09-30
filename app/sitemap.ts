@@ -4,10 +4,10 @@ import { blogPosts } from "@/lib/blog-data";
 import { articles } from "@/lib/newsletter-data";
 import { offerings } from "@/lib/offerings-data";
 import { roles } from "@/data/careers";
-import { LEGAL_PAGES } from "@/lib/cms";
+import { listPublished } from "@/lib/cms/server";
 import { pressReleases } from "@/lib/press-data";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   // Core canonical static public routes
@@ -25,9 +25,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/spaces",
     "/thesis",
     "/beyond-feed",
-    "/ubverse",
-    "/ubverse/company",
-    "/ubverse/ventures",
+    "/workspace",
+    "/workspace/company",
+    "/workspace/ventures",
   ].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: now,
@@ -68,9 +68,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Dynamic legal documents
-  const legalRoutes = LEGAL_PAGES.map((page) => ({
+  // Published CMS pages come from the database; if it is unreachable the sitemap simply omits them.
+  let cmsPages: { slug: string; updatedAt: string }[] = [];
+  try {
+    cmsPages = (await listPublished(undefined, undefined, 1, 50, "title")).items;
+  } catch {
+    cmsPages = [];
+  }
+  const legalRoutes = cmsPages.map((page) => ({
     url: `${SITE_URL}/legal/${page.slug}`,
-    lastModified: now,
+    lastModified: new Date(page.updatedAt),
     changeFrequency: "monthly" as const,
     priority: 0.5,
   }));
