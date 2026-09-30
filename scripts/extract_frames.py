@@ -3,8 +3,8 @@ import subprocess
 import imageio_ffmpeg
 
 videos = [
-    r"C:\Users\HP\Videos\Captures\Discover UnBound X - Google Chrome 2026-09-11 15-30-00.mp4",
-    r"C:\Users\HP\Videos\Captures\Discover UnBound X - Google Chrome 2026-09-11 15-03-01.mp4"
+    r"C:\Users\HP\Videos\Captures\Discover VentureFlow - Google Chrome 2026-09-11 15-30-00.mp4",
+    r"C:\Users\HP\Videos\Captures\Discover VentureFlow - Google Chrome 2026-09-11 15-03-01.mp4"
 ]
 
 out_base = r"C:\Users\HP\AppData\Local\Temp\video_frames"
