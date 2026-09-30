@@ -15,28 +15,15 @@ export function TrustCompare() {
       <Reveal className="relative z-10 mx-auto max-w-[900px] text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-white/95 px-4 py-1.5 text-xs font-semibold text-blue-800 shadow-2xs">
           <GrowthChartIcon size={14} className="text-blue-600" />
-          <span>The Accountability Gap</span>
+          <span>The Context Gap</span>
         </span>
 
         <h2 className="mx-auto mt-5 max-w-2xl text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
-          <span className="text-blue-600">
-            <CountUp value={61} suffix="%" />
-          </span>{" "}
-          of investors under 35 source investment ideas from social feeds.
+          <span className="text-blue-600">Scattered context</span>{" "}
+          makes every follow-up harder than it needs to be.
         </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-xs text-slate-500">
-          FINRA Investor Education Foundation,{" "}
-          <a
-            href="https://www.finra.org/media-center/newsreleases/2025/finra-foundation-releases-sixth-wave-national-financial-capability"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-2 transition-colors hover:text-blue-600 font-medium"
-          >
-            National Financial Capability Study, 2025
-          </a>
-        </p>
         <p className="mx-auto mt-4 max-w-xl text-base sm:text-lg font-normal text-slate-600 leading-relaxed">
-          When a market call is not tied to an entry point and a deadline, there is no way to check its accuracy. UnBound X closes that gap with a clear record.
+          When a market call is not tied to an entry point and a deadline, there is no way to check its accuracy. VentureFlow closes that gap with a clear record.
         </p>
       </Reveal>
 
@@ -94,11 +81,11 @@ export function TrustCompare() {
           </div>
         </Reveal>
 
-        {/* With Track Record (Right Side - UnBound X) */}
+        {/* With Track Record (Right Side - VentureFlow) */}
         <Reveal direction="right" className="relative w-full min-w-0 flex flex-col">
           <span className="absolute -top-3.5 right-6 z-10 inline-flex items-center gap-1 rounded-full bg-blue-600 px-3.5 py-1 text-xs font-bold text-white shadow-xs">
             <ComplianceShieldIcon size={12} />
-            <span>UnBound X Verified</span>
+            <span>VentureFlow Verified</span>
           </span>
 
           <div className="card-fintech-featured gb-animated-line relative w-full min-w-0 flex-1 flex flex-col p-6 sm:p-8">
