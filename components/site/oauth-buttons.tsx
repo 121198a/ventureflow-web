@@ -38,8 +38,8 @@ export function OAuthButtons({
   };
 
   const socialBtn =
-    "inline-flex h-[clamp(2.75rem,5.75vh,3.4rem)] min-w-[11.5rem] flex-1 items-center justify-center gap-[clamp(0.5rem,0.75vw,0.75rem)] rounded-full border border-slate-200 bg-white px-4 text-[length:clamp(0.875rem,1.05vw,1.1rem)] font-medium text-slate-900 transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30 disabled:cursor-not-allowed disabled:opacity-60";
-  const iconSize = "size-[clamp(1.1rem,1.3vw,1.4rem)] shrink-0";
+    "inline-flex h-11 w-full items-center justify-center gap-2.5 rounded-full border border-slate-200/90 bg-white px-3 sm:px-4 text-xs sm:text-[13px] font-semibold text-slate-800 transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30 disabled:cursor-not-allowed disabled:opacity-60";
+  const iconSize = "size-5 shrink-0";
 
   return (
     <div className={`space-y-3 ${className}`}>
@@ -52,7 +52,7 @@ export function OAuthButtons({
         </div>
       )}
 
-      <div className="flex flex-wrap gap-[clamp(0.6rem,0.85vw,0.9rem)]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
         <button
           type="button"
           onClick={() => handleOAuth("google")}
@@ -61,7 +61,7 @@ export function OAuthButtons({
           className={socialBtn}
         >
           {loadingProvider === "google" ? (
-            <Loader2 className={`${iconSize} animate-spin text-brand`} />
+            <Loader2 className={`${iconSize} animate-spin text-blue-600`} />
           ) : (
             <svg viewBox="0 0 48 48" className={iconSize} aria-hidden>
               <path
@@ -93,9 +93,9 @@ export function OAuthButtons({
           className={socialBtn}
         >
           {loadingProvider === "facebook" ? (
-            <Loader2 className={`${iconSize} animate-spin text-brand`} />
+            <Loader2 className={`${iconSize} animate-spin text-blue-600`} />
           ) : (
-            <svg viewBox="0 0 24 24" className="size-[clamp(1.2rem,1.5vw,1.6rem)] shrink-0" fill="#1877F2" aria-hidden>
+            <svg viewBox="0 0 24 24" className="size-5 shrink-0" fill="#1877F2" aria-hidden>
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
             </svg>
           )}
