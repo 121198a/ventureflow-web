@@ -10,16 +10,16 @@ export interface PressRelease {
 export const pressReleases: PressRelease[] = [
   {
     slug: "public-record-keeping-layer-social-investing",
-    title: "UnBound X Launches Public Record-Keeping Layer for Social Investing",
+    title: "VentureFlow Launches Public Record-Keeping Layer for Social Investing",
     date: "Sep 2026",
     summary:
-      "UnBound X introduces a verifiable platform turning social investment claims into immutable track records with targets, horizons, and outcomes.",
+      "VentureFlow introduces a verifiable platform turning social investment claims into immutable track records with targets, horizons, and outcomes.",
     category: "Product Launch",
     href: "/blog/architecture-of-a-verified-thesis",
   },
   {
     slug: "five-critical-numbers-diligence-framework",
-    title: "Five Critical Numbers: UnBound X Releases Venture Diligence Framework",
+    title: "Five Critical Numbers: VentureFlow Releases Venture Diligence Framework",
     date: "Aug 2026",
     summary:
       "An institutional teardown of what early-stage venture investors require from founders during initial meetings and capital allocation discussions.",
@@ -38,7 +38,7 @@ export const pressReleases: PressRelease[] = [
 ];
 
 export const companyBoilerplate =
-  "UnBound X is a capital markets technology company building the public, verifiable record-keeping layer for social investing and venture diligence. Founded in 2024 and headquartered in New York, UnBound X equips retail and institutional allocators with verifiable track records, structured thesis spaces, and quantitative diligence tools.";
+  "VentureFlow is a capital markets technology company building the public, verifiable record-keeping layer for social investing and venture diligence. Founded in 2024 and headquartered in New York, VentureFlow equips retail and institutional allocators with verifiable track records, structured thesis spaces, and quantitative diligence tools.";
 
 export const brandColors = [
   { name: "Brand Primary", hex: "#2563EB", class: "bg-blue-600", usage: "Primary CTAs, active indicators, brand accent" },
@@ -50,8 +50,8 @@ export const brandColors = [
 export const fastFacts = [
   { label: "Founded", value: "2024" },
   { label: "Headquarters", value: "New York, NY" },
-  { label: "Co-Founders", value: "Maneesh Awasthi & Arnav Awasthi" },
+  { label: "Co-Founders", value: "Alex Carter & Jordan Lee" },
   { label: "Industry", value: "FinTech / Capital Markets Technology" },
-  { label: "Core Products", value: "UnBound X Protocol & UBverse" },
+  { label: "Core Products", value: "VentureFlow Protocol & VentureFlow" },
   { label: "Mission", value: "Turn investment claims into verifiable records" },
 ];
