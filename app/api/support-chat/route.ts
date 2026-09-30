@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { initiateSupportChat } from "@/lib/ubverse-api";
+import { initiateSupportChat } from "@/lib/workspace-api";
 
 export async function POST(request: Request) {
   try {
