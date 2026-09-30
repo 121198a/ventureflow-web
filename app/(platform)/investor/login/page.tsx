@@ -4,7 +4,7 @@ import { AuthLayout } from "@/components/site/auth-layout";
 import { LoginForm } from "@/components/site/login-form";
 
 export const metadata: Metadata = {
-  title: "Investor Login | UBverse by UnBound X",
+  title: "Investor Login | VentureFlow by Veyron X",
   description: "Your gateway to exclusive investment opportunities.",
 };
 
