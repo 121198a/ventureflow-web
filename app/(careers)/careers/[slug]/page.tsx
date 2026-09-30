@@ -22,7 +22,7 @@ export async function generateMetadata({
   if (!role) {
     notFound();
   }
-  const title = `${role.title} — Careers at UnBound X`;
+  const title = `${role.title} — Careers at VentureFlow`;
   const description = role.description;
   return {
     title,
