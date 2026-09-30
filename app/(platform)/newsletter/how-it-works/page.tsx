@@ -6,13 +6,13 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { Reveal } from "@/components/site/reveal";
 
 export const metadata: Metadata = {
-  title: "How the Platform Works — UBverse Newsletter",
+  title: "How the Workspace Works — VentureFlow",
   description:
-    "Explore the five institutional modules UBverse provides to close private funding rounds with speed and discipline.",
+    "Explore the five parts of the VentureFlow workspace: profiles, documents, pipeline, updates and introductions.",
   alternates: { canonical: "/newsletter/how-it-works" },
   openGraph: {
-    title: "How the Platform Works — UBverse Newsletter",
-    description: "The complete workflow for private rounds: closing rails, data rooms, and escrow clearing.",
+    title: "How the Workspace Works — VentureFlow",
+    description: "How founders and investors use profiles, documents, notes and messages together.",
     url: "/newsletter/how-it-works",
   },
 };
@@ -20,57 +20,57 @@ export const metadata: Metadata = {
 const MODULES = [
   {
     step: "01",
-    title: "Closing Rails & Allocation Ledger",
-    subtitle: "Turn soft circles into funded capital in days, not months",
+    title: "Startup & Investor Profiles",
+    subtitle: "A clear starting point for every relationship",
     icon: ShieldCheck,
     points: [
-      "Pre-drafted, standardized SAFE notes and convertible debt agreements",
-      "One-click investor electronic signatures with accredited verification",
-      "Real-time allocation ledger preventing overselling and cap table drift",
+      "Structured startup profiles with story, product and team",
+      "Investor profiles that describe focus areas and interests",
+      "Owners choose which sections each person can see",
     ],
   },
   {
     step: "02",
-    title: "Diligence Data Room & Cap Table",
-    subtitle: "Audit-ready disclosures that establish immediate conviction",
+    title: "Documents & Access Control",
+    subtitle: "Keep the right files in front of the right people",
     icon: FileText,
     points: [
-      "Clean, encrypted virtual data rooms with granular access logs",
-      "Dynamic scenario cap table modeling for options, SAFEs, and priced rounds",
-      "Pre-assembled risk disclosure frameworks that satisfy institutional counsel",
+      "One place for decks, one-pagers and supporting files",
+      "Per-document access, with a record of who opened what",
+      "Notes attached to each document for context",
     ],
   },
   {
     step: "03",
-    title: "Investor Pipeline & Round Capacity",
-    subtitle: "Manage round momentum with continuous counter-party visibility",
+    title: "Pipeline & Saved Startups",
+    subtitle: "Track conversations without a separate spreadsheet",
     icon: Users,
     points: [
-      "Centralized tracker for committed, soft-circled, and wired capital",
-      "Clear deadlines and round close countdowns that create factual urgency",
-      "Automated follow-up reminders keyed to business progress milestones",
+      "Saved lists to organise startups you want to follow",
+      "Simple stages to see where each conversation stands",
+      "Reminders tied to the next step you set",
     ],
   },
   {
     step: "04",
-    title: "Predictable LP Communications",
-    subtitle: "Monthly updates that convert casual observers into lead investors",
+    title: "Workspace Updates",
+    subtitle: "Regular updates that keep everyone on the same page",
     icon: Send,
     points: [
-      "Standard 4-line institutional updates: Highlights, Lowlights, Runway, Asks",
-      "Automated LP engagement metrics and document viewer tracking",
-      "Consistently builds investor trust between financings",
+      "Short, consistent updates: highlights, challenges, next steps",
+      "Choose who receives each update",
+      "A searchable history of everything shared",
     ],
   },
   {
     step: "05",
-    title: "Broker-Dealer Escrow & Settlement",
-    subtitle: "Institutional capital clearing and compliant closing rails",
+    title: "Introductions & Messages",
+    subtitle: "Start conversations with context",
     icon: CheckCircle2,
     points: [
-      "Segregated escrow accounts through registered broker-dealers",
-      "Seamless wire, ACH, and automated banking rails",
-      "Instant subscription counter-signatures and security issuances",
+      "Request introductions directly from a profile",
+      "Keep messages next to the documents they refer to",
+      "Everything stays inside the workspace",
     ],
   },
 ];
@@ -89,14 +89,14 @@ export default function HowItWorksPage() {
           Back to Newsletter
         </Link>
 
-        <p className="eyebrow mt-8 text-brand">Institutional Infrastructure</p>
+        <p className="eyebrow mt-8 text-brand">Workspace Overview</p>
         <Reveal as="h1" className="mt-3 font-editorial text-[2.2rem] leading-tight text-ink sm:text-[2.8rem]">
-          How the UBverse Platform Works
+          How the VentureFlow Workspace Works
         </Reveal>
         <p className="mt-4 text-[1.1rem] leading-relaxed text-ink/80">
-          Private raises fail in the administrative gap between commitment and wire.
-          UBverse provides the operational rail that eliminates closing friction,
-          standardizes diligence, and tracks every committed dollar in real time.
+          Good relationships get lost between inboxes, drives and spreadsheets.
+          VentureFlow keeps profiles, documents, notes and messages together, so
+          every conversation has the context it needs.
         </p>
 
         {/* Modules List */}
