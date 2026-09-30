@@ -9,18 +9,18 @@ interface MockCompany {
 }
 
 const mockCompanies: MockCompany[] = [
-  { id: "1", name: "Virani Chem. Pvt. Limited.", securitiesFiling: "reg-d-rule-506b", fundingRoundStage: "friends-family" },
-  { id: "2", name: "Infopulse Technology", securitiesFiling: "Regulation CF", fundingRoundStage: "friends-family" },
-  { id: "3", name: "Unbound X", securitiesFiling: "Reg D Rule 506(b)", fundingRoundStage: "unsure" },
-  { id: "4", name: "Hopiyant Tech", securitiesFiling: "reg-d-rule-506b", fundingRoundStage: "friends-family" },
-  { id: "5", name: "Apex FinTech Labs", securitiesFiling: "Regulation CF", fundingRoundStage: "seed" },
-  { id: "6", name: "BioGen Innovations", securitiesFiling: "Reg D 506(c)", fundingRoundStage: "series-a" },
-  { id: "7", name: "CyberShield Security", securitiesFiling: "Regulation CF", fundingRoundStage: "seed" },
-  { id: "8", name: "Delta Logistics AI", securitiesFiling: "Reg D 506(b)", fundingRoundStage: "friends-family" },
-  { id: "9", name: "Echo Solar Systems", securitiesFiling: "Regulation A+", fundingRoundStage: "series-a" },
-  { id: "10", name: "Future Mobility Works", securitiesFiling: "Regulation CF", fundingRoundStage: "seed" },
-  { id: "11", name: "GreenCarbon Solutions", securitiesFiling: "Reg D 506(c)", fundingRoundStage: "series-a" },
-  { id: "12", name: "HyperScale Cloud", securitiesFiling: "Reg D 506(b)", fundingRoundStage: "seed" },
+  { id: "1", name: "Northstar Labs", securitiesFiling: "sample", fundingRoundStage: "friends-family" },
+  { id: "2", name: "NovaForge", securitiesFiling: "sample", fundingRoundStage: "friends-family" },
+  { id: "3", name: "VentureFlow", securitiesFiling: "sample", fundingRoundStage: "unsure" },
+  { id: "4", name: "VertexWorks", securitiesFiling: "sample", fundingRoundStage: "friends-family" },
+  { id: "5", name: "Apex FinTech Labs", securitiesFiling: "sample", fundingRoundStage: "seed" },
+  { id: "6", name: "BioGen Innovations", securitiesFiling: "sample", fundingRoundStage: "series-a" },
+  { id: "7", name: "CyberShield Security", securitiesFiling: "sample", fundingRoundStage: "seed" },
+  { id: "8", name: "Delta Logistics AI", securitiesFiling: "sample", fundingRoundStage: "friends-family" },
+  { id: "9", name: "Echo Solar Systems", securitiesFiling: "sample", fundingRoundStage: "series-a" },
+  { id: "10", name: "Future Mobility Works", securitiesFiling: "sample", fundingRoundStage: "seed" },
+  { id: "11", name: "GreenCarbon Solutions", securitiesFiling: "sample", fundingRoundStage: "series-a" },
+  { id: "12", name: "HyperScale Cloud", securitiesFiling: "sample", fundingRoundStage: "seed" },
 ];
 
 function filterCompanies(list: MockCompany[], searchQuery: string, stage: string = "all"): MockCompany[] {
@@ -64,20 +64,20 @@ function paginateItems<T>(items: T[], page: number, pageSize: number = 10) {
 test("Search is case-insensitive, trimmed, and handles empty input", () => {
   assert.equal(filterCompanies(mockCompanies, "").length, 12);
   assert.equal(filterCompanies(mockCompanies, "   ").length, 12);
-  assert.equal(filterCompanies(mockCompanies, "INFOPULSE").length, 1);
-  assert.equal(filterCompanies(mockCompanies, "  infopulse  ").length, 1);
+  assert.equal(filterCompanies(mockCompanies, "NOVAFORGE").length, 1);
+  assert.equal(filterCompanies(mockCompanies, "  novaforge  ").length, 1);
   assert.equal(filterCompanies(mockCompanies, "nonexistent-query-xyz").length, 0);
 });
 
-test("Search matches real fields: name, securities filing, and funding stage", () => {
-  const cfMatches = filterCompanies(mockCompanies, "Regulation CF");
-  assert.equal(cfMatches.length, 4);
+test("Search matches real fields: name, status label, and funding stage", () => {
+  const sampleMatches = filterCompanies(mockCompanies, "sample");
+  assert.equal(sampleMatches.length, 12);
 
   const seedMatches = filterCompanies(mockCompanies, "seed");
   assert.equal(seedMatches.length, 4);
 
-  const techMatches = filterCompanies(mockCompanies, "tech");
-  assert.ok(techMatches.length >= 3);
+  const labMatches = filterCompanies(mockCompanies, "labs");
+  assert.ok(labMatches.length >= 2);
 });
 
 test("Pagination displays exactly 10 records per page by default", () => {
