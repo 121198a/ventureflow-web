@@ -7,7 +7,7 @@ import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { scrollToTarget } from "@/components/motion/SmoothScroll";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowFullBrand } from "@/components/ui/VentureFlowBrand";
 import { GradientMobileMenu, gradientCtaClass } from "@/components/layout/GradientMobileMenu";
 
 const links = [
@@ -117,8 +117,8 @@ export function SiteNav() {
           <Link href="/careers" className="flex min-w-0 shrink-0 items-center gap-2.5">
             <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg shadow-sm">
               <Image
-                src="/logo/unboundx-mark.png"
-                alt="UnBound X"
+                src="/logo/vf-mark.png"
+                alt="VentureFlow"
                 fill
                 sizes="32px"
                 className="object-cover"
@@ -126,7 +126,7 @@ export function SiteNav() {
               />
             </span>
             <div className="flex items-center gap-2">
-              <UnboundXBrand className="text-base tracking-tight" />
+              <VentureFlowFullBrand className="text-base tracking-tight" />
             </div>
           </Link>
 
