@@ -23,26 +23,26 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "UnBound X — Verifiable Investment Track Records", template: "%s — " + site.name },
+  title: { default: "VentureFlow by Veyron X — Startup–Investor Workspace", template: "%s — " + site.fullBrand },
   description: site.description,
   openGraph: {
-    title: "UnBound X — Verifiable Investment Track Records",
+    title: "VentureFlow by Veyron X — Startup–Investor Workspace",
     description: site.description,
     type: "website",
     url: SITE_URL,
-    siteName: site.name,
+    siteName: site.fullBrand,
     images: [
       {
         url: "/brand/og-image.png",
         width: 1200,
         height: 630,
-        alt: "UnBound X — Verifiable Investment Track Records",
+        alt: "VentureFlow by Veyron X — Startup–Investor Workspace",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "UnBound X — Verifiable Investment Track Records",
+    title: "VentureFlow by Veyron X — Startup–Investor Workspace",
     description: site.description,
     images: ["/brand/og-image.png"],
   },
@@ -80,8 +80,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     name: site.name,
     url: SITE_URL,
     description: site.description,
-    logo: `${SITE_URL}/logo/unboundx-mark.png`,
-    sameAs: Object.values(socialLinks),
+    logo: `${SITE_URL}/logo/vf-mark.png`,
+    sameAs: Object.values(socialLinks).filter(Boolean),
   };
 
   const websiteJsonLd = {
