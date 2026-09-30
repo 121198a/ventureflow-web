@@ -1,4 +1,4 @@
-# UnBound X — Marketing Site
+# VentureFlow — Marketing Site
 
 Next.js 15 (App Router) + Tailwind + TypeScript + Framer Motion.
 
@@ -7,8 +7,8 @@ Next.js 15 (App Router) + Tailwind + TypeScript + Framer Motion.
 app/                     Routes (pages only — no logic lives here)
   page.tsx                 Home — hero, trust comparison, thesis journey,
                             spaces, beyond-the-feed, trade/compete, CTA
-  about/page.tsx            About UnBound X
-  ubverse/page.tsx          UBverse product pillars
+  about/page.tsx            About VentureFlow
+  workspace/page.tsx          VentureFlow product pillars
   get-started/page.tsx      Signup / waitlist
   layout.tsx                Root layout: fonts + wraps every page in SiteNav/SiteFooter
   globals.css                Base reset + heading font rule
@@ -49,8 +49,8 @@ same data, two layouts.
 
 ## Notes
 - Only `/public/logo/*` are original brand assets and were left untouched.
-- Every other page/section was rewritten from the original GrowthBridge agency
-  template to match the UnBound X product design.
+- Every other page/section was rewritten from the original VentureFlow agency
+  template to match the VentureFlow product design.
 
 ## Integration notes
 
@@ -65,19 +65,19 @@ Browser / React UI
 Next.js App Router + /app/api/*
         |
         v
-lib/ubverse-api.ts
+lib/workspace-api.ts
         |
         v
-NEXT_PUBLIC_UBVERSE_API_URL
-(default: https://development.unboundxinc.us/api)
+NEXT_PUBLIC_WORKSPACE_API_URL
+(default: https://api.ventureflow.example/api)
 ```
 
 The existing integration points are intentionally preserved:
 
-- Public company listing: `ubverse-service/investor-dashboard/dashboard-without-auth`
-- Company detail: `ubverse-service/general/get-issuer-detail/{companyId}`
+- Public company listing: `workspace-service/investor-dashboard/dashboard-without-auth`
+- Company detail: `workspace-service/general/get-issuer-detail/{companyId}`
 - Backend login: `user-service/user/login`
-- Newsletter subscription: `ubverse-service/newsletter/save-user-email` and `subscribe-news-letter`
+- Newsletter subscription: `workspace-service/newsletter/save-user-email` and `subscribe-news-letter`
 - Support session: `zenithv2/support-chat/initiate_chat`
 - Supabase remains responsible for the existing auth/storage/application flows where configured.
 
@@ -105,15 +105,12 @@ npm run start
 
 Copy `.env.example` to `.env.local` and set environment-specific values before deployment.
 
-## Canonical UBverse company/deal URLs
+## Startup profile URLs
 
-Company/deal pages now use the reference-style root slug route:
+Startup profile pages use a root slug route. The bundled demo profiles are fictional:
 
-- `https://development.unboundxinc.us/virani-chem-pvt-limited`
-- `https://development.unboundxinc.us/infopulse-technology`
-- `https://development.unboundxinc.us/unbound-x`
-- `https://development.unboundxinc.us/hopiyant-tech`
+- `/northstar-labs`
+- `/novaforge`
+- `/vertexworks`
 
-The old `/offerings/:slug` route is retained only as a compatibility redirect. Both the canonical route and the legacy route resolve the same `DealDetail` component and the same `getDynamicOffering()` -> dashboard company ID -> `get-issuer-detail/{companyId}` backend flow.
-
-`NEXT_PUBLIC_SITE_URL` controls the public/canonical origin and is set to `https://development.unboundxinc.us` in `.env.example`. Running `npm run dev` still serves the application locally at `http://localhost:3000`; a browser address bar cannot display the production hostname while the browser is actually connected to localhost unless DNS/reverse-proxy/deployment points that hostname to this application.
+The old `/offerings/:slug` route is kept only as a compatibility redirect. `NEXT_PUBLIC_SITE_URL` controls the public canonical origin (see `.env.example`). Running `npm run dev` serves the app locally at `http://localhost:3000`.
