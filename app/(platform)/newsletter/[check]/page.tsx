@@ -33,18 +33,18 @@ export async function generateMetadata({
   const key = CHECK_SLUG_MAP[check];
   if (!key) {
     return {
-      title: "Assessment Not Found | UBverse",
+      title: "Assessment Not Found | VentureFlow",
       robots: { index: false, follow: false },
     };
   }
 
   const meta = NEWSLETTER_ASSESSMENTS[key];
   return {
-    title: `${meta.title} — UBverse Newsletter`,
+    title: `${meta.title} — VentureFlow Newsletter`,
     description: meta.subtitle,
     alternates: { canonical: `/newsletter/${check}` },
     openGraph: {
-      title: `${meta.title} — UBverse Newsletter`,
+      title: `${meta.title} — VentureFlow Newsletter`,
       description: meta.subtitle,
       url: `/newsletter/${check}`,
     },
