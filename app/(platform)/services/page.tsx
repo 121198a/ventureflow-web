@@ -6,58 +6,55 @@ import { Button } from "@/components/ui/button";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Service Tiers & Regulatory Pathways | UBverse",
-  description: "Compare UBverse capital raise pathways, regulatory exemptions (Reg CF, Reg A+, Reg D), and compliance services for founders.",
+  title: "Workspace Capabilities | VentureFlow",
+  description: "See what founders and investors can do in a VentureFlow workspace: profiles, introductions, messages, notes and documents.",
   alternates: {
     canonical: "/services",
   },
   openGraph: {
-    title: "Service Tiers & Regulatory Pathways | UBverse — UnBound X",
-    description: "Compare UBverse capital raise pathways, regulatory exemptions (Reg CF, Reg A+, Reg D), and compliance services for founders.",
+    title: "Workspace Capabilities | VentureFlow",
+    description: "See what founders and investors can do in a VentureFlow workspace: profiles, introductions, messages, notes and documents.",
     url: `${SITE_URL}/services`,
     type: "website",
     images: ["/brand/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Service Tiers & Regulatory Pathways | UBverse — UnBound X",
-    description: "Compare UBverse capital raise pathways, regulatory exemptions (Reg CF, Reg A+, Reg D), and compliance services for founders.",
+    title: "Workspace Capabilities | VentureFlow",
+    description: "See what founders and investors can do in a VentureFlow workspace: profiles, introductions, messages, notes and documents.",
     images: ["/brand/og-image.png"],
   },
 };
 
 const tierColumns = [
-  { name: "Reg CF", audience: "Community & Retail", limit: "Up to $5M/yr" },
-  { name: "Reg A+", audience: "Public & Accredited", limit: "Up to $75M/yr" },
-  { name: "Reg D 506(b)", audience: "Pre-existing Network", limit: "No statutory cap" },
-  { name: "Reg D 506(c)", audience: "Accredited Public", limit: "No statutory cap" },
+  { name: "Founder", audience: "Startup teams", limit: "Workspace role" },
+  { name: "Investor", audience: "Individuals & firms", limit: "Workspace role" },
+  { name: "Team member", audience: "Invited collaborators", limit: "Workspace role" },
 ];
 
 const serviceFeatures = [
   {
-    category: "Offering Infrastructure",
+    category: "Profiles",
     items: [
-      { name: "Dedicated Company Space", tiers: [true, true, true, true] },
-      { name: "Structured Term Sheet & Deal Page", tiers: [true, true, true, true] },
-      { name: "Gated Data Room & Document Flow", tiers: [true, true, true, true] },
-      { name: "Milestone & Progress Updates", tiers: [true, true, true, true] },
+      { name: "Startup profile", tiers: [true, false, true] },
+      { name: "Investor profile", tiers: [false, true, false] },
+      { name: "Milestone & progress updates", tiers: [true, false, true] },
     ],
   },
   {
-    category: "Compliance & Broker Coordination",
+    category: "Collaboration",
     items: [
-      { name: "SEC Filing Exemption Alignment", tiers: [true, true, true, true] },
-      { name: "Accredited Investor Verification", tiers: [false, true, true, true] },
-      { name: "Brokerage Execution via MARV Capital", tiers: [true, true, true, true] },
-      { name: "Investor Accreditation Certification", tiers: [false, false, true, true] },
+      { name: "Introduction requests", tiers: [true, true, true] },
+      { name: "Messages", tiers: [true, true, true] },
+      { name: "Shared notes", tiers: [true, true, true] },
     ],
   },
   {
-    category: "Investor Communication",
+    category: "Documents & Discovery",
     items: [
-      { name: "Direct Investor Inquiries", tiers: [true, true, true, true] },
-      { name: "Shareable Deal Presentation Cards", tiers: [true, true, true, true] },
-      { name: "Weekly Newsletter Inclusion Opportunity", tiers: [true, true, true, true] },
+      { name: "Document sharing with access control", tiers: [true, true, true] },
+      { name: "Startup discovery & saved lists", tiers: [false, true, false] },
+      { name: "Pipeline tracking", tiers: [false, true, false] },
     ],
   },
 ];
@@ -68,16 +65,16 @@ export default function Services() {
       <SiteHeader />
 
       <section className="relative z-10 mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
-        <p className="eyebrow">Capital Raise Pathways</p>
+        <p className="eyebrow">Workspace Capabilities</p>
         <h1 className="mt-4 text-[2rem] sm:text-[2.4rem] text-slate-900" style={{ fontWeight: 800 }}>
-          Compare Offering Pathways
+          What each role can do
         </h1>
         <p className="mt-4 max-w-[620px] text-[0.95rem] leading-[1.75] text-ink/70">
-          Every capital round requires the right regulatory exemption and investor flow. Compare UBverse pathways designed to support private market offerings through SEC-compliant frameworks and registered broker-dealer execution.
+          VentureFlow keeps startup profiles, introductions, messages, notes and documents in one workspace. Here is how each role uses it.
         </p>
 
         <div className="mt-10 overflow-x-auto rounded-lg border border-hairline bg-white shadow-xs">
-          <table className="w-full min-w-[760px] border-collapse text-left text-[0.9rem]">
+          <table className="w-full min-w-[640px] border-collapse text-left text-[0.9rem]">
             <thead>
               <tr className="border-b border-hairline bg-surface">
                 <th className="px-6 py-5 w-[34%]" style={{ fontWeight: 600 }}>
@@ -98,7 +95,7 @@ export default function Services() {
               <tbody key={group.category} className="divide-y divide-hairline">
                 <tr className="bg-slate-50/80">
                   <td
-                    colSpan={5}
+                    colSpan={4}
                     className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-600"
                   >
                     {group.category}
@@ -125,11 +122,11 @@ export default function Services() {
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl border border-hairline bg-surface p-6">
           <div>
-            <h3 className="font-bold text-slate-900 text-base">Ready to structure your round?</h3>
-            <p className="text-sm text-ink/70 mt-1">Submit your company application to evaluate offering readiness and regulatory pathways.</p>
+            <h3 className="font-bold text-slate-900 text-base">Ready to set up your workspace?</h3>
+            <p className="text-sm text-ink/70 mt-1">Create an account to build your profile and start collaborating.</p>
           </div>
           <Button href="/signup" size="md">
-            Start Founder Application <ArrowRight className="size-4 ml-1.5 inline" />
+            Get started <ArrowRight className="size-4 ml-1.5 inline" />
           </Button>
         </div>
       </section>
