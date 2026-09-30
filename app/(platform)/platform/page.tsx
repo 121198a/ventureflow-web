@@ -8,25 +8,25 @@ import { offerings, getDynamicOfferings } from "@/lib/offerings-data";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Deal Marketplace | UBverse",
+  title: "Startup Directory | VentureFlow by Veyron X",
   description:
-    "Review structured deal pages, access founder updates, and complete investments through a registered broker-dealer — with full compliance infrastructure from day one.",
+    "Explore startup profiles, follow founder updates, and continue the conversation with introductions, messages and shared documents.",
   alternates: {
     canonical: "/platform",
   },
   openGraph: {
-    title: "Deal Marketplace | UBverse — UnBound X",
+    title: "Startup Directory | VentureFlow by Veyron X",
     description:
-      "A single platform to evaluate and invest in private markets with institutional rigor.",
+      "A workspace to discover startups and collaborate with founders on VentureFlow by Veyron X.",
     url: `${SITE_URL}/platform`,
     type: "website",
     images: ["/brand/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Deal Marketplace | UBverse — UnBound X",
+    title: "Startup Directory | VentureFlow by Veyron X",
     description:
-      "A single platform to evaluate and invest in private markets with institutional rigor.",
+      "A workspace to discover startups and collaborate with founders on VentureFlow by Veyron X.",
     images: ["/brand/og-image.png"],
   },
 };
@@ -64,16 +64,15 @@ export default async function Home() {
             as="h1"
             className="text-balance-tight text-[2.6rem] font-extrabold leading-[1.12] sm:text-[3.35rem]"
           >
-            Evaluate and invest in private markets with{" "}
-            <span className="text-brand">institutional rigor.</span>
+            Discover startups and collaborate with{" "}
+            <span className="text-brand">founders in one workspace.</span>
           </Reveal>
           <Reveal
             as="p"
             delay={120}
             className="mx-auto mt-7 max-w-[520px] text-[0.95rem] leading-[1.75] text-ink/70"
           >
-            One platform to review deal terms, follow founder updates, and invest through a registered
-            broker-dealer—with full compliance built in from day one.
+            One workspace to explore startup profiles, follow founder updates, and keep introductions, notes and documents together.
           </Reveal>
         </div>
       </section>
@@ -81,14 +80,14 @@ export default async function Home() {
       <section className="bg-background">
         <div className="mx-auto max-w-[1180px] px-5 py-14 sm:py-20">
           <Reveal as="p" className="text-xs font-semibold text-brand tracking-wider text-center">
-            Current Opportunities
+            Sample Profiles
           </Reveal>
           <Reveal
             as="h2"
             delay={80}
             className="mt-4 text-center font-editorial text-[2rem] sm:text-[2.4rem]"
           >
-            Active offerings on the platform
+            Startup profiles in the workspace
           </Reveal>
 
           <div className="mt-14 grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
