@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { AuthArtwork } from "./auth-artwork";
 import { AuthCard } from "./auth-card";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
 
 export interface AuthFeature {
   label: string;
@@ -98,28 +97,33 @@ function AuthBackground() {
   );
 }
 
-/** "UBverse by UnBound X" lock-up — real UBverse mark from /public/images. */
+/** "VentureFlow by Veyron X" lock-up — matching reference design */
 function AuthBrandPill() {
   return (
     <Link
-      href="/platform"
-      aria-label="UBverse by UnBound X home"
-      className="group inline-flex items-center gap-[clamp(0.5rem,0.85vw,0.8rem)] rounded-[14px] bg-white py-1.5 px-3.5 shadow-[0_6px_28px_-10px_rgba(90,110,220,0.28)] transition-shadow hover:shadow-[0_8px_30px_-8px_rgba(90,110,220,0.36)]"
+      href="/"
+      aria-label="VentureFlow by Veyron X home"
+      className="group inline-flex items-center gap-3.5 py-1 text-slate-900 transition-opacity hover:opacity-95"
     >
-      <span className="relative block size-[clamp(1.75rem,2.1vw,2.25rem)] shrink-0 transition-transform group-hover:scale-105">
+      <span className="relative block h-11 w-11 sm:h-13 sm:w-13 shrink-0 transition-transform group-hover:scale-105 shadow-md rounded-full overflow-hidden">
         <Image
-          src="/images/ubverse-logo.png"
-          alt=""
-          width={80}
-          height={80}
+          src="/logo/vf-mark.png"
+          alt="VentureFlow by Veyron X"
+          width={56}
+          height={56}
           priority
-          className="h-full w-full rounded-full object-contain"
+          className="h-full w-full rounded-full object-cover"
         />
       </span>
-      <span className="flex select-none items-baseline gap-[0.4rem] text-slate-900" aria-hidden="true">
-        <span className="text-[length:clamp(1.05rem,1.3vw,1.35rem)] font-extrabold tracking-tight">UBverse</span>
-        <span className="text-[length:clamp(0.75rem,0.85vw,0.9rem)] font-medium text-slate-400">by</span>
-        <UnboundXBrand className="text-[length:clamp(1.05rem,1.3vw,1.35rem)] !text-slate-900" />
+      <span className="flex select-none items-baseline gap-2 text-slate-900" aria-hidden="true">
+        <span className="text-2xl sm:text-[1.75rem] font-extrabold tracking-tight text-slate-900">VentureFlow</span>
+        <span className="text-base sm:text-lg font-medium text-slate-500">by</span>
+        <span className="inline-flex items-baseline gap-1 text-2xl sm:text-[1.75rem] font-extrabold tracking-tight text-slate-900">
+          <span>Veyron</span>
+          <svg viewBox="0 0 24 24" className="h-[0.8em] w-[0.8em] inline-block fill-current translate-y-[0.05em]" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+        </span>
       </span>
     </Link>
   );
@@ -147,45 +151,45 @@ export function AuthLayout({
   }, []);
 
   return (
-    <div className="relative isolate flex min-h-[100dvh] lg:h-dvh lg:max-h-dvh w-full flex-col overflow-x-hidden overflow-y-auto lg:overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden bg-slate-50 font-sans text-slate-900">
+    <div className="relative isolate flex min-h-[100dvh] lg:h-dvh lg:max-h-dvh w-full flex-col overflow-x-hidden overflow-y-auto lg:overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden bg-[#f4f7fb] font-sans text-slate-900">
       <AuthBackground />
 
       {/* Brand lock-up (only place the logo appears — never inside the card) */}
-      <header className="relative z-20 shrink-0 px-4 pt-4 sm:px-8 lg:pl-[min(4.3vw,82px)] lg:pr-8 lg:pt-[clamp(1rem,2.2vh,1.6rem)]">
+      <header className="relative z-20 shrink-0 px-6 pt-5 sm:px-10 lg:pl-[min(5vw,90px)] lg:pt-6">
         <AuthBrandPill />
       </header>
 
-      <main className="relative z-10 grid flex-1 grid-cols-1 gap-6 px-4 pb-6 pt-4 sm:px-8 lg:grid-cols-[49fr_51fr] lg:items-center lg:gap-0 lg:px-0 lg:py-1 lg:overflow-hidden">
-        {/* LEFT — role-specific heading */}
-        <section className="flex flex-col text-left lg:pl-[min(8.3vw,160px)] lg:pr-6 lg:py-2">
+      <main className="relative z-10 grid flex-1 grid-cols-1 gap-8 px-4 pb-8 pt-4 sm:px-8 lg:grid-cols-[46fr_54fr] lg:items-center lg:gap-6 lg:px-10 lg:py-2 lg:overflow-hidden">
+        {/* LEFT — role-specific heading & glowing network wave */}
+        <section className="relative flex flex-col text-left lg:pl-[min(5vw,90px)] lg:pr-6 z-10">
           {eyebrow && (
-            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-blue-600">{eyebrow}</p>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-600">{eyebrow}</p>
           )}
 
-          <h1 className="text-[1.95rem] font-extrabold leading-[1.12] tracking-[-0.03em] text-slate-900 sm:text-[2.4rem] lg:text-[length:clamp(2rem,2.7vw,3.2rem)]">
+          <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold leading-[1.15] tracking-tight text-slate-900">
             {title}
           </h1>
 
-          <p className="mt-3 max-w-xl text-pretty text-[0.95rem] font-medium leading-[1.5] text-slate-800 sm:text-base lg:mt-[clamp(0.5rem,1.6vh,1rem)] lg:max-w-[min(34vw,560px)] lg:text-[length:clamp(0.92rem,1.1vw,1.15rem)]">
+          <p className="mt-3.5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-md">
             {subtitle}
           </p>
 
           {description && (
-            <p className="mt-2 max-w-xl text-[0.88rem] font-medium leading-relaxed text-slate-600 sm:text-sm lg:max-w-[min(34vw,560px)] lg:text-[length:clamp(0.85rem,0.95vw,1rem)]">
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed max-w-md">
               {description}
             </p>
           )}
 
           {belowSubtitle ? (
-            <div className="mt-3.5 text-[0.9rem] font-medium text-slate-800 lg:mt-[clamp(0.6rem,1.8vh,1.15rem)] lg:text-[length:clamp(0.85rem,1vw,1.05rem)]">
+            <div className="mt-4 text-sm sm:text-base font-normal text-slate-700">
               {belowSubtitle}
             </div>
           ) : switchPrompt && switchLinkText && switchLinkHref ? (
-            <p className="mt-3.5 text-[0.9rem] font-medium text-slate-800 lg:mt-[clamp(0.6rem,1.8vh,1.15rem)] lg:text-[length:clamp(0.85rem,1vw,1.05rem)]">
+            <p className="mt-4 text-sm sm:text-base font-normal text-slate-700">
               {switchPrompt}{" "}
               <Link
                 href={switchLinkHref}
-                className="text-blue-700 underline underline-offset-2 transition-colors hover:text-blue-800"
+                className="font-semibold text-blue-600 hover:text-blue-700 underline underline-offset-2 transition-colors"
               >
                 {switchLinkText}
               </Link>
@@ -193,7 +197,7 @@ export function AuthLayout({
           ) : null}
 
           {features && features.length > 0 && (
-            <div className="mt-4 max-w-xl sm:mt-5">
+            <div className="mt-5 max-w-md">
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-2.5">
                 {features.map((f) => {
                   const Icon = f.icon;
@@ -215,20 +219,15 @@ export function AuthLayout({
         </section>
 
         {/* RIGHT — white authentication card */}
-        <section className="lg:self-center lg:pl-[2.7vw] lg:pr-[min(7.2vw,140px)]">
-          <div className="relative mx-auto w-full max-w-[560px] lg:ml-auto lg:mr-0 lg:w-[min(41.1vw,680px)] lg:max-w-none">
-            {/* hairline divider between the two columns */}
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute -left-[2.7vw] bottom-0 top-0 hidden w-px bg-gradient-to-b from-[#c7d6f8] via-[#cfdcf9] to-[#c7d6f8] lg:block"
-            />
+        <section className="lg:self-center lg:pr-[min(5vw,90px)] flex justify-center lg:justify-end z-10">
+          <div className="relative w-full max-w-[560px]">
             <AuthCard>{children}</AuthCard>
           </div>
         </section>
       </main>
 
-      {/* UBverse artwork: bleeds off the bottom-left on desktop, clipped behind isolate */}
-      <AuthArtwork className="hidden sm:block sm:relative sm:z-0 sm:-mt-2 sm:mr-auto sm:w-full sm:max-w-[420px] lg:block lg:absolute lg:bottom-0 lg:left-0 lg:mx-0 lg:mt-0 lg:w-[min(44vw,calc(54vh*1.4367))] lg:max-w-none pointer-events-none" />
+      {/* VentureFlow glowing wave artwork: anchored to bottom-left */}
+      <AuthArtwork className="hidden sm:block absolute bottom-0 left-0 w-full max-w-[48vw] pointer-events-none z-0" />
     </div>
   );
 }
