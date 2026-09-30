@@ -3,7 +3,7 @@ import { AuthLayout } from "@/components/site/auth-layout";
 import { ForgotPasswordForm } from "@/components/site/forgot-password-form";
 
 export const metadata: Metadata = {
-  title: "Create a new password | UBverse by UnBound X",
+  title: "Create a new password | VentureFlow by Veyron X",
   description: "Set a password for your account.",
 };
 
