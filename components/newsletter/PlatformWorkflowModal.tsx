@@ -13,43 +13,43 @@ interface PlatformWorkflowModalProps {
 const STEPS = [
   {
     num: 1,
-    title: "Closing Rails & Allocation Ledger",
+    title: "Startup & Investor Profiles",
     icon: ShieldCheck,
-    summary: "Lock in soft circles before momentum decays.",
+    summary: "A clear starting point for every relationship.",
     details:
-      "Eliminate the 23-day closing gap with pre-drafted SAFE and convertible note rails. Investors sign with one click and receive verified wire instructions into a segregated broker-dealer escrow account.",
+      "Build structured profiles with story, product and team. Owners choose which sections each person can see.",
   },
   {
     num: 2,
-    title: "Diligence Data Room & Cap Table",
+    title: "Documents & Access Control",
     icon: FileText,
-    summary: "Institutional transparency without document fragmentation.",
+    summary: "The right files in front of the right people.",
     details:
-      "Host cap tables, historical financials, customer cohort models, and legal disclosures in an audit-ready virtual data room with granular access logging and watermark tracking.",
+      "Keep decks and supporting files in one place, with per-document access and a record of who opened what.",
   },
   {
     num: 3,
-    title: "Investor Pipeline & Round Capacity",
+    title: "Pipeline & Saved Startups",
     icon: Users,
-    summary: "Real-time visibility into committed versus funded capital.",
+    summary: "Track conversations without a separate spreadsheet.",
     details:
-      "Manage incoming allocation requests, follow-up cadences, and lead investor syndicates. Keep all counter-parties aligned against firm round close deadlines.",
+      "Organise startups into saved lists, set simple stages, and keep follow-ups tied to the next step.",
   },
   {
     num: 4,
-    title: "Predictable LP Communications",
+    title: "Workspace Updates",
     icon: Send,
-    summary: "Structured monthly updates that turn watchers into leads.",
+    summary: "Short, consistent updates for everyone involved.",
     details:
-      "Deliver consistent updates with quantitative highlights, challenges, runway math, and clear asks. Automated LP analytics track who is engaging before you return to market.",
+      "Share highlights, challenges and next steps on a regular rhythm, and keep a searchable history.",
   },
   {
     num: 5,
-    title: "Broker-Dealer Escrow & Clearing",
+    title: "Introductions & Messages",
     icon: CheckCircle2,
-    summary: "Compliant capital clearing and cap table settlement.",
+    summary: "Start conversations with context.",
     details:
-      "Funds land directly into FDIC-insured escrow. Upon round threshold completion, subscriptions are counter-signed and equity or debt allocations are formally issued.",
+      "Request introductions from a profile and keep messages next to the documents they refer to.",
   },
 ];
 
@@ -81,7 +81,7 @@ export function PlatformWorkflowModal({
               Platform Workflow
             </p>
             <h2 className="font-editorial text-[1.25rem] leading-tight text-ink">
-              How UBverse Powers Institutional Closes
+              How VentureFlow Powers Institutional Closes
             </h2>
           </div>
           <button
@@ -97,8 +97,8 @@ export function PlatformWorkflowModal({
         {/* Content */}
         <div className="overflow-y-auto px-6 py-6 sm:px-8">
           <p className="text-[0.92rem] leading-relaxed text-ink/80">
-            A unified capital markets execution platform. Replace scattered PDF decks,
-            untracked email threads, and manual escrow tracking with a continuous closing ledger.
+            A shared workspace for founders and investors. Replace scattered decks,
+            untracked email threads and loose notes with one searchable history.
           </p>
 
           {/* Stepper Tabs */}
