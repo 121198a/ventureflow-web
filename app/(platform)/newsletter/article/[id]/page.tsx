@@ -21,13 +21,13 @@ export async function generateMetadata({
 
   if (!config) {
     return {
-      title: "Article Not Found | UBverse Newsletter",
+      title: "Article Not Found | VentureFlow Newsletter",
       robots: { index: false, follow: false },
     };
   }
 
   return {
-    title: `${config.fallbackHeadline} — UBverse Newsletter`,
+    title: `${config.fallbackHeadline} — VentureFlow Newsletter`,
     alternates: { canonical: config.frontendPath },
   };
 }
