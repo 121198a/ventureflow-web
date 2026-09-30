@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
-import { UBVERSE_API_BASE_URL, SITE_URL } from "@/lib/constants";
+import { WORKSPACE_API_BASE_URL, SITE_URL } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -18,12 +18,12 @@ export async function GET() {
         supabase: {
           configured: isSupabaseConfigured(),
         },
-        ubverseApi: {
-          configured: Boolean(process.env.NEXT_PUBLIC_UBVERSE_API_URL),
-          baseUrl: UBVERSE_API_BASE_URL,
+        workspaceApi: {
+          configured: Boolean(process.env.NEXT_PUBLIC_WORKSPACE_API_URL),
+          baseUrl: WORKSPACE_API_BASE_URL,
         },
-        cmsApi: {
-          configured: Boolean(process.env.NEXT_PUBLIC_CMS_API_URL),
+        cms: {
+          configured: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY),
         },
         siteUrl: SITE_URL,
       },
