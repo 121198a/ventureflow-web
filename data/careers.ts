@@ -9,7 +9,7 @@ export const roles: CareerRole[] = [
     type: "Full-time",
     experience: "Mid / Senior",
     description:
-      "Build fast, expressive product experiences across the UnBound X ecosystem.",
+      "Build fast, expressive product experiences across the VentureFlow ecosystem.",
     responsibilities: [
       "Build accessible React and TypeScript experiences.",
       "Shape reusable UI and motion primitives.",
@@ -52,7 +52,7 @@ export const roles: CareerRole[] = [
     type: "Full-time",
     experience: "3+ years",
     description:
-      "Build experiments that help more founders and investors discover UnBound X.",
+      "Build experiments that help more founders and investors discover VentureFlow.",
     responsibilities: [
       "Own growth experiments and measurement.",
       "Develop high-signal acquisition loops.",
