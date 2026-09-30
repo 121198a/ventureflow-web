@@ -77,7 +77,7 @@ export interface ErrorViewProps {
 
 const DEFAULT_POPULAR_DESTINATIONS: PopularDestination[] = [
   { label: "Home", href: "/" },
-  { label: "UBverse", href: "/ubverse", icon: ExternalLink },
+  { label: "VentureFlow", href: "/workspace", icon: ExternalLink },
   { label: "Privacy Policy", href: "/legal/privacy-policy" },
   { label: "Terms & Condition", href: "/legal/terms-condition" },
 ];
