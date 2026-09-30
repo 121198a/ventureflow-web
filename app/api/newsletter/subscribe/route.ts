@@ -58,10 +58,10 @@ export async function POST(request: Request) {
 
     const { email } = parsed.data;
 
-    // 1. Forward subscription to UBverse backend newsletter service
+    // 1. Forward subscription to VentureFlow backend newsletter service
     let backendSucceeded = false;
     try {
-      const { subscribeBackendNewsletter } = await import("@/lib/ubverse-api");
+      const { subscribeBackendNewsletter } = await import("@/lib/workspace-api");
       const backendResult = await subscribeBackendNewsletter(email);
       backendSucceeded = backendResult.success;
       if (!backendResult.success && process.env.NODE_ENV === "development") {
