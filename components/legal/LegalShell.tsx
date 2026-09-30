@@ -2,14 +2,24 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { LegalHeader } from "@/components/legal/LegalHeader";
 import { LegalSidebar } from "@/components/legal/LegalSidebar";
+import { getNavigation } from "@/lib/cms/server";
+import type { NavGroup } from "@/lib/cms/types";
 
-export function LegalShell({
+export async function LegalShell({
   activeSlug,
   children,
 }: {
   activeSlug?: string;
   children: React.ReactNode;
 }) {
+  // Sidebar comes from CMS navigation data. If the CMS is unreachable the page still renders.
+  let groups: NavGroup[] = [];
+  try {
+    groups = await getNavigation();
+  } catch {
+    groups = [];
+  }
+
   return (
     <div className="legal-shell">
       {/* ================= HEADER ================= */}
@@ -20,7 +30,7 @@ export function LegalShell({
         <Container className="h-full max-w-none px-4 sm:px-6 lg:px-8">
           <div className="legal-shell-grid">
             {/* ================= SIDEBAR ================= */}
-            <LegalSidebar activeSlug={activeSlug} />
+            <LegalSidebar activeSlug={activeSlug} groups={groups} />
 
             {/* ================= RIGHT COLUMN ================= */}
             <div className="legal-shell-content-col">
@@ -38,12 +48,12 @@ export function LegalShell({
                           href="/legal/privacy-policy"
                           className="text-slate-600 hover:text-blue-600 hover:underline transition-colors"
                         >
-                          UnBound X Privacy Policy.
+                          VentureFlow Privacy Policy.
                         </Link>
                       </div>
 
                       <span className="font-normal text-slate-500">
-                        Copyright © 2026 by UnBound X
+                        Copyright © 2026 VentureFlow by Veyron X
                       </span>
                     </div>
                   </footer>
