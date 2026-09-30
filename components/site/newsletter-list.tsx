@@ -98,7 +98,7 @@ function SubscribeForm() {
 function Sidebar() {
   return (
     <aside>
-      <Image src="/logo/unboundx-mark.png" alt="" width={44} height={44} className="size-11 rounded-full object-cover shadow-xs" />
+      <Image src="/logo/vf-mark.png" alt="" width={44} height={44} className="size-11 rounded-full object-cover shadow-xs" />
       <h2 className="mt-5 font-editorial text-[1.5rem] leading-tight">The Fundraising Playbook</h2>
       <p className="mt-4 text-[0.9rem] leading-[1.75] text-ink/70">
         A weekly guide on how private funding rounds work—from data rooms and term sheets to investor updates and closing details.
@@ -135,7 +135,7 @@ export function NewsletterList() {
             The Fundraising Playbook
           </Reveal>
           <Reveal as="p" delay={140} className="mt-8 text-[0.7rem] font-semibold tracking-[0.12em] text-white/80">
-            UBverse
+            VentureFlow
           </Reveal>
           <Reveal as="p" delay={160} className="mt-4 text-[1rem] leading-relaxed text-white/90">
             Clear guides on deal terms, data rooms, and closing mechanics for private funding rounds.
