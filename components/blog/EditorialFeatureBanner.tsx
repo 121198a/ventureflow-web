@@ -24,7 +24,7 @@ export function EditorialFeatureBanner() {
               <div>
                 <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-semibold text-blue-300 backdrop-blur-md border border-white/15">
                   <ComplianceShieldIcon size={14} className="text-blue-400" />
-                  <span>The UnBound X Standard</span>
+                  <span>The VentureFlow Standard</span>
                 </div>
 
                 <h2 className="display mt-5 text-[clamp(2rem,4.5vw,3.2rem)] font-extrabold tracking-tight text-white leading-[1.1]">
@@ -34,7 +34,7 @@ export function EditorialFeatureBanner() {
 
                 <p className="mt-4 max-w-lg text-sm sm:text-base text-slate-300 leading-relaxed">
                   Anyone can claim to have called the market after the fact.
-                  UnBound X establishes the immutable record-keeping layer for
+                  VentureFlow establishes the immutable record-keeping layer for
                   equities and early-stage venture syndicates.
                 </p>
 
@@ -64,10 +64,10 @@ export function EditorialFeatureBanner() {
                   </AuthButton>
 
                   <Link
-                    href="/ubverse"
+                    href="/workspace"
                     className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/30"
                   >
-                    Explore UBverse
+                    Explore VentureFlow
                   </Link>
                 </div>
               </div>
@@ -113,7 +113,7 @@ export function EditorialFeatureBanner() {
                   </div>
 
                   <p className="mt-4 text-[11px] text-slate-400 text-center">
-                    Published and immutable on UnBound X · Viewable by any investor
+                    Published and immutable on VentureFlow · Viewable by any investor
                   </p>
                 </div>
               </div>
