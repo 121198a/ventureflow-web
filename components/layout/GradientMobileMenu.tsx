@@ -7,7 +7,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import type { ReactNode, RefObject } from "react";
 import { FaTwitter, FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowFullBrand } from "@/components/ui/VentureFlowBrand";
 import { socialLinks } from "@/lib/constants";
 
 export type MobileMenuItem = {
@@ -106,14 +106,14 @@ export function GradientMobileMenu({
         <Link href={brandHref} onClick={onClose} className="flex items-center gap-2.5 font-bold">
           <span className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full">
             <Image
-              src="/logo/unboundx-mark.png"
+              src="/logo/vf-mark.png"
               width={32}
               height={32}
-              alt="UnBound X logo"
+              alt="VentureFlow logo"
               className="h-full w-full rounded-full object-cover"
             />
           </span>
-          <UnboundXBrand className="text-base" />
+          <VentureFlowFullBrand className="text-base" />
         </Link>
         <button
           type="button"
@@ -175,18 +175,18 @@ export function GradientMobileMenu({
 
       {/* Social icons */}
       <div className="relative z-10 mx-auto flex shrink-0 items-center justify-center gap-6 pb-6 pt-2 text-white/60">
-        <a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on X" className="p-2 transition-colors hover:text-white">
+        {socialLinks.x && (<a href={socialLinks.x} target="_blank" rel="noopener noreferrer" aria-label="VentureFlow on X" className="p-2 transition-colors hover:text-white">
           <FaTwitter size={18} />
-        </a>
-        <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on LinkedIn" className="p-2 transition-colors hover:text-white">
+        </a>)}
+        {socialLinks.linkedin && (<a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="VentureFlow on LinkedIn" className="p-2 transition-colors hover:text-white">
           <FaLinkedinIn size={18} />
-        </a>
-        <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Facebook" className="p-2 transition-colors hover:text-white">
+        </a>)}
+        {socialLinks.facebook && (<a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="VentureFlow on Facebook" className="p-2 transition-colors hover:text-white">
           <FaFacebookF size={18} />
-        </a>
-        <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="UnBound X on Instagram" className="p-2 transition-colors hover:text-white">
+        </a>)}
+        {socialLinks.instagram && (<a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="VentureFlow on Instagram" className="p-2 transition-colors hover:text-white">
           <FaInstagram size={18} />
-        </a>
+        </a>)}
       </div>
     </motion.div>,
     document.body
