@@ -7,13 +7,13 @@ import { Reveal } from "@/components/site/reveal";
 import { ConsultationForm } from "./ConsultationForm";
 
 export const metadata: Metadata = {
-  title: "Schedule Consultation — UBverse Newsletter",
+  title: "Book a Walkthrough — VentureFlow",
   description:
-    "Book a twenty-minute working session with the UBverse capital markets team. Pressure-test your round terms, dilution math, and closing rails.",
+    "Book a twenty-minute walkthrough of the VentureFlow workspace: profiles, documents, introductions and notes.",
   alternates: { canonical: "/newsletter/book-call" },
   openGraph: {
-    title: "Schedule Consultation — UBverse Newsletter",
-    description: "20 minutes · Confidential · Capital markets working session.",
+    title: "Book a Walkthrough — VentureFlow",
+    description: "20 minutes · Workspace walkthrough.",
     url: "/newsletter/book-call",
   },
 };
@@ -34,22 +34,22 @@ export default function BookCallPage() {
 
         <p className="eyebrow mt-8 text-brand">Capital Markets Advisory</p>
         <Reveal as="h1" className="mt-3 font-editorial text-[2.2rem] leading-tight text-ink sm:text-[2.8rem]">
-          Schedule a Capital Markets Working Session
+          Book a Workspace Walkthrough
         </Reveal>
         <p className="mt-4 text-[1.05rem] leading-relaxed text-ink/80">
-          A twenty-minute, focused working session with our capital markets team.
-          We review your five critical numbers, model your post-round dilution,
-          and structure an institutional closing ledger for your current raise.
+          A twenty-minute, focused walkthrough of the VentureFlow workspace.
+          We show how profiles, documents, notes and introductions fit together
+          and answer questions about your setup.
         </p>
 
         <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
           {/* Form */}
           <div className="rounded-xl border border-hairline bg-surface-alt p-6 sm:p-8">
             <h2 className="font-editorial text-[1.4rem] leading-tight text-ink">
-              Reserve Your Working Session
+              Reserve Your Walkthrough
             </h2>
             <p className="mt-2 text-xs text-muted-foreground">
-              Direct consultation with our deal leads. No pitch decks required.
+              A short call with the VentureFlow team. No preparation required.
             </p>
 
             <ConsultationForm />
@@ -64,7 +64,7 @@ export default function BookCallPage() {
                 Who It Is For
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-ink/80">
-                Founders and managing partners actively preparing a private raise (Pre-Seed, Seed, Series A, Reg CF, or Reg D) in the next 1–6 months who need verified terms before meeting lead investors.
+                Founders, investors and teams who want to see how a shared workspace could replace scattered inboxes, drives and spreadsheets.
               </p>
             </div>
 
@@ -77,15 +77,15 @@ export default function BookCallPage() {
               <ul className="mt-3 space-y-2.5 text-xs leading-relaxed text-ink/80">
                 <li className="flex items-start gap-2">
                   <span className="text-brand font-bold">1.</span>
-                  <span><strong>Five Numbers Audit:</strong> Burn, runway, unit economics, revenue, and ownership math tested to 10-second recall.</span>
+                  <span><strong>Workspace Tour:</strong> Profiles, documents, messages and notes, shown with sample data.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-brand font-bold">2.</span>
-                  <span><strong>Cap Table Modeling:</strong> SAFE conversion mechanics, valuation cap buffers, and option pool refresh impact on founder equity.</span>
+                  <span><strong>Setup Guidance:</strong> How to structure your profile and which documents to add first.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-brand font-bold">3.</span>
-                  <span><strong>Closing Ledger Plan:</strong> Structuring clear allocation deadlines to prevent soft circles from decaying.</span>
+                  <span><strong>Next Steps:</strong> A simple plan for inviting collaborators and starting introductions.</span>
                 </li>
               </ul>
             </div>
@@ -95,12 +95,12 @@ export default function BookCallPage() {
               <div className="flex items-center gap-2 text-brand">
                 <ShieldCheck className="size-5" />
                 <span className="text-xs font-bold uppercase tracking-wider text-white/90">
-                  Strict Confidentiality
+                  Confidential
                 </span>
               </div>
               <p className="mt-3 text-xs leading-relaxed text-white/80">
-                All deal terms, cap tables, and financial figures discussed remain strictly confidential.
-                You keep the customized dilution model and closing roadmap either way.
+                Anything you share on the call stays confidential.
+                You keep the setup notes either way.
               </p>
             </div>
           </div>
