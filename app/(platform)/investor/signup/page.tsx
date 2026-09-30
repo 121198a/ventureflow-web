@@ -3,7 +3,7 @@ import { AuthLayout } from "@/components/site/auth-layout";
 import { SignupForm } from "@/components/site/signup-form";
 
 export const metadata: Metadata = {
-  title: "Let's Get Started | UBverse by UnBound X",
+  title: "Let's Get Started | VentureFlow by Veyron X",
   description: "Enter your email and create a secure password to begin. You'll finish setting up your profile in the next steps.",
 };
 
@@ -15,7 +15,7 @@ export default function InvestorSignup() {
       title="Let's Get Started"
       subtitle="We will guide you through a few quick steps to setup your account."
       description="Enter your email and create a secure password to begin. You'll finish setting up your profile in the next steps."
-      switchPrompt="Already have an account on UnBound X?"
+      switchPrompt="Already have an account on VentureFlow?"
       switchLinkText="Login here"
       switchLinkHref="/investor/login"
     >
