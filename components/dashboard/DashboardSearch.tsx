@@ -17,7 +17,7 @@ interface DashboardSearchProps {
  * Production-ready responsive dashboard search bar.
  * Occupies approx. 1/4 width on desktop (w-full md:w-1/4 min-w-[220px] max-w-[320px]),
  * expanding to full width on mobile viewports.
- * Uses existing UnBound X styling tokens (Figtree font, hairline border, shadow-2xs).
+ * Uses existing VentureFlow styling tokens (Figtree font, hairline border, shadow-2xs).
  */
 export function DashboardSearch({
   value,
