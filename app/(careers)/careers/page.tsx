@@ -13,14 +13,14 @@ import { site, SITE_URL } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Careers & Culture",
   description:
-    "Join UnBound X to build the verifiable record-keeping layer for investment ideas. Explore engineering, product, and research roles.",
+    "Join VentureFlow to build the verifiable record-keeping layer for investment ideas. Explore engineering, product, and research roles.",
   alternates: {
     canonical: "/careers",
   },
   openGraph: {
     title: "Careers & Culture — " + site.name,
     description:
-      "Join UnBound X to build the verifiable record-keeping layer for investment ideas. Explore engineering, product, and research roles.",
+      "Join VentureFlow to build the verifiable record-keeping layer for investment ideas. Explore engineering, product, and research roles.",
     url: `${SITE_URL}/careers`,
     type: "website",
     images: ["/brand/og-image.png"],
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Careers & Culture — " + site.name,
     description:
-      "Join UnBound X to build the verifiable record-keeping layer for investment ideas. Explore engineering, product, and research roles.",
+      "Join VentureFlow to build the verifiable record-keeping layer for investment ideas. Explore engineering, product, and research roles.",
     images: ["/brand/og-image.png"],
   },
 };
