@@ -51,12 +51,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'dev-ubverse-backend.s3.us-east-1.amazonaws.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'dev-assets.unboundxinc.us',
+        hostname: 'dev-assets.ventureflow.example',
         pathname: '/**',
       },
     ],
@@ -68,7 +63,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/ubverse/companies',
+        source: '/workspace/companies',
         destination: '/platform',
         permanent: false,
       },
