@@ -5,7 +5,7 @@ import {
   fetchDashboardCompanies,
   type BackendIssuerDetailData,
   type BackendCompanySummary,
-} from "@/lib/ubverse-api";
+} from "@/lib/workspace-api";
 import { verifySessionToken } from "@/lib/crypto";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 
@@ -78,9 +78,9 @@ export async function GET(request: Request) {
     if (companyId) {
       issuerDetail = await fetchIssuerDetail(companyId);
     } else if (availableCompanies.length > 0) {
-      // Look for Unbound X or primary company if companyId omitted
+      // Look for VentureFlow or primary company if companyId omitted
       const defaultCompany =
-        availableCompanies.find((c) => c.name.toLowerCase().includes("unbound")) ||
+        availableCompanies.find((c) => c.name.toLowerCase().includes("ventureflow")) ||
         availableCompanies[0];
 
       if (defaultCompany?.id) {
