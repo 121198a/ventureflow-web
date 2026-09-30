@@ -5,18 +5,18 @@ import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { DocumentFilingIcon } from "@/components/ui/CustomIcons";
 import { TransitionLink } from "@/components/ui/TransitionLink";
-import { LEGAL_PAGES } from "@/lib/cms";
+import type { NavGroup, NavTreeItem } from "@/lib/cms/types";
 
-const SIDEBAR_PAGES = LEGAL_PAGES;
-
-export function LegalSidebar({ activeSlug }: { activeSlug?: string }) {
+export function LegalSidebar({ activeSlug, groups = [] }: { activeSlug?: string; groups?: NavGroup[] }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isHubActive = pathname === "/legal" || pathname === "/legal/";
+  const flat = (items: NavTreeItem[]): NavTreeItem[] => items.flatMap((i) => [i, ...flat(i.children)]);
+  const allItems = groups.flatMap((g) => flat(g.items));
   const activeLabel =
-    SIDEBAR_PAGES.find((p) => p.slug === activeSlug)?.label ??
-    (isHubActive ? "UnBound X Legal Hub" : "Legal");
+    allItems.find((p) => p.slug === activeSlug)?.label ??
+    (isHubActive ? "VentureFlow Legal Hub" : "Legal");
 
   const list = (
     <nav aria-label="Legal documents" className="flex flex-col gap-0.5">
@@ -30,30 +30,21 @@ export function LegalSidebar({ activeSlug }: { activeSlug?: string }) {
             : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
         }`}
       >
-        UnBound X Legal Hub
+        VentureFlow Legal Hub
       </TransitionLink>
 
-      <ul className="flex flex-col gap-0.5">
-        {SIDEBAR_PAGES.map((page) => {
-          const isActive = page.slug === activeSlug;
-          return (
-            <li key={page.slug}>
-              <TransitionLink
-                href={`/legal/${page.slug}`}
-                onClick={() => setMobileOpen(false)}
-                aria-current={isActive ? "page" : undefined}
-                className={`block rounded-xl px-4 py-2.5 text-sm leading-snug transition-colors ${
-                  isActive
-                    ? "bg-blue-50 font-semibold text-blue-700"
-                    : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
-                }`}
-              >
-                {page.label}
-              </TransitionLink>
-            </li>
-          );
-        })}
-      </ul>
+      {groups.map((group) => (
+        <div key={group.category} className="mt-4">
+          <p className="px-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-500" id={`legal-group-${group.category}`}>
+            {group.name}
+          </p>
+          <ul className="flex flex-col gap-0.5" aria-labelledby={`legal-group-${group.category}`}>
+            {group.items.map((page) => (
+              <NavItem key={page.id} item={page} activeSlug={activeSlug} depth={0} onNavigate={() => setMobileOpen(false)} />
+            ))}
+          </ul>
+        </div>
+      ))}
     </nav>
   );
 
@@ -92,5 +83,31 @@ export function LegalSidebar({ activeSlug }: { activeSlug?: string }) {
         <div className="legal-shell-sidebar-scroll">{list}</div>
       </aside>
     </>
+  );
+}
+
+function NavItem({ item, activeSlug, depth, onNavigate }: { item: NavTreeItem; activeSlug?: string; depth: number; onNavigate: () => void }) {
+  const isActive = item.slug !== undefined && item.slug === activeSlug;
+  return (
+    <li>
+      <TransitionLink
+        href={item.href}
+        onClick={onNavigate}
+        aria-current={isActive ? "page" : undefined}
+        style={{ marginLeft: depth * 12 }}
+        className={`block rounded-xl px-4 py-2.5 text-sm leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-blue-600 ${
+          isActive ? "bg-blue-50 font-semibold text-blue-700" : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+        }`}
+      >
+        {item.label}
+      </TransitionLink>
+      {item.children.length > 0 && (
+        <ul className="flex flex-col gap-0.5">
+          {item.children.map((c) => (
+            <NavItem key={c.id} item={c} activeSlug={activeSlug} depth={depth + 1} onNavigate={onNavigate} />
+          ))}
+        </ul>
+      )}
+    </li>
   );
 }
