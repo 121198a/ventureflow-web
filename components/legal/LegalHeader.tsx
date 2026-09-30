@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 import { Container } from "@/components/ui/Container";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowFullBrand } from "@/components/ui/VentureFlowBrand";
 import { MAIN_SITE_URL } from "@/lib/constants";
 
 export function LegalHeader() {
@@ -17,16 +17,16 @@ export function LegalHeader() {
           >
             <div className="relative h-7 w-7 sm:h-8 sm:w-8 overflow-hidden rounded-full flex items-center justify-center shadow-2xs">
               <Image
-                src="/logo/unboundx-mark.png"
+                src="/logo/vf-mark.png"
                 width={32}
                 height={32}
-                alt="UnBound X"
+                alt="VentureFlow"
                 className="h-full w-full object-cover rounded-full transition-transform group-hover:scale-105"
                 priority
               />
             </div>
 
-            <UnboundXBrand className="text-base sm:text-lg" />
+            <VentureFlowFullBrand className="text-base sm:text-lg" />
           </TransitionLink>
 
           <div>
