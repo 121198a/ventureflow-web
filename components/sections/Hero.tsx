@@ -369,22 +369,22 @@ export function Hero() {
           <Reveal>
             <span className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/95 px-4 py-1.5 text-xs font-semibold text-blue-800 shadow-2xs">
               <ComplianceShieldIcon size={14} className="text-blue-600" />
-              <span>Verifiable Investment Record Architecture</span>
+              <span>Startup–Investor Workspace</span>
             </span>
           </Reveal>
 
           <Reveal delay={0.08}>
             <h1 className="mt-5 text-[clamp(2.35rem,5.5vw,3.75rem)] font-extrabold leading-[1.08] tracking-tight text-slate-900">
-              Every thesis on record. <br />
+              One workspace for <br />
               <span className="text-blue-600">
-                Tracked to the outcome.
+                founders and investors.
               </span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.16}>
             <p className="mx-auto mt-5 max-w-lg text-base sm:text-lg leading-relaxed text-slate-600 lg:mx-0">
-              Write down your target, the time horizon, and the reason behind the call. UnBound X measures each thesis against live market prices to turn opinion into something you can verify.
+              Keep startup profiles, introductions, messages, notes and documents together, so every conversation has the context it needs.
             </p>
           </Reveal>
 
@@ -393,10 +393,10 @@ export function Hero() {
               <Magnetic strength={0.2}>
                 <AuthButton
                   flow="signup"
-                  ariaLabel="Start your verified investment record"
+                  ariaLabel="Get started with VentureFlow"
                   className="btn-pill-primary px-8 focus-visible:ring-offset-2"
                 >
-                  Start your record
+                  Get started
                 </AuthButton>
               </Magnetic>
 
@@ -406,9 +406,9 @@ export function Hero() {
                   scrollToTarget("#thesis");
                 }}
                 className="btn-pill-secondary group cursor-pointer focus-visible:ring-offset-2"
-                aria-label="Review Methodology"
+                aria-label="See how it works"
               >
-                <span>Review Methodology</span>
+                <span>See how it works</span>
                 <ChevronDown
                   size={15}
                   className="transition-transform duration-300 group-hover:translate-y-0.5"
@@ -421,15 +421,15 @@ export function Hero() {
             <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-xs font-medium text-slate-600 lg:justify-start">
               <span className="flex items-center gap-1.5 text-slate-700">
                 <ComplianceShieldIcon size={14} className="text-blue-600 shrink-0" />
-                Target &amp; horizon locked at publish
+                Profiles and documents in one place
               </span>
               <span className="flex items-center gap-1.5 text-slate-700">
                 <GrowthChartIcon size={14} className="text-emerald-600 shrink-0" />
-                Audited hit &amp; miss accuracy
+                Owner-controlled sharing
               </span>
               <span className="flex items-center gap-1.5 text-slate-700">
                 <PartnershipRingsIcon size={14} className="text-blue-600 shrink-0" />
-                Collaborative research Spaces
+                Introductions and messages
               </span>
             </div>
           </Reveal>
@@ -613,7 +613,7 @@ function FeedPreview() {
     },
     {
       id: "maneesh",
-      name: "Maneesh",
+      name: "Alex",
       time: "Just now",
       badge: "1",
       image: "/image/about/1.jpg",
@@ -627,14 +627,14 @@ function FeedPreview() {
     },
     {
       id: "gaurav",
-      name: "Gaurav",
+      name: "Taylor",
       time: "30m ago",
       badge: "2",
       image: "/image/about/3.jpg",
     },
     {
       id: "dinesh",
-      name: "Dinesh",
+      name: "Riley",
       time: "1h ago",
       badge: "1",
       image: "/image/about/3.jpg",
@@ -708,20 +708,20 @@ function FeedPreview() {
 
         {/* Feed Posts */}
         <div className="space-y-2 p-2.5">
-          {/* Post 1 - Maneesh Awasthi ($BTC Bullish / On track) */}
+          {/* Post 1 - Alex Carter ($BTC Bullish / On track) */}
           <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
                   src="/image/about/1.jpg"
-                  alt="Maneesh Awasthi"
+                  alt="Alex Carter"
                   width={20}
                   height={20}
                   className="size-5 rounded-full object-cover"
                   loading="lazy"
                 />
                 <div>
-                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Maneesh Awasthi</p>
+                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Alex Carter</p>
                   <p className="text-[8.5px] text-slate-500 leading-tight">@maneesh</p>
                 </div>
               </div>
@@ -772,20 +772,20 @@ function FeedPreview() {
             </div>
           </div>
 
-          {/* Post 2 - Arnav Awasthi ($NVDA Bearish / Off track) */}
+          {/* Post 2 - Jordan Lee ($NVDA Bearish / Off track) */}
           <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
                   src="/image/about/2.jpg"
-                  alt="Arnav Awasthi"
+                  alt="Jordan Lee"
                   width={20}
                   height={20}
                   className="size-5 rounded-full object-cover"
                   loading="lazy"
                 />
                 <div>
-                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Arnav Awasthi</p>
+                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Jordan Lee</p>
                   <p className="text-[8.5px] text-slate-500 leading-tight">@arnav</p>
                 </div>
               </div>
