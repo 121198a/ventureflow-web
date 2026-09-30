@@ -59,6 +59,18 @@
   - Preserved current `VX` / `VXverse` compatibility interfaces and `Veyron X` parent brand relationship.
 * **Test:** Ran recursive regex scan for duplicate brand strings and banned legacy terms.
 * **Verify:** Zero occurrences of unwanted duplicate or legacy brand strings.
+
+---
+
+## 6. Legal CMS Hybrid Failover & Company Logo Integration (Phase 51)
+* **Inspect:** Investigated root cause of Legal Hub 503 "temporarily unavailable" error banner and audited company profile references.
+* **Implement:**
+  - Built `HybridCmsRepository` in `lib/cms/hybrid-repository.ts` providing seamless zero-downtime failover between Supabase PostgreSQL store and pre-seeded Markdown/JSON documents.
+  - Refactored `CmsErrorState.tsx` to distinguish 404 Not Found, 503 Service Unavailable, Empty Document, and Configuration Alert states.
+  - Verified resolution of all 6 legacy legal URL redirects.
+  - Integrated authoritative company logos for Northhstar Lab Pvt. Ltd., Novaforge Pvt. Ltd., and Vertex Works Pvt. Ltd. into `public/brand/companies/` and updated startup directory models.
+* **Test:** Ran `tests/cms-service.test.ts` verifying all legal documents, redirects, and seed content.
+* **Verify:** All 69 automated assertions passed; Legal Hub serves published documents reliably.
 * **Test:** Executed `npm run typecheck`, `npm run lint`, `npm run build`, and `npm run start`.
 * **Verify:** 111 static routes generated in 6-8s; 102 kB shared first-load JS; 0 lint errors, 0 TypeScript errors; production server started cleanly in <850ms.
 
