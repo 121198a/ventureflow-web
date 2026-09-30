@@ -19,16 +19,16 @@ export interface LaptopFrameProps {
 
 /**
  * High-performance, responsive laptop showcase component playing the authentic
- * UBverse 3D laptop animation (/UBverse-Laptop.mp4) with seamless looping,
+ * VentureFlow workspace product video (/workspace-demo.mp4) with seamless looping,
  * robust autoplay handling, and zero clutter (pure auto-playing animation).
  */
 export function LaptopFrame({
   children,
   className = "",
   priority = false,
-  alt = "UBverse platform showcased on a high-resolution laptop screen with open capital raises and featured start-ups",
-  src = "/images/ubverse-laptop-poster.webp",
-  videoSrc = "/UBverse-Laptop.mp4",
+  alt = "VentureFlow workspace shown on a laptop screen with startup profiles, messages and documents",
+  src = "/images/workspace-laptop-poster.webp",
+  videoSrc = "/workspace-demo.mp4",
   autoPlay = true,
   withWatermark = false,
 }: LaptopFrameProps) {
