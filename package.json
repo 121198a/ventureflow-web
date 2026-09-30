@@ -10,7 +10,8 @@
     "start:standalone": "node .next/standalone/server.js",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/**/*.test.ts"
+    "test": "node --experimental-strip-types --test tests/**/*.test.ts",
+    "cms:seed": "node --experimental-strip-types --env-file=.env.local scripts/cms-seed.ts"
   },
   "dependencies": {
     "@fontsource/figtree": "^5.3.0",
