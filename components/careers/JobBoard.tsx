@@ -74,7 +74,7 @@ export function JobBoard() {
           </div>
           <p className="display text-xl">No roles match that search.</p>
           <p className="mt-3 max-w-md text-sm text-text-secondary">
-            Send your work to careers@unboundxinc.com — we keep good people in mind.
+            Send your work to careers@ventureflow.example — we keep good people in mind.
           </p>
           <button
             onClick={() => {
