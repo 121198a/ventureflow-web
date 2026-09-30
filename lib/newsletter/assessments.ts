@@ -1,10 +1,10 @@
 // Authentic assessment diagnostic questions and recommendation models
-// Derived from verified UBverse readiness check engines
+// Derived from verified VentureFlow readiness check engines
 
 const NEWSLETTER_API_BASE_URL =
   process.env.NEWSLETTER_API_BASE_URL ||
   process.env.NEXT_PUBLIC_NEWSLETTER_API_BASE_URL ||
-  "https://development.unboundxinc.us";
+  "https://api.ventureflow.example";
 
 export type AssessmentQuestion = {
   cat: string;
