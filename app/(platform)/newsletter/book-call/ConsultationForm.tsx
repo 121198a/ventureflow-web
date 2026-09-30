@@ -233,10 +233,10 @@ export function ConsultationForm() {
     const [y, m, d] = confirmedBooking.date.split("-");
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//UBverse//Capital Markets Consultation//EN
+PRODID:-//VentureFlow//Capital Markets Consultation//EN
 BEGIN:VEVENT
-SUMMARY:UBverse Capital Markets Working Session - ${confirmedBooking.company}
-DESCRIPTION:20-Minute institutional working session with UBverse deal leads.\\nRef: ${confirmedBooking.referenceCode}\\nFounder: ${confirmedBooking.name}
+SUMMARY:VentureFlow Capital Markets Working Session - ${confirmedBooking.company}
+DESCRIPTION:20-Minute institutional working session with VentureFlow deal leads.\\nRef: ${confirmedBooking.referenceCode}\\nFounder: ${confirmedBooking.name}
 DTSTART:${y}${m}${d}T150000Z
 DTEND:${y}${m}${d}T152000Z
 STATUS:CONFIRMED
@@ -247,7 +247,7 @@ END:VCALENDAR`;
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", `ubverse-session-${confirmedBooking.referenceCode}.ics`);
+    link.setAttribute("download", `workspace-session-${confirmedBooking.referenceCode}.ics`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
