@@ -71,6 +71,19 @@
   - Integrated authoritative company logos for Northhstar Lab Pvt. Ltd., Novaforge Pvt. Ltd., and Vertex Works Pvt. Ltd. into `public/brand/companies/` and updated startup directory models.
 * **Test:** Ran `tests/cms-service.test.ts` verifying all legal documents, redirects, and seed content.
 * **Verify:** All 69 automated assertions passed; Legal Hub serves published documents reliably.
+
+---
+
+## 7. Founder & Investor Auth Redesign per Reference Direction (Phase 52)
+* **Inspect:** Analyzed design reference screenshots for Founder and Investor login and signup pages.
+* **Implement:**
+  - Built hero lockup with vibrant VF icon and stylized double-struck Veyron 𝕏 mark.
+  - Added authentic glowing neural network wave mesh asset in `public/images/auth-wave.webp`.
+  - Refined `AuthCard` surface geometry with modern border radius, soft drop shadow, and clean padding.
+  - Implemented segmented Email/Phone tabs with active pill styling.
+  - Implemented eye toggles for password and confirm password inputs, password complexity requirements checklist, terms confirmation links, side-by-side Google and Facebook OAuth buttons, and bottom action row with Disclaimers link and Continue button.
+* **Test:** Tested responsive viewports at 375px, 640px, 768px, 1024px, and 1440px.
+* **Verify:** Visual hierarchy and form functionality match reference image specifications.
 * **Test:** Executed `npm run typecheck`, `npm run lint`, `npm run build`, and `npm run start`.
 * **Verify:** 111 static routes generated in 6-8s; 102 kB shared first-load JS; 0 lint errors, 0 TypeScript errors; production server started cleanly in <850ms.
 
