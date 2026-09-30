@@ -39,7 +39,7 @@ export function Hero() {
         <Reveal>
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-semibold tracking-[0.08em] text-text-secondary">
             <span className="h-1.5 w-1.5 rounded-full bg-signal" />
-            Careers · UnBound X
+            Careers · VentureFlow
           </span>
         </Reveal>
 
@@ -87,7 +87,7 @@ export function Hero() {
             <motion.div style={{ y, scale }} className="relative aspect-[16/9] w-full">
               <Image
                 src="/images/life-studio.jpg"
-                alt="The UnBound X team working together in a bright studio"
+                alt="The VentureFlow team working together in a bright studio"
                 fill
                 priority
                 sizes="(min-width: 1240px) 1190px, 100vw"
