@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import SiteShell from "@/components/layout/SiteShell";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowBrand } from "@/components/ui/VentureFlowBrand";
 import { Mail, Download, ArrowUpRight, Newspaper } from "lucide-react";
 import { ComplianceShieldIcon } from "@/components/ui/CustomIcons";
 import { site, SITE_URL } from "@/lib/constants";
@@ -17,14 +17,14 @@ import { CopyBoilerplateButton, ColorSwatch } from "@/components/press/PressClie
 export const metadata: Metadata = {
   title: "Press & Media Kit",
   description:
-    "Official press releases, brand assets, executive commentary, and announcements from UnBound X.",
+    "Official press releases, brand assets, executive commentary, and announcements from VentureFlow.",
   alternates: {
     canonical: "/press",
   },
   openGraph: {
     title: "Press & Media Kit — " + site.name,
     description:
-      "Official press releases, brand assets, executive commentary, and announcements from UnBound X.",
+      "Official press releases, brand assets, executive commentary, and announcements from VentureFlow.",
     url: `${SITE_URL}/press`,
     type: "website",
     images: ["/brand/og-image.png"],
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Press & Media Kit — " + site.name,
     description:
-      "Official press releases, brand assets, executive commentary, and announcements from UnBound X.",
+      "Official press releases, brand assets, executive commentary, and announcements from VentureFlow.",
     images: ["/brand/og-image.png"],
   },
 };
@@ -54,14 +54,14 @@ export default function PressPage() {
             <div className="relative z-10 max-w-3xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/90 bg-blue-50/80 px-3.5 py-1 text-xs font-semibold text-blue-800 shadow-2xs">
                 <Newspaper size={13} className="text-blue-600" />
-                <span>UnBound X Press Room &amp; Media Kit</span>
+                <span>VentureFlow Press Room &amp; Media Kit</span>
                 <span className="h-1 w-1 rounded-full bg-blue-600" />
                 <span className="text-blue-700 font-normal">Official Disclosures</span>
               </div>
 
               <h1 className="mt-5 text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
                 Press resources, official statements, and brand assets from{" "}
-                <UnboundXBrand className="inline-block" />
+                <VentureFlowBrand className="inline-block" />
               </h1>
 
               <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600 font-normal">
@@ -91,7 +91,7 @@ export default function PressPage() {
             <div className="relative z-10 mt-10 grid grid-cols-2 gap-4 border-t border-slate-200 pt-6 sm:grid-cols-4">
               <div>
                 <span className="block text-[12px] font-bold tracking-[0.08em] text-slate-500">Press contact</span>
-                <span className="mt-1 block text-xs sm:text-sm font-bold text-slate-900">press@unboundxinc.com</span>
+                <span className="mt-1 block text-xs sm:text-sm font-bold text-slate-900">press@ventureflow.example</span>
               </div>
               <div>
                 <span className="block text-[12px] font-bold tracking-[0.08em] text-slate-500">Response SLA</span>
@@ -117,15 +117,15 @@ export default function PressPage() {
               </p>
               <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-blue-600">
                 <Mail size={16} />
-                <a href="mailto:press@unboundxinc.com" className="hover:underline">
-                  press@unboundxinc.com
+                <a href="mailto:press@ventureflow.example" className="hover:underline">
+                  press@ventureflow.example
                 </a>
               </div>
             </div>
             <div className="shrink-0 flex items-center gap-3">
               <a
-                href="/logo/unboundx-mark.png"
-                download="unboundx-mark.png"
+                href="/logo/vf-mark.png"
+                download="vf-mark.png"
                 className="inline-flex items-center gap-2 rounded-full bg-white border border-slate-200 px-5 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 shadow-xs hover:bg-slate-100 transition-colors"
               >
                 <Download size={15} />
@@ -155,7 +155,7 @@ export default function PressPage() {
           <div id="brand-assets" className="mt-16 scroll-mt-28">
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">Official Brand Assets</h2>
             <p className="mt-2 text-sm text-slate-600">
-              Use these approved logo marks and typography when featuring UnBound X in publications or media coverage.
+              Use these approved logo marks and typography when featuring VentureFlow in publications or media coverage.
             </p>
 
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -170,8 +170,8 @@ export default function PressPage() {
                 <div className="py-10 flex items-center justify-center">
                   <div className="h-16 w-16 relative">
                     <Image
-                      src="/logo/unboundx-mark.png"
-                      alt="UnBound X Mark"
+                      src="/logo/vf-mark.png"
+                      alt="VentureFlow Mark"
                       width={64}
                       height={64}
                       className="rounded-full shadow-sm"
@@ -179,10 +179,10 @@ export default function PressPage() {
                   </div>
                 </div>
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm">
-                  <span className="font-medium text-slate-700">unboundx-mark.png</span>
+                  <span className="font-medium text-slate-700">vf-mark.png</span>
                   <a
-                    href="/logo/unboundx-mark.png"
-                    download="unboundx-mark.png"
+                    href="/logo/vf-mark.png"
+                    download="vf-mark.png"
                     className="font-semibold text-blue-600 hover:underline inline-flex items-center gap-1"
                   >
                     Download <Download size={13} />
@@ -201,8 +201,8 @@ export default function PressPage() {
                 <div className="py-10 flex items-center justify-center gap-3">
                   <div className="h-10 w-32 relative flex items-center justify-center">
                     <Image
-                      src="/logo/ubverse-logo.svg"
-                      alt="UBverse Mark"
+                      src="/logo/ventureflow-logo.svg"
+                      alt="VentureFlow Mark"
                       width={120}
                       height={36}
                       className="object-contain"
@@ -210,10 +210,10 @@ export default function PressPage() {
                   </div>
                 </div>
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm">
-                  <span className="font-medium text-slate-700">ubverse-logo.svg</span>
+                  <span className="font-medium text-slate-700">ventureflow-logo.svg</span>
                   <a
-                    href="/logo/ubverse-logo.svg"
-                    download="ubverse-logo.svg"
+                    href="/logo/ventureflow-logo.svg"
+                    download="ventureflow-logo.svg"
                     className="font-semibold text-blue-600 hover:underline inline-flex items-center gap-1"
                   >
                     Download <Download size={13} />
@@ -265,7 +265,7 @@ export default function PressPage() {
             <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50/70 p-6">
               <div className="flex items-center justify-between gap-4">
                 <h3 className="text-xs font-bold tracking-[0.08em] text-slate-500">
-                  Boilerplate Description (About UnBound X)
+                  Boilerplate Description (About VentureFlow)
                 </h3>
                 <CopyBoilerplateButton text={companyBoilerplate} />
               </div>
@@ -343,15 +343,15 @@ export default function PressPage() {
 
                 <div className="mt-6 flex flex-wrap items-center gap-4">
                   <a
-                    href="mailto:press@unboundxinc.com"
+                    href="mailto:press@ventureflow.example"
                     className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
                   >
                     <Mail size={16} />
-                    <span>press@unboundxinc.com</span>
+                    <span>press@ventureflow.example</span>
                   </a>
                   <a
-                    href="/logo/unboundx-mark.png"
-                    download="unboundx-mark.png"
+                    href="/logo/vf-mark.png"
+                    download="vf-mark.png"
                     className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-colors"
                   >
                     <Download size={15} />
@@ -360,7 +360,7 @@ export default function PressPage() {
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-blue-100/80 flex flex-wrap gap-6 text-xs text-slate-500">
-                  <span>General press: <strong>press@unboundxinc.com</strong></span>
+                  <span>General press: <strong>press@ventureflow.example</strong></span>
                   <span>Operating hours: <strong>Mon–Fri, 9am–6pm ET</strong></span>
                   <span>Response time: <strong>Within 24 business hours</strong></span>
                 </div>
