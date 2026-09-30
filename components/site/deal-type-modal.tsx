@@ -15,17 +15,16 @@ export function DealTypeModal() {
     <Dialog>
       <DialogTrigger asChild>
         <button type="button" className="text-[13px] text-brand underline">
-          Don&apos;t see your deal type?
+          Need something else?
         </button>
       </DialogTrigger>
       <DialogContent className="text-center">
         <div className="mx-auto flex size-14 items-center justify-center rounded-full border-2 border-brand text-brand">
           <Send className="size-6" strokeWidth={2} />
         </div>
-        <DialogTitle className="mt-5">More Offering Types Coming Soon!</DialogTitle>
+        <DialogTitle className="mt-5">More Workspace Options Coming Soon!</DialogTitle>
         <DialogDescription>
-          We are expanding deal types to match your stage. Need something else? Contact us and we
-          will review.
+          We are expanding the workspace over time. Need something else? Contact us and we will review.
         </DialogDescription>
         <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
           <Link
@@ -36,7 +35,7 @@ export function DealTypeModal() {
             Log In
           </Link>
           <a
-            href="mailto:info@unboundxinc.com"
+            href="mailto:hello@ventureflow.example"
             className="w-full sm:w-auto text-center rounded-full bg-brand px-6 py-[10px] text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong"
             style={{ fontWeight: 800 }}
           >
