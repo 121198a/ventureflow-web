@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Menu } from "lucide-react";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowFullBrand } from "@/components/ui/VentureFlowBrand";
 import { AuthButton } from "@/components/ui/AuthButton";
 import { GradientMobileMenu, gradientCtaClass } from "@/components/layout/GradientMobileMenu";
 
@@ -117,6 +117,7 @@ export function BlogNav() {
     <>
       <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
         <motion.div
+          initial={{ maxWidth: scrolled ? 920 : 1080 }}
           animate={{
             maxWidth: scrolled ? 920 : 1080,
             borderRadius: 9999,
@@ -127,21 +128,21 @@ export function BlogNav() {
               : "0 4px 20px -4px rgba(15, 23, 42, 0.05)",
           }}
           transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1.0] }}
-          className="pointer-events-auto mx-auto flex h-[54px] sm:h-[58px] w-full items-center justify-between px-4 sm:px-7 border backdrop-blur-md backdrop-saturate-[180%]"
+          className="pointer-events-auto mx-auto flex h-[54px] sm:h-[58px] w-full max-w-[1080px] items-center justify-between px-4 sm:px-7 border backdrop-blur-md backdrop-saturate-[180%]"
         >
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="relative h-7 w-7 sm:h-8 sm:w-8 overflow-hidden rounded-full flex items-center justify-center shadow-2xs">
               <Image
-                src="/logo/unboundx-mark.png"
+                src="/logo/vf-mark.png"
                 width={32}
                 height={32}
-                alt="UnBound X"
+                alt="VentureFlow"
                 className="h-full w-full object-cover rounded-full transition-transform group-hover:scale-105"
                 priority
               />
             </div>
-            <UnboundXBrand className="text-base sm:text-lg" />
+            <VentureFlowFullBrand className="text-base sm:text-lg" />
           </Link>
 
           {/* Desktop Nav Items */}
