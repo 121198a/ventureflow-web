@@ -10,14 +10,14 @@ import { site, SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "UnBound X — Verifiable Investment Track Records",
+    absolute: "VentureFlow by Veyron X — Startup–Investor Workspace",
   },
   description: site.description,
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "UnBound X — Verifiable Investment Track Records",
+    title: "VentureFlow by Veyron X — Startup–Investor Workspace",
     description: site.description,
     url: SITE_URL,
     type: "website",
@@ -26,13 +26,13 @@ export const metadata: Metadata = {
         url: "/brand/og-image.png",
         width: 1200,
         height: 630,
-        alt: "UnBound X — Verifiable Investment Track Records",
+        alt: "VentureFlow by Veyron X — Startup–Investor Workspace",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "UnBound X — Verifiable Investment Track Records",
+    title: "VentureFlow by Veyron X — Startup–Investor Workspace",
     description: site.description,
     images: ["/brand/og-image.png"],
   },
