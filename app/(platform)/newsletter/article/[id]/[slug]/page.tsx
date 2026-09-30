@@ -43,14 +43,14 @@ export async function generateMetadata({
 
   if (!result) {
     return {
-      title: "Article Not Found | UBverse Newsletter",
+      title: "Article Not Found | VentureFlow Newsletter",
       robots: { index: false, follow: false },
     };
   }
 
   const { article, config } = result;
   const canonicalPath = config.frontendPath;
-  const title = `${article.headline} — UBverse Newsletter`;
+  const title = `${article.headline} — VentureFlow Newsletter`;
 
   return {
     title,
@@ -236,7 +236,7 @@ export default async function NewsletterArticlePage({ params }: PageProps) {
         {/* Author / Trust bar */}
         <div className="mt-6 flex flex-wrap items-center gap-3 text-[0.8rem] text-muted-foreground">
           <Image
-            src="/logo/unboundx-mark.png"
+            src="/logo/vf-mark.png"
             alt=""
             width={28}
             height={28}
