@@ -12,7 +12,7 @@ interface BlogHeroProps {
 export function BlogHero({ totalArticles }: BlogHeroProps) {
   return (
     <section className="relative overflow-hidden pt-12 pb-10 sm:pt-16 sm:pb-14">
-      {/* Background ambient lighting matching UnBound X brand */}
+      {/* Background ambient lighting matching VentureFlow brand */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="gb-subtle-grid absolute inset-0 opacity-40" />
         <div className="gb-gradient-blob absolute -top-24 left-1/2 -translate-x-1/2 h-[340px] w-[500px] rounded-full bg-blue-500/15" />
@@ -24,7 +24,7 @@ export function BlogHero({ totalArticles }: BlogHeroProps) {
         <Reveal>
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-200/90 bg-white/80 px-4 py-1.5 text-xs font-semibold tracking-wider text-slate-700 uppercase backdrop-blur-md shadow-2xs">
             <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
-            <span>UnBound X Editorial · Market Intelligence</span>
+            <span>VentureFlow Editorial · Market Intelligence</span>
           </div>
         </Reveal>
 
