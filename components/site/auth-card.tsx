@@ -4,16 +4,16 @@ import { cn } from "@/lib/utils";
 /**
  * White authentication card shared by every Founder / Investor login and
  * Get Started page. It intentionally carries NO logo — the brand lives in the
- * page header only ("UBverse by UnBound X").
+ * page header only ("VentureFlow by Veyron X").
  */
 export function AuthCard({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div
       className={cn(
-        "relative w-full rounded-[clamp(14px,1.05vw,18px)] border border-blue-200 bg-white text-left",
-        "px-[clamp(1.25rem,2.2vw,2.25rem)] pb-[clamp(0.9rem,2vh,1.35rem)] pt-[clamp(1rem,2.4vh,1.6rem)]",
-        "max-h-[calc(100dvh-90px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
-        "shadow-lg shadow-blue-900/5",
+        "relative w-full rounded-[24px] sm:rounded-[28px] border border-white/80 bg-white/95 backdrop-blur-sm text-left",
+        "p-6 sm:p-9",
+        "max-h-[calc(100dvh-70px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
+        "shadow-[0_20px_50px_-10px_rgba(70,95,190,0.13)]",
         className
       )}
     >
