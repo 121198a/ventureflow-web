@@ -2,7 +2,7 @@ import { ErrorView } from "@/components/ui/ErrorView";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "404 - Page Not Found | UnBound X",
+  title: "404 - Page Not Found | VentureFlow",
   description: "The page or document you're looking for doesn't exist, has been moved, or the link may be invalid.",
 };
 
