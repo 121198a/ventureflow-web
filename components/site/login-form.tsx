@@ -349,17 +349,17 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
       )}
 
       {/* Auth mode selector */}
-      <div className="flex rounded-[clamp(10px,0.8vw,14px)] bg-slate-100/90 p-1 border border-slate-200/60">
+      <div className="flex rounded-xl bg-[#eef2f8] p-1 border border-slate-200/60 mb-1">
         <button
           type="button"
           onClick={() => {
             setAuthMode("email");
             if (errorMessage) setErrorMessage(null);
           }}
-          className={`flex-1 py-1.5 text-[length:clamp(0.8rem,0.9vw,0.88rem)] rounded-[clamp(8px,0.65vw,11px)] transition-all font-semibold cursor-pointer select-none ${
+          className={`flex-1 py-2 text-xs sm:text-sm rounded-lg transition-all font-semibold cursor-pointer select-none ${
             authMode === "email"
-              ? "bg-white text-slate-900 shadow-2xs font-semibold"
-              : "text-slate-500 hover:text-slate-900 font-medium"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-600 hover:text-slate-900 font-medium"
           }`}
         >
           Email
@@ -370,10 +370,10 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
             setAuthMode("phone");
             if (errorMessage) setErrorMessage(null);
           }}
-          className={`flex-1 py-1.5 text-[length:clamp(0.8rem,0.9vw,0.88rem)] rounded-[clamp(8px,0.65vw,11px)] transition-all font-semibold cursor-pointer select-none ${
+          className={`flex-1 py-2 text-xs sm:text-sm rounded-lg transition-all font-semibold cursor-pointer select-none ${
             authMode === "phone"
-              ? "bg-white text-slate-900 shadow-2xs font-semibold"
-              : "text-slate-500 hover:text-slate-900 font-medium"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-600 hover:text-slate-900 font-medium"
           }`}
         >
           Phone Number
@@ -484,7 +484,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
       <button
         type="submit"
         disabled={!canSubmit}
-        className="btn-pill-primary h-[clamp(2.4rem,4.4vh,3rem)] w-full text-[length:clamp(0.92rem,1.05vw,1.1rem)] disabled:cursor-not-allowed disabled:bg-blue-200 disabled:text-white disabled:shadow-none"
+        className="inline-flex items-center justify-center h-11 w-full rounded-full bg-[#5b8ee8] hover:bg-[#4a7dd7] text-white font-semibold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
       >
         {loading ? (
           <span className="inline-flex items-center gap-2">
@@ -506,7 +506,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
       <div className="flex flex-col gap-[clamp(0.6rem,1.8vh,1.1rem)]">
         <AuthRule />
         <p className="text-center text-[length:clamp(0.8rem,0.92vw,0.98rem)] font-medium text-[#1c2740]">
-          <span>Don&apos;t have an account on UnBound X yet? </span>
+          <span>Don&apos;t have an account on VentureFlow yet? </span>
           <Link
             href={role === "founder" ? "/signup" : "/investor/signup"}
             className="whitespace-nowrap font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-800"
