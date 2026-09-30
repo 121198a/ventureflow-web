@@ -39,7 +39,7 @@ export function TrendingArticles({ posts }: TrendingArticlesProps) {
               </p>
             </Reveal>
 
-            {/* Branded Visual Element — UnBound X Verified Thesis Node */}
+            {/* Branded Visual Element — VentureFlow Verified Thesis Node */}
             <Reveal delay={0.15}>
               <div className="mt-8 rounded-2xl border border-slate-200/90 bg-white p-6 shadow-xs">
                 <div className="flex items-center justify-between">
