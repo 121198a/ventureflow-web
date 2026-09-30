@@ -62,7 +62,7 @@ export function ShareDealModal({ slug }: { slug: string }) {
           </p>
           <div className="mt-3 flex gap-3">
             <a
-              href={`https://wa.me/?text=${encodeURIComponent(`Check out this offering on UBverse: ${url}`)}`}
+              href={`https://wa.me/?text=${encodeURIComponent(`Check out this offering on VentureFlow: ${url}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Share on WhatsApp"
@@ -80,7 +80,7 @@ export function ShareDealModal({ slug }: { slug: string }) {
               <LinkedInIcon />
             </a>
             <a
-              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent("Check out this offering on UBverse:")}`}
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent("Check out this offering on VentureFlow:")}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Share on X"
