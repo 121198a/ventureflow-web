@@ -1,6 +1,11 @@
+export const PRODUCT_NAME = "VentureFlow";
+export const COMPANY_NAME = "Veyron X";
+export const FULL_BRAND = "VentureFlow by Veyron X";
+export const BRAND_TAGLINE = "Connect. Collaborate. Build.";
+
 export const nav = [
   ["Home", "/"],
-  ["UBverse", "/ubverse"],
+  ["Workspace", "/workspace"],
   ["About", "/about"],
 ] as const;
 
@@ -9,40 +14,46 @@ export const AUTH_URL = process.env.NEXT_PUBLIC_LOGIN_URL || "/login";
 /** @deprecated use AUTH_URL — kept so any missed reference still resolves. */
 export const LOGIN_URL = AUTH_URL;
 
-export const BRANCH_PAGEVIEW_URL =
-  process.env.NEXT_PUBLIC_BRANCH_PAGEVIEW_URL || "https://api2.branch.io/v1/pageview";
+export const ANALYTICS_PAGEVIEW_URL =
+  process.env.NEXT_PUBLIC_ANALYTICS_PAGEVIEW_URL || "";
 
 
-export const UBVERSE_API_BASE_URL =
-  process.env.NEXT_PUBLIC_UBVERSE_API_URL ||
-  "https://development.unboundxinc.us/api";
+export const WORKSPACE_API_BASE_URL =
+  process.env.NEXT_PUBLIC_WORKSPACE_API_URL ||
+  "https://api.ventureflow.example/api";
 
-export const UBVERSE_DASHBOARD_URL =
-  process.env.NEXT_PUBLIC_UBVERSE_DASHBOARD_URL ||
-  `${UBVERSE_API_BASE_URL}/ubverse-service/investor-dashboard/dashboard-without-auth`;
+export const WORKSPACE_DASHBOARD_URL =
+  process.env.NEXT_PUBLIC_WORKSPACE_DASHBOARD_URL ||
+  `${WORKSPACE_API_BASE_URL}/workspace-service/investor-dashboard/dashboard-without-auth`;
 
 export const TERMS_URL = "/legal/terms-condition";
 export const PRIVACY_URL = "/legal/privacy-policy";
 
 
-export const UBVERSE_APP_URL =
-  process.env.NEXT_PUBLIC_UBVERSE_APP_URL || "";
-export const UBVERSE_SERVICES_URL = `${UBVERSE_APP_URL}/services`;
+export const WORKSPACE_APP_URL =
+  process.env.NEXT_PUBLIC_WORKSPACE_APP_URL || "";
+export const WORKSPACE_SERVICES_URL = `${WORKSPACE_APP_URL}/services`;
+
+/** VXverse and workspace compatibility aliases */
+export const VXVERSE_SERVICES_URL = WORKSPACE_SERVICES_URL;
+export const VXVERSE_API_BASE_URL = WORKSPACE_API_BASE_URL;
 
 
 export const socialLinks = {
-  x: "https://x.com/UnBoundXapp",
-  facebook: "https://www.facebook.com/profile.php?id=61579660851897",
-  instagram: "https://www.instagram.com/unboundx.co/",
-  linkedin: "https://www.linkedin.com/company/unboundx/",
+  x: process.env.NEXT_PUBLIC_SOCIAL_X || "",
+  facebook: process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK || "",
+  instagram: process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM || "",
+  linkedin: process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN || "",
 } as const;
 
 export const site = {
-  name: "UnBound X",
-  brandLine: "Formulate. Verify. Execute.",
-  tagline: "The verifiable record-keeping layer for investment ideas.",
+  name: PRODUCT_NAME,
+  company: COMPANY_NAME,
+  fullBrand: FULL_BRAND,
+  brandLine: BRAND_TAGLINE,
+  tagline: "Startup–Investor Workspace",
   description:
-    "UnBound X turns market theses into immutable, verifiable track records. Set targets, specify horizons, and build audited credibility as outcomes unfold.",
+    "VentureFlow by Veyron X is a startup–investor workspace for discovery, collaboration, introductions, documents and relationship management.",
 };
 
 function resolveSiteUrl(): string {
@@ -69,7 +80,7 @@ function resolveSiteUrl(): string {
   }
 
   // 4. Default production canonical domain
-  return "https://www.unboundxinc.com";
+  return "https://www.ventureflow.example";
 }
 
 export const SITE_URL = resolveSiteUrl();
