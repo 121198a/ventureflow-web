@@ -5,14 +5,14 @@ import { site, SITE_URL } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Beyond Social Feeds",
   description:
-    "Turn market opinions into institutional credibility. Explore verified track records, filing intelligence, and audited scoring on UnBound X.",
+    "Turn market opinions into institutional credibility. Explore verified track records, filing intelligence, and audited scoring on VentureFlow.",
   alternates: {
     canonical: "/beyond-feed",
   },
   openGraph: {
     title: "Beyond Social Feeds — " + site.name,
     description:
-      "Turn market opinions into institutional credibility. Explore verified track records, filing intelligence, and audited scoring on UnBound X.",
+      "Turn market opinions into institutional credibility. Explore verified track records, filing intelligence, and audited scoring on VentureFlow.",
     url: `${SITE_URL}/beyond-feed`,
     type: "website",
     images: ["/brand/og-image.png"],
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Beyond Social Feeds — " + site.name,
     description:
-      "Turn market opinions into institutional credibility. Explore verified track records, filing intelligence, and audited scoring on UnBound X.",
+      "Turn market opinions into institutional credibility. Explore verified track records, filing intelligence, and audited scoring on VentureFlow.",
     images: ["/brand/og-image.png"],
   },
 };
