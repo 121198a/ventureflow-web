@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Shared field chrome for every UBverse authentication form.
+ * Shared field chrome for every VentureFlow authentication form.
  * (Figtree is inherited from the site — never set a font-family here.)
  */
 export const AUTH_INPUT_CLASS = cn(
@@ -57,7 +57,7 @@ interface InputFieldProps {
   required?: boolean;
 }
 
-/** Labelled text/email input using the shared UBverse auth field styling. */
+/** Labelled text/email input using the shared VentureFlow auth field styling. */
 export function InputField({
   id,
   label,
