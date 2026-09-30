@@ -94,7 +94,7 @@ test("Data integrity guarantee: zero fabricated financial metrics", () => {
 test("HMAC signed session tokens prevent tampering and role spoofing", async () => {
   const { signSessionToken, verifySessionToken } = await import("../lib/crypto.ts");
 
-  const originalPayload = { id: "user_123", email: "investor@unboundx.co", role: "investor" };
+  const originalPayload = { id: "user_123", email: "investor@ventureflow.example", role: "investor" };
   const token = await signSessionToken(originalPayload);
 
   assert.ok(typeof token === "string", "Token must be a string");
@@ -104,7 +104,7 @@ test("HMAC signed session tokens prevent tampering and role spoofing", async () 
   const verified = await verifySessionToken<typeof originalPayload>(token);
   assert.ok(verified, "Valid token must verify");
   assert.equal(verified?.role, "investor");
-  assert.equal(verified?.email, "investor@unboundx.co");
+  assert.equal(verified?.email, "investor@ventureflow.example");
 
   // Tampered payload attempt (e.g. attempting to elevate to founder/admin)
   const [b64Payload, sig] = token.split(".");
@@ -140,8 +140,8 @@ test("OAuth redirect URLs format accurately for local, preview, and custom domai
   );
   // Custom production domain with trailing slash stripped
   assert.equal(
-    getRedirectUrl("https://unboundx.com/", "issuer"),
-    "https://unboundx.com/auth/callback?role=founder"
+    getRedirectUrl("https://ventureflow.examplem/", "issuer"),
+    "https://ventureflow.examplem/auth/callback?role=founder"
   );
 });
 
