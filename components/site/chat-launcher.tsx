@@ -36,13 +36,13 @@ export function ChatLauncher() {
       {open && (
         <div
           role="dialog"
-          aria-label="Chat with UBverse Support"
+          aria-label="Chat with VentureFlow Support"
           className="w-[min(320px,calc(100vw_-_2.5rem))] rounded-xl border border-hairline bg-card p-5 shadow-elevated animate-in fade-in zoom-in-95 duration-200"
         >
           <div className="flex items-center justify-between border-b border-hairline pb-3">
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-              <p className="text-sm font-bold text-ink">UBverse Support</p>
+              <p className="text-sm font-bold text-ink">VentureFlow Support</p>
             </div>
             <button
               type="button"
@@ -99,8 +99,8 @@ export function ChatLauncher() {
                 <p className="font-semibold text-ink mb-1">Live Capital Markets Support</p>
                 <p className="mb-2">
                   For immediate assistance with allocations or issuer filings, reach us directly at{" "}
-                  <a href="mailto:info@unboundxinc.com" className="text-brand underline font-medium">
-                    info@unboundxinc.com
+                  <a href="mailto:info@ventureflow.example" className="text-brand underline font-medium">
+                    info@ventureflow.example
                   </a>.
                 </p>
                 <p className="text-[11px] text-muted-foreground">
