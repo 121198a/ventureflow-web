@@ -25,11 +25,11 @@ export function ClosingCTA() {
           <Reveal delay={0.18}>
             <Magnetic>
               <a
-                href="mailto:careers@unboundxinc.com"
+                href="mailto:careers@ventureflow.example"
                 className="btn-pill-primary mt-9"
               >
                 <Mail size={16} aria-hidden />
-                careers@unboundxinc.com
+                careers@ventureflow.example
               </a>
             </Magnetic>
           </Reveal>
