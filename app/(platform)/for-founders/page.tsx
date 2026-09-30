@@ -12,64 +12,61 @@ import { Button } from "@/components/ui/button";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "For Founders — Close Your Capital Raise | UBverse",
+  title: "For Founders — Your Startup Workspace | VentureFlow",
   description:
-    "Run your raise end-to-end on UBverse: investor discovery, structured deal pages, compliance document flows, and broker-dealer execution.",
+    "Build your startup profile on VentureFlow, share documents, request introductions and keep every conversation in one workspace.",
   alternates: {
     canonical: "/for-founders",
   },
   openGraph: {
-    title: "For Founders — Close Your Capital Raise | UBverse",
-    description: "Investor discovery, structured deal pages, compliance document flows, and broker-dealer execution.",
+    title: "For Founders — Your Startup Workspace | VentureFlow",
+    description: "Startup profile, document sharing, introductions and messages in one workspace.",
     url: `${SITE_URL}/for-founders`,
     type: "website",
     images: ["/brand/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "For Founders — Close Your Capital Raise | UBverse",
-    description: "Investor discovery, structured deal pages, compliance document flows, and broker-dealer execution.",
+    title: "For Founders — Your Startup Workspace | VentureFlow",
+    description: "Startup profile, document sharing, introductions and messages in one workspace.",
     images: ["/brand/og-image.png"],
   },
 };
 
 const steps: Step[] = [
-  { n: 1, label: "Start Your\nApplication" },
-  { n: 2, label: "Review Capital\nRaise Details" },
-  { n: 3, label: "Craft Your Deal\nPage" },
-  { n: 4, label: "Upload\nOffering Docs" },
-  { n: 5, label: "Launch Your\nOffering" },
+  { n: 1, label: "Create Your\nAccount" },
+  { n: 2, label: "Build Your\nProfile" },
+  { n: 3, label: "Add Your\nDocuments" },
+  { n: 4, label: "Invite\nCollaborators" },
+  { n: 5, label: "Request\nIntroductions" },
 ];
 
 const dealTypes: RegPathway[] = [
   {
-    title: "Reg CF",
-    cta: "Get started with Reg CF",
+    title: "Startup profile",
+    cta: "Create your profile",
     points: [
-      { text: "Raise up to ", highlight: "$5 million", rest: " annually" },
-      { text: "Accessible to all investor types" },
-      { text: "Designed for early-stage startups and community-driven campaigns" },
-      { text: "Fast-track launch through a registered funding portal" },
+      { text: "Tell your story with a clear, structured page" },
+      { text: "Share milestones and updates as they happen" },
+      { text: "Choose which sections are visible to whom" },
     ],
   },
   {
-    title: "Reg A+",
-    cta: "Get started with Reg A+",
+    title: "Documents & notes",
+    cta: "Set up your workspace",
     points: [
-      { text: "Raise up to ", highlight: "$75 million", rest: " per year" },
-      { text: "Market your raise to the general public" },
-      { text: "Available to a wide investor base with SEC qualification" },
-      { text: "Ideal for scaling companies seeking visibility and broader tech" },
+      { text: "Keep decks and files in one place" },
+      { text: "Control who can open each document" },
+      { text: "Add shared notes next to every conversation" },
     ],
   },
   {
-    title: "Reg D \u2013 Rule 506(c)",
-    cta: "Get started with Reg D, 506(c)",
+    title: "Introductions & messages",
+    cta: "Start collaborating",
     points: [
-      { highlight: "No fundraising limit" },
-      { text: "Publicly promote your offering to accredited investors" },
-      { text: "No limit on accredited participants" },
-      { text: "Built for fast-moving raises and targeted investor outreach" },
+      { text: "Request introductions with context" },
+      { text: "Message investors and collaborators in the workspace" },
+      { text: "Follow a searchable history of every relationship" },
     ],
   },
 ];
@@ -85,11 +82,11 @@ export default function ForFounders() {
           <div>
             <Reveal as="h1" className="text-[38px] leading-[1.12] sm:text-[44px]">
               <span className="text-brand" style={{ fontWeight: 800 }}>
-                Close your round faster.
+                Your startup workspace.
               </span>
               <br />
               <span style={{ fontWeight: 800 }}>
-                We streamline every step so you can focus on building.
+                Profiles, documents and introductions, in one place.
               </span>
             </Reveal>
             <Reveal
@@ -97,7 +94,7 @@ export default function ForFounders() {
               delay={100}
               className="mt-6 max-w-[430px] text-[15px] leading-[1.65] text-ink/80"
             >
-              Manage your entire raise on UBverse: find investors, publish your deal page, share documents, and get guidance at every step.
+              Build your startup profile, share documents, request introductions and keep every conversation in one workspace.
             </Reveal>
 
             <Reveal delay={180} className="mt-8 flex flex-wrap items-center gap-4">
@@ -105,7 +102,7 @@ export default function ForFounders() {
                 View Services
               </Button>
               <Button href="#journey" variant="primary" size="md" className="group">
-                Start Your Raise{" "}
+                Get Started{" "}
                 <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
               </Button>
             </Reveal>
@@ -120,7 +117,7 @@ export default function ForFounders() {
           <Reveal delay={120}>
             <LaptopFrame
               priority
-              alt="UBverse founder dashboard shown on a laptop with an open capital raise and featured start-ups"
+              alt="VentureFlow founder workspace shown on a laptop with a startup profile, documents and messages"
             />
           </Reveal>
         </div>
@@ -129,7 +126,7 @@ export default function ForFounders() {
       {/* Journey */}
       <section id="journey" className="mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
         <Reveal as="h2" className="text-[27px]">
-          <span style={{ fontWeight: 800 }}>Start to Launch: Your Fundraising Journey on UBverse</span>
+          <span style={{ fontWeight: 800 }}>From sign-up to first introduction on VentureFlow</span>
         </Reveal>
 
         <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1.75fr_1fr]">
@@ -137,8 +134,7 @@ export default function ForFounders() {
 
           <div className="card-fintech p-6 text-center">
             <p className="text-[13.5px] leading-[1.6] text-ink/85">
-              With UBverse, fundraising is simple and guided. You focus on your vision, we handle the
-              process.
+              With VentureFlow, collaboration is simple. You focus on your vision, we keep the workspace organised.
             </p>
             <Button href="/signup" variant="primary" size="md" className="mt-5 w-full rounded-md">
               Get Started Now
@@ -151,7 +147,7 @@ export default function ForFounders() {
       <section id="deal-types" className="mx-auto max-w-[1180px] px-5 pb-20">
         <div className="flex flex-wrap items-baseline justify-between gap-4">
           <h2 className="text-[27px]" style={{ fontWeight: 800 }}>
-            Fundraising built around you
+            A workspace built around you
           </h2>
           <DealTypeModal />
         </div>
