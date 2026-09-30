@@ -20,22 +20,19 @@ export async function generateMetadata({
   const offering = getOffering(slug) || (await getDynamicOffering(slug));
   if (!offering) {
     return {
-      title: "Offering Not Found | UBverse",
+      title: "Profile Not Found | VentureFlow",
       robots: { index: false, follow: false },
     };
   }
 
-  const title = `${offering.name} — UBverse`;
-  // Use the company's real long-form description when present so two
-  // companies in the same round don't end up with an identical meta
-  // description ("Funding round: Seed." for every seed-stage company).
-  // Only fall back to the generic round line when no real copy exists.
+  const title = `${offering.name} — VentureFlow`;
+  // Use the company's real long-form description when present so profiles do not share an identical meta description.
   const rawDescription = offering.description?.trim();
   const description = rawDescription
     ? rawDescription.length > 155
       ? `${rawDescription.slice(0, 152)}...`
       : rawDescription
-    : `Funding round: ${offering.round}.`;
+    : `Stage: ${offering.round}.`;
 
   return {
     title,
@@ -67,7 +64,7 @@ export async function generateMetadata({
 /**
  * Canonical company/deal route.
  *
- * The reference UBverse URL is /:slug (for example /virani-chem-pvt-limited),
+ * The canonical profile URL is /:slug (for example /northstar-labs),
  * not /offerings/:slug. The page intentionally uses the same DealDetail and
  * getDynamicOffering -> issuer-detail backend flow as the previous route.
  */
