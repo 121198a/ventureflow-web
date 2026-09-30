@@ -38,7 +38,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
   const shareTwitter = () => {
     if (typeof window !== "undefined") {
       const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(`${post.title} — via @UnBoundXapp`);
+      const text = encodeURIComponent(`${post.title} — via @VentureFlowapp`);
       window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, "_blank");
     }
   };
@@ -122,7 +122,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
 
             <div className="text-xs text-slate-500 text-left">
               <p className="font-semibold text-slate-700">Published</p>
-              <p>{post.date} · UnBound X Editorial</p>
+              <p>{post.date} · VentureFlow Editorial</p>
             </div>
 
             <div className="h-8 w-px bg-slate-200 hidden sm:block" />
@@ -374,7 +374,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
               <div className="flex flex-wrap items-center justify-center sm:justify-between gap-2">
                 <div>
                   <h4 className="text-lg font-bold text-slate-900">{post.author.name}</h4>
-                  <p className="text-xs font-semibold text-blue-600">{post.author.role} · UnBound X</p>
+                  <p className="text-xs font-semibold text-blue-600">{post.author.role} · VentureFlow</p>
                 </div>
                 <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
                   Author Profile
@@ -391,7 +391,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
         <div className="card-fintech mt-8 bg-blue-600 border-blue-500 text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
           <div className="max-w-md">
             <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
-              Test your market thesis on UnBound X
+              Test your market thesis on VentureFlow
             </h3>
             <p className="mt-1.5 text-xs sm:text-sm text-blue-100">
               Put your price targets and horizon settlement on the public ledger. Free, immutable, and verified.
