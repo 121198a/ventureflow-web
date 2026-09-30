@@ -68,7 +68,7 @@ export default async function BlogPostPage({ params }: Props) {
     publisher: {
       "@type": "Organization",
       name: site.name,
-      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo/unboundx-mark.png` },
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo/vf-mark.png` },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/blog/${post.slug}` },
   };
