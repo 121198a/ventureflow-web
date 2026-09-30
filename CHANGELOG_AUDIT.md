@@ -1,4 +1,4 @@
-# UnBound X / VentureFlow — Systematic Engineering Changelog & Audit Trail
+# VentureFlow — Systematic Engineering Changelog & Audit Trail
 
 **System Context:** Next.js 15.5.25 App Router, React 19, TypeScript 5.5, Tailwind CSS 3.4, Framer Motion 11.3, Lenis 1.3, Supabase v2.115.0  
 **Audit Protocol:** Incremental inspect → implement → test → verify discipline with regression guardrails.
@@ -47,7 +47,7 @@
   - Added `"type": "module"` in `package.json` to eliminate Node CommonJS reparsing overhead.
   - Added viewport configuration (`themeColor`, `device-width`) in `app/layout.tsx`.
   - Configured dynamic detection of `process.env.VERCEL` in `next.config.ts`, generating native serverless function bundles for Vercel deployments while preserving standalone container output for Docker/VPS when `NEXT_OUTPUT_STANDALONE=true`.
-  - Optimized external API calls in `lib/ubverse-api.ts` with 1500ms `AbortController` timeouts to prevent build-time stalling.
+  - Optimized external API calls in `lib/workspace-api.ts` with 1500ms `AbortController` timeouts to prevent build-time stalling.
 * **Test:** Executed `npm run typecheck`, `npm run lint`, `npm run build`, and `npm run start`.
 * **Verify:** 111 static routes generated in 6-8s; 102 kB shared first-load JS; 0 lint errors, 0 TypeScript errors; production server started cleanly in <850ms.
 
