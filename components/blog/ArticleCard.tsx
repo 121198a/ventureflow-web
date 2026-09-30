@@ -262,7 +262,7 @@ export function ArticleCard({
 
       <div className="border-t border-slate-100 px-5 py-3.5 sm:px-6 flex items-center justify-between">
         <span className="text-xs font-medium text-slate-500">
-          Published on UnBound X
+          Published on VentureFlow
         </span>
         <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 transition-transform duration-200 group-hover:translate-x-1">
           Read more
