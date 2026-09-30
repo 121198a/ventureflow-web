@@ -231,13 +231,13 @@ export function ThesisJourney() {
                     {/* Author Info Row */}
                     <div className="mt-1 flex items-center justify-between border-t border-slate-100 pt-1">
                       <div>
-                        <b className="block text-[11px] font-bold text-slate-900 leading-none">Arnav Awasthi</b>
+                        <b className="block text-[11px] font-bold text-slate-900 leading-none">Jordan Lee</b>
                         <span className="text-[10px] text-slate-600">@arnav</span>
                       </div>
                       <div className="relative size-[20px] shrink-0 overflow-hidden rounded-full border border-slate-200 bg-slate-100 shadow-2xs">
                         <img
                           src="/image/about/2.jpg"
-                          alt="Arnav Awasthi profile avatar"
+                          alt="Jordan Lee profile avatar"
                           className="h-full w-full object-cover"
                           loading="lazy"
                         />
