@@ -73,7 +73,7 @@ export async function POST(request: Request) {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 4000);
 
-        await fetch(`${NEWSLETTER_API_BASE_URL}/ubverse-service/newsletter/send-email-result`, {
+        await fetch(`${NEWSLETTER_API_BASE_URL}/workspace-service/newsletter/send-email-result`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
