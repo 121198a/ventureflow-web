@@ -39,7 +39,7 @@ export function BlogClient() {
       Thesis: 0,
       Investing: 0,
       Ventures: 0,
-      UBverse: 0,
+      VentureFlow: 0,
       Founders: 0,
       "Craft & Culture": 0,
     };
