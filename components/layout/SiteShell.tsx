@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { nav, site, socialLinks } from "@/lib/constants";
 import { AuthButton } from "@/components/ui/AuthButton";
-import { UnboundXBrand } from "@/components/ui/UnboundXBrand";
+import { VentureFlowFullBrand } from "@/components/ui/VentureFlowBrand";
 import { FaTwitter, FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa";
 import { GradientMobileMenu, gradientCtaClass } from "@/components/layout/GradientMobileMenu";
 
@@ -179,6 +179,7 @@ export function SiteNav() {
     <>
       <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
         <motion.div
+          initial={{ maxWidth: scrolled ? 940 : 1080 }}
           animate={{
             maxWidth: scrolled ? 940 : 1080,
             borderRadius: 9999,
@@ -189,21 +190,21 @@ export function SiteNav() {
               : "0 4px 20px -4px rgba(15, 23, 42, 0.05)",
           }}
           transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1.0] }}
-          className="pointer-events-auto mx-auto flex h-[54px] sm:h-[58px] w-full items-center justify-between px-4 sm:px-7 border backdrop-blur-md backdrop-saturate-[180%]"
+          className="pointer-events-auto mx-auto flex h-[54px] sm:h-[58px] w-full max-w-[1080px] items-center justify-between px-4 sm:px-7 border backdrop-blur-md backdrop-saturate-[180%]"
         >
           {/* Brand Logo */}
-          <TransitionLink href="/" aria-label={`${site.name} home`} className="flex items-center gap-2.5 font-display text-sm sm:text-base font-bold text-slate-900 group focus-ring rounded-full">
+          <TransitionLink href="/" aria-label={`${site.fullBrand} home`} className="flex items-center gap-2.5 font-display text-sm sm:text-base font-bold text-slate-900 group focus-ring rounded-full">
             <div className="relative h-7 w-7 sm:h-8 sm:w-8 overflow-hidden rounded-full flex items-center justify-center shadow-2xs border border-slate-200/60">
               <Image
-                src="/logo/unboundx-mark.png"
+                src="/logo/vf-mark.png"
                 width={32}
                 height={32}
-                alt="UnBound X logo"
+                alt="VentureFlow logo"
                 className="h-full w-full object-cover rounded-full transition-transform group-hover:scale-105"
                 priority
               />
             </div>
-            <UnboundXBrand className="text-base sm:text-lg" />
+            <VentureFlowFullBrand className="text-base sm:text-lg" />
           </TransitionLink>
 
           {/* Desktop Nav Items */}
@@ -283,7 +284,7 @@ export function SiteNav() {
             <AuthButton
               flow="signup"
               icon={false}
-              ariaLabel="Get started on UnBound X"
+              ariaLabel="Get started on VentureFlow"
               className="hidden sm:inline-flex btn-pill-primary px-5 py-2.5 text-xs sm:text-sm"
             >
               <span>Get started</span>
@@ -321,7 +322,7 @@ export function SiteNav() {
               <AuthButton
                 flow="signup"
                 icon={false}
-                ariaLabel="Get started on UnBound X"
+                ariaLabel="Get started on VentureFlow"
                 onClick={handleClose}
                 className={gradientCtaClass}
               >
@@ -346,7 +347,7 @@ const footerColumns = [
     ],
   },
   {
-    heading: "UBverse Platform",
+    heading: "VentureFlow Platform",
     links: [
       ["Deal Marketplace", "/platform"],
       ["For Founders", "/for-founders"],
@@ -364,13 +365,12 @@ const footerColumns = [
     ],
   },
   {
-    heading: "Legal & Regulatory",
+    heading: "Legal",
     links: [
       ["Legal Hub", "/legal"],
-      ["Form CRS", "/legal/crs"],
-      ["Reg BI Disclosure", "/legal/reg-bi-disclosure"],
-      ["Investment Disclaimers", "/legal/investment-disclaimers"],
-      ["Support", "/legal/support"],
+      ["Terms of Use", "/legal/terms-condition"],
+      ["Privacy Policy", "/legal/privacy-policy"],
+      ["Workspace Disclaimer", "/legal/workspace-disclaimer-for-ventureflow"],
     ],
   },
 ] as const;
@@ -380,7 +380,7 @@ export function SiteFooter() {
   const pathname = usePathname();
 
   const showRecordCard = pathname === "/";
-  const hasOwnOverlapCard = pathname === "/ubverse" || pathname === "/about";
+  const hasOwnOverlapCard = pathname === "/workspace" || pathname === "/about";
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 450);
@@ -445,35 +445,21 @@ export function SiteFooter() {
 
             <div className="text-center md:text-left flex-1 max-w-lg">
               <h3 className="text-2xl font-bold text-slate-900 sm:text-3xl tracking-tight">
-                Turn market theses into verified credibility.
+                Bring every relationship into one workspace.
               </h3>
               <p className="mt-2 text-sm text-slate-600 leading-relaxed font-normal">
-                Publish your price target and time horizon before events unfold. Build an immutable, public track record evaluated by real market results.
+                Keep startup profiles, introductions, messages, notes and documents together, with sharing you control.
               </p>
               <AuthButton
                 flow="signup"
                 icon={false}
                 className="mt-5 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all duration-200 hover:bg-blue-700 active:scale-[0.98]"
               >
-                <span>Start your verified record</span>
+                <span>Get started</span>
                 <ArrowRight size={15} />
               </AuthButton>
             </div>
 
-            {/* QR code */}
-            <div className="hidden shrink-0 items-center gap-3.5 rounded-xl border border-slate-200 bg-slate-50/70 p-4 lg:flex">
-              <Image
-                src="/image/QR.webp"
-                width={64}
-                height={64}
-                alt="Scan QR code"
-                className="h-16 w-16 object-contain shadow-2xs rounded-lg"
-              />
-              <div className="text-xs text-left">
-                <p className="font-bold text-slate-900 text-sm sm:text-base leading-tight">Take UnBound X with you.</p>
-                <p className="text-slate-500 mt-0.5 text-xs">Scan to get started on your phone.</p>
-              </div>
-            </div>
           </motion.div>
         </div>
         )}
@@ -483,15 +469,15 @@ export function SiteFooter() {
             <div className="flex items-center gap-2.5">
               <div className="relative h-8 w-8 overflow-hidden rounded-full shadow-2xs flex items-center justify-center border border-slate-200">
                 <Image
-                  src="/logo/unboundx-mark.png"
+                  src="/logo/vf-mark.png"
                   width={32}
                   height={32}
-                  alt="UnBound X logo"
+                  alt="VentureFlow logo"
                   className="h-full w-full object-cover rounded-full"
                 />
               </div>
               <div>
-                <UnboundXBrand className="text-lg font-bold text-slate-900" />
+                <VentureFlowFullBrand className="text-lg font-bold text-slate-900" />
                 <p className="text-xs text-blue-600 font-semibold">{site.brandLine}</p>
               </div>
             </div>
@@ -500,50 +486,50 @@ export function SiteFooter() {
             </p>
             <div className="space-y-1.5 text-xs text-slate-600 pt-1">
               <a
-                href="mailto:info@unboundxinc.com"
+                href="mailto:info@ventureflow.example"
                 className="flex items-center gap-2 hover:text-blue-600 transition-colors font-medium"
               >
                 <Mail size={13} className="text-blue-600 shrink-0" />
-                <span>info@unboundxinc.com</span>
+                <span>info@ventureflow.example</span>
               </a>
             </div>
             <div className="flex gap-2.5 pt-2">
-              <a
+              {socialLinks.x && (<a
                 href={socialLinks.x}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="UnBound X on X"
+                aria-label="VentureFlow on X"
                 className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:border-blue-300 hover:text-blue-600 focus-ring shadow-2xs"
               >
                 <FaTwitter size={13} />
-              </a>
-              <a
+              </a>)}
+              {socialLinks.linkedin && (<a
                 href={socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="UnBound X on LinkedIn"
+                aria-label="VentureFlow on LinkedIn"
                 className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:border-blue-300 hover:text-blue-600 focus-ring shadow-2xs"
               >
                 <FaLinkedinIn size={13} />
-              </a>
-              <a
+              </a>)}
+              {socialLinks.facebook && (<a
                 href={socialLinks.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="UnBound X on Facebook"
+                aria-label="VentureFlow on Facebook"
                 className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:border-blue-300 hover:text-blue-600 focus-ring shadow-2xs"
               >
                 <FaFacebookF size={13} />
-              </a>
-              <a
+              </a>)}
+              {socialLinks.instagram && (<a
                 href={socialLinks.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="UnBound X on Instagram"
+                aria-label="VentureFlow on Instagram"
                 className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:border-blue-300 hover:text-blue-600 focus-ring shadow-2xs"
               >
                 <FaInstagram size={13} />
-              </a>
+              </a>)}
             </div>
           </div>
 
@@ -565,14 +551,14 @@ export function SiteFooter() {
 
         <div className="mx-auto mt-12 max-w-[1180px] border-t border-slate-200 px-6 pt-6">
           <p className="text-[11px] leading-relaxed text-slate-500 mb-4">
-            Securities transactions executed through MARV Capital, Inc., SEC-registered broker-dealer &middot; Member FINRA/SIPC (CRD #104390).
+            VentureFlow is a collaboration workspace. It does not provide financial services, and sample profiles on this site are fictional.
           </p>
           <div className="flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-            <span>&copy; 2026 {site.name} Inc. All rights reserved.</span>
+            <span>&copy; 2026 {site.fullBrand}. All rights reserved.</span>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               <TransitionLink href="/legal/privacy-policy" className="hover:text-blue-600 transition-colors">Privacy Policy</TransitionLink>
               <TransitionLink href="/legal/terms-condition" className="hover:text-blue-600 transition-colors">Terms &amp; Condition</TransitionLink>
-              <TransitionLink href="/legal/investment-disclaimers" className="hover:text-blue-600 transition-colors">Disclaimers</TransitionLink>
+              <TransitionLink href="/legal/workspace-disclaimer-for-ventureflow" className="hover:text-blue-600 transition-colors">Disclaimer</TransitionLink>
             </div>
           </div>
         </div>
