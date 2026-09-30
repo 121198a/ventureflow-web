@@ -1,6 +1,6 @@
 # Multi-Platform Deployment & Budget Architecture Guide
 
-This guide details how to deploy and maintain **VentureFlow / UnBound X** across various hosting platforms (**Vercel, Netlify, Hostinger, Render, Railway, Fly.io, or any standard Linux VPS**) with **zero vendor lock-in** and a **$0 free-tier first** strategy.
+This guide details how to deploy and maintain **VentureFlow / VentureFlow** across various hosting platforms (**Vercel, Netlify, Hostinger, Render, Railway, Fly.io, or any standard Linux VPS**) with **zero vendor lock-in** and a **$0 free-tier first** strategy.
 
 ---
 
@@ -47,7 +47,7 @@ As a student or indie developer project, cost predictability and zero-cost opera
    - `NEXT_PUBLIC_SITE_URL`: `https://your-project.vercel.app` (or your custom domain)
    - `NEXT_PUBLIC_SUPABASE_URL`: `https://your-project.supabase.co`
    - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`: `your-anon-key`
-   - `NEXT_PUBLIC_UBVERSE_API_URL`: `https://development.unboundxinc.us/api`
+   - `NEXT_PUBLIC_WORKSPACE_API_URL`: `https://api.ventureflow.example/api`
    - `NEXT_PUBLIC_UNOPTIMIZED_IMAGES`: `true` (optional: prevents exceeding free 1,000 image transform limit)
 6. Click **Deploy**. Vercel will build and assign a free SSL-enabled `.vercel.app` domain.
 
@@ -145,8 +145,8 @@ Hostinger is popular among students for affordable shared hosting and VPS plans 
 | `NEXT_PUBLIC_SITE_URL` | **Yes** | `https://yourdomain.com` | Base URL for sitemap, metadata, OG cards |
 | `NEXT_PUBLIC_SUPABASE_URL` | Optional* | `https://xyz.supabase.co` | Free-tier Supabase database/storage (*Required for resumes) |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Optional* | `eyJhbGciOi...` | Supabase public anon key |
-| `NEXT_PUBLIC_UBVERSE_API_URL` | Optional | `https://development.unboundxinc.us/api` | Backend API integration |
-| `NEXT_PUBLIC_CMS_API_URL` | Optional | `.../user/cms-pages` | Legal CMS endpoints |
+| `NEXT_PUBLIC_WORKSPACE_API_URL` | Optional | `https://api.ventureflow.example/api` | Backend API integration |
+| `SUPABASE_SERVICE_ROLE_KEY` | Required for CMS | _(secret)_ | Server-only key for the CMS service. Never expose to the browser |
 | `NEXT_PUBLIC_UNOPTIMIZED_IMAGES` | Optional | `false` (set `true` on free tiers) | Saves image transform quotas/CPU |
 | `NEXT_OUTPUT_STANDALONE` | Optional | `true` | Minimizes memory & container image size |
 | `PORT` | Optional | `3000` | Port for standalone / Docker / PM2 |
@@ -169,7 +169,7 @@ Example JSON response:
   "environment": "production",
   "services": {
     "supabase": { "configured": true },
-    "ubverseApi": { "configured": true, "baseUrl": "https://development.unboundxinc.us/api" },
+    "workspaceApi": { "configured": true, "baseUrl": "https://api.ventureflow.example/api" },
     "cmsApi": { "configured": true },
     "siteUrl": "https://yourdomain.com"
   },
@@ -182,3 +182,10 @@ Example JSON response:
 ```
 
 Point a free monitoring service like [UptimeRobot](https://uptimerobot.com) to `https://your-deployed-domain.com/api/health` to receive email notifications if your site goes down.
+
+## CMS setup
+
+1. Apply `supabase/migrations/20260929000000_cms.sql` to the Supabase project (SQL editor or `supabase db push`).
+2. Set `SUPABASE_SERVICE_ROLE_KEY` (server-side only) in `.env.local` and in Vercel.
+3. Seed the initial legal content: `npm run cms:seed` (idempotent; never overwrites existing pages).
+4. Give editors access by setting `app_metadata.role = "admin"` on their Supabase user (service-role only). Admin API calls use `Authorization: Bearer <access token>`.
