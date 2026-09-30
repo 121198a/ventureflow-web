@@ -2,34 +2,34 @@ import type { BlogPost, CuratedTrack, BlogCategory } from "@/types/blog";
 
 export const authors = {
   maneesh: {
-    name: "Maneesh Awasthi",
-    role: "Co-Founder & CEO",
+    name: "VentureFlow Editorial",
+    role: "Editorial team",
     avatar: "/image/about/1.jpg",
-    bio: "Over 20 years in institutional finance across equities, derivatives, and capital markets. Formerly co-founded a retail brokerage.",
+    bio: "Notes on startup and investor collaboration from the VentureFlow editorial team.",
   },
   arnav: {
-    name: "Arnav Awasthi",
-    role: "Co-Founder & Head of Product",
+    name: "VentureFlow Product",
+    role: "Product team",
     avatar: "/image/about/2.jpg",
-    bio: "Aerospace engineer turned fintech product architect. Focused on the verifiable record-keeping layer for retail and venture markets.",
+    bio: "Product thinking behind profiles, introductions and shared workspaces.",
   },
   chetan: {
-    name: "Chetan Chauhan",
-    role: "Lead Investment Analyst",
+    name: "VentureFlow Research",
+    role: "Research notes",
     avatar: "/image/about/3.jpg",
-    bio: "Specializes in early-stage venture memo architecture, unit economics teardowns, and market horizon tracking.",
+    bio: "Practical notes on startup diligence, metrics and memo writing.",
   },
   nimisha: {
-    name: "Nimisha Pathar",
-    role: "Staff Product Designer",
+    name: "VentureFlow Design",
+    role: "Design team",
     avatar: "/image/about/4.jpg",
-    bio: "Crafts high-density financial interfaces and design systems at UnBound X with an obsession for clarity and signal.",
+    bio: "Design notes on clarity, hierarchy and calm interfaces.",
   },
   dinesh: {
-    name: "Dinesh Pathak",
-    role: "Principal Systems Engineer",
+    name: "VentureFlow Engineering",
+    role: "Engineering team",
     avatar: "/image/about/3.jpg",
-    bio: "Distributed systems and real-time ledger engineer. Previously built high-throughput order matching and settlement engines.",
+    bio: "Engineering notes on building fast, reliable workspaces.",
   },
 };
 
@@ -116,7 +116,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "quote",
         text: "Unsure about burn reads as a bookkeeping gap. Unsure about post-round ownership reads as a founder who has not done the math on their own equity, and that is a far more expensive impression to leave.",
-        citation: "Maneesh Awasthi, Co-Founder & CEO",
+        citation: "VentureFlow team",
       },
       {
         type: "callout",
@@ -149,7 +149,7 @@ export const blogPosts: BlogPost[] = [
     title: "The Architecture of a Verified Thesis: Why Public Market Accountability Beats Social Hype",
     subtitle: "Turning market claims into an immutable public ledger of target, horizon, and outcome.",
     summary:
-      "Everyone online claims to have bought the bottom and sold the top. None of them show a verified paper trail. How UnBound X separates real investment skill from retrospective storytelling.",
+      "Everyone online claims to have bought the bottom and sold the top. None of them show a verified paper trail. How VentureFlow separates real investment skill from retrospective storytelling.",
     category: "Thesis",
     tag: "Market Horizons",
     date: "Sep 2026",
@@ -171,7 +171,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         type: "p",
-        text: "At UnBound X, we believe real market reputation should be earned the same way institutional track records are built: on an immutable, time-stamped ledger with defined entry prices, explicit target valuations, and hard horizon dates.",
+        text: "At VentureFlow, we believe real market reputation should be earned the same way institutional track records are built: on an immutable, time-stamped ledger with defined entry prices, explicit target valuations, and hard horizon dates.",
       },
       {
         type: "callout",
@@ -191,7 +191,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "quote",
         text: "When an investment claim has an immutable timestamp and a non-negotiable settlement date, social noise collapses into verified market signal.",
-        citation: "Arnav Awasthi, Head of Product",
+        citation: "VentureFlow team",
       },
       {
         type: "checklist",
@@ -221,7 +221,7 @@ export const blogPosts: BlogPost[] = [
     trending: true,
     editorialPick: false,
     keyStats: [
-      { label: "Average Settlement Gap", value: "23 Days", change: "Pre-UBverse" },
+      { label: "Average Settlement Gap", value: "23 Days", change: "Pre-VentureFlow" },
       { label: "Slipped Soft Commits", value: "31%", change: "Unoptimized deals" },
       { label: "Closing Acceleration", value: "4.2x", change: "With clean data room" },
     ],
@@ -232,7 +232,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         type: "p",
-        text: "Until the subscription agreements are counter-signed and funds clear escrow, you have an expression of enthusiasm, not a funded balance sheet.",
+        text: "Until the paperwork is complete, you have an expression of enthusiasm, not a funded balance sheet.",
       },
       {
         type: "h2",
@@ -245,8 +245,8 @@ export const blogPosts: BlogPost[] = [
       },
       {
         type: "callout",
-        title: "How UBverse Eliminates the Friction",
-        text: "By maintaining real-time compliance rails, verified accredited accreditation checks, and automated document generation on UBverse, rounds close in days rather than month-long legal marathons.",
+        title: "How VentureFlow Eliminates the Friction",
+        text: "By maintaining real-time compliance rails, verified accredited accreditation checks, and automated document generation on VentureFlow, rounds close in days rather than month-long legal marathons.",
         variant: "blue",
       },
     ],
@@ -282,7 +282,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "quote",
         text: "Negotiating pre-money vs. post-money option pool expansion is worth more to a founder's ultimate exit proceeds than half a million dollars of headline valuation.",
-        citation: "Chetan Chauhan, Lead Investment Analyst",
+        citation: "VentureFlow team",
       },
       {
         type: "recap",
@@ -310,7 +310,7 @@ export const blogPosts: BlogPost[] = [
     subtitle: "How decentralized investor communities pool insights, research, and capital without noise.",
     summary:
       "Solo angel investing is tough and disconnected, while group chats get messy fast. Inside Spaces, accredited investors write shared memos, test founder assumptions, and co-invest together.",
-    category: "UBverse",
+    category: "VentureFlow",
     tag: "Spaces & Syndicates",
     date: "Aug 2026",
     readTime: "5 min read",
@@ -331,7 +331,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         type: "p",
-        text: "Spaces on UnBound X solves this structural disadvantage. By bringing domain specialists—software architects, healthcare operators, fintech CFOs—into private, structured diligence rooms, collective intelligence surfaces insights no solo investor could uncover.",
+        text: "Spaces on VentureFlow solves this structural disadvantage. By bringing domain specialists—software architects, healthcare operators, fintech CFOs—into private, structured diligence rooms, collective intelligence surfaces insights no solo investor could uncover.",
       },
       {
         type: "callout",
@@ -372,7 +372,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "quote",
         text: "You do not set the price of your round by stating a number; you set it by orchestrating competitive timelines that force lead investors to make their best offer first.",
-        citation: "Maneesh Awasthi, Co-Founder & CEO",
+        citation: "VentureFlow team",
       },
     ],
   },
@@ -403,40 +403,9 @@ export const blogPosts: BlogPost[] = [
     ],
   },
   {
-    slug: "reg-d-506b-vs-regulation-cf",
-    title: "Reg D 506(b) vs. Regulation CF: Navigating Compliant Capital Formation on UBverse",
-    subtitle: "The strategic differences between private placement syndicates and public retail offerings.",
-    summary:
-      "Your choice between Rule 506(b), 506(c), and Regulation CF sets key fundraising rules. It decides if you can pitch publicly, how much money you can raise, and what reports you must share with investors.",
-    category: "Ventures",
-    tag: "Regulatory Frameworks",
-    date: "Jul 2026",
-    readTime: "7 min read",
-    coverImage: "/images/newsletter-hero.jpg",
-    author: authors.maneesh,
-    featured: false,
-    trending: false,
-    editorialPick: true,
-    keyStats: [
-      { label: "Reg CF Annual Cap", value: "$5 Million", change: "SEC Limit" },
-      { label: "506(b) Public Solicitation", value: "Prohibited", change: "Existing relationships" },
-      { label: "506(c) Verification", value: "100% Accredited", change: "Third-party audit" },
-    ],
-    body: [
-      {
-        type: "p",
-        text: "Capital formation in the modern era provides founders with unprecedented flexibility—if they understand the SEC statutory exemptions governing each pathway.",
-      },
-      {
-        type: "p",
-        text: "On the UBverse platform, offerings are structured to accommodate both private accredited placements (Reg D) and community-driven crowdfunding (Reg CF). Understanding which pathway matches your company's stage and stakeholder base is the first strategic hurdle.",
-      },
-    ],
-  },
-  {
     slug: "senior-by-default-culture",
     title: "Senior by Default: How Our Engineering Team Ships Financial Systems with High Trust",
-    subtitle: "Fewer people, higher context, real ownership. Inside UnBound X's remote-first product culture.",
+    subtitle: "Fewer people, higher context, real ownership. Inside VentureFlow's remote-first product culture.",
     summary:
       "We avoid deep corporate layers and give quality work dedicated support. Here is how our small senior team ships reliable financial systems faster than larger teams.",
     category: "Craft & Culture",
@@ -455,19 +424,19 @@ export const blogPosts: BlogPost[] = [
       },
       {
         type: "p",
-        text: "At UnBound X, our careers philosophy is simple: 'Ownership, not tickets.' We hire senior operators who take a customer problem from first whiteboard diagram to production release, monitor its telemetry, and obsess over performance budgets.",
+        text: "At VentureFlow, our careers philosophy is simple: 'Ownership, not tickets.' We hire senior operators who take a customer problem from first whiteboard diagram to production release, monitor its telemetry, and obsess over performance budgets.",
       },
       {
         type: "quote",
         text: "Craft is not an afterthought we squeeze in before launch; craft is the product. When building financial platforms where people put real money and reputations on the line, every millisecond and every animation curve communicates trustworthiness.",
-        citation: "Nimisha Pathar, Staff Product Designer",
+        citation: "VentureFlow team",
       },
     ],
   },
   {
     slug: "the-cost-of-jitter",
     title: "The Cost of Jitter: Building Sub-50ms Reactive Interfaces for Real-Time Cap Tables",
-    subtitle: "Behind the frontend engineering decisions powering UnBound X's interactive ledgers.",
+    subtitle: "Behind the frontend engineering decisions powering VentureFlow's interactive ledgers.",
     summary:
       "When users drag allocation sliders or model dilution scenarios, any UI lag erodes confidence in the underlying arithmetic. Here is how we engineered frictionless 60fps reactivity in Next.js and React 19.",
     category: "Craft & Culture",
@@ -536,7 +505,7 @@ export const blogCategories: BlogCategory[] = [
   "Thesis",
   "Investing",
   "Ventures",
-  "UBverse",
+  "VentureFlow",
   "Founders",
   "Craft & Culture",
 ];
