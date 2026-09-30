@@ -4,11 +4,11 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { NewsletterList } from "@/components/site/newsletter-list";
 
 export const metadata: Metadata = {
-  title: "The Fundraising Playbook — UBverse Newsletter",
+  title: "The Fundraising Playbook — VentureFlow Newsletter",
   description:
     "A weekly playbook on the mechanics of private raises: closes, data rooms, investor conditions, and the operational discipline institutional counterparties expect.",
   openGraph: {
-    title: "The Fundraising Playbook — UBverse Newsletter",
+    title: "The Fundraising Playbook — VentureFlow Newsletter",
     description: "Weekly briefings on the mechanics of private raises — one playbook at a time.",
     type: "website",
   },
