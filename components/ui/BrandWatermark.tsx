@@ -4,9 +4,9 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 export interface BrandWatermarkProps {
-  /** Text or phrase. Defaults to "UNBOUND X UBVERSE" */
+  /** Text or phrase. Defaults to "VENTUREFLOW WORKSPACE" */
   text?: string;
-  /** Array of brand names to repeat in exact order: ["UNBOUND X", "UBVERSE"] */
+  /** Array of brand names to repeat in exact order: ["VENTUREFLOW", "WORKSPACE"] */
   items?: string[];
   /** Layout style: "pattern" (seamless SVG matrix), "rows" (staggered typography lines), "backdrop" (ambient device frame glow + watermark) */
   variant?: "pattern" | "rows" | "backdrop";
