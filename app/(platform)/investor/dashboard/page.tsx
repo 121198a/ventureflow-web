@@ -4,7 +4,7 @@ import { InvestorDashboardClient } from "@/components/dashboard/InvestorDashboar
 import { Loader2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Investor Dashboard | UBverse by UnBound X",
+  title: "Investor Dashboard | VentureFlow by Veyron X",
   description:
     "Review real structured opportunities, track investment theses, and access verified private market offerings.",
   robots: {
