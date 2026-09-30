@@ -330,14 +330,14 @@ function FeedMini() {
     },
     {
       id: "gaurav",
-      name: "Gaurav",
+      name: "Taylor",
       time: "Just now",
       badge: "1",
       image: "/image/about/3.jpg",
     },
     {
       id: "dinesh",
-      name: "Dinesh",
+      name: "Riley",
       time: "1m ago",
       badge: "3",
       image: "/image/about/3.jpg",
@@ -351,7 +351,7 @@ function FeedMini() {
     },
     {
       id: "chetan",
-      name: "Chetan",
+      name: "Morgan",
       time: "1h ago",
       badge: "1",
       image: "/image/about/1.jpg",
@@ -425,20 +425,20 @@ function FeedMini() {
 
         {/* Feed Posts */}
         <div className="space-y-2 p-2.5">
-          {/* Post 1 - Dinesh Pathak ($ETH Bullish / On track) */}
+          {/* Post 1 - Riley Morgan ($ETH Bullish / On track) */}
           <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
                   src="/image/about/3.jpg"
-                  alt="Dinesh Pathak"
+                  alt="Riley Morgan"
                   width={20}
                   height={20}
                   className="size-5 rounded-full object-cover"
                   loading="lazy"
                 />
                 <div>
-                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Dinesh Pathak</p>
+                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Riley Morgan</p>
                   <p className="text-[8.5px] text-slate-500 leading-tight">@dineshpathak</p>
                 </div>
               </div>
@@ -489,20 +489,20 @@ function FeedMini() {
             </div>
           </div>
 
-          {/* Post 2 - Rama Rao ($CRM Bearish / Off track) */}
+          {/* Post 2 - Casey Nguyen ($CRM Bearish / Off track) */}
           <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
                   src="/image/about/1.jpg"
-                  alt="Rama Rao"
+                  alt="Casey Nguyen"
                   width={20}
                   height={20}
                   className="size-5 rounded-full object-cover"
                   loading="lazy"
                 />
                 <div>
-                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Rama Rao</p>
+                  <p className="text-[10px] font-bold text-slate-900 leading-tight">Casey Nguyen</p>
                   <p className="text-[8.5px] text-slate-500 leading-tight">@ramarao</p>
                 </div>
               </div>
