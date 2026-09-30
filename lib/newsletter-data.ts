@@ -98,7 +98,7 @@ const fiveNumbersBody: ArticleBlock[] = [
   },
   {
     type: "p",
-    text: "Each of the five live as inputs in your dashboard on UBverse, so when an investor asks, the number comes from a live record rather than memory.",
+    text: "Each of the five live as inputs in your dashboard on VentureFlow, so when an investor asks, the number comes from a live record rather than memory.",
   },
   {
     type: "cta",
@@ -138,7 +138,7 @@ const fiveNumbersBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    text: "Everything in this briefing lives in one place on UBverse: your five numbers, your documents, and your investor conversations, current before the meeting instead of assembled after it.",
+    text: "Everything in this briefing lives in one place on VentureFlow: your five numbers, your documents, and your investor conversations, current before the meeting instead of assembled after it.",
     buttonLabel: "See how the platform works →",
     note: "The complete workflow, step by step · 2 minutes",
   },
@@ -201,7 +201,7 @@ const interestIsntDealsBody: ArticleBlock[] = [
   {
     type: "darkbox",
     label: "Closing Rule — Operational Discipline",
-    text: "\"Never consider a check closed until subscription documents are counter-signed and funds have cleared escrow through a registered broker-dealer.\"",
+    text: "\"Never consider a check closed until the paperwork is fully signed and confirmed.\"",
   },
   {
     type: "cta",
@@ -222,7 +222,7 @@ const interestIsntDealsBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    text: "Discover how UBverse standardizes SAFE instruments, investor accreditation, and live closing ledgers.",
+    text: "Discover how VentureFlow standardizes SAFE instruments, investor accreditation, and live closing ledgers.",
     buttonLabel: "See how the platform works →",
     note: "Institutional closing rails · 2 min",
   },
@@ -231,7 +231,7 @@ const interestIsntDealsBody: ArticleBlock[] = [
     heading: "Key Takeaways",
     items: [
       { bold: "Soft circles decay rapidly.", rest: "The 23-day closing window requires aggressive administrative discipline." },
-      { bold: "Eliminate document friction.", rest: "Provide a one-click digital signing flow and instant escrow instructions." },
+      { bold: "Eliminate document friction.", rest: "Keep documents in one place with clear access and a simple review flow." },
       { bold: "Track in public or private ledger.", rest: "Maintain an immutable record of commitments, signatures, and wires." },
     ],
   },
@@ -295,7 +295,7 @@ const reopenColdLeadsBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    text: "UBverse provides transparent deal tracking and data rooms that keep investors informed without awkward email bumps.",
+    text: "VentureFlow provides transparent deal tracking and data rooms that keep investors informed without awkward email bumps.",
     buttonLabel: "See how the platform works →",
     note: "Explore platform features · 2 minutes",
   },
@@ -341,7 +341,7 @@ const updatesWinInvestorsBody: ArticleBlock[] = [
   {
     type: "cta",
     heading: "Automate your investor communications",
-    text: "UBverse provides company spaces where updates, data rooms, and cap tables live securely together.",
+    text: "VentureFlow provides company spaces where updates, data rooms, and cap tables live securely together.",
     buttonLabel: "See how the platform works →",
     note: "Free to set up",
   },
@@ -353,7 +353,7 @@ const updatesWinInvestorsBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    text: "Discover how founders centralize shareholder updates and milestones on UBverse.",
+    text: "Discover how founders centralize shareholder updates and milestones on VentureFlow.",
     buttonLabel: "See how the platform works →",
     note: "The complete workflow, step by step · 2 minutes",
   },
@@ -410,7 +410,7 @@ const whatCouldKillItBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    text: "Explore how UBverse structures disclosures and diligence Q&A for high-growth offerings.",
+    text: "Explore how VentureFlow structures disclosures and diligence Q&A for high-growth offerings.",
     buttonLabel: "See how the platform works →",
     note: "Institutional diligence framework",
   },
@@ -455,7 +455,7 @@ const postRoundOwnershipBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    heading: "Model your cap table on UBverse",
+    heading: "Model your cap table on VentureFlow",
     text: "Interactive scenario modeling for founders raising priced rounds or convertible notes.",
     buttonLabel: "Run the readiness assessment →",
     note: "Precise dilution math",
@@ -468,7 +468,7 @@ const postRoundOwnershipBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    text: "See how cap tables and convertible notes convert in real-time on UBverse.",
+    text: "See how cap tables and convertible notes convert in real-time on VentureFlow.",
     buttonLabel: "See how the platform works →",
     note: "Explore cap table tools",
   },
@@ -512,7 +512,7 @@ const theNumberYouSayFirstBody: ArticleBlock[] = [
   {
     type: "cta",
     heading: "Benchmark your round",
-    text: "Compare valuation ranges with active deals currently raising on UBverse.",
+    text: "Compare valuation ranges with active deals currently raising on VentureFlow.",
     buttonLabel: "Run the readiness assessment →",
     note: "Real private market data",
   },
@@ -524,7 +524,7 @@ const theNumberYouSayFirstBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    text: "Learn how UBverse structures milestone-anchored terms for institutional leads.",
+    text: "Learn how VentureFlow structures milestone-anchored terms for institutional leads.",
     buttonLabel: "See how the platform works →",
   },
   {
@@ -580,7 +580,7 @@ const howMuchRunwayBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    text: "See how founders align runway targets with round allocations on UBverse.",
+    text: "See how founders align runway targets with round allocations on VentureFlow.",
     buttonLabel: "See how the platform works →",
   },
   {
@@ -613,7 +613,7 @@ const youDontGraduateBody: ArticleBlock[] = [
     columns: ["Stage", "Primary Proof Point"],
     rows: [
       ["Friends & Family / Pre-Seed", "The problem is real, painful, and the team has the technical capacity to build the solution."],
-      ["Seed / Reg CF", "Initial product in market with measurable engagement and early customer willingness to pay."],
+      ["Seed", "Initial product in market with measurable engagement and early customer willingness to pay."],
       ["Series A", "Repeatable, scalable go-to-market engine where $1 of sales expenditure predictably yields $3+ of LTV."],
     ],
   },
@@ -624,9 +624,9 @@ const youDontGraduateBody: ArticleBlock[] = [
   {
     type: "cta",
     heading: "Assess your round readiness",
-    text: "Evaluate which regulatory and capital pathway matches your current stage of company development.",
+    text: "Evaluate which next steps match your current stage of company development.",
     buttonLabel: "Run the readiness assessment →",
-    note: "Reg CF · Reg D · Reg A+",
+    note: "Stage-based guidance",
   },
   {
     type: "cta",
@@ -636,13 +636,13 @@ const youDontGraduateBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    text: "Discover how UBverse navigates exemptions and investor syndicates across stages.",
+    text: "Discover how VentureFlow keeps profiles, documents and introductions together across stages.",
     buttonLabel: "See how the platform works →",
   },
   {
     type: "cta",
-    heading: "Exemption & stage consultation",
-    text: "Evaluate Reg CF, Reg D 506(c), or institutional syndicates with our team.",
+    heading: "Stage walkthrough",
+    text: "Talk through your stage and next steps with our team.",
     buttonLabel: "Schedule a consultation →",
     note: "20 minutes · Confidential",
   },
