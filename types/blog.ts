@@ -3,7 +3,7 @@ export type BlogCategory =
   | "Thesis"
   | "Investing"
   | "Ventures"
-  | "UBverse"
+  | "VentureFlow"
   | "Founders"
   | "Craft & Culture";
 
