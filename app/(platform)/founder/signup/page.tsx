@@ -3,7 +3,7 @@ import { AuthLayout } from "@/components/site/auth-layout";
 import { SignupForm } from "@/components/site/signup-form";
 
 export const metadata: Metadata = {
-  title: "Apply as a Founder | UBverse by UnBound X",
+  title: "Apply as a Founder | VentureFlow by Veyron X",
   description: "Complete your founder application to access investors and launch your raise.",
 };
 
@@ -14,7 +14,7 @@ export default function FounderSignupPage() {
       mode="signup"
       title="Apply as a Founder"
       subtitle="Complete your founder application to access investors and launch your raise."
-      switchPrompt="Already have an account on UnBound X?"
+      switchPrompt="Already have an account on VentureFlow?"
       switchLinkText="Login here"
       switchLinkHref="/issuer/login"
     >
