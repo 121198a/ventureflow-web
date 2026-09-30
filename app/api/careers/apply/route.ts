@@ -99,7 +99,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: "Application service is not configured. Please email careers@unboundxinc.com directly.",
+          error: "Application service is not configured. Please email careers@ventureflow.example directly.",
         },
         { status: 503 }
       );
