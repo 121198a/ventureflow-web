@@ -2,7 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Building2 } from "lucide-react";
-import type { BackendCompanySummary } from "@/lib/ubverse-api";
+import type { BackendCompanySummary } from "@/lib/workspace-api";
 
 export function CompanyOpportunityCard({ company }: { company: BackendCompanySummary }) {
   const [imgError, setImgError] = useState(false);
@@ -79,7 +79,7 @@ export function CompanyOpportunityCard({ company }: { company: BackendCompanySum
             Filing
           </span>
           <span className="font-bold text-slate-800 truncate block">
-            {company.securitiesFiling || "Reg D"}
+            {company.fundingRoundStage || "Profile"}
           </span>
         </div>
       </div>
