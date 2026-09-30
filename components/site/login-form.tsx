@@ -12,7 +12,6 @@ import {
   AUTH_LABEL_GAP,
   AUTH_STACK_GAP,
   FieldLabel,
-  InputField,
 } from "./input-field";
 import { Loader2 } from "lucide-react";
 import { sanitizeRedirectUrl } from "@/lib/utils";
@@ -396,16 +395,19 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
               </button>
             )}
           </div>
-          <InputField
+          <input
             id="email"
-            label="Enter your email address"
-            hideLabel={true}
+            name="email"
+            type="email"
+            autoComplete="email"
             placeholder="Email"
+            required
             value={email}
-            onChange={(val) => {
-              setEmail(val);
+            onChange={(e) => {
+              setEmail(e.target.value);
               if (errorMessage) setErrorMessage(null);
             }}
+            className={AUTH_INPUT_CLASS}
           />
         </div>
       ) : (

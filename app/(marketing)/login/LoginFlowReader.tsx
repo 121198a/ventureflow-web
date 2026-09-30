@@ -18,7 +18,7 @@ export function LoginFlowReader() {
 
 function LoginFlowView() {
   const params = useSearchParams();
-  const flow = params.get("flow") === "login" ? "login" : "signup";
+  const flow = params.get("flow") === "signup" ? "signup" : "login";
   const role = params.get("role") === "investor" ? "investor" : "founder";
 
   if (flow === "signup") {

@@ -1,6 +1,6 @@
 # Multi-Platform Deployment & Budget Architecture Guide
 
-This guide details how to deploy and maintain **VentureFlow / VentureFlow** across various hosting platforms (**Vercel, Netlify, Hostinger, Render, Railway, Fly.io, or any standard Linux VPS**) with **zero vendor lock-in** and a **$0 free-tier first** strategy.
+This guide details how to deploy and maintain **VentureFlow by Veyron X** across various hosting platforms (**Vercel, Netlify, Hostinger, Render, Railway, Fly.io, or any standard Linux VPS**) with **zero vendor lock-in** and a **$0 free-tier first** strategy.
 
 ---
 

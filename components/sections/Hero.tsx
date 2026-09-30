@@ -77,7 +77,7 @@ const cards: Card[] = [
   {
     key: "google",
     side: "left",
-    desktop: "top-4 lg:left-[-110px] xl:left-[-125px] 2xl:left-[-135px] hidden lg:block w-[145px] xl:w-[155px]",
+    desktop: "top-4 lg:left-[-110px] xl:left-[-95px] 2xl:left-[-95px] hidden lg:block w-[145px] xl:w-[155px]",
     body: (
       <>
         <div className="flex items-center justify-between">
@@ -101,7 +101,7 @@ const cards: Card[] = [
   {
     key: "apple",
     side: "right",
-    desktop: "top-3 lg:right-[-110px] xl:right-[-125px] 2xl:right-[-135px] hidden lg:block w-[145px] xl:w-[155px]",
+    desktop: "top-3 lg:right-[-110px] xl:right-[-105px] 2xl:right-[-115px] hidden lg:block w-[145px] xl:w-[155px]",
     body: (
       <>
         <div className="flex items-center justify-between">
@@ -125,7 +125,7 @@ const cards: Card[] = [
   {
     key: "tesla",
     side: "left",
-    desktop: "top-[36%] lg:left-[-118px] xl:left-[-130px] 2xl:left-[-140px] hidden lg:block w-[150px] xl:w-[165px]",
+    desktop: "top-[36%] lg:left-[-118px] xl:left-[-90px] 2xl:left-[-90px] hidden lg:block w-[150px] xl:w-[165px]",
     body: (
       <>
         <div className="flex items-center justify-between">
@@ -149,7 +149,7 @@ const cards: Card[] = [
   {
     key: "research",
     side: "right",
-    desktop: "top-[35%] lg:right-[-118px] xl:right-[-125px] 2xl:right-[-135px] hidden lg:block w-[150px] xl:w-[165px]",
+    desktop: "top-[35%] lg:right-[-118px] xl:right-[-100px] 2xl:right-[-105px] hidden lg:block w-[150px] xl:w-[165px]",
     body: (
       <>
         <div className="flex items-center gap-1.5">
@@ -165,7 +165,7 @@ const cards: Card[] = [
   {
     key: "space",
     side: "left",
-    desktop: "bottom-6 lg:left-[-118px] xl:left-[-130px] 2xl:left-[-142px] hidden lg:block w-[155px] xl:w-[175px]",
+    desktop: "bottom-6 lg:left-[-118px] xl:left-[-90px] 2xl:left-[-92px] hidden lg:block w-[155px] xl:w-[175px]",
     body: (
       <>
         <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Space Activity</p>
@@ -177,7 +177,7 @@ const cards: Card[] = [
   {
     key: "rank",
     side: "right",
-    desktop: "bottom-5 lg:right-[-110px] xl:right-[-120px] 2xl:right-[-130px] hidden lg:block w-[145px] xl:w-[165px]",
+    desktop: "bottom-5 lg:right-[-110px] xl:right-[-100px] 2xl:right-[-110px] hidden lg:block w-[145px] xl:w-[165px]",
     body: (
       <>
         <div className="flex items-center justify-between">

@@ -12,13 +12,13 @@ export function AuthArtwork({ className = "" }: { className?: string }) {
   return (
     <div
       className={cn("pointer-events-none relative select-none overflow-hidden", className)}
-      style={{ aspectRatio: "1380 / 758" }}
+      style={{ aspectRatio: "1348 / 880" }}
     >
       <Image
         src="/images/auth-wave.webp"
         alt=""
-        width={1380}
-        height={758}
+        width={1348}
+        height={880}
         priority
         sizes="(min-width: 1024px) 50vw, 100vw"
         className="h-full w-full object-cover object-left-bottom"

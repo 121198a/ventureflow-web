@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import LoginPage from "@/components/sections/Login";
+import { LoginFlowReader } from "./LoginFlowReader";
 
 export const metadata: Metadata = {
   title: "Log In or Sign Up | VentureFlow by Veyron X",
@@ -19,12 +19,12 @@ export default function LoginRoute() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#f8faff] flex items-center justify-center text-xs text-slate-400">
+        <div className="min-h-screen bg-[#f4f7fb] flex items-center justify-center text-xs text-slate-400">
           Loading VentureFlow authentication...
         </div>
       }
     >
-      <LoginPage />
+      <LoginFlowReader />
     </Suspense>
   );
 }

@@ -29,11 +29,19 @@ export interface AuthLayoutProps {
   children: ReactNode;
 }
 
-/** Soft pastel wash + thin iridescent ribbons that run behind the card. */
+/** Soft pastel wash + thin iridescent ribbons that run behind the card + left-hand light-blue atmospheric tint. */
 function AuthBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      {/* Right base pastel gradient */}
       <div className="absolute inset-0 bg-[linear-gradient(120deg,#eef2ff_0%,#f5f8fe_34%,#f4f8fe_64%,#ecf3fe_100%)]" />
+
+      {/* Left-hand light blue atmospheric tint matching reference */}
+      <div className="hidden lg:block absolute inset-y-0 left-0 w-[48.8%] bg-[linear-gradient(180deg,#d8e7fe_0%,#e4effe_45%,#edf4fe_100%)]" />
+
+      {/* Center vertical dividing rule matching reference */}
+      <div className="hidden lg:block absolute left-[48.8%] inset-y-0 w-px bg-slate-200/80" />
+
       {/* cool halo behind the card */}
       <div className="absolute right-[-6%] top-[8%] h-[80%] w-[58%] rounded-full bg-[radial-gradient(closest-side,rgba(160,184,255,0.30),rgba(196,210,255,0.14)_55%,transparent_100%)]" />
       {/* faint blush bottom-right */}
@@ -97,30 +105,30 @@ function AuthBackground() {
   );
 }
 
-/** "VentureFlow by Veyron X" lock-up — matching reference design */
-function AuthBrandPill() {
+/** "VentureFlow by Veyron X" lock-up pill — matching reference design */
+export function AuthBrandPill() {
   return (
     <Link
       href="/"
       aria-label="VentureFlow by Veyron X home"
-      className="group inline-flex items-center gap-3.5 py-1 text-slate-900 transition-opacity hover:opacity-95"
+      className="group inline-flex items-center gap-2.5 rounded-full border border-slate-200/80 bg-white/95 px-3.5 py-1.5 sm:px-4 sm:py-2 text-slate-900 shadow-[0_2px_12px_rgba(0,0,0,0.05)] backdrop-blur-xs transition-all hover:bg-white hover:shadow-sm"
     >
-      <span className="relative block h-11 w-11 sm:h-13 sm:w-13 shrink-0 transition-transform group-hover:scale-105 shadow-md rounded-full overflow-hidden">
+      <span className="relative block size-7 sm:size-8 shrink-0 overflow-hidden rounded-full shadow-2xs transition-transform group-hover:scale-105">
         <Image
           src="/logo/vf-mark.png"
-          alt="VentureFlow by Veyron X"
-          width={56}
-          height={56}
+          alt="VentureFlow"
+          width={32}
+          height={32}
           priority
-          className="h-full w-full rounded-full object-cover"
+          className="size-full rounded-full object-cover"
         />
       </span>
-      <span className="flex select-none items-baseline gap-2 text-slate-900" aria-hidden="true">
-        <span className="text-2xl sm:text-[1.75rem] font-extrabold tracking-tight text-slate-900">VentureFlow</span>
-        <span className="text-base sm:text-lg font-medium text-slate-500">by</span>
-        <span className="inline-flex items-baseline gap-1 text-2xl sm:text-[1.75rem] font-extrabold tracking-tight text-slate-900">
+      <span className="flex select-none items-baseline gap-1.5 text-slate-900" aria-hidden="true">
+        <span className="text-base sm:text-lg font-bold tracking-tight text-slate-900">VentureFlow</span>
+        <span className="text-xs sm:text-sm font-normal text-slate-400">by</span>
+        <span className="inline-flex items-baseline gap-0.5 text-base sm:text-lg font-bold tracking-tight text-slate-900">
           <span>Veyron</span>
-          <svg viewBox="0 0 24 24" className="h-[0.8em] w-[0.8em] inline-block fill-current translate-y-[0.05em]" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="h-[0.75em] w-[0.75em] inline-block fill-current translate-y-[0.05em]" aria-hidden="true">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
           </svg>
         </span>
@@ -159,14 +167,14 @@ export function AuthLayout({
         <AuthBrandPill />
       </header>
 
-      <main className="relative z-10 grid flex-1 grid-cols-1 gap-8 px-4 pb-8 pt-4 sm:px-8 lg:grid-cols-[46fr_54fr] lg:items-center lg:gap-6 lg:px-10 lg:py-2 lg:overflow-hidden">
+      <main className="relative z-10 grid flex-1 grid-cols-1 gap-8 px-4 pb-8 pt-4 sm:px-8 lg:grid-cols-[48.8fr_51.2fr] lg:items-center lg:gap-0 lg:px-0 lg:py-2 lg:overflow-hidden">
         {/* LEFT — role-specific heading & glowing network wave */}
-        <section className="relative flex flex-col text-left lg:pl-[min(5vw,90px)] lg:pr-6 z-10">
+        <section className="relative flex flex-col text-left lg:pl-[min(6vw,100px)] lg:pr-10 z-10">
           {eyebrow && (
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-600">{eyebrow}</p>
           )}
 
-          <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold leading-[1.15] tracking-tight text-slate-900">
+          <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold leading-[1.15] tracking-tight text-slate-900">
             {title}
           </h1>
 
@@ -219,15 +227,15 @@ export function AuthLayout({
         </section>
 
         {/* RIGHT — white authentication card */}
-        <section className="lg:self-center lg:pr-[min(5vw,90px)] flex justify-center lg:justify-end z-10">
-          <div className="relative w-full max-w-[560px]">
+        <section className="lg:self-center lg:pr-[min(6vw,100px)] lg:pl-10 flex justify-center lg:justify-end z-10">
+          <div className="relative w-full max-w-[550px]">
             <AuthCard>{children}</AuthCard>
           </div>
         </section>
       </main>
 
       {/* VentureFlow glowing wave artwork: anchored to bottom-left */}
-      <AuthArtwork className="hidden sm:block absolute bottom-0 left-0 w-full max-w-[48vw] pointer-events-none z-0" />
+      <AuthArtwork className="hidden sm:block absolute bottom-0 left-0 w-full max-w-[48.8vw] pointer-events-none z-0" />
     </div>
   );
 }
