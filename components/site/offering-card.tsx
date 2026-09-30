@@ -6,8 +6,8 @@ import Image from "next/image";
 import { StatRow } from "./stat-row";
 import type { Offering } from "@/lib/offerings-data";
 import {
-  FundingTargetIcon,
-  WalletInvestmentIcon,
+  CompanyBuildingIcon,
+  PartnershipRingsIcon,
   DocumentFilingIcon,
 } from "@/components/ui/CustomIcons";
 
@@ -16,9 +16,9 @@ export function OfferingCard({ o }: { o: Offering }) {
   const showImage = Boolean(o.imageUrl) && !imgError;
 
   const stats = [
-    { value: o.goal, label: "Funding goal", icon: <FundingTargetIcon size={14} /> },
-    { value: o.min, label: "Min. Invest...", icon: <WalletInvestmentIcon size={14} /> },
-    { value: o.filing, label: "Security Filing", icon: <DocumentFilingIcon size={14} /> },
+    { value: o.category, label: "Category", icon: <CompanyBuildingIcon size={14} /> },
+    { value: o.location, label: "Location", icon: <PartnershipRingsIcon size={14} /> },
+    { value: o.tag, label: "Status", icon: <DocumentFilingIcon size={14} /> },
   ];
 
   return (
@@ -55,7 +55,7 @@ export function OfferingCard({ o }: { o: Offering }) {
       >
         {o.name}
       </h3>
-      <p className="mt-1 text-xs sm:text-[0.875rem] text-slate-500 font-medium">Funding Round: {o.round}</p>
+      <p className="mt-1 text-xs sm:text-[0.875rem] text-slate-500 font-medium">Stage: {o.round}</p>
       <div className="mt-4 border-t border-slate-100 pt-4">
         <StatRow items={stats} />
       </div>
