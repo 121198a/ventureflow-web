@@ -36,6 +36,7 @@ const isUnoptimizedImages =
   process.env.UNOPTIMIZED_IMAGES === 'true';
 
 const nextConfig: NextConfig = {
+  transpilePackages: ['framer-motion'],
   // Standalone output drastically reduces container/runtime image size and RAM usage (~60MB vs ~300MB),
   // perfect for student-budget VPS ($2-4/mo) and free-tier cloud containers (Render, Railway, Fly.io).
   output: isStandalone ? 'standalone' : undefined,
@@ -43,7 +44,7 @@ const nextConfig: NextConfig = {
   compress: true,
   experimental: {
     authInterrupts: true,
-    optimizePackageImports: ['lucide-react', 'react-icons'],
+    optimizePackageImports: ['lucide-react', 'react-icons', 'framer-motion'],
   },
   images: {
     unoptimized: isUnoptimizedImages,
