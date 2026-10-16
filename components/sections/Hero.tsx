@@ -77,10 +77,10 @@ const cards: Card[] = [
     desktop: "top-4 lg:-left-28 xl:-left-24 hidden lg:block w-36 xl:w-40",
     body: (
       <>
-        <div className="flex items-center justify-between">
+        <header className="flex items-center justify-between">
           <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Verified Hit</p>
           <GrowthChartIcon size={13} className="text-emerald-700" />
-        </div>
+        </header>
         <p className="mt-1 flex items-center gap-1.5 text-xs font-bold text-slate-900">
           <FcGoogle size={15} />
           ALPHABET
@@ -101,10 +101,10 @@ const cards: Card[] = [
     desktop: "top-3 lg:-right-28 xl:-right-24 hidden lg:block w-36 xl:w-40",
     body: (
       <>
-        <div className="flex items-center justify-between">
+        <header className="flex items-center justify-between">
           <p className="text-[10px] font-bold uppercase tracking-wider text-slate-600">Active Call</p>
           <FundingTargetIcon size={13} className="text-blue-700" />
-        </div>
+        </header>
         <p className="mt-1 flex items-center gap-1.5 text-xs font-bold text-slate-900">
           <ImAppleinc size={14} />
           APPLE
@@ -125,10 +125,10 @@ const cards: Card[] = [
     desktop: "top-1/3 lg:-left-28 xl:-left-24 hidden lg:block w-36 xl:w-40",
     body: (
       <>
-        <div className="flex items-center justify-between">
+        <header className="flex items-center justify-between">
           <p className="text-[10px] font-bold uppercase tracking-wider text-slate-600">Analyst Space</p>
           <PartnershipRingsIcon size={14} className="text-slate-600" />
-        </div>
+        </header>
         <p className="mt-1 text-xs font-bold text-slate-900 truncate">Horizon Capital</p>
         <p className="mt-1 text-xs text-slate-600 leading-snug">
           18 analysts reviewing 4 open valuation models
@@ -149,10 +149,10 @@ const cards: Card[] = [
     desktop: "top-1/3 lg:-right-28 xl:-right-24 hidden lg:block w-36 xl:w-40",
     body: (
       <>
-        <div className="flex items-center gap-1.5">
+        <header className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
           <p className="text-xs font-bold text-blue-700">Filing Analysis</p>
-        </div>
+        </header>
         <p className="mt-1 text-xs font-medium text-slate-700 leading-tight">
           Hyperscaler capex guidance confirms sustained accelerator procurement through Q4.
         </p>
@@ -165,7 +165,10 @@ const cards: Card[] = [
     desktop: "bottom-6 lg:-left-28 xl:-left-24 hidden lg:block w-36 xl:w-40",
     body: (
       <>
-        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-600">Space Activity</p>
+        <header className="flex items-center justify-between">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-slate-600">Space Activity</p>
+          <PartnershipRingsIcon size={14} className="text-slate-600" />
+        </header>
         <p className="mt-1 text-xs font-bold text-blue-700">Bravo Investment Club</p>
         <p className="text-xs text-slate-600 mt-0.5">New semiconductor thesis submitted for committee review</p>
       </>
@@ -177,10 +180,10 @@ const cards: Card[] = [
     desktop: "bottom-5 lg:-right-28 xl:-right-24 hidden lg:block w-36 xl:w-40",
     body: (
       <>
-        <div className="flex items-center justify-between">
+        <header className="flex items-center justify-between">
           <p className="text-[10px] font-bold uppercase tracking-wider text-slate-600">Public Record</p>
           <ComplianceShieldIcon size={14} className="text-blue-700" />
-        </div>
+        </header>
         <p className="text-xs text-slate-600 mt-0.5">Audited accuracy</p>
         <p className="text-xl font-extrabold text-blue-700 tracking-tight leading-none my-1.5">68.4%</p>
         <p className="text-xs text-slate-600">Across 38 closed theses</p>
@@ -333,7 +336,7 @@ export function Hero() {
             Keep startup profiles, messages, and documents in one shared workspace. Every conversation has the context it needs.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-5 lg:justify-start">
+          <nav aria-label="Hero actions" className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-5 lg:justify-start">
             <Magnetic strength={0.2}>
               <AuthButton
                 flow="signup"
@@ -358,7 +361,7 @@ export function Hero() {
                 className="transition-transform duration-300 group-hover:translate-y-0.5"
               />
             </button>
-          </div>
+          </nav>
 
           <ul role="list" className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-xs font-medium text-slate-600 lg:justify-start list-none p-0">
             <li className="flex items-center gap-1.5 text-slate-700">
@@ -624,7 +627,7 @@ function FeedPreview() {
         </ul>
 
         {/* Feed Posts */}
-        <div className="space-y-2.5 p-2.5">
+        <section aria-label="Recent activity feed" className="space-y-2.5 p-2.5">
           {/* Post 1 - Alex Carter ($BTC Bullish / On track) */}
           <article className="rounded-lg border border-slate-200 bg-white p-2.5 shadow-xs">
             <header className="flex items-center justify-between">
@@ -752,7 +755,7 @@ function FeedPreview() {
               </div>
             </footer>
           </article>
-        </div>
+        </section>
       </div>
 
       {/* Floating Action Button (FAB) with gradient glow */}
