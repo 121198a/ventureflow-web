@@ -89,7 +89,7 @@ export function DashboardPagination({
           onClick={() => handlePageSelect(currentPage - 1)}
           disabled={currentPage <= 1}
           aria-label="Go to previous page"
-          className="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-white px-2.5 py-1.5 font-medium text-slate-700 shadow-2xs transition-colors hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          className="btn-pagination"
         >
           <ChevronLeft className="size-3.5" aria-hidden="true" />
           <span className="hidden min-[400px]:inline">Previous</span>
@@ -141,7 +141,7 @@ export function DashboardPagination({
           onClick={() => handlePageSelect(currentPage + 1)}
           disabled={currentPage >= totalPages}
           aria-label="Go to next page"
-          className="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-white px-2.5 py-1.5 font-medium text-slate-700 shadow-2xs transition-colors hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          className="btn-pagination"
         >
           <span className="hidden min-[400px]:inline">Next</span>
           <ChevronRight className="size-3.5" aria-hidden="true" />

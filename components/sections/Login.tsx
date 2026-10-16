@@ -843,7 +843,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
           <button
             type="submit"
             disabled={isSubmitting || otpCode.length < 4}
-            className="w-full h-10 rounded-full bg-[#1677ff] hover:bg-blue-600 text-white font-semibold text-xs sm:text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
+            className="btn-auth-submit"
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">
@@ -1077,7 +1077,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
               onClick={() => handleOAuth("google")}
               disabled={loadingProvider !== null || isSubmitting}
               aria-label="Continue with Google"
-              className="h-10 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
+              className="btn-auth-social"
             >
               {loadingProvider === "google" ? (
                 <Loader2 className="size-3.5 animate-spin text-blue-600" />
@@ -1092,7 +1092,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
               onClick={() => handleOAuth("facebook")}
               disabled={loadingProvider !== null || isSubmitting}
               aria-label="Continue with Facebook"
-              className="h-10 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
+              className="btn-auth-social"
             >
               {loadingProvider === "facebook" ? (
                 <Loader2 className="size-3.5 animate-spin text-blue-600" />
@@ -1184,7 +1184,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
           <button
             type="submit"
             disabled={isSubmitting || otpCode.length < 4}
-            className="w-full h-10 rounded-full bg-[#1677ff] hover:bg-blue-600 text-white font-semibold text-xs sm:text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
+            className="btn-auth-submit"
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">
@@ -1409,7 +1409,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
               onClick={() => handleOAuth("google")}
               disabled={loadingProvider !== null || isSubmitting}
               aria-label="Continue with Google"
-              className="h-10 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
+              className="btn-auth-social"
             >
               {loadingProvider === "google" ? (
                 <Loader2 className="size-3.5 animate-spin text-blue-600" />
@@ -1424,7 +1424,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
               onClick={() => handleOAuth("facebook")}
               disabled={loadingProvider !== null || isSubmitting}
               aria-label="Continue with Facebook"
-              className="h-10 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60"
+              className="btn-auth-social"
             >
               {loadingProvider === "facebook" ? (
                 <Loader2 className="size-3.5 animate-spin text-blue-600" />

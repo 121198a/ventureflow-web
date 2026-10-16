@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import path from 'path';
 
 const cspHeader = `
   default-src 'self';
@@ -36,6 +37,7 @@ const isUnoptimizedImages =
   process.env.UNOPTIMIZED_IMAGES === 'true';
 
 const nextConfig: NextConfig = {
+  outputFileTracingRoot: path.resolve(__dirname),
   transpilePackages: ['framer-motion'],
   // Standalone output drastically reduces container/runtime image size and RAM usage (~60MB vs ~300MB),
   // perfect for student-budget VPS ($2-4/mo) and free-tier cloud containers (Render, Railway, Fly.io).
