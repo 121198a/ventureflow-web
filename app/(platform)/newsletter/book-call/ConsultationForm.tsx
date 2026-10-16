@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import {
   Calendar as CalendarIcon,
@@ -84,6 +84,43 @@ export function ConsultationForm() {
   const [targetRaise, setTargetRaise] = useState("$1M - $3M");
   const [instrument, setInstrument] = useState("SAFE (Post-Money)");
   const [notes, setNotes] = useState("");
+
+  useEffect(() => {
+    try {
+      const savedName = localStorage.getItem("vf:booking:name");
+      if (savedName) setName(savedName);
+      const savedEmail = localStorage.getItem("vf:booking:email");
+      if (savedEmail) setEmail(savedEmail);
+      const savedCompany = localStorage.getItem("vf:booking:company");
+      if (savedCompany) setCompany(savedCompany);
+      const savedPhone = localStorage.getItem("vf:booking:phone");
+      if (savedPhone) setPhone(savedPhone);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    if (name) {
+      try { localStorage.setItem("vf:booking:name", name); } catch {}
+    }
+  }, [name]);
+
+  useEffect(() => {
+    if (email) {
+      try { localStorage.setItem("vf:booking:email", email); } catch {}
+    }
+  }, [email]);
+
+  useEffect(() => {
+    if (company) {
+      try { localStorage.setItem("vf:booking:company", company); } catch {}
+    }
+  }, [company]);
+
+  useEffect(() => {
+    if (phone) {
+      try { localStorage.setItem("vf:booking:phone", phone); } catch {}
+    }
+  }, [phone]);
 
   // Submission State
   const [loading, setLoading] = useState(false);

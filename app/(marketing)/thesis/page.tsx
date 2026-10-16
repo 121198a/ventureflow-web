@@ -28,8 +28,8 @@ export const metadata: Metadata = {
 
 export default function ThesisPage() {
   return (
-    <div className="pt-16 sm:pt-20">
+    <main id="main-content" className="pt-16 sm:pt-20">
       <ThesisJourney />
-    </div>
+    </main>
   );
 }

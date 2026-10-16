@@ -33,7 +33,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-dvh flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
       <SiteNav />
-      <main className="flex-1 w-full">{children}</main>
+      <main className="relative flex-1 w-full">{children}</main>
       <SiteFooter />
     </div>
   );
