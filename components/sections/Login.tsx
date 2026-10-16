@@ -1443,13 +1443,13 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   const showTopNavHeader = flow !== "login" || signupEmailMode;
 
   return (
-    <main className="min-h-dvh w-full bg-gradient-to-br from-[#fdf2fa] via-[#f3f7ff] to-[#eaf6ff] text-slate-900 flex flex-col justify-between p-4 sm:p-6 relative overflow-x-hidden overflow-y-auto lg:overflow-hidden">
-      {/* Background Soft Pastel Ambient Glows */}
+    <main className="min-h-dvh w-full bg-gradient-to-br from-slate-50 via-[#f4f7fb] to-sky-50/50 text-slate-900 flex flex-col justify-between p-4 sm:p-6 relative overflow-x-hidden overflow-y-auto lg:overflow-hidden">
+      {/* Background Soft Ambient Lighting */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute left-1/2 top-[-140px] h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-white/70 blur-3xl" />
-        <div className="absolute top-[10%] left-[-100px] h-[400px] w-[400px] rounded-full bg-purple-100/35 blur-3xl" />
-        <div className="absolute top-[20%] right-[-100px] h-[420px] w-[420px] rounded-full bg-pink-100/35 blur-3xl" />
-        <div className="absolute bottom-[-160px] right-[-100px] h-[450px] w-[450px] rounded-full bg-sky-200/40 blur-3xl" />
+        <div className="absolute top-[10%] left-[-100px] h-[400px] w-[400px] rounded-full bg-sky-100/30 blur-3xl" />
+        <div className="absolute top-[20%] right-[-100px] h-[420px] w-[420px] rounded-full bg-blue-100/25 blur-3xl" />
+        <div className="absolute bottom-[-160px] right-[-100px] h-[450px] w-[450px] rounded-full bg-slate-200/40 blur-3xl" />
       </div>
 
       {/* Top Header Navigation */}

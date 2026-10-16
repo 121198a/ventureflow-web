@@ -71,49 +71,56 @@ export function WorkspaceRaising() {
       <div className="relative z-10 mx-auto mt-16 grid max-w-[1100px] gap-6 md:grid-cols-3">
         {deals.map((d, i) => (
           <Reveal
-            as="article"
             key={d.name}
             delay={i * 0.1}
-            className="p-4 sm:p-6 w-full max-w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-xs hover:border-slate-300 transition-all"
           >
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex min-w-0 flex-1 items-center gap-3">
-                <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-xl overflow-hidden border border-slate-200/80 bg-white shadow-xs">
-                  {d.logo ? (
-                    <Image
-                      src={d.logo}
-                      alt={d.name}
-                      fill
-                      sizes="44px"
-                      className="object-contain p-1"
-                    />
-                  ) : (
-                    <span className={`h-full w-full grid place-items-center text-xs font-bold text-white ${d.mark}`}>
-                      {d.initials}
+            <Link
+              href={`/${d.slug}`}
+              className="group block p-4 sm:p-6 w-full max-w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-xs hover:border-blue-500/40 hover:shadow-sm transition-all focus-ring cursor-pointer"
+            >
+              <article>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex min-w-0 flex-1 items-center gap-3">
+                    <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-xl overflow-hidden border border-slate-200/80 bg-white shadow-xs">
+                      {d.logo ? (
+                        <Image
+                          src={d.logo}
+                          alt={d.name}
+                          fill
+                          sizes="44px"
+                          className="object-contain p-1"
+                        />
+                      ) : (
+                        <span className={`h-full w-full grid place-items-center text-xs font-bold text-white ${d.mark}`}>
+                          {d.initials}
+                        </span>
+                      )}
                     </span>
-                  )}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="font-bold text-slate-900 text-sm sm:text-base leading-tight truncate">{d.name}</p>
-                  <p className="text-xs text-slate-500 mt-0.5 truncate">{d.sub}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-bold text-slate-900 text-sm sm:text-base leading-tight truncate group-hover:text-blue-600 transition-colors">{d.name}</p>
+                      <p className="text-xs text-slate-500 mt-0.5 truncate">{d.sub}</p>
+                    </div>
+                  </div>
+                  <span className="shrink-0 self-start rounded-full bg-blue-50 border border-blue-200/80 px-2.5 py-1 text-xs font-bold text-blue-700">
+                    {d.tag}
+                  </span>
                 </div>
-              </div>
-              <span className="shrink-0 self-start rounded-full bg-blue-50 border border-blue-200/80 px-2.5 py-1 text-xs font-bold text-blue-700">
-                {d.tag}
-              </span>
-            </div>
 
-            <div className="mt-6 flex flex-wrap items-baseline gap-2 font-display text-2xl sm:text-3xl font-extrabold text-slate-900">
-              {d.focus}
-              <span className="font-sans text-xs font-medium text-slate-500">category</span>
-            </div>
+                <div className="mt-6 flex flex-wrap items-baseline gap-2 font-display text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  {d.focus}
+                  <span className="font-sans text-xs font-medium text-slate-500">category</span>
+                </div>
 
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-4 text-xs text-slate-600">
-              <span>
-                {d.round} &middot; <b className="text-slate-900">{d.location}</b>
-              </span>
-              <span className="text-xs font-medium text-slate-500">{d.access}</span>
-            </div>
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-4 text-xs text-slate-600">
+                  <span>
+                    {d.round} &middot; <b className="text-slate-900">{d.location}</b>
+                  </span>
+                  <span className="text-xs font-medium text-blue-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                    Explore profile &rarr;
+                  </span>
+                </div>
+              </article>
+            </Link>
           </Reveal>
         ))}
       </div>

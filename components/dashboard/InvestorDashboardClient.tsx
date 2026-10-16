@@ -849,7 +849,7 @@ export function InvestorDashboardClient() {
                               required
                               value={thesisCompany}
                               onChange={(e) => setThesisCompany(e.target.value)}
-                              placeholder="e.g. Northstar Labs or AI FinTech"
+                              placeholder="e.g. Northstar Labs or Enterprise FinTech"
                               className="w-full rounded-md border border-slate-200 px-3 py-2 text-xs outline-none focus:border-blue-600"
                             />
                           </div>
