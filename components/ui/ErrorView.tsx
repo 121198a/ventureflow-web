@@ -11,7 +11,6 @@ import {
   Lock,
   AlertTriangle,
   ServerCrash,
-  ExternalLink,
   type LucideIcon,
 } from "lucide-react";
 
@@ -77,9 +76,10 @@ export interface ErrorViewProps {
 
 const DEFAULT_POPULAR_DESTINATIONS: PopularDestination[] = [
   { label: "Home", href: "/" },
-  { label: "VentureFlow", href: "/workspace", icon: ExternalLink },
+  { label: "Workspace", href: "/workspace" },
+  { label: "Market Briefings", href: "/blog" },
   { label: "Privacy Policy", href: "/legal/privacy-policy" },
-  { label: "Terms & Condition", href: "/legal/terms-condition" },
+  { label: "Terms & Conditions", href: "/legal/terms-condition" },
 ];
 
 function getDefaultConfig(code: number | string): {

@@ -55,8 +55,8 @@ export function OfferingCard({ o }: { o: Offering }) {
       >
         {o.name}
       </h3>
-      <p className="mt-1 text-xs sm:text-[0.875rem] text-slate-500 font-medium">Stage: {o.round}</p>
-      <div className="mt-4 border-t border-slate-100 pt-4">
+      <p className="mt-1 text-xs sm:text-[0.875rem] text-slate-600 font-medium">Stage: {o.round}</p>
+      <div className="mt-4">
         <StatRow items={stats} />
       </div>
     </Link>

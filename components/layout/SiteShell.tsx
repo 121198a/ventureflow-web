@@ -264,10 +264,13 @@ export function SiteNav() {
                           key={item.href}
                           href={item.href}
                           onClick={() => setDropdownOpen(false)}
-                          className="flex flex-col rounded-xl px-3 py-2 text-left transition-colors hover:bg-slate-50 focus-ring"
+                          className="group flex items-center justify-between rounded-xl px-3 py-2 text-left transition-colors hover:bg-blue-50/70 focus-ring"
                         >
-                          <span className="text-xs font-bold text-slate-900">{item.label}</span>
-                          <span className="text-micro text-slate-500">{item.desc}</span>
+                          <div className="flex flex-col">
+                            <span className="text-xs font-bold text-slate-900 group-hover:text-blue-700 transition-colors">{item.label}</span>
+                            <span className="text-[11px] text-slate-600 leading-tight">{item.desc}</span>
+                          </div>
+                          <ArrowRight size={13} className="text-slate-400 group-hover:text-blue-600 transition-transform group-hover:translate-x-0.5 opacity-0 group-hover:opacity-100 shrink-0 ml-2" />
                         </TransitionLink>
                       ))}
                     </div>
@@ -447,7 +450,7 @@ export function SiteFooter() {
                 Bring every relationship into one workspace.
               </h3>
               <p className="mt-2 text-sm text-slate-600 leading-relaxed font-normal">
-                Keep startup profiles, introductions, messages, notes and documents together, with sharing you control.
+                Keep startup profiles, messages, and documents in one workspace, with sharing you control.
               </p>
               <AuthButton
                 flow="signup"
@@ -549,10 +552,10 @@ export function SiteFooter() {
         </div>
 
         <div className="mx-auto mt-12 max-w-[1180px] border-t border-slate-200 px-6 pt-6">
-          <p className="text-[11px] leading-relaxed text-slate-500 mb-4">
+          <p className="text-xs leading-relaxed text-slate-600 font-medium mb-4">
             VentureFlow is a collaboration workspace. It does not provide financial services, and sample profiles on this site are fictional.
           </p>
-          <div className="flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 text-xs text-slate-600 sm:flex-row sm:items-center sm:justify-between">
             <span>&copy; 2026 {site.fullBrand}. All rights reserved.</span>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               <TransitionLink href="/legal/privacy-policy" className="hover:text-blue-600 transition-colors">Privacy Policy</TransitionLink>
