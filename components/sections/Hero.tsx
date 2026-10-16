@@ -16,7 +16,6 @@ import {
   Bell,
   ThumbsUp,
   MessageCircle,
-  Compass,
   Plus,
 } from "lucide-react";
 import {
@@ -184,7 +183,7 @@ const cards: Card[] = [
         </div>
         <p className="text-xs text-slate-600 mt-0.5">Audited accuracy</p>
         <p className="text-xl font-extrabold text-blue-700 tracking-tight leading-none my-1.5">68.4%</p>
-        <p className="text-[11px] text-slate-600">Across 38 closed theses</p>
+        <p className="text-xs text-slate-600">Across 38 closed theses</p>
       </>
     ),
   },
@@ -317,7 +316,7 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-2 lg:gap-14">
         {/* Left Intro Copy */}
-        <Reveal className="relative z-20 text-center lg:text-left">
+        <Reveal as="header" className="relative z-20 text-center lg:text-left">
           <span className="badge-fintech">
             <ComplianceShieldIcon size={14} className="text-blue-700" />
             <span>Startup–Investor Workspace</span>
@@ -331,7 +330,7 @@ export function Hero() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-lg text-base sm:text-lg leading-relaxed text-slate-600 lg:mx-0">
-            Keep startup profiles, introductions, messages, notes and documents together, so every conversation has the context it needs.
+            Keep startup profiles, messages, and documents in one shared workspace. Every conversation has the context it needs.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-5 lg:justify-start">
@@ -378,7 +377,7 @@ export function Hero() {
         </Reveal>
 
         {/* Right Phone Frame & Floating Widgets */}
-        <div className="relative flex h-auto flex-col items-center py-4 sm:py-6 lg:h-[560px] lg:min-h-[560px] lg:py-0 w-full">
+        <figure aria-label="Interactive workspace preview" className="relative flex h-auto flex-col items-center py-4 sm:py-6 lg:h-[560px] lg:min-h-[560px] lg:py-0 w-full m-0">
           {/* Subtle Ambient Device Pod (Matching reference image depth) */}
           <div
             aria-hidden="true"
@@ -412,17 +411,15 @@ export function Hero() {
               />
 
               {/* Phone Frame */}
-              <div className="relative">
-                <PhoneFrame
-                  theme="hero"
-                  showWifi={true}
-                  showStatusBar={true}
-                  showHomeIndicator={false}
-                  className="w-[230px] min-[380px]:w-[245px] sm:w-[260px] lg:w-[275px] xl:w-[280px]"
-                >
-                  <FeedPreview />
-                </PhoneFrame>
-              </div>
+              <PhoneFrame
+                theme="hero"
+                showWifi={true}
+                showStatusBar={true}
+                showHomeIndicator={false}
+                className="w-[230px] min-[380px]:w-[245px] sm:w-[260px] lg:w-[275px] xl:w-[280px]"
+              >
+                <FeedPreview />
+              </PhoneFrame>
             </motion.div>
 
             {/* Desktop Surrounding Cards (Emerging directly from phone depth plane) */}
@@ -517,7 +514,7 @@ export function Hero() {
               </motion.li>
             ))}
           </ul>
-        </div>
+        </figure>
       </div>
     </section>
   );
@@ -566,7 +563,7 @@ function FeedPreview() {
       {/* Scrollable feed area */}
       <div className="flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {/* Top App Header */}
-        <div className="flex items-center justify-between px-3 pt-1 pb-1 border-b border-slate-100">
+        <header className="flex items-center justify-between px-3 pt-1 pb-1 border-b border-slate-100">
           <div className="flex items-center gap-2">
             <Menu size={15} className="text-slate-800" />
             <span className="text-xs font-bold text-slate-900 tracking-tight">Home</span>
@@ -575,12 +572,12 @@ function FeedPreview() {
             <Search size={14} className="hover:text-slate-900" />
             <Bell size={14} className="hover:text-slate-900" />
           </div>
-        </div>
+        </header>
 
-        {/* Tab Pills: For You, Spaces, Saved */}
-        <div className="flex items-center gap-1.5 px-3 py-1.5 border-b border-slate-100">
+        {/* Tab Pills: Market Feed, Spaces, Saved */}
+        <nav aria-label="Feed channels" className="flex items-center gap-1.5 px-3 py-1.5 border-b border-slate-100">
           <span className="rounded-full bg-blue-100/80 px-3 py-0.5 text-[10px] font-bold text-blue-700 shadow-2xs">
-            For You
+            Market Feed
           </span>
           <span className="rounded-full px-2 py-0.5 text-[10px] font-medium text-slate-600 hover:text-slate-900">
             Spaces
@@ -588,12 +585,12 @@ function FeedPreview() {
           <span className="rounded-full px-2 py-0.5 text-[10px] font-medium text-slate-600 hover:text-slate-900">
             Saved
           </span>
-        </div>
+        </nav>
 
         {/* Stories / User Avatars Ribbon */}
-        <div className="story-ribbon">
+        <ul role="list" className="story-ribbon list-none p-0 m-0">
           {stories.map((story) => (
-            <div key={story.id} className="flex shrink-0 flex-col items-center gap-0.5 text-center">
+            <li key={story.id} className="flex shrink-0 flex-col items-center gap-0.5 text-center">
               {story.isAll ? (
                 <div className="relative size-7 rounded-full p-[1.5px] ring-2 ring-blue-600">
                   <div className="flex h-full w-full items-center justify-center rounded-full bg-[#0d2247] text-white">
@@ -622,9 +619,9 @@ function FeedPreview() {
               )}
               <span className="text-[10px] font-bold text-slate-900 leading-none">{story.name}</span>
               <span className="text-[8.5px] text-slate-600 font-medium leading-none">{story.time}</span>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
         {/* Feed Posts */}
         <div className="space-y-2.5 p-2.5">
@@ -654,8 +651,8 @@ function FeedPreview() {
             <p className="mt-1.5 text-xs font-bold text-slate-900 leading-snug line-clamp-1">
               Bitcoin institutional treasury accumulation accelerates through spot ETFs&hellip;
             </p>
-            <p className="mt-0.5 text-[10px] text-slate-700 leading-relaxed line-clamp-2">
-              Balance sheet demand continues to absorb daily miner issuance as sovereign reserves enter allocation phases&hellip;
+            <p className="mt-0.5 text-xs text-slate-700 leading-relaxed line-clamp-2">
+              Treasury reserves and spot ETF inflows continue to absorb newly mined bitcoin supply each day.
             </p>
 
             {/* Target & Horizon Bar */}
@@ -665,7 +662,7 @@ function FeedPreview() {
                 <span className="text-slate-400">|</span>
                 <span>Horizon <b className="text-slate-900 font-bold">180d</b></span>
               </div>
-              <Compass size={13} className="text-blue-700" />
+              <FundingTargetIcon size={13} className="text-blue-700" />
             </figure>
 
             {/* Stats Row */}
@@ -718,8 +715,8 @@ function FeedPreview() {
             <p className="mt-1.5 text-xs font-bold text-slate-900 leading-snug line-clamp-1">
               Hyperscaler capex digestion poses near-term margin risk across hardware suppliers&hellip;
             </p>
-            <p className="mt-0.5 text-[10px] text-slate-700 leading-relaxed line-clamp-2">
-              Enterprise cloud buyers are extending server lifecycles, signaling cooling hardware refresh momentum through Q4&hellip;
+            <p className="mt-0.5 text-xs text-slate-700 leading-relaxed line-clamp-2">
+              Cloud data centers are keeping existing servers longer, slowing near-term hardware orders through year-end.
             </p>
 
             {/* Target & Horizon Bar */}
@@ -729,7 +726,7 @@ function FeedPreview() {
                 <span className="text-slate-400">|</span>
                 <span>Horizon <b className="text-slate-900 font-bold">90d</b></span>
               </div>
-              <Compass size={13} className="text-blue-700" />
+              <FundingTargetIcon size={13} className="text-blue-700" />
             </figure>
 
             {/* Stats Row */}
@@ -761,6 +758,8 @@ function FeedPreview() {
       {/* Floating Action Button (FAB) with gradient glow */}
       <button
         type="button"
+        tabIndex={-1}
+        aria-hidden="true"
         aria-label="Create new thesis"
         className="fab-trigger hover:bg-slate-900 focus-ring"
       >
@@ -768,7 +767,7 @@ function FeedPreview() {
       </button>
 
       {/* Bottom Phone Navigation */}
-      <div className="relative z-10 shrink-0 border-t border-slate-100 bg-white py-1.5 px-2">
+      <nav aria-label="Phone navigation" className="relative z-10 shrink-0 border-t border-slate-100 bg-white py-1.5 px-2">
         <div className="grid grid-cols-4 text-center items-center">
           <div className="flex flex-col items-center gap-[1px] text-blue-600">
             <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
@@ -792,7 +791,7 @@ function FeedPreview() {
             <span className="text-[9px] font-medium">Profile</span>
           </div>
         </div>
-      </div>
+      </nav>
     </div>
   );
 }

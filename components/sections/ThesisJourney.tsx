@@ -424,6 +424,8 @@ export function ThesisJourney() {
                         {/* View $AMD Button */}
                         <button
                           type="button"
+                          tabIndex={-1}
+                          aria-hidden="true"
                           aria-label="View AMD thesis"
                           className="mt-1 w-full rounded-md bg-slate-950 py-1 text-center text-[10px] font-bold text-white shadow-xs hover:bg-slate-900 focus-ring cursor-pointer"
                         >

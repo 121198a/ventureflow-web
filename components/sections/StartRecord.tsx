@@ -555,6 +555,8 @@ function FeedMini() {
       {/* Floating Action Button (FAB) with gradient glow */}
       <button
         type="button"
+        tabIndex={-1}
+        aria-hidden="true"
         aria-label="Create new thesis"
         className="fab-trigger hover:bg-slate-900 focus-ring"
       >
