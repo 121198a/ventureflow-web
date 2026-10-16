@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
-import { Bookmark, FileText } from "lucide-react";
+import { Bookmark, FileText, Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const savedList = [
   { rank: 1, name: "Northhstar Lab Pvt. Ltd.", stage: "Early Stage", active: false },
@@ -10,6 +12,13 @@ const savedList = [
 ];
 
 export function TradeCompete() {
+  const [noteSaved, setNoteSaved] = useState(false);
+
+  const handleSaveNote = () => {
+    setNoteSaved(true);
+    setTimeout(() => setNoteSaved(false), 2200);
+  };
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/50 via-white to-slate-50/70 px-5 py-20 sm:py-28 border-t border-slate-200/80">
       <div className="pointer-events-none absolute right-1/3 top-1/4 h-72 w-72 rounded-full bg-blue-100/30 blur-3xl" />
@@ -61,9 +70,20 @@ export function TradeCompete() {
 
           <button
             type="button"
-            className="btn-pill-primary mt-6 w-full py-3"
+            onClick={handleSaveNote}
+            className={cn(
+              "btn-pill-primary mt-6 w-full py-3 cursor-pointer transition-all",
+              noteSaved && "bg-emerald-600 hover:bg-emerald-700"
+            )}
+            aria-live="polite"
           >
-            Save note
+            {noteSaved ? (
+              <span className="flex items-center justify-center gap-1.5 text-white">
+                <Check size={16} /> Note saved to workspace
+              </span>
+            ) : (
+              "Save note"
+            )}
           </button>
 
           <p className="mt-3.5 text-center text-xs text-slate-600 font-normal">
