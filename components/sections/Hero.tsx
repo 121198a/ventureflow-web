@@ -8,7 +8,6 @@ import {
   useScroll,
   useTransform,
   useSpring,
-  useMotionValue,
 } from "framer-motion";
 import {
   ChevronDown,
@@ -221,9 +220,6 @@ export function Hero() {
     restDelta: 0.001,
   });
 
-  // Phone subtle scroll-driven tilt & parallax
-  const scrollRotateY = useTransform(smoothScroll, [0, 1], [0, 5.5]);
-  const scrollRotateX = useTransform(smoothScroll, [0, 1], [0, 3.5]);
   const scrollTranslateY = useTransform(smoothScroll, [0, 1], [0, -32]);
 
   // Subtle 3D card layer parallax across scroll
@@ -231,23 +227,6 @@ export function Hero() {
   const midCardsParallax = useTransform(smoothScroll, [0, 1], [0, -22]);
   const btmCardsParallax = useTransform(smoothScroll, [0, 1], [0, -32]);
 
-  // Desktop Pointer parallax (subtle, non-conflicting)
-  const pointerX = useMotionValue(0);
-  const pointerY = useMotionValue(0);
-  const smoothPointerX = useSpring(pointerX, { stiffness: 85, damping: 22 });
-  const smoothPointerY = useSpring(pointerY, { stiffness: 85, damping: 22 });
-  const pointerTiltY = useTransform(smoothPointerX, [-1, 1], [-2.2, 2.2]);
-  const pointerTiltX = useTransform(smoothPointerY, [-1, 1], [1.8, -1.8]);
-
-  // Combined smooth rotation for 3D staging (only on desktop)
-  const combinedTiltX = useTransform(
-    [pointerTiltX, scrollRotateX],
-    ([p, s]) => (!isDesktop || reducedMotion ? 0 : ((p as number) || 0) + ((s as number) || 0))
-  );
-  const combinedTiltY = useTransform(
-    [pointerTiltY, scrollRotateY],
-    ([p, s]) => (!isDesktop || reducedMotion ? 0 : ((p as number) || 0) + ((s as number) || 0))
-  );
   const scrollYOffset = useTransform(scrollTranslateY, (val) => (!isDesktop || reducedMotion ? 0 : val));
 
   useEffect(() => {
@@ -323,28 +302,9 @@ export function Hero() {
     };
   }, [phoneControls, reduce, mounted, isDesktop]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (reduce || !mounted || !isDesktop) return;
-    if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
-      return;
-    }
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    pointerX.set(Math.max(-1, Math.min(1, x)));
-    pointerY.set(Math.max(-1, Math.min(1, y)));
-  };
-
-  const handleMouseLeave = () => {
-    pointerX.set(0);
-    pointerY.set(0);
-  };
-
   return (
     <section
       ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       className="hero-section-hero"
     >
       {/* Dynamic Ambient Responsive Lighting */}

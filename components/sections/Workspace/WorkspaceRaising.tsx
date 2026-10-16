@@ -74,7 +74,7 @@ export function WorkspaceRaising() {
             as="article"
             key={d.name}
             delay={i * 0.1}
-            className="card-article-interactive p-4 sm:p-6 w-full max-w-full overflow-hidden"
+            className="p-4 sm:p-6 w-full max-w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-xs hover:border-slate-300 transition-all"
           >
             <div className="flex items-center justify-between gap-3">
               <div className="flex min-w-0 flex-1 items-center gap-3">

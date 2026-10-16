@@ -12,14 +12,14 @@ import { Button } from "@/components/ui/button";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "For Founders — Your Startup Workspace | VentureFlow",
+  title: "For Founders — Your Startup Workspace",
   description:
     "Build your startup profile on VentureFlow, share documents, request introductions and keep every conversation in one workspace.",
   alternates: {
     canonical: "/for-founders",
   },
   openGraph: {
-    title: "For Founders — Your Startup Workspace | VentureFlow",
+    title: "For Founders — Your Startup Workspace — VentureFlow by Veyron X",
     description: "Startup profile, document sharing, introductions and messages in one workspace.",
     url: `${SITE_URL}/for-founders`,
     type: "website",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "For Founders — Your Startup Workspace | VentureFlow",
+    title: "For Founders — Your Startup Workspace — VentureFlow by Veyron X",
     description: "Startup profile, document sharing, introductions and messages in one workspace.",
     images: ["/brand/og-image.png"],
   },

@@ -21,7 +21,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { initiateOAuthSignIn } from "@/lib/supabase/client";
-import { sanitizeRedirectUrl } from "@/lib/utils";
+import { cn, sanitizeRedirectUrl } from "@/lib/utils";
 import { PhoneInput } from "@/components/site/phone-input";
 
 type AuthFlow = "login" | "signup" | "recover" | "protect" | "support" | "reset";
@@ -118,6 +118,13 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   const [recoverMiddleName, setRecoverMiddleName] = useState("");
   const [recoverLastName, setRecoverLastName] = useState("");
   const [recoverDob, setRecoverDob] = useState("");
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("vf_login_email");
+      if (saved) setIdentifier(saved);
+    } catch {}
+  }, []);
 
   // Support form fields (Image 4)
   const [supportName, setSupportName] = useState("");
@@ -872,32 +879,38 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
       ) : (
         <form onSubmit={handleLoginSubmit} autoComplete="on" className="mt-4 text-left space-y-3">
           {/* Auth Mode Toggle */}
-          <div className="flex rounded-xl bg-slate-100/90 p-1 border border-slate-200/60 mb-2">
+          <div role="tablist" aria-label="Sign in method" className="flex rounded-xl bg-slate-100/90 p-1 border border-slate-200/60 mb-2">
             <button
               type="button"
+              role="tab"
+              aria-selected={loginMode === "email"}
               onClick={() => {
                 setLoginMode("email");
                 if (formError) setFormError(null);
               }}
-              className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+              className={cn(
+                "flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none focus-ring",
                 loginMode === "email"
-                  ? "bg-white text-slate-900 shadow-2xs font-semibold"
-                  : "text-slate-500 hover:text-slate-800 font-medium"
-              }`}
+                  ? "bg-white text-slate-900 shadow-2xs hover:bg-slate-50"
+                  : "text-slate-600 hover:text-slate-900 font-medium hover:bg-slate-200/50"
+              )}
             >
               Email
             </button>
             <button
               type="button"
+              role="tab"
+              aria-selected={loginMode === "phone"}
               onClick={() => {
                 setLoginMode("phone");
                 if (formError) setFormError(null);
               }}
-              className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+              className={cn(
+                "flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none focus-ring",
                 loginMode === "phone"
-                  ? "bg-white text-slate-900 shadow-2xs font-semibold"
-                  : "text-slate-500 hover:text-slate-800 font-medium"
-              }`}
+                  ? "bg-white text-slate-900 shadow-2xs hover:bg-slate-50"
+                  : "text-slate-600 hover:text-slate-900 font-medium hover:bg-slate-200/50"
+              )}
             >
               Phone Number
             </button>
@@ -917,7 +930,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                     type="button"
                     disabled={otpSending}
                     onClick={handleSendOtp}
-                    className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50"
+                    className="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer disabled:opacity-50 focus-ring rounded"
                   >
                     {otpSending ? "Sending OTP..." : "Sign in with Email OTP →"}
                   </button>
@@ -930,18 +943,22 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                 value={identifier}
                 disabled={isSubmitting}
                 onChange={(e) => {
-                  setIdentifier(e.target.value);
+                  const val = e.target.value;
+                  setIdentifier(val);
+                  try {
+                    localStorage.setItem("vf_login_email", val);
+                  } catch {}
                   if (formError) setFormError(null);
                 }}
                 placeholder="you@example.com"
                 required
-                className="w-full h-10 rounded-xl border border-slate-200/90 bg-white px-3.5 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+                className="input-fintech h-10 text-xs sm:text-sm"
               />
               <div className="flex justify-end mt-1">
                 <button
                   type="button"
                   onClick={() => navigateFlow("recover")}
-                  className="text-[11px] text-blue-600 font-medium hover:underline cursor-pointer"
+                  className="text-[11px] text-blue-600 font-medium hover:underline cursor-pointer focus-ring rounded"
                 >
                   Forgot your email?
                 </button>
@@ -1203,32 +1220,38 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
       ) : (
         <form onSubmit={handleSignupSubmit} autoComplete="on" className="mt-4 text-left space-y-3">
           {/* Signup Mode Toggle */}
-          <div className="flex rounded-xl bg-slate-100/90 p-1 border border-slate-200/60 mb-2">
+          <div role="tablist" aria-label="Signup method" className="flex rounded-xl bg-slate-100/90 p-1 border border-slate-200/60 mb-2">
             <button
               type="button"
+              role="tab"
+              aria-selected={signupMode === "email"}
               onClick={() => {
                 setSignupMode("email");
                 if (formError) setFormError(null);
               }}
-              className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+              className={cn(
+                "flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none focus-ring",
                 signupMode === "email"
-                  ? "bg-white text-slate-900 shadow-2xs font-semibold"
-                  : "text-slate-500 hover:text-slate-800 font-medium"
-              }`}
+                  ? "bg-white text-slate-900 shadow-2xs hover:bg-slate-50"
+                  : "text-slate-600 hover:text-slate-900 font-medium hover:bg-slate-200/50"
+              )}
             >
               Email
             </button>
             <button
               type="button"
+              role="tab"
+              aria-selected={signupMode === "phone"}
               onClick={() => {
                 setSignupMode("phone");
                 if (formError) setFormError(null);
               }}
-              className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none ${
+              className={cn(
+                "flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer font-semibold select-none focus-ring",
                 signupMode === "phone"
-                  ? "bg-white text-slate-900 shadow-2xs font-semibold"
-                  : "text-slate-500 hover:text-slate-800 font-medium"
-              }`}
+                  ? "bg-white text-slate-900 shadow-2xs hover:bg-slate-50"
+                  : "text-slate-600 hover:text-slate-900 font-medium hover:bg-slate-200/50"
+              )}
             >
               Phone Number
             </button>
@@ -1246,12 +1269,16 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                 value={identifier}
                 disabled={isSubmitting}
                 onChange={(e) => {
-                  setIdentifier(e.target.value);
+                  const val = e.target.value;
+                  setIdentifier(val);
+                  try {
+                    localStorage.setItem("vf_login_email", val);
+                  } catch {}
                   if (formError) setFormError(null);
                 }}
                 placeholder="you@example.com"
                 required
-                className="w-full h-10 rounded-xl border border-slate-200/90 bg-white px-3.5 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+                className="input-fintech h-10 text-xs sm:text-sm"
               />
             </div>
           ) : (

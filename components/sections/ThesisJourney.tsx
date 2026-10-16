@@ -118,13 +118,7 @@ export function ThesisJourney() {
 
               {steps.map((step, i) => (
                 <li key={step.title} className="relative z-10 flex w-full items-start gap-4 text-left group p-1.5 rounded-lg hover:bg-slate-50 transition-colors">
-                  <button
-                    type="button"
-                    onClick={() => setActive(i)}
-                    className="flex items-center justify-center pt-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-full cursor-pointer"
-                    aria-label={`Step ${i + 1}: ${step.title}`}
-                    aria-pressed={active === i}
-                  >
+                  <span className="flex items-center justify-center pt-1" aria-hidden="true">
                     <span
                       className={cn(
                         "h-3.5 w-3.5 rounded-pill border-2 transition-all duration-300",
@@ -133,31 +127,31 @@ export function ThesisJourney() {
                           : "border-slate-300 bg-white group-hover:border-slate-400"
                       )}
                     />
-                  </button>
+                  </span>
 
-                  <div
+                  <button
+                    type="button"
                     onClick={() => setActive(i)}
-                    className={cn(
-                      "transition-all duration-300 flex-1 cursor-pointer",
-                      active === i ? "translate-x-0" : ""
-                    )}
+                    aria-label={`Step ${i + 1}: ${step.title}`}
+                    aria-pressed={active === i}
+                    className="flex-1 text-left cursor-pointer focus-ring rounded-sm transition-all"
                   >
-                    <h3
+                    <span
                       className={cn(
-                        "text-sm sm:text-base xl:text-lg font-bold tracking-tight leading-snug transition-colors",
+                        "block text-sm sm:text-base xl:text-lg font-bold tracking-tight leading-snug transition-colors",
                         active === i ? "text-slate-900" : "text-slate-600 group-hover:text-slate-900"
                       )}
                     >
                       {step.title}
-                    </h3>
-                    <p
+                    </span>
+                    <span
                       className={cn(
-                        "mt-0.5 max-w-md text-xs sm:text-sm leading-relaxed transition-colors",
+                        "block mt-0.5 max-w-md text-xs sm:text-sm leading-relaxed transition-colors",
                         active === i ? "text-slate-600" : "text-slate-500 group-hover:text-slate-600"
                       )}
                     >
                       {step.body}
-                    </p>
+                    </span>
 
                     {active === i && (
                       <motion.div
@@ -172,7 +166,7 @@ export function ThesisJourney() {
                         </span>
                       </motion.div>
                     )}
-                  </div>
+                  </button>
                 </li>
               ))}
             </ol>

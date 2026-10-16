@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Workspace Capabilities | VentureFlow",
+  title: "Workspace Capabilities",
   description: "See what founders and investors can do in a VentureFlow workspace: profiles, introductions, messages, notes and documents.",
   alternates: {
     canonical: "/services",
   },
   openGraph: {
-    title: "Workspace Capabilities | VentureFlow",
+    title: "Workspace Capabilities — VentureFlow by Veyron X",
     description: "See what founders and investors can do in a VentureFlow workspace: profiles, introductions, messages, notes and documents.",
     url: `${SITE_URL}/services`,
     type: "website",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Workspace Capabilities | VentureFlow",
+    title: "Workspace Capabilities — VentureFlow by Veyron X",
     description: "See what founders and investors can do in a VentureFlow workspace: profiles, introductions, messages, notes and documents.",
     images: ["/brand/og-image.png"],
   },

@@ -57,6 +57,27 @@ export function ForgotPasswordForm({ role = "investor" }: { role?: "founder" | "
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    try {
+      const savedEmail = localStorage.getItem("vf:auth:email");
+      if (savedEmail) setEmail(savedEmail);
+      const savedPhone = localStorage.getItem("vf:auth:phone");
+      if (savedPhone) setPhone(savedPhone);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    if (email) {
+      try { localStorage.setItem("vf:auth:email", email); } catch {}
+    }
+  }, [email]);
+
+  useEffect(() => {
+    if (phone) {
+      try { localStorage.setItem("vf:auth:phone", phone); } catch {}
+    }
+  }, [phone]);
+
   // Close country dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -250,7 +271,9 @@ export function ForgotPasswordForm({ role = "investor" }: { role?: "founder" | "
                   type="button"
                   onClick={() => setCountryDropdownOpen(!countryDropdownOpen)}
                   disabled={isLoading}
-                  className="h-[clamp(2.75rem,6.4vh,3.8rem)] rounded-[clamp(12px,0.98vw,17px)] border border-slate-200 bg-white px-3.5 text-sm font-semibold text-slate-700 flex items-center gap-1.5 hover:bg-slate-50 focus:outline-none focus:border-blue-600 transition-all shrink-0 cursor-pointer"
+                  aria-expanded={countryDropdownOpen}
+                  aria-haspopup="listbox"
+                  className="h-[clamp(2.75rem,6.4vh,3.8rem)] rounded-[clamp(12px,0.98vw,17px)] border border-slate-200 bg-white px-3.5 text-sm font-semibold text-slate-700 flex items-center gap-1.5 hover:bg-slate-50 transition-all shrink-0 cursor-pointer focus-ring"
                   aria-label="Select country calling code"
                 >
                   <span>{selectedCountry.code}</span>

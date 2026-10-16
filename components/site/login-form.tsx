@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, Suspense, useState } from "react";
+import { FormEvent, Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PasswordField } from "./password-field";
@@ -14,7 +14,7 @@ import {
   FieldLabel,
 } from "./input-field";
 import { Loader2 } from "lucide-react";
-import { sanitizeRedirectUrl } from "@/lib/utils";
+import { cn, sanitizeRedirectUrl } from "@/lib/utils";
 
 function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" }) {
   const router = useRouter();
@@ -29,6 +29,15 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    try {
+      const savedEmail = localStorage.getItem("vf_login_email");
+      if (savedEmail) setEmail(savedEmail);
+      const savedPhone = localStorage.getItem("vf_login_phone");
+      if (savedPhone) setPhone(savedPhone);
+    } catch {}
+  }, []);
 
   // Phone OTP Flow states
   const [otpStep, setOtpStep] = useState(false);
@@ -348,32 +357,38 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
       )}
 
       {/* Auth mode selector */}
-      <div className="flex rounded-xl bg-[#eef2f8] p-1 border border-slate-200/60 mb-1">
+      <div role="tablist" aria-label="Authentication method" className="flex rounded-xl bg-[#eef2f8] p-1 border border-slate-200/60 mb-1">
         <button
           type="button"
+          role="tab"
+          aria-selected={authMode === "email"}
           onClick={() => {
             setAuthMode("email");
             if (errorMessage) setErrorMessage(null);
           }}
-          className={`flex-1 py-2 text-xs sm:text-sm rounded-lg transition-all font-semibold cursor-pointer select-none ${
+          className={cn(
+            "flex-1 py-2 text-xs sm:text-sm rounded-lg transition-all font-semibold cursor-pointer select-none focus-ring",
             authMode === "email"
-              ? "bg-white text-slate-900 shadow-xs"
-              : "text-slate-600 hover:text-slate-900 font-medium"
-          }`}
+              ? "bg-white text-slate-900 shadow-xs hover:bg-slate-50"
+              : "text-slate-600 hover:text-slate-900 font-medium hover:bg-slate-200/50"
+          )}
         >
           Email
         </button>
         <button
           type="button"
+          role="tab"
+          aria-selected={authMode === "phone"}
           onClick={() => {
             setAuthMode("phone");
             if (errorMessage) setErrorMessage(null);
           }}
-          className={`flex-1 py-2 text-xs sm:text-sm rounded-lg transition-all font-semibold cursor-pointer select-none ${
+          className={cn(
+            "flex-1 py-2 text-xs sm:text-sm rounded-lg transition-all font-semibold cursor-pointer select-none focus-ring",
             authMode === "phone"
-              ? "bg-white text-slate-900 shadow-xs"
-              : "text-slate-600 hover:text-slate-900 font-medium"
-          }`}
+              ? "bg-white text-slate-900 shadow-xs hover:bg-slate-50"
+              : "text-slate-600 hover:text-slate-900 font-medium hover:bg-slate-200/50"
+          )}
         >
           Phone Number
         </button>
@@ -404,7 +419,11 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
             required
             value={email}
             onChange={(e) => {
-              setEmail(e.target.value);
+              const val = e.target.value;
+              setEmail(val);
+              try {
+                localStorage.setItem("vf_login_email", val);
+              } catch {}
               if (errorMessage) setErrorMessage(null);
             }}
             className={AUTH_INPUT_CLASS}

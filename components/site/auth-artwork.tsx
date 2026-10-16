@@ -16,13 +16,12 @@ export function AuthArtwork({ className = "" }: { className?: string }) {
     >
       <Image
         src="/images/auth-wave.webp"
-        alt=""
+        alt="VentureFlow brand wave illustration"
         width={1348}
         height={880}
         priority
         sizes="(min-width: 1024px) 50vw, 100vw"
         className="h-full w-full object-cover object-left-bottom"
-        aria-hidden="true"
       />
     </div>
   );

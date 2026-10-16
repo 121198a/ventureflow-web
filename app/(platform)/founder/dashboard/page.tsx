@@ -4,7 +4,7 @@ import { FounderDashboardClient } from "@/components/dashboard/FounderDashboardC
 import { Loader2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Founder & Issuer Dashboard | VentureFlow by Veyron X",
+  title: "Founder & Issuer Dashboard",
   description:
     "Manage your capital raise, track real investor inquiries, and review SEC compliance filings on VentureFlow.",
   robots: {

@@ -33,12 +33,12 @@ export function WhyJoin() {
         </Reveal>
         <div className="grid gap-4 sm:grid-cols-2">
           {reasons.map(([title, body], i) => (
-            <Reveal as="article" key={title} delay={i * 0.06} className="lift h-full rounded-2xl border border-border bg-card p-6 shadow-xs">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-soft text-xs font-bold text-brand">
+            <Reveal as="article" key={title} delay={i * 0.06} className="h-full border-l-2 border-l-blue-600 border-y border-r border-slate-200/90 bg-white p-6 shadow-xs transition-all hover:bg-slate-50/70">
+              <span className="inline-flex h-7 w-7 items-center justify-center bg-blue-50 text-xs font-bold text-blue-700 border border-blue-100">
                 0{i + 1}
               </span>
-              <h3 className="display mt-5 text-lg">{title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-text-secondary">{body}</p>
+              <h3 className="display mt-4 text-lg font-bold text-slate-900">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{body}</p>
             </Reveal>
           ))}
         </div>

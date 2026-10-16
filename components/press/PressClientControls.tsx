@@ -61,9 +61,9 @@ export function ColorSwatch({
   };
 
   return (
-    <figure className="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs flex flex-col justify-between m-0">
+    <figure className="border border-slate-200 bg-white p-3.5 shadow-2xs flex flex-col justify-between m-0 hover:border-slate-300 transition-colors">
       <figcaption>
-        <div className={`h-12 w-full rounded-lg border border-slate-100 ${colorClass}`} aria-hidden="true" />
+        <div className={`h-10 w-full border border-slate-200/80 ${colorClass}`} aria-hidden="true" />
         <p className="mt-3 text-xs font-bold text-slate-900">{name}</p>
         <p className="mt-1 text-xs text-slate-500 leading-snug">{usage}</p>
       </figcaption>
@@ -73,7 +73,7 @@ export function ColorSwatch({
           type="button"
           onClick={handleCopy}
           aria-label={`Copy ${hex}`}
-          className="text-slate-400 hover:text-slate-700 text-xs inline-flex items-center gap-1 cursor-pointer"
+          className="text-slate-400 hover:text-slate-700 text-xs inline-flex items-center gap-1 cursor-pointer focus-ring rounded"
         >
           {copied ? <Check size={12} className="text-emerald-600" /> : <Copy size={12} />}
         </button>

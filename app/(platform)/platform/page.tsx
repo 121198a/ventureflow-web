@@ -8,14 +8,14 @@ import { offerings, getDynamicOfferings } from "@/lib/offerings-data";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Startup Directory | VentureFlow by Veyron X",
+  title: "Startup Directory",
   description:
     "Explore startup profiles, follow founder updates, and continue the conversation with introductions, messages and shared documents.",
   alternates: {
     canonical: "/platform",
   },
   openGraph: {
-    title: "Startup Directory | VentureFlow by Veyron X",
+    title: "Startup Directory — VentureFlow by Veyron X",
     description:
       "A workspace to discover startups and collaborate with founders on VentureFlow by Veyron X.",
     url: `${SITE_URL}/platform`,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Startup Directory | VentureFlow by Veyron X",
+    title: "Startup Directory — VentureFlow by Veyron X",
     description:
       "A workspace to discover startups and collaborate with founders on VentureFlow by Veyron X.",
     images: ["/brand/og-image.png"],

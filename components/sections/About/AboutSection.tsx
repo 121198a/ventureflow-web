@@ -126,7 +126,7 @@ export default function AboutSection() {
         </Reveal>
 
         <div className="mx-auto mt-14 grid max-w-6xl gap-6 px-6 md:grid-cols-3">
-          <Reveal as="article" delay={0} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-xl bg-white border border-slate-200 shadow-xs ${styles.receipt || ""}`}>
+          <Reveal as="article" delay={0} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-md border-t-2 border-t-slate-700 bg-white border-x border-b border-slate-200 shadow-xs ${styles.receipt || ""}`}>
             <figure className="mb-6 rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 m-0">
               <div className="mb-2 h-2.5 w-3/4 rounded bg-slate-200" />
               <div className="mb-2 h-2.5 w-1/2 rounded bg-slate-200" />
@@ -143,7 +143,7 @@ export default function AboutSection() {
             </p>
           </Reveal>
 
-          <Reveal as="article" delay={0.08} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-xl bg-white border border-slate-200 shadow-xs ${styles.receipt || ""}`}>
+          <Reveal as="article" delay={0.08} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-md border-t-2 border-t-blue-600 bg-white border-x border-b border-slate-200 shadow-xs ${styles.receipt || ""}`}>
             <figure className="relative mb-6 flex h-[104px] items-center justify-center rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 m-0">
               <div className="text-center">
                 <span className="font-mono text-3xl font-bold text-blue-600">3 tools</span>
@@ -159,7 +159,7 @@ export default function AboutSection() {
             </p>
           </Reveal>
 
-          <Reveal as="article" delay={0.16} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-xl bg-white border border-slate-200 shadow-xs ${styles.receipt || ""}`}>
+          <Reveal as="article" delay={0.16} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-md border-t-2 border-t-emerald-600 bg-white border-x border-b border-slate-200 shadow-xs ${styles.receipt || ""}`}>
             <figure className="mb-6 flex h-[104px] items-center justify-center gap-4 rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 m-0">
               <div className="text-center">
                 <div className="font-mono text-lg font-bold">Inbox</div>
@@ -223,7 +223,7 @@ export default function AboutSection() {
         </Reveal>
 
         <Reveal delay={0.1} className="mx-auto mt-12 max-w-4xl px-6">
-          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xs">
+          <div className="overflow-hidden rounded-md border border-slate-200 bg-white shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[560px] text-left text-sm">
                 <thead>
@@ -291,7 +291,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
-            className="mx-auto flex w-full max-w-[1120px] flex-col items-center gap-8 rounded-2xl border border-slate-200/90 bg-white p-6 md:p-10 shadow-xl md:flex-row md:justify-between"
+            className="banner-overlap-card"
           >
             <div className="text-center md:text-left">
               <h2 className="font-about-display text-[clamp(1.4rem,3vw,1.8rem)] font-extrabold tracking-tight text-slate-900">

@@ -31,7 +31,7 @@ export function TradeCompete() {
           </p>
         </Reveal>
 
-        <Reveal as="article" aria-label="Sample workspace note" direction="right" delay={0.1} className="order-1 rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs lg:order-2">
+        <Reveal as="article" aria-label="Sample workspace note" direction="right" delay={0.1} className="order-1 rounded-md border border-slate-200 bg-white p-6 sm:p-8 shadow-xs lg:order-2">
           <header className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-full bg-emerald-500" />
@@ -74,7 +74,7 @@ export function TradeCompete() {
 
       {/* Saved lists block */}
       <div className="relative z-10 mx-auto mt-24 grid max-w-[1100px] items-center gap-12 lg:grid-cols-2">
-        <Reveal as="article" aria-label="Saved startup list demonstration" direction="left" className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
+        <Reveal as="article" aria-label="Saved startup list demonstration" direction="left" className="rounded-md border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
           <header className="mb-5 flex items-center gap-2 font-bold text-slate-900 text-base">
             <Bookmark size={18} className="text-blue-600" />
             <h4>Saved startups</h4>

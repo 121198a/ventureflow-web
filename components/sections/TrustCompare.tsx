@@ -29,7 +29,7 @@ export function TrustCompare() {
 
       <div className="relative mx-auto mt-16 grid grid-cols-1 max-w-[1100px] items-stretch gap-8 md:grid-cols-2">
         {/* Without Track Record (Left Side) */}
-        <Reveal as="article" aria-label="Unverified social discourse comparison" direction="left" className="w-full min-w-0 flex flex-col rounded-xl border border-slate-200 bg-slate-50/70 p-6 sm:p-8 shadow-xs">
+        <Reveal as="article" aria-label="Unverified social discourse comparison" direction="left" className="w-full min-w-0 flex flex-col rounded-md border border-slate-200 bg-slate-50/70 p-6 sm:p-8 shadow-xs">
           <header className="flex items-center justify-between mb-4">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-600">
               Unverified Social Discourse
@@ -88,7 +88,7 @@ export function TrustCompare() {
             <span>VentureFlow Verified</span>
           </span>
 
-          <div className="gb-animated-line relative w-full min-w-0 flex-1 flex flex-col rounded-xl border-2 border-blue-600 bg-white p-6 sm:p-8 shadow-md">
+          <div className="gb-animated-line relative w-full min-w-0 flex-1 flex flex-col rounded-md border-2 border-blue-600 bg-white p-6 sm:p-8 shadow-md">
             <header className="flex items-center justify-between mb-4">
               <h3 className="text-xs font-bold uppercase tracking-wider text-blue-700">
                 Audited Public Ledger

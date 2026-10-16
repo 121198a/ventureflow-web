@@ -3,7 +3,7 @@ import { AuthLayout } from "@/components/site/auth-layout";
 import { SignupForm } from "@/components/site/signup-form";
 
 export const metadata: Metadata = {
-  title: "Apply as a Founder | VentureFlow by Veyron X",
+  title: "Apply as a Founder",
   description: "Complete your founder application to access investors and launch your raise.",
 };
 

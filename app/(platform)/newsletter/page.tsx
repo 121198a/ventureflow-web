@@ -5,7 +5,7 @@ import { NewsletterList } from "@/components/site/newsletter-list";
 import { site, SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "The Fundraising Playbook — VentureFlow Newsletter",
+  title: "The Fundraising Playbook",
   description:
     "A weekly playbook on the mechanics of private raises: closes, data rooms, investor conditions, and the operational discipline institutional counterparties expect.",
   alternates: {

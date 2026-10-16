@@ -78,7 +78,7 @@ export function WorkspaceHero() {
           {/* Secondary Down Arrow Link — in-page scroll to the company Space preview, not the dashboard */}
           <Link
             href="/workspace#raising"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors py-2 px-3 group"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors py-2 px-3 group focus-ring rounded-md"
           >
             <span>Explore companies</span>
             <ArrowDown className="h-3.5 w-3.5 text-slate-600 group-hover:text-slate-900 group-hover:translate-y-0.5 transition-all" />

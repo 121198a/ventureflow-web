@@ -50,7 +50,7 @@ export function BeyondFeed() {
           </p>
         </Reveal>
 
-        <Reveal as="article" aria-label="Audited analyst track record card" direction="right" delay={0.1} className="rounded-xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+        <Reveal as="article" aria-label="Audited analyst track record card" direction="right" delay={0.1} className="rounded-md border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-xs">

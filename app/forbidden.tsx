@@ -2,7 +2,7 @@ import { ErrorView } from "@/components/ui/ErrorView";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "403 - Access Forbidden | VentureFlow",
+  title: "403 — Access Forbidden",
   description: "You do not have permission to access this resource or page.",
 };
 

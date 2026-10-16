@@ -137,10 +137,10 @@ export default function PressPage() {
           {/* Fast Facts Grid */}
           <section aria-labelledby="fast-facts-title" className="mt-16">
             <h2 id="fast-facts-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">Company Fast Facts</h2>
-            <dl className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <dl className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200">
               {fastFacts.map((fact) => (
-                <div key={fact.label} className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
-                  <dt className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <div key={fact.label} className="bg-white p-5">
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                     {fact.label}
                   </dt>
                   <dd className="mt-1.5 text-sm sm:text-base font-bold text-slate-900">

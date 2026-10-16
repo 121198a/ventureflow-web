@@ -57,8 +57,11 @@ export function ConsultationModal({
       aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
     >
-      <div
-        className="fixed inset-0 bg-navy/80 backdrop-blur-sm transition-opacity"
+      <button
+        type="button"
+        aria-label="Close consultation modal"
+        tabIndex={-1}
+        className="fixed inset-0 bg-navy/80 backdrop-blur-sm transition-opacity cursor-pointer border-0 p-0"
         onClick={onClose}
       />
 

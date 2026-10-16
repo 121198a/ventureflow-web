@@ -155,27 +155,24 @@ export function LaptopFrame({
   };
 
   return (
-    <div
+    <figure
       ref={containerRef}
       className={cn(
-        "relative mx-auto w-full max-w-[640px] flex flex-col items-center select-none overflow-hidden sm:overflow-visible cursor-pointer hover:opacity-95 focus-ring rounded-xl",
+        "relative mx-auto w-full max-w-[640px] flex flex-col items-center select-none overflow-hidden sm:overflow-visible rounded-xl m-0",
         className
       )}
-      onClick={handleTogglePlay}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          handleTogglePlay();
-        }
-      }}
-      tabIndex={0}
-      role="button"
-      aria-label={isPlaying ? `Pause demonstration: ${alt}` : `Play demonstration: ${alt}`}
-      aria-pressed={isPlaying}
     >
-      <span className="sr-only">
-        {isPlaying ? `Pause video demonstration: ${alt}` : `Play video demonstration: ${alt}`}
-      </span>
+      <button
+        type="button"
+        onClick={handleTogglePlay}
+        aria-label={isPlaying ? `Pause demonstration: ${alt}` : `Play demonstration: ${alt}`}
+        aria-pressed={isPlaying}
+        className="absolute inset-0 z-30 size-full cursor-pointer focus-ring rounded-xl border-0 bg-transparent p-0 text-left"
+      >
+        <span className="sr-only">
+          {isPlaying ? `Pause video demonstration: ${alt}` : `Play video demonstration: ${alt}`}
+        </span>
+      </button>
       {/* Subtle ambient lighting behind laptop - clamped on mobile to prevent horizontal viewport overflow */}
       <div
         aria-hidden="true"
@@ -245,7 +242,7 @@ export function LaptopFrame({
         {/* Trackpad notch */}
         <div className="absolute left-1/2 top-0 h-0.5 sm:h-1 w-12 sm:w-16 -translate-x-1/2 rounded-b-md bg-slate-600/70" />
       </div>
-    </div>
+    </figure>
   );
 }
 

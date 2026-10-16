@@ -16,10 +16,10 @@ export function HiringProcess() {
         <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 list-none m-0 p-0">
           {hiringSteps.map((s, i) => (
             <Reveal as="li" key={s.step} delay={i * 0.06}>
-              <article className="lift h-full rounded-2xl border border-border bg-card p-6">
-                <p className="display text-sm text-brand">{s.step}</p>
-                <h3 className="display mt-5 text-lg">{s.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-text-secondary">{s.body}</p>
+              <article className="h-full border-t-2 border-t-blue-600 border-x border-b border-slate-200/90 bg-white p-6 shadow-xs transition-all hover:bg-slate-50/60">
+                <p className="display text-xs font-bold text-blue-600 tracking-wider uppercase">{s.step}</p>
+                <h3 className="display mt-4 text-lg font-bold text-slate-900">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.body}</p>
               </article>
             </Reveal>
           ))}

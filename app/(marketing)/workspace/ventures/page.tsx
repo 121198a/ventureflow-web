@@ -5,10 +5,9 @@ import { WorkspaceMarketplace } from "@/components/sections/Workspace/WorkspaceM
 import { WorkspaceRails } from "@/components/sections/Workspace/WorkspaceRails";
 import { WorkspaceEconomics } from "@/components/sections/Workspace/WorkspaceEconomics";
 import { WorkspaceCta } from "@/components/sections/Workspace/WorkspaceCta";
-import { site } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Ventures — VentureFlow by " + site.name,
+  title: "Ventures",
   description:
     "Explore regulated venture rounds, vetted startup cohorts, and high-growth venture opportunities.",
 };

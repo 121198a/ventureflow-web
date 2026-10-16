@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   FileCheck,
@@ -48,29 +47,27 @@ export function CuratedTracks() {
 
             return (
               <Reveal key={track.id} delay={i * 0.07}>
-                <motion.div
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                  className={`card-article-interactive group relative flex flex-col justify-between p-6 ${
+                <div
+                  className={`group relative flex flex-col justify-between p-6 border-t-2 border-x border-b transition-all duration-200 hover:-translate-y-1 ${
                     isFirst
-                      ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white border-blue-600"
-                      : "bg-slate-50/70 hover:bg-white text-slate-900"
+                      ? "border-t-blue-600 border-x-blue-600/30 border-b-blue-600/30 bg-blue-600 text-white shadow-sm"
+                      : "border-t-slate-900 border-x-slate-200/90 border-b-slate-200/90 bg-white hover:border-t-blue-600 hover:shadow-md text-slate-900"
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between">
                       <span
-                        className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                        className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
                           isFirst
                             ? "bg-white/20 text-white border border-white/20"
-                            : "bg-blue-50 text-blue-700 border border-blue-100"
+                            : "bg-slate-100 text-slate-700 border border-slate-200"
                         }`}
                       >
                         {track.badge}
                       </span>
                       <div
-                        className={`grid h-8 w-8 place-items-center rounded-lg ${
-                          isFirst ? "bg-white/15 text-white" : "bg-white text-blue-600 shadow-2xs border border-slate-200/60"
+                        className={`grid h-8 w-8 place-items-center ${
+                          isFirst ? "bg-white/15 text-white" : "bg-slate-50 text-blue-600 border border-slate-200/80"
                         }`}
                       >
                         <Icon size={16} />
@@ -107,7 +104,7 @@ export function CuratedTracks() {
                       <ArrowRight size={13} />
                     </Link>
                   </div>
-                </motion.div>
+                </div>
               </Reveal>
             );
           })}

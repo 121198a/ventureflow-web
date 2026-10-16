@@ -97,7 +97,9 @@ export function PhoneInput({
         type="button"
         disabled={disabled}
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="h-full px-3 flex items-center gap-1.5 text-[length:clamp(0.85rem,1.05vw,1rem)] font-medium text-slate-700 hover:bg-slate-50 border-r border-slate-200/80 rounded-l-[clamp(12px,0.98vw,17px)] shrink-0 transition-colors cursor-pointer disabled:opacity-60 select-none"
+        aria-expanded={dropdownOpen}
+        aria-haspopup="listbox"
+        className="h-full px-3 flex items-center gap-1.5 text-[length:clamp(0.85rem,1.05vw,1rem)] font-medium text-slate-700 hover:bg-slate-50 border-r border-slate-200/80 rounded-l-[clamp(12px,0.98vw,17px)] shrink-0 transition-colors cursor-pointer disabled:opacity-60 select-none focus-ring"
         aria-label="Select country calling code"
       >
         <span className="text-base leading-none select-none">{selectedCountry.flag}</span>

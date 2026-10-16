@@ -2,7 +2,7 @@ import { ErrorView } from "@/components/ui/ErrorView";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "401 - Unauthorized | VentureFlow",
+  title: "401 — Unauthorized",
   description: "Authentication is required to view or access this page.",
 };
 

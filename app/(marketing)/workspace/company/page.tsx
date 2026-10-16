@@ -3,10 +3,9 @@ import { CompanySpaceSection } from "@/components/sections/Workspace/CompanySpac
 import { WorkspaceJourney } from "@/components/sections/Workspace/WorkspaceJourney";
 import { WorkspaceProcess } from "@/components/sections/Workspace/WorkspaceProcess";
 import { WorkspaceCta } from "@/components/sections/Workspace/WorkspaceCta";
-import { site } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Company Spaces — VentureFlow by " + site.name,
+  title: "Company Spaces",
   description:
     "A dedicated company space where founders share progress, track metrics, and communicate directly with engaged investors.",
 };

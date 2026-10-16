@@ -409,7 +409,7 @@ export function SiteFooter() {
             transition={{ duration: 0.5 }}
             className="banner-overlap-card"
           >
-            <figure className="w-full max-w-[280px] shrink-0 rounded-xl border border-slate-200 bg-slate-50/80 p-5 shadow-xs m-0">
+            <figure className="w-full max-w-[280px] shrink-0 rounded-md border border-slate-200 bg-slate-50/80 p-5 shadow-xs m-0">
               <div className="flex items-center justify-between text-sm font-semibold text-slate-900">
                 <span>NVDA</span>
                 <span className="rounded-full bg-blue-50 border border-blue-200 px-2.5 py-0.5 text-micro font-bold text-blue-700">

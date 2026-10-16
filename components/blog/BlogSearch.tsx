@@ -42,7 +42,7 @@ export function BlogSearch({
           type="button"
           onClick={() => onChange("")}
           aria-label="Clear search"
-          className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 cursor-pointer"
+          className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 cursor-pointer focus-ring rounded"
         >
           <X size={15} />
         </button>

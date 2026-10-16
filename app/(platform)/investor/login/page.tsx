@@ -4,7 +4,7 @@ import { AuthLayout } from "@/components/site/auth-layout";
 import { LoginForm } from "@/components/site/login-form";
 
 export const metadata: Metadata = {
-  title: "Investor Login | VentureFlow by Veyron X",
+  title: "Investor Login",
   description: "Your gateway to exclusive investment opportunities.",
 };
 

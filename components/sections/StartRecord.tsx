@@ -607,7 +607,7 @@ function InvestMini() {
         </div>
 
         {/* Portfolio Value Card with Curve */}
-        <div className="mt-2 rounded-xl border border-slate-100 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 p-2 shadow-xs">
+        <div className="mt-2 rounded-md border border-slate-100 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 p-2 shadow-xs">
           <p className="text-[9px] text-slate-600 font-medium">Total Execution Value</p>
           <div className="flex items-baseline justify-between mt-0.5">
             <p className="text-lg font-black text-slate-900 tracking-tight">$142,500.00</p>
@@ -735,7 +735,7 @@ function VerdictMini() {
         </div>
 
         {/* Accuracy Banner Card */}
-        <div className="mt-2 rounded-xl border border-slate-100 bg-slate-50/90 p-2 text-center shadow-xs">
+        <div className="mt-2 rounded-md border border-slate-100 bg-slate-50/90 p-2 text-center shadow-xs">
           <p className="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Hit Accuracy</p>
           <p className="text-2xl font-black text-blue-600 leading-tight my-0.5">68.4%</p>
           <p className="text-[9px] text-slate-500 font-medium">38 closed theses &middot; +32.4% avg alpha</p>
