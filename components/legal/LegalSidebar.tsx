@@ -95,7 +95,7 @@ function NavItem({ item, activeSlug, depth, onNavigate }: { item: NavTreeItem; a
         onClick={onNavigate}
         aria-current={isActive ? "page" : undefined}
         style={{ marginLeft: depth * 12 }}
-        className={`block rounded-xl px-4 py-2.5 text-sm leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-blue-600 ${
+        className={`legal-nav-link ${
           isActive ? "bg-blue-50 font-semibold text-blue-700" : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
         }`}
       >

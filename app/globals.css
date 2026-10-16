@@ -185,6 +185,16 @@ select {
   font: inherit;
 }
 
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
 ::selection {
   background: rgba(37, 99, 235, 0.16);
   color: #1d4ed8;
@@ -260,6 +270,21 @@ select {
 
 @layer components {
   /* Institutional fintech cards and controls — clean architecture replacing bloated bento-box templates */
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 active:scale-95 focus-ring cursor-pointer disabled:opacity-50;
+  }
+  .hero-proof-card {
+    @apply rounded-xl border border-slate-200/90 bg-white p-3.5 shadow-xs select-none transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-500/30 hover:shadow-md;
+  }
+  .card-article {
+    @apply rounded-xl border border-slate-200/90 bg-white shadow-xs transition-all duration-200 hover:border-slate-300 hover:shadow-sm;
+  }
+  .card-article-interactive {
+    @apply rounded-xl border border-slate-200/90 bg-white shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-500/30 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/35 focus-visible:ring-offset-2;
+  }
+  .fab-trigger {
+    @apply absolute bottom-11 right-2.5 z-20 flex size-8 items-center justify-center rounded-full bg-[#0a0f1d] text-white shadow-lg ring-2 ring-orange-500/80 shadow-orange-500/25 hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 transition-colors cursor-pointer;
+  }
   .card-fintech {
     @apply rounded-xl border border-slate-200/90 bg-white p-6 shadow-xs transition-all duration-200;
   }
@@ -292,6 +317,117 @@ select {
   }
   .input-fintech {
     @apply flex w-full rounded-lg border border-slate-200/90 bg-white px-3.5 py-2.5 text-[0.9rem] text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50 transition-all;
+  }
+  .badge-editorial {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-1 text-xs font-semibold text-slate-700 shadow-2xs;
+  }
+  .card-diligence {
+    @apply rounded-xl border border-slate-200 bg-white p-5 shadow-xs transition-colors hover:border-slate-300;
+  }
+  .avatar-badge {
+    @apply grid size-10 shrink-0 place-items-center rounded-xl bg-blue-100 text-sm font-bold text-blue-700 shadow-2xs;
+  }
+  .icon-btn-round {
+    @apply grid size-9 place-items-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-xs hover:bg-slate-50 transition-colors focus-ring cursor-pointer;
+  }
+  .btn-scroll-top {
+    @apply fixed bottom-6 right-6 z-40 grid size-10 place-items-center rounded-full bg-white text-slate-800 shadow-lg border border-slate-200 transition-all hover:-translate-y-0.5 active:scale-95;
+  }
+  .bento-card-editorial {
+    @apply rounded-xl border border-slate-200/90 bg-white p-6 shadow-xs transition-all duration-200;
+  }
+  .nav-pill-bar {
+    @apply pointer-events-auto mx-auto flex h-[54px] sm:h-[58px] w-full max-w-[1080px] items-center justify-between px-4 sm:px-7 border bg-white backdrop-blur-md backdrop-saturate-[180%];
+  }
+  .nav-explore-btn {
+    @apply inline-flex items-center gap-1 py-1 text-slate-600 transition-colors duration-200 focus-ring rounded-md cursor-pointer hover:text-blue-700;
+  }
+  .nav-toggle-btn {
+    @apply grid size-10 place-items-center rounded-full border border-slate-200 bg-white text-slate-800 transition-transform active:scale-95 sm:hidden shadow-2xs hover:bg-slate-100 hover:text-slate-900 focus-ring cursor-pointer;
+  }
+  .hero-device-pod {
+    @apply pointer-events-none absolute -inset-4 sm:-inset-8 -z-10 rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-b from-sky-50/40 via-white/20 to-slate-50/30 border border-slate-200/50 shadow-xs sm:shadow-sm;
+  }
+  .hero-chassis-depth {
+    @apply pointer-events-none absolute inset-0 -z-10 rounded-xl border border-slate-700/60 bg-gradient-to-br from-slate-800 via-[#0a1226] to-slate-900 shadow-[0_24px_60px_-15px_rgba(10,18,38,0.30)];
+  }
+  .hero-section-hero {
+    @apply relative overflow-hidden bg-gradient-to-b from-slate-50/90 via-white to-slate-50/40 border-b border-slate-200/80 px-5 pb-16 pt-24 sm:pb-24 sm:pt-32 lg:pb-28 lg:pt-36;
+  }
+  .story-ribbon {
+    @apply flex items-center gap-2 px-3 py-1.5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-b border-slate-100/60;
+  }
+  .tab-subnav-btn {
+    @apply py-3 transition-colors cursor-pointer focus-ring rounded-xs hover:text-slate-800;
+  }
+  .tab-subnav-btn-active {
+    @apply py-3 transition-colors cursor-pointer focus-ring rounded-xs border-b-2 border-blue-600 text-blue-600 hover:text-blue-700 font-bold;
+  }
+  .carousel-filter-btn {
+    @apply px-3 py-1 text-xs font-semibold rounded-full transition-all cursor-pointer focus-ring text-slate-600 hover:text-slate-900 hover:bg-slate-200/60;
+  }
+  .carousel-filter-btn-active {
+    @apply px-3 py-1 text-xs font-bold rounded-full transition-all cursor-pointer focus-ring bg-white text-blue-700 shadow-2xs hover:bg-slate-50;
+  }
+  .carousel-indicator-dot {
+    @apply h-1.5 rounded-full transition-all cursor-pointer focus-ring;
+  }
+  .banner-overlap-card {
+    @apply mx-auto flex max-w-[1120px] flex-col items-center gap-8 rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 md:p-10 shadow-lg md:flex-row md:justify-between;
+  }
+  .proof-card-emerald {
+    @apply p-3.5 select-none transition-all duration-200 flex flex-col justify-between rounded-lg border-l-2 border-l-emerald-600 bg-white border border-slate-200/80 shadow-xs;
+  }
+  .proof-card-blue {
+    @apply p-3.5 select-none transition-all duration-200 flex flex-col justify-between rounded-lg border-l-2 border-l-blue-600 bg-white border border-slate-200/80 shadow-xs;
+  }
+  .proof-card-slate {
+    @apply p-3.5 select-none transition-all duration-200 flex flex-col justify-between rounded-lg bg-slate-50/70 border border-slate-200/90 shadow-2xs;
+  }
+  .thesis-phone-frame {
+    @apply relative mx-auto aspect-[280/560] select-none h-[min(410px,calc(100dvh-190px))] lg:h-[min(465px,calc(100dvh-175px))] w-[calc(min(410px,calc(100dvh-190px))*0.5)] lg:w-[calc(min(465px,calc(100dvh-175px))*0.5)] max-w-[250px] shadow-2xl;
+  }
+  .spaces-hub-card {
+    @apply relative z-10 mx-auto mt-16 max-w-[860px] overflow-hidden rounded-xl border border-slate-200/90 bg-white shadow-sm hover:shadow-md transition-shadow duration-300;
+  }
+  .sheet-bottom-drawer {
+    @apply absolute inset-x-0 bottom-0 z-30 bg-white rounded-t-xl shadow-xl transition-transform duration-500 ease-out flex flex-col text-left px-3 pt-1 pb-1.5 border-t border-slate-200/90;
+  }
+  .pill-selector-btn {
+    @apply flex items-center gap-2.5 rounded-lg border px-3.5 py-2.5 text-xs font-semibold text-left shadow-2xs transition-colors focus-ring cursor-pointer border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50;
+  }
+  .pill-selector-btn-active {
+    @apply flex items-center gap-2.5 rounded-lg border px-3.5 py-2.5 text-xs font-semibold text-left shadow-2xs transition-colors focus-ring cursor-pointer border-blue-300 bg-blue-50 text-blue-600 hover:bg-blue-100/60;
+  }
+  .laptop-ambient-glow {
+    @apply pointer-events-none absolute inset-0 sm:-inset-4 lg:-inset-8 rounded-2xl sm:rounded-[32px] bg-gradient-to-tr from-blue-600/15 via-sky-400/10 to-blue-500/15 blur-xl sm:blur-2xl transition-opacity duration-700 opacity-80;
+  }
+  .laptop-chassis-base {
+    @apply relative -mt-px h-2 sm:h-3 w-full max-w-[94%] sm:max-w-[92%] rounded-b-lg sm:rounded-b-xl border-t border-slate-700/60 bg-gradient-to-b from-slate-800 via-slate-800 to-slate-900 shadow-md;
+  }
+  .career-filter-pill {
+    @apply rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors focus-ring cursor-pointer border-border bg-card text-text-secondary hover:border-foreground hover:text-foreground;
+  }
+  .career-filter-pill-active {
+    @apply rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors focus-ring cursor-pointer border-brand bg-brand text-brand-foreground;
+  }
+  .blog-category-pill {
+    @apply relative shrink-0 rounded-full px-4 py-2 text-xs sm:text-sm font-semibold transition-colors focus-ring cursor-pointer bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900;
+  }
+  .blog-category-pill-active {
+    @apply relative shrink-0 rounded-full px-4 py-2 text-xs sm:text-sm font-semibold transition-colors focus-ring cursor-pointer bg-blue-600 text-white shadow-xs hover:bg-blue-700;
+  }
+  .press-hero-banner {
+    @apply relative overflow-hidden rounded-3xl border border-slate-200/90 bg-gradient-to-br from-slate-50 via-white to-blue-50/60 p-8 sm:p-12 text-slate-900 shadow-[0_10px_35px_rgba(15,23,42,0.05)];
+  }
+  .legal-nav-link {
+    @apply block rounded-xl px-4 py-2.5 text-sm leading-snug transition-colors focus-ring;
+  }
+  .platform-shell {
+    @apply theme-website2 min-h-screen flex flex-col font-sans overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden;
+  }
+  .chat-launcher-btn {
+    @apply grid size-14 place-items-center rounded-full bg-brand text-primary-foreground shadow-lg transition-transform hover:scale-105 hover:bg-brand-strong focus-ring cursor-pointer;
   }
 }
 

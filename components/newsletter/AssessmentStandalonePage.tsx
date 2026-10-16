@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CheckCircle2, AlertCircle, Sparkles, RotateCcw, Calendar } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, AlertCircle, Clock, RotateCcw, Calendar } from "lucide-react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { computeReadinessBriefing, type AssessmentMeta } from "@/lib/newsletter/assessments";
 import { cn } from "@/lib/utils";
+import { useFormDraft } from "@/hooks/useFormDraft";
 
 export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -14,7 +15,9 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isBriefingReady, setIsBriefingReady] = useState(false);
-  const [email, setEmail] = useState("");
+  const { values: draftValues, setValues: setDraftValues } = useFormDraft("newsletter-standalone-assessment-email", { email: "" });
+  const email = draftValues.email;
+  const setEmail = (val: string) => setDraftValues({ email: val });
   const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const totalQuestions = meta.questions.length;
@@ -180,7 +183,7 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
                       : "border-hairline bg-surface text-ink/80 hover:border-brand"
                   )}
                 >
-                  <Sparkles
+                  <Clock
                     className={cn(
                       "size-5 mb-1.5",
                       currentAns === "mid" ? "text-amber-600" : "text-muted-foreground"
@@ -270,9 +273,9 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
                     type="button"
                     disabled={loading}
                     onClick={handleCalculateBriefing}
-                    className="inline-flex items-center gap-1.5 rounded-md bg-brand px-5 py-2.5 text-xs font-bold text-primary-foreground hover:bg-brand-strong transition-colors disabled:opacity-60 cursor-pointer shadow-sm"
+                    className="inline-flex items-center gap-1.5 rounded-md bg-brand px-5 py-2.5 text-xs font-bold text-primary-foreground hover:bg-brand-strong focus-ring transition-colors disabled:opacity-60 cursor-pointer shadow-sm"
                   >
-                    {loading ? "Generating Briefing..." : "View my readiness briefing →"}
+                    {loading ? "Preparing Briefing..." : "View my readiness briefing →"}
                     <ArrowRight className="size-4" />
                   </button>
                 )}
@@ -307,7 +310,7 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="inline-flex items-center gap-1 text-[0.75rem] text-muted-foreground hover:text-ink"
+                    className="inline-flex items-center gap-1 text-[0.75rem] text-muted-foreground hover:text-ink focus-ring rounded cursor-pointer"
                   >
                     <RotateCcw className="size-3.5" />
                     Retake
@@ -397,7 +400,7 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
                     <button
                       type="submit"
                       disabled={emailStatus === "sending"}
-                      className="rounded-md bg-brand px-4 py-2 text-[0.85rem] font-semibold text-primary-foreground hover:bg-brand-strong transition-colors"
+                      className="rounded-md bg-brand px-4 py-2 text-[0.85rem] font-semibold text-primary-foreground hover:bg-brand-strong focus-ring transition-colors cursor-pointer"
                     >
                       {emailStatus === "sending" ? "Sending..." : "Send Briefing"}
                     </button>

@@ -81,7 +81,7 @@ export function PlatformWorkflowModal({
               Platform Workflow
             </p>
             <h2 className="font-editorial text-[1.25rem] leading-tight text-ink">
-              How VentureFlow Powers Institutional Closes
+              How VentureFlow Executes Institutional Closes
             </h2>
           </div>
           <button

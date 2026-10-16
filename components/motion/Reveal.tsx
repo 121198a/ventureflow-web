@@ -5,6 +5,22 @@ import { motion, useReducedMotion } from "framer-motion";
 import { EASE_PREMIUM } from "@/lib/motion";
 
 export type RevealDirection = "up" | "down" | "left" | "right" | "none";
+export type RevealTag = "div" | "article" | "section" | "header" | "footer" | "aside" | "li" | "figure" | "p" | "h1" | "h2" | "h3";
+
+const motionComponents = {
+  div: motion.div,
+  article: motion.article,
+  section: motion.section,
+  header: motion.header,
+  footer: motion.footer,
+  aside: motion.aside,
+  li: motion.li,
+  figure: motion.figure,
+  p: motion.p,
+  h1: motion.h1,
+  h2: motion.h2,
+  h3: motion.h3,
+};
 
 interface RevealProps {
   children: ReactNode;
@@ -16,6 +32,9 @@ interface RevealProps {
   once?: boolean;
   scale?: number;
   y?: number;
+  as?: RevealTag;
+  id?: string;
+  "aria-label"?: string;
 }
 
 export function Reveal({
@@ -28,6 +47,9 @@ export function Reveal({
   once = true,
   scale,
   y,
+  as = "div",
+  id,
+  "aria-label": ariaLabel,
 }: RevealProps) {
   const [mounted, setMounted] = useState(false);
   const reduce = useReducedMotion();
@@ -36,8 +58,11 @@ export function Reveal({
     setMounted(true);
   }, []);
 
+  const Tag = as;
+  const MotionComponent = motionComponents[as] || motion.div;
+
   if (!mounted || reduce) {
-    return <div className={className}>{children}</div>;
+    return <Tag id={id} aria-label={ariaLabel} className={className}>{children}</Tag>;
   }
 
   const effectiveDistance = y !== undefined ? y : distance;
@@ -51,7 +76,9 @@ export function Reveal({
   else if (direction === "right") initialX = effectiveDistance;
 
   return (
-    <motion.div
+    <MotionComponent
+      id={id}
+      aria-label={ariaLabel}
       className={className}
       initial={{
         opacity: 0,
@@ -73,7 +100,7 @@ export function Reveal({
       }}
     >
       {children}
-    </motion.div>
+    </MotionComponent>
   );
 }
 

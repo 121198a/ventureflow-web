@@ -61,11 +61,13 @@ export async function generateMetadata({
       description: article.summary,
       type: "article",
       url: canonicalPath,
+      images: ["/brand/og-image.png"],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: article.summary,
+      images: ["/brand/og-image.png"],
     },
   };
 }
@@ -203,8 +205,35 @@ export default async function NewsletterArticlePage({ params }: PageProps) {
 
   const { article, config, isFallback, errorMessage } = result;
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.headline,
+    description: article.summary,
+    image: [`/brand/og-image.png`],
+    author: { "@type": "Organization", name: "VentureFlow" },
+    mainEntityOfPage: { "@type": "WebPage", "@id": config.frontendPath },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Newsletter", item: "/newsletter" },
+      { "@type": "ListItem", position: 2, name: article.headline, item: config.frontendPath },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <SiteHeader />
 
       <main className="mx-auto max-w-[720px] px-5 py-10 sm:py-14">

@@ -18,7 +18,7 @@ export function FeaturedArticle({ post }: FeaturedArticleProps) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="card-fintech group relative overflow-hidden p-4 sm:p-6 lg:p-8 shadow-md"
+        className="card-article group relative overflow-hidden p-4 sm:p-6 lg:p-8 shadow-md"
       >
         <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           {/* Visual Showcase (Left on desktop, stacked on mobile) */}

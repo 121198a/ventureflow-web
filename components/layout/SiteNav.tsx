@@ -134,8 +134,9 @@ export function SiteNav() {
             {links.map((l) => (
               <button
                 key={l.hash}
+                type="button"
                 onClick={() => go(l.hash)}
-                className="signal-underline text-sm font-semibold text-text-secondary transition-colors hover:text-foreground"
+                className="signal-underline text-sm font-semibold text-text-secondary transition-colors hover:text-foreground focus-ring rounded cursor-pointer"
               >
                 {l.label}
               </button>
@@ -144,18 +145,20 @@ export function SiteNav() {
 
           <div className="flex items-center gap-3">
             <button
+              type="button"
               onClick={() => go("#roles")}
-              className="hidden items-center gap-1.5 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-700 sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus-ring sm:inline-flex"
             >
               View roles
               <ArrowUpRight size={15} />
             </button>
             <button
               ref={menuButtonRef}
+              type="button"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="flex h-10 w-10 flex-col items-center justify-center gap-[6px] rounded-full border border-border bg-card lg:hidden"
+              className="flex size-10 flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-card hover:bg-slate-100 focus-ring cursor-pointer lg:hidden"
             >
               <motion.span
                 animate={open ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}

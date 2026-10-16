@@ -7,7 +7,7 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
     <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
       <BlogNav />
       <PageTransition>
-        <div className="flex-1 w-full pt-20 sm:pt-24">{children}</div>
+        <main id="main-content" className="flex-1 w-full pt-20 sm:pt-24">{children}</main>
       </PageTransition>
       <SiteFooter />
     </div>

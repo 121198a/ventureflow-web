@@ -37,16 +37,7 @@ export const metadata: Metadata = {
 
 export default function WorkspacePage() {
   return (
-    // No wrapping <div> here on purpose: a wrapper with `overflow-x-hidden`
-    // (even without `overflow-y` set) forces the browser to compute
-    // `overflow-y: auto`, which creates a new Block Formatting Context.
-    // A BFC *contains* negative margins internally instead of letting them
-    // bleed through to affect siblings outside it — which silently broke
-    // <WorkspaceCta />'s negative bottom margin (the mechanism that overlaps
-    // it with the dark footer) and produced the large white gap. Since none
-    // of these sections rely on horizontal-overflow clipping, a Fragment
-    // (no extra box, no BFC) is the correct fix rather than tuning margins.
-    <>
+    <main id="main-content" className="w-full">
       {/* 1. Hero Section */}
       <WorkspaceHero />
 
@@ -76,6 +67,6 @@ export default function WorkspacePage() {
 
       {/* 10. Pre-Footer CTA: There is a place for your company here */}
       <WorkspaceCta />
-    </>
+    </main>
   );
 }

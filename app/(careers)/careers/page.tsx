@@ -36,9 +36,22 @@ export const metadata: Metadata = {
 
 const section = "mx-auto max-w-[1240px] px-5 sm:px-6";
 
-export default function Home() {
+export default function CareersPage() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Careers", item: `${SITE_URL}/careers` },
+    ],
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Hero />
       <Stats />
       <WhyJoin />

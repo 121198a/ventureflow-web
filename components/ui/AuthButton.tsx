@@ -5,6 +5,14 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AUTH_URL } from "@/lib/constants";
 
+const variantClasses: Record<"primary" | "secondary" | "ghost" | "text", string> = {
+  primary: "btn-pill-primary",
+  secondary: "btn-pill-secondary",
+  ghost:
+    "inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-white/20 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40",
+  text: "inline-flex items-center gap-1.5 px-0 py-0 text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-brand transition-colors",
+};
+
 export function AuthButton({
   children,
   variant = "primary",
@@ -24,16 +32,9 @@ export function AuthButton({
   onClick?: () => void;
 }) {
   const classes = cn(
-    "gb-magnetic focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white group relative inline-flex items-center justify-center gap-2 rounded-pill text-sm font-semibold transition-all duration-200 ease-out",
-    variant === "primary" &&
-      "bg-brand px-6 py-3.5 text-white hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-md hover:shadow-blue-600/20 active:translate-y-0 active:scale-[0.985]",
-    variant === "secondary" &&
-      "border border-slate-200 bg-white px-6 py-3.5 text-slate-900 hover:-translate-y-0.5 hover:border-slate-300 active:translate-y-0 shadow-2xs",
-    variant === "ghost" &&
-      "border border-white/15 bg-white/[0.06] px-6 py-3.5 text-white hover:-translate-y-0.5 hover:bg-white/[0.12] active:translate-y-0",
-    variant === "text" &&
-      "px-0 py-0 text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-brand",
-    className,
+    "group relative select-none",
+    variantClasses[variant],
+    className
   );
 
   const href = AUTH_URL.startsWith("/") ? `${AUTH_URL}?flow=${flow}` : AUTH_URL;

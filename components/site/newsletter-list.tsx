@@ -98,7 +98,7 @@ function SubscribeForm() {
 function Sidebar() {
   return (
     <aside>
-      <Image src="/logo/vf-mark.png" alt="" width={44} height={44} className="size-11 rounded-full object-cover shadow-xs" />
+      <Image src="/logo/vf-mark.png" alt="VentureFlow logo" width={44} height={44} className="size-11 rounded-full object-cover shadow-xs" />
       <h2 className="mt-5 font-editorial text-[1.5rem] leading-tight">The Fundraising Playbook</h2>
       <p className="mt-4 text-[0.9rem] leading-[1.75] text-ink/70">
         A weekly guide on how private funding rounds work—from data rooms and term sheets to investor updates and closing details.

@@ -2,15 +2,25 @@
 
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Search } from "lucide-react";
 import { departments, locations, roles } from "@/data/careers";
 import { JobCard } from "@/components/careers/JobCard";
+import { useFormDraft } from "@/hooks/useFormDraft";
 
 export function JobBoard() {
-  const [query, setQuery] = useState("");
-  const [dept, setDept] = useState("All");
-  const [loc, setLoc] = useState("All");
+  const { values, setValues, clearDraft } = useFormDraft("careers-job-search", {
+    query: "",
+    dept: "All",
+    loc: "All",
+  });
+  const query = values.query;
+  const dept = values.dept;
+  const loc = values.loc;
+
+  const setQuery = (q: string) => setValues({ ...values, query: q });
+  const setDept = (d: string) => setValues({ ...values, dept: d });
+  const setLoc = (l: string) => setValues({ ...values, loc: l });
 
   const filtered = useMemo(
     () =>
@@ -77,12 +87,11 @@ export function JobBoard() {
             Send your work to careers@ventureflow.example — we keep good people in mind.
           </p>
           <button
+            type="button"
             onClick={() => {
-              setQuery("");
-              setDept("All");
-              setLoc("All");
+              clearDraft();
             }}
-            className="mt-6 rounded-full border border-brand px-5 py-2 text-sm font-semibold text-brand transition-colors hover:bg-brand hover:text-brand-foreground cursor-pointer"
+            className="mt-6 rounded-full border border-brand px-5 py-2 text-sm font-semibold text-brand transition-colors hover:bg-brand hover:text-brand-foreground focus-ring cursor-pointer"
           >
             Clear filters
           </button>
@@ -111,12 +120,9 @@ function FilterGroup({
       {options.map((o) => (
         <button
           key={o}
+          type="button"
           onClick={() => onChange(o)}
-          className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
-            value === o
-              ? "border-brand bg-brand text-brand-foreground"
-              : "border-border bg-card text-text-secondary hover:border-brand/40 hover:text-foreground"
-          }`}
+          className={value === o ? "career-filter-pill-active" : "career-filter-pill"}
         >
           {o}
         </button>

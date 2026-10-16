@@ -167,7 +167,7 @@ export function ApplyForm({
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="mt-1.5 flex w-full items-center justify-between rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-left text-sm text-slate-600 hover:border-blue-500 hover:bg-blue-50/40 cursor-pointer"
+          className="mt-1.5 flex w-full items-center justify-between rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-600 hover:border-blue-500 cursor-pointer"
         >
           <span className="truncate">{file ? file.name : "Choose a file…"}</span>
           <Upload size={15} className="text-blue-600 shrink-0" />
@@ -198,7 +198,7 @@ export function ApplyForm({
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="btn-pill-primary w-full cursor-pointer disabled:opacity-60"
+        className="btn-pill-primary w-full hover:bg-blue-700 focus-ring cursor-pointer disabled:opacity-60"
       >
         {status === "submitting" ? (
           <>

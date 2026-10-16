@@ -57,7 +57,7 @@ export function DashboardSearch({
           type="button"
           onClick={handleClear}
           aria-label="Clear search input"
-          className="absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
+          className="absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400 hover:text-slate-700 transition-colors focus-ring rounded cursor-pointer"
         >
           <X className="size-3.5" aria-hidden="true" />
         </button>

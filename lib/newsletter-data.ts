@@ -340,7 +340,7 @@ const updatesWinInvestorsBody: ArticleBlock[] = [
   },
   {
     type: "cta",
-    heading: "Automate your investor communications",
+    heading: "Organize your investor updates",
     text: "VentureFlow provides company spaces where updates, data rooms, and cap tables live securely together.",
     buttonLabel: "See how the platform works →",
     note: "Free to set up",

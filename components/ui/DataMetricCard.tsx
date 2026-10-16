@@ -35,18 +35,19 @@ export function DataMetricCard({
   const isPositive = trend === "up" || (trend === undefined && (change ?? 0) >= 0);
 
   return (
-    <div
+    <article
+      aria-label={label}
       className={cn(
-        "card-fintech-interactive p-5",
+        "rounded-xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-200 hover:border-slate-300 hover:shadow-sm",
         className
       )}
       {...props}
     >
       <div className="flex items-center justify-between gap-3">
-        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <span className="text-xs font-semibold uppercase tracking-wider text-slate-600">
           {label}
         </span>
-        {icon && <div className="text-slate-400 shrink-0">{icon}</div>}
+        {icon && <div className="text-slate-500 shrink-0">{icon}</div>}
       </div>
 
       <div className="mt-3 flex items-baseline gap-2">
@@ -80,11 +81,11 @@ export function DataMetricCard({
       </div>
 
       {(subtitle || changeLabel) && (
-        <p className="mt-1.5 text-xs text-slate-500 font-normal">
+        <p className="mt-1.5 text-xs text-slate-600 font-normal">
           {changeLabel ? `${changeLabel} · ` : ""}
           {subtitle}
         </p>
       )}
-    </div>
+    </article>
   );
 }

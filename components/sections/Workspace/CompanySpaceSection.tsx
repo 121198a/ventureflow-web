@@ -102,17 +102,13 @@ export function CompanySpaceSection() {
               return (
                 <button
                   key={item.label}
+                  type="button"
                   onClick={() => {
                     setActivePill(item.label);
                     const mappedTab = pillToTab[item.label];
                     if (mappedTab) setActiveTab(mappedTab);
                   }}
-                  className={cn(
-                    "flex items-center gap-2.5 rounded-lg border px-3.5 py-2.5 text-xs font-semibold text-left shadow-2xs transition-colors",
-                    isSelected
-                      ? "border-blue-300 bg-blue-50 text-blue-600"
-                      : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
-                  )}
+                  className={isSelected ? "pill-selector-btn-active" : "pill-selector-btn"}
                 >
                   <Icon className={cn("h-4 w-4 shrink-0", isSelected ? "text-blue-600" : "text-slate-600")} />
                   <span className="truncate">{item.label}</span>
@@ -125,28 +121,28 @@ export function CompanySpaceSection() {
         {/* ========================================================================= */}
         {/* 2. MAIN BROWSER MOCKUP CARD */}
         {/* ========================================================================= */}
-        <div className="mt-4 min-[1061px]:mt-12 mx-auto w-full max-w-[760px] rounded-lg border border-slate-200/90 bg-white shadow-[0_20px_50px_-15px_rgba(15,23,42,0.08)] overflow-hidden text-left">
+        <article aria-label="Interactive Company Space Demo" className="mt-4 min-[1061px]:mt-12 mx-auto w-full max-w-[760px] rounded-lg border border-slate-200 bg-white shadow-lg overflow-hidden text-left">
 
           {/* Top Browser Bar */}
-          <div className="relative flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-2.5 sm:px-5 py-2.5 sm:py-3 gap-1 sm:gap-2">
+          <header className="relative flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-2.5 sm:px-5 py-2.5 sm:py-3 gap-1 sm:gap-2">
             <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
               <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-pill bg-slate-300" />
               <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-pill bg-slate-300" />
               <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-pill bg-slate-300" />
             </div>
 
-            <div className="min-w-0 flex-1 mx-1 sm:mx-4 truncate rounded-pill bg-white border border-slate-200/90 px-2 sm:px-4 py-0.5 text-[10px] min-[360px]:text-xs font-medium text-slate-600 shadow-2xs text-center">
+            <div className="min-w-0 flex-1 mx-1 sm:mx-4 truncate badge-editorial py-0.5 text-[10px] min-[360px]:text-xs text-center justify-center">
               ventureflow.example/spaces/<span className="font-bold text-slate-700">halden-diagnostics</span>
             </div>
 
             <div className="w-6 sm:w-10 shrink-0 hidden min-[360px]:block" />
-          </div>
+          </header>
 
           {/* Card Body */}
           <div className="p-4 sm:p-6 md:p-8">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3.5 min-w-0">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 font-bold text-base border border-emerald-100 shadow-2xs">
+                <div className="avatar-badge size-12 bg-emerald-50 text-emerald-700 border border-emerald-100">
                   HD
                 </div>
                 <div className="min-w-0">
@@ -191,7 +187,7 @@ export function CompanySpaceSection() {
                       if (matchedPill) setActivePill(matchedPill);
                     }}
                     className={cn(
-                      "cursor-pointer transition-colors pb-3 -mb-3 flex items-center gap-1 whitespace-nowrap focus-ring",
+                      "cursor-pointer transition-colors pb-3 -mb-3 flex items-center gap-1 focus-ring",
                       activeTab === tab
                         ? "text-blue-600 border-b-2 border-blue-600 font-bold"
                         : "text-slate-600 hover:text-slate-900"
@@ -209,7 +205,7 @@ export function CompanySpaceSection() {
             </div>
 
             {/* Post Card */}
-            <div className="mt-6 rounded-lg border border-slate-100 bg-slate-50/40 p-5">
+            <article className="mt-6 rounded-lg border border-slate-100 bg-slate-50/40 p-5">
               <div className="flex items-center gap-3">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-pill bg-blue-100 text-blue-700 font-bold text-xs">
                   NR
@@ -232,10 +228,10 @@ export function CompanySpaceSection() {
                   </span>
                 ))}
               </div>
-            </div>
+            </article>
 
           </div>
-        </div>
+        </article>
 
         {/* 6-Dash Indicators */}
         <div className="mt-8 flex justify-center items-center gap-2">

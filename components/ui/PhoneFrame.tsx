@@ -30,6 +30,7 @@ export interface PhoneFrameProps {
   showHomeIndicator?: boolean;
   withWatermark?: boolean;
   watermarkText?: string;
+  "aria-hidden"?: boolean | "true" | "false";
 }
 
 // Curated 4-edge corner continuous gradients tailored to content & visual style of Image 2
@@ -85,6 +86,7 @@ export function PhoneFrame({
   showStatusBar = true,
   showHomeIndicator = true,
   withWatermark = false,
+  "aria-hidden": ariaHidden = true,
 }: PhoneFrameProps) {
   const selectedTheme = THEME_GRADIENTS[theme] || THEME_GRADIENTS.hero;
   const gradientStyle = customGradient || selectedTheme.gradient;
@@ -92,6 +94,7 @@ export function PhoneFrame({
 
   return (
     <div
+      aria-hidden={ariaHidden}
       style={style}
       className={cn(
         "relative mx-auto aspect-[280/560] select-none",
@@ -139,7 +142,7 @@ export function PhoneFrame({
             )}
           >
             {/* Specular Screen Glass Reflection */}
-            <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-16 bg-gradient-to-b from-white/30 via-white/5 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-6 bg-gradient-to-b from-white/10 to-transparent" />
 
             {/* Status Bar */}
             {showStatusBar && (
@@ -153,7 +156,7 @@ export function PhoneFrame({
                       size={10}
                       strokeWidth={2.5}
                       className="text-slate-900"
-                      aria-label="Messages"
+                      aria-hidden="true"
                     />
                     <span className="absolute -right-1 -top-1 h-1.5 w-1.5 rounded-pill bg-blue-600 animate-pulse" />
                   </div>
@@ -168,7 +171,7 @@ export function PhoneFrame({
                 <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
                   <FaSignal
                     className="text-[10px] text-slate-900"
-                    aria-label="Cellular signal"
+                    aria-hidden="true"
                   />
 
                   {showWifi && (
@@ -176,7 +179,7 @@ export function PhoneFrame({
                       size={10}
                       strokeWidth={2.5}
                       className="text-slate-900"
-                      aria-label="WiFi"
+                      aria-hidden="true"
                     />
                   )}
 
@@ -184,7 +187,7 @@ export function PhoneFrame({
                     <span className="text-[10px] font-bold">{batteryPercentage}</span>
                     <FaBatteryThreeQuarters
                       className="text-[10px] text-slate-900"
-                      aria-label="Battery 75 percent"
+                      aria-hidden="true"
                     />
                   </div>
                 </div>
@@ -196,9 +199,10 @@ export function PhoneFrame({
 
             {/* Bottom Home Indicator Bar */}
             {showHomeIndicator && (
-              <div className="pointer-events-none relative z-20 h-4 shrink-0 bg-transparent flex items-center justify-center pb-1">
-                <div className="h-1 w-20 sm:w-24 rounded-full bg-slate-900/70" />
-              </div>
+              <div
+                aria-hidden="true"
+                className="pointer-events-none relative z-20 mx-auto my-1.5 h-1 w-20 sm:w-24 rounded-full bg-slate-900/70"
+              />
             )}
           </div>
         </div>

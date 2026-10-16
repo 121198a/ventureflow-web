@@ -3,12 +3,15 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, X, Loader2, Send } from "lucide-react";
 import Link from "next/link";
+import { useFormDraft } from "@/hooks/useFormDraft";
 
 export function ChatLauncher() {
   const [open, setOpen] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [connected, setConnected] = useState(false);
-  const [message, setMessage] = useState("");
+  const { values, setValues, clearDraft } = useFormDraft("chat-message-draft", { message: "" });
+  const message = values.message;
+  const setMessage = (m: string) => setValues({ message: m });
 
   useEffect(() => {
     if (open && !connected && !connecting) {
@@ -47,7 +50,7 @@ export function ChatLauncher() {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="text-muted-foreground hover:text-ink transition-colors"
+              className="text-muted-foreground hover:text-ink transition-colors focus-ring rounded cursor-pointer"
               aria-label="Close"
             >
               <X className="size-4" />
@@ -68,7 +71,7 @@ export function ChatLauncher() {
                   onSubmit={(e) => {
                     e.preventDefault();
                     if (message.trim()) {
-                      setMessage("");
+                      clearDraft();
                     }
                   }}
                   className="mt-3 flex gap-2"
@@ -88,7 +91,7 @@ export function ChatLauncher() {
                     type="submit"
                     aria-label="Send message"
                     disabled={!message.trim()}
-                    className="rounded-md bg-brand p-1.5 text-white hover:bg-brand-strong disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    className="rounded-md bg-brand p-1.5 text-white hover:bg-brand-strong focus-ring disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     <Send className="size-3.5" />
                   </button>
@@ -121,7 +124,7 @@ export function ChatLauncher() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={open ? "Close chat" : "Open chat"}
-        className="grid size-14 place-items-center rounded-full bg-brand text-primary-foreground shadow-lg transition-transform hover:scale-105 hover:bg-brand-strong focus-ring cursor-pointer"
+        className="chat-launcher-btn"
       >
         {open ? <X className="size-5" /> : <MessageCircle className="size-5" />}
       </button>

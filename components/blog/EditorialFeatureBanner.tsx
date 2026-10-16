@@ -57,7 +57,7 @@ export function EditorialFeatureBanner() {
                   <AuthButton
                     flow="signup"
                     icon={false}
-                    className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 transition-all hover:bg-blue-500 active:scale-98"
+                    className="btn-pill-primary px-6 py-3 text-sm"
                   >
                     <span>Start your record</span>
                     <ArrowRight size={15} />
@@ -65,7 +65,7 @@ export function EditorialFeatureBanner() {
 
                   <Link
                     href="/workspace"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/30"
+                    className="btn-pill-secondary border-white/20 bg-white/10 text-white hover:bg-white/20 px-6 py-3 text-sm"
                   >
                     Explore VentureFlow
                   </Link>

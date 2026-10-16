@@ -14,11 +14,12 @@ import {
   ArrowRight,
   ArrowLeft,
   RotateCcw,
-  Sparkles,
+  Clock,
   ShieldCheck,
   Calendar,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useFormDraft } from "@/hooks/useFormDraft";
 
 interface AssessmentModalProps {
   isOpen: boolean;
@@ -55,7 +56,9 @@ export function AssessmentModal({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isBriefingReady, setIsBriefingReady] = useState(false);
-  const [email, setEmail] = useState("");
+  const { values: draftValues, setValues: setDraftValues } = useFormDraft("newsletter-assessment-email", { email: "" });
+  const email = draftValues.email;
+  const setEmail = (val: string) => setDraftValues({ email: val });
   const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   if (!isOpen) return null;
@@ -172,7 +175,7 @@ export function AssessmentModal({
             type="button"
             onClick={onClose}
             aria-label="Close dialog"
-            className="rounded-md p-1.5 text-muted-foreground hover:bg-surface hover:text-ink transition-colors"
+            className="rounded-md p-1.5 text-muted-foreground hover:bg-surface hover:text-ink transition-colors focus-ring cursor-pointer"
           >
             <X className="size-5" />
           </button>
@@ -184,7 +187,7 @@ export function AssessmentModal({
             <div>
               {initialBriefingMode && (
                 <div className="mb-5 flex items-center gap-2.5 rounded-lg border border-brand/20 bg-brand/5 px-4 py-2.5 text-[0.82rem] text-brand">
-                  <Sparkles className="size-4 shrink-0 text-brand" />
+                  <ShieldCheck className="size-4 shrink-0 text-brand" />
                   <span>
                     Answer the {totalQuestions} checkpoints below to generate and view your institutional readiness briefing.
                   </span>
@@ -251,7 +254,7 @@ export function AssessmentModal({
                       : "border-hairline bg-surface-alt text-ink/80 hover:border-brand hover:text-brand"
                   )}
                 >
-                  <Sparkles
+                  <Clock
                     className={cn(
                       "size-5 mb-1.5",
                       currentAns === "mid" ? "text-amber-600" : "text-muted-foreground"
@@ -341,9 +344,9 @@ export function AssessmentModal({
                     type="button"
                     disabled={loading}
                     onClick={handleCalculateBriefing}
-                    className="inline-flex items-center gap-1.5 rounded-md bg-brand px-5 py-2 text-[0.85rem] font-bold text-primary-foreground hover:bg-brand-strong transition-colors disabled:opacity-60 cursor-pointer shadow-sm"
+                    className="inline-flex items-center gap-1.5 rounded-md bg-brand px-5 py-2 text-[0.85rem] font-bold text-primary-foreground hover:bg-brand-strong focus-ring transition-colors disabled:opacity-60 cursor-pointer shadow-sm"
                   >
-                    {loading ? "Generating Briefing..." : "View my readiness briefing →"}
+                    {loading ? "Preparing Briefing..." : "View my readiness briefing →"}
                     <ArrowRight className="size-4" />
                   </button>
                 )}
@@ -379,7 +382,7 @@ export function AssessmentModal({
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="inline-flex items-center gap-1 text-[0.75rem] text-muted-foreground hover:text-ink"
+                    className="inline-flex items-center gap-1 text-[0.75rem] text-muted-foreground hover:text-ink focus-ring rounded cursor-pointer"
                   >
                     <RotateCcw className="size-3.5" />
                     Retake
@@ -470,7 +473,7 @@ export function AssessmentModal({
                     <button
                       type="submit"
                       disabled={emailStatus === "sending"}
-                      className="rounded-md bg-brand px-4 py-2 text-[0.85rem] font-semibold text-primary-foreground hover:bg-brand-strong transition-colors"
+                      className="rounded-md bg-brand px-4 py-2 text-[0.85rem] font-semibold text-primary-foreground hover:bg-brand-strong focus-ring transition-colors cursor-pointer"
                     >
                       {emailStatus === "sending" ? "Sending..." : "Send Briefing"}
                     </button>

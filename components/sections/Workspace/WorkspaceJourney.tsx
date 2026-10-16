@@ -93,7 +93,7 @@ export function WorkspaceJourney() {
               onClick={() => setActive(i)}
               aria-label={`Milestone ${i + 1}: ${m.title}`}
               aria-current={active === i ? "step" : undefined}
-              className="flex w-full text-left gap-5 cursor-pointer group rounded-lg p-1 transition-colors focus-ring"
+              className="flex w-full text-left gap-5 cursor-pointer group rounded-lg p-1.5 transition-colors hover:bg-slate-50/70 focus-ring"
             >
               {/* Stepper Dot & Line */}
               <div className="flex flex-col items-center">

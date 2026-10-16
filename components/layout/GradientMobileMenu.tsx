@@ -119,7 +119,7 @@ export function GradientMobileMenu({
           type="button"
           aria-label="Close menu"
           onClick={onClose}
-          className="grid h-9 w-9 cursor-pointer place-items-center rounded-full text-slate-800 transition-transform active:scale-90"
+          className="grid size-9 cursor-pointer place-items-center rounded-full text-slate-800 hover:bg-slate-100 hover:text-slate-900 focus-ring transition-all active:scale-90"
         >
           <X size={20} />
         </button>

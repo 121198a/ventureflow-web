@@ -9,7 +9,7 @@ export function CookieConsent() {
 
   useEffect(() => {
     try {
-      const consent = localStorage.getItem("ub_cookie_consent");
+      const consent = localStorage.getItem("vf_cookie_consent") || localStorage.getItem("ub_cookie_consent");
       if (!consent) {
         const timer = setTimeout(() => setVisible(true), 1200);
         return () => clearTimeout(timer);
@@ -21,7 +21,7 @@ export function CookieConsent() {
 
   const handleAccept = () => {
     try {
-      localStorage.setItem("ub_cookie_consent", "accepted");
+      localStorage.setItem("vf_cookie_consent", "accepted");
     } catch {
       // Ignore
     }
@@ -30,7 +30,7 @@ export function CookieConsent() {
 
   const handleDecline = () => {
     try {
-      localStorage.setItem("ub_cookie_consent", "essential");
+      localStorage.setItem("vf_cookie_consent", "essential");
     } catch {
       // Ignore
     }
@@ -40,8 +40,7 @@ export function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div
-      role="region"
+    <aside
       aria-label="Cookie and privacy preferences"
       className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-lg rounded-2xl border border-slate-200/90 bg-white/95 p-4 sm:p-5 shadow-elevated backdrop-blur-xl transition-all"
     >
@@ -82,6 +81,6 @@ export function CookieConsent() {
           Accept
         </button>
       </div>
-    </div>
+    </aside>
   );
 }

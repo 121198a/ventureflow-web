@@ -26,28 +26,30 @@ export function WorkspaceEconomics() {
         </p>
       </Reveal>
 
-      <Reveal delay={0.15} className="gb-interactive-card mx-auto mt-12 max-w-[900px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-lg">
-        <div className="flex items-center gap-3 border-b border-slate-100 px-7 py-5">
+      <Reveal as="article" aria-label="Economics comparison" delay={0.15} className="gb-interactive-card mx-auto mt-12 max-w-[900px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-lg">
+        <header className="flex items-center gap-3 border-b border-slate-100 px-7 py-5">
           <span className="grid h-10 w-10 place-items-center rounded-lg bg-emerald-100 text-xs font-bold text-emerald-700">
             HD
           </span>
           <div>
-            <p className="font-bold text-slate-900">Halden Diagnostics</p>
+            <h3 className="font-bold text-slate-900 text-base">Halden Diagnostics</h3>
             <p className="text-xs text-slate-600">Point of care testing &middot; Series A</p>
           </div>
-        </div>
+        </header>
 
         <div className="grid sm:grid-cols-[1.3fr_1fr]">
           <div className="border-b border-slate-100 p-7 sm:border-b-0 sm:border-r">
-            <p className="text-left text-xs font-bold text-slate-600">
+            <h4 className="text-left text-xs font-bold text-slate-600">
               Typical path to being seen
-            </p>
-            {costs.map((c) => (
-              <div key={c.label} className="mt-3 flex items-baseline justify-between border-b border-dashed border-slate-200 pb-3">
-                <span className="text-slate-700">{c.label}</span>
-                <span className="font-mono text-sm text-slate-600">{c.value}</span>
-              </div>
-            ))}
+            </h4>
+            <dl className="mt-2 space-y-3">
+              {costs.map((c) => (
+                <div key={c.label} className="flex items-baseline justify-between border-b border-dashed border-slate-200 pb-2.5">
+                  <dt className="text-slate-700 text-sm">{c.label}</dt>
+                  <dd className="font-mono text-sm text-slate-600">{c.value}</dd>
+                </div>
+              ))}
+            </dl>
             <div className="mt-4 flex items-baseline justify-between">
               <span className="text-base font-bold text-slate-900">Upfront costs shown</span>
               <span className="text-xl font-extrabold text-slate-900">
@@ -60,9 +62,9 @@ export function WorkspaceEconomics() {
           </div>
 
           <div className="flex flex-col justify-center p-7">
-            <p className="text-left text-xs font-bold text-slate-600">
+            <h4 className="text-left text-xs font-bold text-slate-600">
               Discovery on VentureFlow
-            </p>
+            </h4>
             <p className="mt-1 flex items-start font-display text-5xl font-extrabold leading-none text-blue-600">
               <span className="mt-1 text-2xl leading-none">$</span>
               <CountUp value={0} />

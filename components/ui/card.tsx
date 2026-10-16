@@ -39,7 +39,7 @@ const cardVariants: Record<NonNullable<CardProps["variant"]>, string> = {
   compact:
     "rounded-lg border border-slate-200/80 bg-white p-3.5 text-ink shadow-2xs",
   elevated:
-    "card-fintech shadow-md",
+    "rounded-xl border border-slate-200/90 bg-white text-ink shadow-md",
 };
 
 export function Card({

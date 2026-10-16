@@ -20,13 +20,13 @@ export function BeyondFeed() {
       <div className="pointer-events-none absolute right-1/4 bottom-1/4 h-72 w-72 rounded-full bg-sky-100/30 blur-3xl" />
 
       <Reveal className="relative z-10 mx-auto max-w-[900px] text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-white/95 px-4 py-1.5 text-xs font-semibold text-blue-800 shadow-2xs">
-          <GrowthChartIcon size={14} className="text-blue-600" />
+        <span className="badge-fintech">
+          <GrowthChartIcon size={14} className="text-blue-700" />
           <span>Beyond Social Feeds</span>
         </span>
         <h2 className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
           Where investment theses <br />
-          <span className="text-blue-600">
+          <span className="text-blue-700">
             stand on verifiable data.
           </span>
         </h2>
@@ -38,7 +38,7 @@ export function BeyondFeed() {
       {/* Track Record Section */}
       <div className="relative z-10 mx-auto mt-16 grid max-w-[1100px] items-stretch gap-10 lg:grid-cols-2">
         <Reveal direction="left" className="flex flex-col justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3 py-1 text-xs font-semibold text-blue-700 mb-3 self-start">
+          <div className="badge-fintech mb-3 self-start">
             <span className="size-1.5 rounded-full bg-blue-600 animate-pulse" />
             <span>Permanent Ledger</span>
           </div>
@@ -50,7 +50,7 @@ export function BeyondFeed() {
           </p>
         </Reveal>
 
-        <Reveal direction="right" delay={0.1} className="card-fintech-interactive p-6 sm:p-8">
+        <Reveal as="article" aria-label="Audited analyst track record card" direction="right" delay={0.1} className="rounded-xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-xs">
@@ -61,7 +61,7 @@ export function BeyondFeed() {
                 <p className="text-xs text-slate-500 mt-0.5">@jmartin &middot; Verified Analyst</p>
               </div>
             </div>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600 shrink-0">
+            <span className="badge-editorial shrink-0">
               <Eye size={12} className="text-slate-500" /> Public Record
             </span>
           </div>
@@ -93,28 +93,27 @@ export function BeyondFeed() {
             <p className="text-micro font-bold uppercase tracking-wider text-slate-500">
               Outcome History (Last 10 Closes)
             </p>
-            <div className="mt-2.5 flex gap-2">
+            <ul role="list" className="mt-2.5 flex gap-2 list-none p-0">
               {closes.map((c, i) => (
-                <span
+                <li
                   key={i}
                   className={`h-2.5 w-2.5 rounded-full ${c === "up" ? "bg-emerald-500 shadow-xs shadow-emerald-500/30" : "bg-rose-500 shadow-xs shadow-rose-500/30"}`}
+                  aria-label={`Close ${i + 1}: ${c}`}
                 />
               ))}
-            </div>
+            </ul>
           </div>
         </Reveal>
       </div>
 
       {/* Catalyst & Research Section */}
       <div className="relative z-10 mx-auto mt-20 grid max-w-[1100px] items-stretch gap-10 lg:grid-cols-2">
-        <Reveal direction="left" className="flex flex-col justify-center">
-          <CatalystTypewriterCard />
-        </Reveal>
+        <CatalystTypewriterCard className="flex flex-col justify-center w-full" />
 
         <Reveal direction="right" delay={0.1} className="flex flex-col justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3 py-1 text-xs font-semibold text-blue-700 mb-3 self-start">
+          <div className="badge-fintech mb-3 self-start">
             <GrowthChartIcon size={12} className="text-blue-600" />
-            <span>Filing &amp; Catalyst Intelligence</span>
+            <span>Filing &amp; Catalyst Research</span>
           </div>
           <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Catalyst &amp; Filing Analysis
@@ -128,7 +127,7 @@ export function BeyondFeed() {
   );
 }
 
-function CatalystTypewriterCard() {
+function CatalystTypewriterCard({ className = "" }: { className?: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-15%" });
   const reduce = useReducedMotion();
@@ -158,7 +157,7 @@ function CatalystTypewriterCard() {
   }, [isInView, reduce]);
 
   return (
-    <div ref={cardRef} className="w-full">
+    <article ref={cardRef} aria-label="Catalyst research preview" className={className}>
       <div className="badge-fintech mb-3 max-w-full">
         <span className="break-words">Stress-test thesis: What key operating metrics must hold?</span>
       </div>
@@ -190,6 +189,6 @@ function CatalystTypewriterCard() {
           </motion.div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

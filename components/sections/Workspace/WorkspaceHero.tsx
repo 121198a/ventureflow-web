@@ -31,7 +31,7 @@ export function WorkspaceHero() {
           transition={{ duration: 0.35 }}
           className="inline-flex items-center justify-center"
         >
-          <span className="inline-flex items-center rounded-pill border border-slate-200/90 bg-white/95 px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-600 shadow-2xs backdrop-blur-xs">
+          <span className="badge-editorial tracking-wide">
             Private markets
           </span>
         </motion.div>

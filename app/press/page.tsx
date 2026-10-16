@@ -41,10 +41,10 @@ export const metadata: Metadata = {
 export default function PressPage() {
   return (
     <SiteShell>
-      <div className="pt-24 pb-20 sm:pt-32 sm:pb-28">
+      <main id="main-content" className="pt-24 pb-20 sm:pt-32 sm:pb-28">
         <div className="mx-auto max-w-[1140px] px-5 sm:px-6">
           {/* Distinct Newsroom Hero Banner (Strictly Light-Mode) */}
-          <div className="relative overflow-hidden rounded-3xl border border-slate-200/90 bg-gradient-to-br from-slate-50 via-white to-blue-50/60 p-8 sm:p-12 text-slate-900 shadow-[0_10px_35px_rgba(15,23,42,0.05)]">
+          <header className="press-hero-banner">
             {/* Subtle background grid & ambient light */}
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0f172a08_1px,transparent_1px),linear-gradient(to_bottom,#0f172a08_1px,transparent_1px)] bg-[size:24px_24px]" />
 
@@ -72,14 +72,14 @@ export default function PressPage() {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <a
                   href="#media-contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-xs sm:text-sm font-semibold text-white shadow-md shadow-blue-600/20 hover:bg-blue-700 transition-colors"
+                  className="btn-pill-primary px-6 py-3 text-xs sm:text-sm"
                 >
                   <Mail size={15} />
                   <span>Contact Press Desk</span>
                 </a>
                 <a
                   href="#brand-assets"
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-xs sm:text-sm font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-colors"
+                  className="btn-pill-secondary px-5 py-3 text-xs sm:text-sm"
                 >
                   <Download size={15} />
                   <span>Brand Assets &amp; Guidelines</span>
@@ -106,10 +106,10 @@ export default function PressPage() {
                 <span className="mt-1 block text-xs sm:text-sm font-bold text-blue-700">v2026.1 (Current)</span>
               </div>
             </div>
-          </div>
+          </header>
 
           {/* Quick Contact Bar */}
-          <div className="mt-10 rounded-2xl border border-slate-200 bg-slate-50/70 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <aside aria-label="Media inquiries" className="mt-10 rounded-2xl border border-slate-200 bg-slate-50/70 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
               <h2 className="text-base sm:text-lg font-bold text-slate-900">Media Inquiries</h2>
               <p className="mt-1 text-xs sm:text-sm text-slate-600">
@@ -126,41 +126,41 @@ export default function PressPage() {
               <a
                 href="/logo/vf-mark.png"
                 download="vf-mark.png"
-                className="inline-flex items-center gap-2 rounded-full bg-white border border-slate-200 px-5 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 shadow-xs hover:bg-slate-100 transition-colors"
+                className="btn-pill-secondary px-5 py-2.5 text-xs sm:text-sm"
               >
                 <Download size={15} />
                 <span>Download Media Assets</span>
               </a>
             </div>
-          </div>
+          </aside>
 
           {/* Fast Facts Grid */}
-          <div className="mt-16">
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">Company Fast Facts</h2>
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <section aria-labelledby="fast-facts-title" className="mt-16">
+            <h2 id="fast-facts-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">Company Fast Facts</h2>
+            <dl className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {fastFacts.map((fact) => (
                 <div key={fact.label} className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                     {fact.label}
-                  </div>
-                  <div className="mt-1.5 text-sm sm:text-base font-bold text-slate-900">
+                  </dt>
+                  <dd className="mt-1.5 text-sm sm:text-base font-bold text-slate-900">
                     {fact.value}
-                  </div>
+                  </dd>
                 </div>
               ))}
-            </div>
-          </div>
+            </dl>
+          </section>
 
           {/* Brand Assets */}
-          <div id="brand-assets" className="mt-16 scroll-mt-28">
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">Official Brand Assets</h2>
+          <section id="brand-assets" aria-labelledby="brand-assets-title" className="mt-16 scroll-mt-28">
+            <h2 id="brand-assets-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">Official Brand Assets</h2>
             <p className="mt-2 text-sm text-slate-600">
               Use these approved logo marks and typography when featuring VentureFlow in publications or media coverage.
             </p>
 
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Asset 1 */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
+              <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-slate-500 tracking-[0.08em]">Primary mark</span>
                   <span className="rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold px-2.5 py-0.5">
@@ -188,10 +188,10 @@ export default function PressPage() {
                     Download <Download size={13} />
                   </a>
                 </div>
-              </div>
+              </article>
 
               {/* Asset 2 */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
+              <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-slate-500 tracking-[0.08em]">Full brand lockup</span>
                   <span className="rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold px-2.5 py-0.5">
@@ -219,7 +219,7 @@ export default function PressPage() {
                     Download <Download size={13} />
                   </a>
                 </div>
-              </div>
+              </article>
             </div>
 
             {/* Brand Usage Rules */}
@@ -273,11 +273,11 @@ export default function PressPage() {
                 {companyBoilerplate}
               </p>
             </div>
-          </div>
+          </section>
 
           {/* Media Mentions Empty State */}
-          <div className="mt-16">
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
+          <section aria-labelledby="media-mentions-title" className="mt-16">
+            <h2 id="media-mentions-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
               Media Mentions &amp; Editorial Coverage
             </h2>
             <div className="mt-4 rounded-2xl border border-dashed border-slate-300 bg-slate-50/50 p-8 text-center">
@@ -289,18 +289,18 @@ export default function PressPage() {
                 Published profiles and editorial commentary will be indexed here as they are released. For press review copies or quote requests, contact our press desk below.
               </p>
             </div>
-          </div>
+          </section>
 
           {/* Recent Press Releases & Briefings */}
-          <div className="mt-16">
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
+          <section aria-labelledby="announcements-title" className="mt-16">
+            <h2 id="announcements-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
               Recent Announcements &amp; Briefings
             </h2>
-            <div className="mt-6 space-y-4">
+            <div className="mt-6 divide-y divide-slate-200/80 rounded-2xl border border-slate-200 bg-white p-2 sm:p-6 shadow-xs">
               {pressReleases.map((pr) => (
-                <div
+                <article
                   key={pr.title}
-                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs hover:border-slate-300 transition-colors"
+                  className="py-6 first:pt-2 last:pb-2 px-3 transition-colors hover:bg-slate-50/50 rounded-xl"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-700">
@@ -321,20 +321,20 @@ export default function PressPage() {
                       <ArrowUpRight size={14} />
                     </Link>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
-          </div>
+          </section>
 
           {/* Media Contact Section */}
-          <div id="media-contact" className="mt-16 scroll-mt-28">
+          <section id="media-contact" aria-labelledby="media-contact-title" className="mt-16 scroll-mt-28">
             <div className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50/80 via-white to-sky-50/50 p-6 sm:p-10 shadow-xs">
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/70 px-3 py-0.5 text-xs font-bold text-blue-800">
                   <ComplianceShieldIcon size={14} />
                   <span>Media &amp; Press Contact</span>
                 </div>
-                <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+                <h2 id="media-contact-title" className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
                   Media Inquiries &amp; Executive Commentary
                 </h2>
                 <p className="mt-2 text-sm text-slate-600 leading-relaxed">
@@ -344,7 +344,7 @@ export default function PressPage() {
                 <div className="mt-6 flex flex-wrap items-center gap-4">
                   <a
                     href="mailto:press@ventureflow.example"
-                    className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
+                    className="btn-pill-primary px-6 py-3 text-sm"
                   >
                     <Mail size={16} />
                     <span>press@ventureflow.example</span>
@@ -352,7 +352,7 @@ export default function PressPage() {
                   <a
                     href="/logo/vf-mark.png"
                     download="vf-mark.png"
-                    className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-colors"
+                    className="btn-pill-secondary px-5 py-3 text-sm"
                   >
                     <Download size={15} />
                     <span>Download Media Kit</span>
@@ -366,9 +366,9 @@ export default function PressPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
-      </div>
+      </main>
     </SiteShell>
   );
 }

@@ -12,24 +12,42 @@ const offsets: Record<Direction, { x?: number; y?: number; scale?: number }> = {
   none: {},
 };
 
+type RevealTag = "div" | "article" | "section" | "header" | "footer" | "aside" | "li" | "figure" | "p" | "h1" | "h2" | "h3";
+
+const motionComponents = {
+  div: motion.div,
+  article: motion.article,
+  section: motion.section,
+  header: motion.header,
+  footer: motion.footer,
+  aside: motion.aside,
+  li: motion.li,
+  figure: motion.figure,
+  p: motion.p,
+  h1: motion.h1,
+  h2: motion.h2,
+  h3: motion.h3,
+};
+
 export function Reveal({
   children,
   delay = 0,
   direction = "up",
   className = "",
   once = true,
+  as = "div",
+  id,
+  "aria-label": ariaLabel,
 }: {
   children: ReactNode;
   delay?: number;
   direction?: Direction;
   className?: string;
   once?: boolean;
+  as?: RevealTag;
+  id?: string;
+  "aria-label"?: string;
 }) {
-  // `useReducedMotion()` reads an OS/browser media query that only exists on the client,
-  // so it can resolve differently between the server-rendered HTML and the client's very
-  // first paint. Gating on `mounted` guarantees the server output and the first client
-  // render are byte-identical (a plain, fully-visible div) — no hydration mismatch —
-  // and the real reveal animation only takes over once we're safely past hydration.
   const [mounted, setMounted] = useState(false);
   const reduce = useReducedMotion();
 
@@ -37,14 +55,19 @@ export function Reveal({
     setMounted(true);
   }, []);
 
+  const Tag = as;
+  const MotionComponent = motionComponents[as] || motion.div;
+
   if (!mounted || reduce) {
-    return <div className={className}>{children}</div>;
+    return <Tag id={id} aria-label={ariaLabel} className={className}>{children}</Tag>;
   }
 
   const offset = offsets[direction];
 
   return (
-    <motion.div
+    <MotionComponent
+      id={id}
+      aria-label={ariaLabel}
       className={className}
       initial={{ opacity: 0, ...offset }}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
@@ -52,7 +75,7 @@ export function Reveal({
       transition={{ duration: 0.58, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
     >
       {children}
-    </motion.div>
+    </MotionComponent>
   );
 }
 

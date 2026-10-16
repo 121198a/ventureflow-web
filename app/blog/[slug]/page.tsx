@@ -53,11 +53,6 @@ export default async function BlogPostPage({ params }: Props) {
 
   const relatedPosts = getRelatedPosts(slug, 3);
 
-  // Article + BreadcrumbList JSON-LD from real post data only.
-  // NOTE: post.date is stored as "Mon YYYY" (month precision, no day), so we
-  // deliberately omit datePublished rather than inventing a specific day —
-  // a fabricated date would fail the "no invented facts" bar even though it
-  // would validate syntactically.
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",

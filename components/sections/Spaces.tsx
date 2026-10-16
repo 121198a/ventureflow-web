@@ -5,7 +5,6 @@ import { Eye, MessageCircle, ThumbsUp, X, Check } from "lucide-react";
 import { PartnershipRingsIcon } from "@/components/ui/CustomIcons";
 import { Reveal } from "@/components/ui/Reveal";
 import { AuthButton } from "@/components/ui/AuthButton";
-import { cn } from "@/lib/utils";
 
 const rejected = [
   {
@@ -50,14 +49,14 @@ export function Spaces() {
       <div className="pointer-events-none absolute right-1/4 top-1/4 h-72 w-72 rounded-full bg-blue-100/40 blur-3xl" />
 
       <Reveal className="relative z-10 mx-auto max-w-[900px] text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-white/95 px-4 py-1.5 text-xs font-semibold text-blue-800 shadow-2xs">
-          <PartnershipRingsIcon size={14} className="text-blue-600" />
+        <span className="badge-fintech">
+          <PartnershipRingsIcon size={14} className="text-blue-700" />
           <span>Spaces &middot; Collaborative Analyst Hubs</span>
         </span>
 
         <h2 className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
           Formulate, debate, and <br />
-          <span className="text-blue-600">
+          <span className="text-blue-700">
             decide on theses together.
           </span>
         </h2>
@@ -67,85 +66,78 @@ export function Spaces() {
         </p>
       </Reveal>
 
-      <Reveal delay={0.15} className="relative z-10 mx-auto mt-16 max-w-[860px] overflow-hidden rounded-xl border border-slate-200/90 bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
+      <Reveal as="article" aria-label="Collaborative Space demonstration" delay={0.15} className="spaces-hub-card">
         {/* Cover Header */}
-        <div className="h-16 bg-gradient-to-r from-blue-100/80 via-slate-100 to-emerald-50/80 border-b border-slate-100" />
+        <header className="relative">
+          <div className="h-16 bg-gradient-to-r from-blue-100/80 via-slate-100 to-emerald-50/80 border-b border-slate-100" />
 
-        {/* Space Profile Detail */}
-        <div className="flex flex-col gap-4 border-b border-slate-100 px-4 sm:px-7 pb-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3.5">
-            <span className="-mt-8 grid h-14 w-14 shrink-0 place-items-center rounded-xl border-4 border-white bg-blue-100 text-sm font-bold text-blue-700 shadow-md">
-              BC
-            </span>
+          {/* Space Profile Detail */}
+          <div className="flex flex-col gap-4 border-b border-slate-100 px-4 sm:px-7 pb-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3.5">
+              <span className="avatar-badge -mt-8 size-14 border-4 border-white shadow-md">
+                BC
+              </span>
 
-            <div>
-              <p className="flex flex-wrap items-center gap-1.5 sm:gap-2 font-bold text-slate-900 text-base">
-                Bravo Investment Club
-                <span className="rounded-full bg-blue-50 border border-blue-200/80 px-2.5 py-0.5 text-micro font-bold tracking-wider text-blue-700">
-                  UNIVERSITY FUND
-                </span>
-              </p>
+              <div>
+                <p className="flex flex-wrap items-center gap-1.5 sm:gap-2 font-bold text-slate-900 text-base">
+                  Bravo Investment Club
+                  <span className="rounded-full bg-blue-50 border border-blue-200/80 px-2.5 py-0.5 text-micro font-bold tracking-wider text-blue-700">
+                    UNIVERSITY FUND
+                  </span>
+                </p>
 
-              <p className="text-xs text-slate-600 mt-0.5 flex items-center gap-2 font-medium">
-                <span>24 verified analysts</span>
-                <span>&middot;</span>
-                <span className="flex items-center gap-1 font-semibold text-emerald-700">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Active today
-                </span>
-              </p>
+                <p className="text-xs text-slate-600 mt-0.5 flex items-center gap-2 font-medium">
+                  <span>24 verified analysts</span>
+                  <span>&middot;</span>
+                  <span className="flex items-center gap-1 font-semibold text-emerald-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Active today
+                  </span>
+                </p>
+              </div>
             </div>
-          </div>
 
-          <span className="inline-flex self-start sm:self-auto items-center gap-1.5 rounded-full border border-slate-200/80 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">
-            <Eye size={13} className="text-slate-500" />
-            Configurable member visibility
-          </span>
-        </div>
+            <span className="badge-editorial self-start sm:self-auto font-medium text-slate-600">
+              <Eye size={13} className="text-slate-500" />
+              Configurable member visibility
+            </span>
+          </div>
+        </header>
 
         {/* Submenu Tabs */}
         <div className="flex flex-wrap gap-x-4 gap-y-1 border-b border-slate-100 px-4 sm:gap-x-6 sm:px-7 text-xs font-bold uppercase tracking-wider text-slate-500">
           <button
             type="button"
             onClick={() => setActiveSubTab("announcements")}
-            className={cn(
-              "py-3 transition-colors cursor-pointer",
-              activeSubTab === "announcements" ? "border-b-2 border-blue-600 text-blue-600" : "hover:text-slate-800"
-            )}
+            className={activeSubTab === "announcements" ? "tab-subnav-btn-active" : "tab-subnav-btn"}
           >
             Announcements
           </button>
           <button
             type="button"
             onClick={() => setActiveSubTab("theses")}
-            className={cn(
-              "py-3 transition-colors cursor-pointer",
-              activeSubTab === "theses" ? "border-b-2 border-blue-600 text-blue-600" : "hover:text-slate-800"
-            )}
+            className={activeSubTab === "theses" ? "tab-subnav-btn-active" : "tab-subnav-btn"}
           >
             Theses
           </button>
           <button
             type="button"
             onClick={() => setActiveSubTab("portfolio")}
-            className={cn(
-              "py-3 transition-colors cursor-pointer",
-              activeSubTab === "portfolio" ? "border-b-2 border-blue-600 text-blue-600" : "hover:text-slate-800"
-            )}
+            className={activeSubTab === "portfolio" ? "tab-subnav-btn-active" : "tab-subnav-btn"}
           >
             Portfolio
           </button>
         </div>
 
         {/* Approved Thesis Feature */}
-        <div className="px-4 sm:px-7 pt-5">
-          <p className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 uppercase tracking-wider">
+        <section aria-labelledby="approved-thesis-heading" className="px-4 sm:px-7 pt-5">
+          <p id="approved-thesis-heading" className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 uppercase tracking-wider">
             <span className="grid h-4 w-4 place-items-center rounded-full bg-emerald-100">
               <Check size={12} className="text-emerald-700" />
             </span>
             Space-Approved Position
           </p>
 
-          <div className="card-fintech mt-3 p-4 sm:p-5">
+          <article className="mt-3 rounded-lg border border-slate-200/80 bg-white p-4 sm:p-5 shadow-2xs">
             <div className="flex items-start justify-between gap-3">
               <div className="flex min-w-0 items-center gap-2.5">
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-xs shrink-0">
@@ -197,8 +189,8 @@ export function Spaces() {
                 </span>
               </span>
             </div>
-          </div>
-        </div>
+          </article>
+        </section>
 
         {/* Rejected / Tracked Theses Track */}
         <div className="px-4 sm:px-7 pb-7 pt-6">
@@ -206,9 +198,9 @@ export function Spaces() {
             <X size={14} className="text-rose-600" /> Non-Consensus Theses, Permanently Tracked
           </p>
 
-          <div className="mt-3 divide-y divide-slate-100 rounded-xl border border-slate-200 overflow-hidden shadow-2xs">
+          <ul role="list" className="mt-3 divide-y divide-slate-100 rounded-lg border border-slate-200 overflow-hidden shadow-2xs list-none p-0">
             {rejected.map((r) => (
-              <div
+              <li
                 key={r.title}
                 className="gb-interactive-card flex items-center justify-between gap-3 px-4 py-3 bg-white hover:bg-slate-50/80 transition-colors"
               >
@@ -235,9 +227,9 @@ export function Spaces() {
                     {r.status}
                   </p>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </Reveal>
 
@@ -246,7 +238,7 @@ export function Spaces() {
           Host meetings, share announcements, and control who can view your club&apos;s track record.
         </p>
 
-        <AuthButton flow="signup" className="btn-pill-primary mt-4">
+        <AuthButton flow="signup" ariaLabel="Create your club's Space" className="mt-4 px-6 py-3.5">
           Create your club&apos;s Space
         </AuthButton>
       </Reveal>

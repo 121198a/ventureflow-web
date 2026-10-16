@@ -16,11 +16,11 @@ const ABOUT_PHOTOS = [
 ] as const;
 
 const HERO_AVATARS = [
-  { src: ABOUT_PHOTOS[0], className: "left-[8%] top-[6%] h-14 w-14 sm:h-16 sm:w-16" },
-  { src: ABOUT_PHOTOS[3], className: "right-[9%] top-[8%] h-14 w-14 sm:h-16 sm:w-16" },
-  { src: ABOUT_PHOTOS[1], className: "right-[4%] top-[46%] h-11 w-11 sm:h-12 sm:w-12" },
-  { src: ABOUT_PHOTOS[4], className: "left-[14%] bottom-[10%] h-12 w-12 sm:h-14 sm:w-14" },
-  { src: ABOUT_PHOTOS[2], className: "right-[16%] bottom-[6%] h-11 w-11 sm:h-12 sm:w-12" },
+  { src: ABOUT_PHOTOS[0], alt: "Venture partner reviewing deal pipeline", className: "left-[8%] top-[6%] h-14 w-14 sm:h-16 sm:w-16" },
+  { src: ABOUT_PHOTOS[3], alt: "Startup founder preparing institutional diligence", className: "right-[9%] top-[8%] h-14 w-14 sm:h-16 sm:w-16" },
+  { src: ABOUT_PHOTOS[1], alt: "Angel investor collaborating in shared spaces", className: "right-[4%] top-[46%] h-11 w-11 sm:h-12 sm:w-12" },
+  { src: ABOUT_PHOTOS[4], alt: "Biomedical researcher in company workspace", className: "left-[14%] bottom-[10%] h-12 w-12 sm:h-14 sm:w-14" },
+  { src: ABOUT_PHOTOS[2], alt: "General partner verifying cap table allocations", className: "right-[16%] bottom-[6%] h-11 w-11 sm:h-12 sm:w-12" },
 ] as const;
 
 const COMPARISON_ROWS: [string, boolean | "soon", boolean | "soon", boolean | "soon"][] = [
@@ -42,41 +42,47 @@ function Mark({ value }: { value: boolean | "soon" }) {
   if (value === "soon") {
     return (
       <span className="inline-block rounded-pill bg-blue-50 px-2.5 py-1 font-mono text-xs font-semibold text-blue-600 border border-blue-200/80">
+        <span className="sr-only">Coming soon</span>
         COMING SOON
       </span>
     );
   }
   if (value)
     return (
-      <Check
-        size={18}
-        strokeWidth={2.5}
-        className="mx-auto align-middle text-emerald-600"
-        aria-label="Yes"
-      />
+      <span className="inline-flex items-center justify-center">
+        <span className="sr-only">Included</span>
+        <Check
+          size={18}
+          strokeWidth={2.5}
+          className="mx-auto align-middle text-emerald-600"
+          aria-hidden="true"
+        />
+      </span>
     );
   return (
-    <X
-      size={18}
-      strokeWidth={2.5}
-      className="mx-auto align-middle text-slate-400"
-      aria-label="No"
-    />
+    <span className="inline-flex items-center justify-center">
+      <span className="sr-only">Not included</span>
+      <X
+        size={18}
+        strokeWidth={2.5}
+        className="mx-auto align-middle text-slate-400"
+        aria-hidden="true"
+      />
+    </span>
   );
 }
 
 export default function AboutSection() {
   return (
-    <div className="bg-slate-50/80 border-slate-100 font-sans text-slate-900 antialiased">
+    <main id="main-content" className="bg-slate-50/80 border-slate-100 font-sans text-slate-900 antialiased">
       {/* HERO */}
       <section className={`relative flex min-h-[85vh] flex-col justify-center overflow-hidden to-blue-400 ${styles.dotGrid || ""}`}>
         {HERO_AVATARS.map((a, i) => (
           <span
             key={a.src + i}
             className={`absolute z-10 hidden overflow-hidden rounded-pill border-2 border-white shadow-md sm:block ${a.className}`}
-            aria-hidden="true"
           >
-            <Image src={a.src} alt="" width={64} height={64} className="h-full w-full object-cover" />
+            <Image src={a.src} alt={a.alt} width={64} height={64} className="h-full w-full object-cover" />
           </span>
         ))}
         <Reveal className="relative mx-auto max-w-4xl px-6 pb-16 pt-24 text-center sm:pb-20 sm:pt-32">
@@ -120,15 +126,15 @@ export default function AboutSection() {
         </Reveal>
 
         <div className="mx-auto mt-14 grid max-w-6xl gap-6 px-6 md:grid-cols-3">
-          <Reveal delay={0} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-xl bg-white border border-slate-200 shadow-xs ${styles.receipt || ""}`}>
-            <div className="mb-6 rounded-md border border-dashed border-slate-300 bg-slate-50 p-4">
+          <Reveal as="article" delay={0} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-xl bg-white border border-slate-200 shadow-xs ${styles.receipt || ""}`}>
+            <figure className="mb-6 rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 m-0">
               <div className="mb-2 h-2.5 w-3/4 rounded bg-slate-200" />
               <div className="mb-2 h-2.5 w-1/2 rounded bg-slate-200" />
               <div className="mb-4 h-2.5 w-2/3 rounded bg-slate-200" />
               <span className="inline-flex items-center gap-1 rounded bg-white px-2 py-1 font-mono text-xs font-semibold text-slate-600 border border-slate-200">
                 <Lock size={11} strokeWidth={2.5} /> Files in five places
               </span>
-            </div>
+            </figure>
             <h3 className="font-about-display mb-2 min-h-[48px] text-lg font-bold">
               Files drift out of sight.
             </h3>
@@ -137,14 +143,14 @@ export default function AboutSection() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.08} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-xl bg-white border border-slate-200 shadow-xs ${styles.receipt || ""}`}>
-            <div className="relative mb-6 flex h-[104px] items-center justify-center rounded-md border border-dashed border-slate-300 bg-slate-50 p-4">
+          <Reveal as="article" delay={0.08} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-xl bg-white border border-slate-200 shadow-xs ${styles.receipt || ""}`}>
+            <figure className="relative mb-6 flex h-[104px] items-center justify-center rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 m-0">
               <div className="text-center">
                 <span className="font-mono text-3xl font-bold text-blue-600">3 tools</span>
                 <p className="mt-1 text-micro text-slate-500">for one conversation</p>
               </div>
               <span className="absolute right-6 top-2 bottom-2 border-r border-dashed border-slate-300" aria-hidden="true" />
-            </div>
+            </figure>
             <h3 className="font-about-display mb-2 min-h-[48px] text-lg font-bold">
               Context gets lost between tools.
             </h3>
@@ -153,8 +159,8 @@ export default function AboutSection() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.16} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-xl bg-white border border-slate-200 shadow-xs ${styles.receipt || ""}`}>
-            <div className="mb-6 flex h-[104px] items-center justify-center gap-4 rounded-md border border-dashed border-slate-300 bg-slate-50 p-4">
+          <Reveal as="article" delay={0.16} className={`relative flex flex-col p-6 pt-8 overflow-hidden rounded-xl bg-white border border-slate-200 shadow-xs ${styles.receipt || ""}`}>
+            <figure className="mb-6 flex h-[104px] items-center justify-center gap-4 rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 m-0">
               <div className="text-center">
                 <div className="font-mono text-lg font-bold">Inbox</div>
                 <div className="text-micro text-slate-600">messages</div>
@@ -164,7 +170,7 @@ export default function AboutSection() {
                 <div className="font-mono text-lg font-bold">Drive</div>
                 <div className="text-micro text-slate-600">documents</div>
               </div>
-            </div>
+            </figure>
             <h3 className="font-about-display mb-2 min-h-[48px] text-lg font-bold">
               One relationship, many places.
             </h3>
@@ -222,16 +228,16 @@ export default function AboutSection() {
               <table className="w-full min-w-[560px] text-left text-sm">
                 <thead>
                   <tr className="border-b border-slate-200 bg-slate-50/70">
-                    <th className="w-[42%] py-4 pl-6 pr-4 font-medium text-slate-600">
-                      <span className="sr-only">Comparison aspect</span>
+                    <th scope="col" className="w-[42%] py-4 pl-6 pr-4 font-semibold text-slate-700">
+                      Feature Comparison
                     </th>
-                    <th className="px-4 py-4 text-center font-semibold text-slate-600">
+                    <th scope="col" className="px-4 py-4 text-center font-semibold text-slate-600">
                       Email threads
                     </th>
-                    <th className="px-4 py-4 text-center font-semibold text-slate-600">
+                    <th scope="col" className="px-4 py-4 text-center font-semibold text-slate-600">
                       Spreadsheets
                     </th>
-                    <th className="bg-blue-50 py-4 pl-4 pr-6 text-center font-bold text-blue-600">
+                    <th scope="col" className="bg-blue-50 py-4 pl-4 pr-6 text-center font-bold text-blue-600">
                       VentureFlow
                     </th>
                   </tr>
@@ -239,7 +245,7 @@ export default function AboutSection() {
                 <tbody className="divide-y divide-slate-200">
                   {COMPARISON_ROWS.map(([label, a, b, c]) => (
                     <tr key={label} className="hover:bg-slate-50/40 transition-colors">
-                      <td className="py-4 pl-6 pr-3 font-medium text-slate-800">{label}</td>
+                      <th scope="row" className="py-4 pl-6 pr-3 font-medium text-slate-800 text-left">{label}</th>
                       <td className="px-3 py-4 text-center align-middle"><Mark value={a} /></td>
                       <td className="px-3 py-4 text-center align-middle"><Mark value={b} /></td>
                       <td className="bg-blue-50/40 py-4 pl-3 pr-6 text-center align-middle"><Mark value={c} /></td>
@@ -263,15 +269,16 @@ export default function AboutSection() {
           </p>
         </Reveal>
 
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 px-6 sm:grid-cols-3">
+        <div className="mx-auto mt-12 grid max-w-5xl gap-8 px-6 sm:grid-cols-3">
           {PRINCIPLES.map((f, i) => (
             <Reveal
+              as="article"
               key={f.title}
               delay={i * 0.08}
-              className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs"
+              className="border-l-2 border-blue-600/80 pl-5 py-2 text-left"
             >
-              <p className="font-semibold text-slate-900 text-base">{f.title}</p>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">{f.body}</p>
+              <h3 className="font-semibold text-slate-900 text-base">{f.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{f.body}</p>
             </Reveal>
           ))}
         </div>
@@ -284,7 +291,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
-            className="card-fintech mx-auto flex w-full max-w-[1120px] flex-col items-center gap-8 p-6 md:p-10 shadow-xl md:flex-row md:justify-between"
+            className="mx-auto flex w-full max-w-[1120px] flex-col items-center gap-8 rounded-2xl border border-slate-200/90 bg-white p-6 md:p-10 shadow-xl md:flex-row md:justify-between"
           >
             <div className="text-center md:text-left">
               <h2 className="font-about-display text-[clamp(1.4rem,3vw,1.8rem)] font-extrabold tracking-tight text-slate-900">
@@ -296,7 +303,8 @@ export default function AboutSection() {
               <div className="mt-5">
                 <AuthButton
                   flow="signup"
-                  className="btn-pill-primary px-6 py-3.5"
+                  ariaLabel="Explore VentureFlow sample workspaces"
+                  className="px-6 py-3.5"
                   icon={false}
                 >
                   Explore VentureFlow <ArrowRight size={15} />
@@ -306,6 +314,6 @@ export default function AboutSection() {
           </motion.div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

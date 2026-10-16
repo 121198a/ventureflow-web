@@ -175,7 +175,7 @@ export function BlogNav() {
             <AuthButton
               flow="signup"
               icon={false}
-              className="hidden sm:inline-flex btn-pill-primary px-5 py-2.5 text-xs sm:text-sm"
+              className="hidden sm:inline-flex px-5 py-2.5 text-xs sm:text-sm"
             >
               <span>Get started</span>
               <ArrowRight size={14} />
@@ -186,7 +186,7 @@ export function BlogNav() {
               aria-label={open ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={open}
               onClick={() => setOpen(true)}
-              className="grid h-9 w-9 place-items-center rounded-full border border-slate-200/90 bg-white/90 text-slate-800 transition-transform active:scale-95 sm:hidden cursor-pointer shadow-2xs"
+              className="grid size-9 place-items-center rounded-full border border-slate-200 bg-white text-slate-800 transition-transform active:scale-95 sm:hidden hover:bg-slate-100 hover:text-slate-900 focus-ring cursor-pointer shadow-2xs"
             >
               <Menu size={18} />
             </button>

@@ -23,7 +23,7 @@ function trackBranchPageview() {
 
   // Respect user cookie consent: only track if user explicitly accepted analytics
   try {
-    const consent = localStorage.getItem("ub_cookie_consent");
+    const consent = localStorage.getItem("vf_cookie_consent") || localStorage.getItem("ub_cookie_consent");
     if (consent !== "accepted") {
       return;
     }

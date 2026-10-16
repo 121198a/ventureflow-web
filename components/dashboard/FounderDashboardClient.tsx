@@ -321,7 +321,7 @@ export function FounderDashboardClient() {
               type="button"
               onClick={logout}
               title="Sign out of VentureFlow"
-              className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-red-600 transition-colors shadow-2xs cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-red-600 transition-colors shadow-2xs focus-ring cursor-pointer"
             >
               <LogOut className="size-3.5" />
               <span className="hidden sm:inline">Sign out</span>
@@ -1111,7 +1111,7 @@ export function FounderDashboardClient() {
                   <button
                     type="button"
                     onClick={logout}
-                    className="inline-flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-xs font-semibold text-white hover:bg-red-700 shadow-xs transition-colors"
+                    className="inline-flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-xs font-semibold text-white hover:bg-red-700 shadow-xs transition-colors focus-ring cursor-pointer"
                   >
                     <LogOut className="size-3.5" /> Sign out now
                   </button>

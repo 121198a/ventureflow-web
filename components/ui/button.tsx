@@ -21,31 +21,30 @@ type Variant =
 type Size = "xs" | "sm" | "md" | "lg" | "icon";
 type Shape = "pill" | "rounded" | "square" | "circle";
 
-const base =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-200 active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:pointer-events-none disabled:opacity-50 select-none cursor-pointer";
+const base = "btn-base";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-brand text-primary-foreground shadow-xs hover:bg-brand-strong hover:shadow-md hover:shadow-blue-900/10 disabled:bg-brand-disabled",
+    "bg-brand text-white shadow-xs hover:bg-brand-strong hover:shadow-md disabled:bg-brand-disabled",
   secondary:
-    "bg-surface-alt text-ink hover:bg-slate-200/90 border border-slate-200 hover:border-slate-300 shadow-2xs",
+    "bg-surface-alt text-ink hover:bg-slate-200 border border-slate-200 shadow-2xs",
   outline:
-    "border border-slate-200 bg-white text-ink hover:bg-slate-50 hover:border-slate-300 shadow-2xs",
+    "border border-slate-200 bg-white text-ink hover:bg-slate-50 shadow-2xs",
   ghost:
-    "text-ink/80 hover:text-brand hover:bg-blue-50/80 border border-transparent",
+    "text-ink/80 hover:text-brand hover:bg-blue-50/80",
   destructive:
-    "bg-destructive text-destructive-foreground hover:bg-red-600 shadow-xs",
+    "bg-destructive text-white hover:bg-red-600 shadow-xs",
   text:
-    "text-brand underline underline-offset-2 hover:text-brand-strong p-0 h-auto font-normal",
+    "text-brand underline underline-offset-2 hover:text-brand-strong p-0",
   link:
-    "text-brand hover:text-brand-strong hover:underline underline-offset-4 p-0 h-auto font-medium",
+    "text-brand hover:text-brand-strong hover:underline underline-offset-4 p-0",
 };
 
 const sizes: Record<Size, string> = {
-  xs: "px-3 py-1 text-[0.75rem] min-h-[30px]",
-  sm: "px-4 py-1.5 text-[0.82rem] min-h-[36px]",
-  md: "px-6 py-2.5 text-[0.9rem] min-h-[42px]",
-  lg: "px-8 py-3 text-[1rem] min-h-[48px]",
+  xs: "px-3 py-1 text-xs",
+  sm: "px-4 py-1.5 text-xs min-h-[36px]",
+  md: "px-6 py-2.5 text-sm min-h-[42px]",
+  lg: "px-8 py-3 text-base min-h-[48px]",
   icon: "size-10 p-2 min-h-[40px] min-w-[40px]",
 };
 

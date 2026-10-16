@@ -61,13 +61,13 @@ export function ColorSwatch({
   };
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs flex flex-col justify-between">
-      <div>
-        <div className={`h-12 w-full rounded-lg border border-slate-100 ${colorClass}`} />
+    <figure className="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs flex flex-col justify-between m-0">
+      <figcaption>
+        <div className={`h-12 w-full rounded-lg border border-slate-100 ${colorClass}`} aria-hidden="true" />
         <p className="mt-3 text-xs font-bold text-slate-900">{name}</p>
         <p className="mt-1 text-xs text-slate-500 leading-snug">{usage}</p>
-      </div>
-      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+      </figcaption>
+      <footer className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
         <span className="font-mono text-xs font-medium text-slate-600">{hex}</span>
         <button
           type="button"
@@ -77,7 +77,7 @@ export function ColorSwatch({
         >
           {copied ? <Check size={12} className="text-emerald-600" /> : <Copy size={12} />}
         </button>
-      </div>
-    </div>
+      </footer>
+    </figure>
   );
 }

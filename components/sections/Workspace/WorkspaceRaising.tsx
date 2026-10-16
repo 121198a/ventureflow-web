@@ -11,7 +11,7 @@ const deals = [
     name: "Northhstar Lab Pvt. Ltd.",
     sub: "Fictional demo profile",
     tag: "Sample",
-    focus: "Technology & AI",
+    focus: "Enterprise Software",
     round: "Early Stage",
     location: "Demo Workspace",
     access: "Sample data",
@@ -49,13 +49,13 @@ const deals = [
 
 export function WorkspaceRaising() {
   return (
-    <section id="raising" className="scroll-mt-24 relative overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-slate-50/60 px-5 py-20 text-slate-900 sm:py-28 border-y border-slate-200/80">
+    <section id="raising" className="scroll-mt-24 relative overflow-hidden bg-slate-50/70 px-5 py-20 text-slate-900 sm:py-28 border-y border-slate-200/80">
       {/* Subtle Light Ambient Wash */}
       <div className="pointer-events-none absolute left-1/3 top-0 h-80 w-80 rounded-full bg-blue-100/50 blur-3xl" />
       <div className="pointer-events-none absolute right-1/4 bottom-0 h-80 w-80 rounded-full bg-sky-50/60 blur-3xl" />
 
       <Reveal className="relative z-10 mx-auto max-w-[820px] text-center">
-        <span className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/95 px-4 py-1.5 text-xs font-semibold text-blue-800 shadow-2xs">
+        <span className="badge-fintech">
           <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse" />
           Now on VentureFlow
         </span>
@@ -71,9 +71,10 @@ export function WorkspaceRaising() {
       <div className="relative z-10 mx-auto mt-16 grid max-w-[1100px] gap-6 md:grid-cols-3">
         {deals.map((d, i) => (
           <Reveal
+            as="article"
             key={d.name}
             delay={i * 0.1}
-            className="card-fintech-interactive p-4 sm:p-6 w-full max-w-full overflow-hidden"
+            className="card-article-interactive p-4 sm:p-6 w-full max-w-full overflow-hidden"
           >
             <div className="flex items-center justify-between gap-3">
               <div className="flex min-w-0 flex-1 items-center gap-3">

@@ -61,75 +61,84 @@ const serviceFeatures = [
 
 export default function Services() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
+    <div className="relative min-h-screen overflow-hidden bg-background flex flex-col">
       <SiteHeader />
 
-      <section className="relative z-10 mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
-        <p className="eyebrow">Workspace Capabilities</p>
-        <h1 className="mt-4 text-[2rem] sm:text-[2.4rem] text-slate-900" style={{ fontWeight: 800 }}>
-          What each role can do
-        </h1>
-        <p className="mt-4 max-w-[620px] text-[0.95rem] leading-[1.75] text-ink/70">
-          VentureFlow keeps startup profiles, introductions, messages, notes and documents in one workspace. Here is how each role uses it.
-        </p>
+      <main id="main-content" className="flex-1">
+        <section className="relative z-10 mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
+          <p className="eyebrow">Workspace Capabilities</p>
+          <h1 className="mt-4 text-[2rem] sm:text-[2.4rem] text-slate-900" style={{ fontWeight: 800 }}>
+            What each role can do
+          </h1>
+          <p className="mt-4 max-w-[620px] text-[0.95rem] leading-[1.75] text-ink/70">
+            VentureFlow keeps startup profiles, introductions, messages, notes and documents in one workspace. Here is how each role uses it.
+          </p>
 
-        <div className="mt-10 overflow-x-auto rounded-lg border border-hairline bg-white shadow-xs">
-          <table className="w-full min-w-[640px] border-collapse text-left text-[0.9rem]">
-            <thead>
-              <tr className="border-b border-hairline bg-surface">
-                <th className="px-6 py-5 w-[34%]" style={{ fontWeight: 600 }}>
-                  Service &amp; Capability
-                </th>
-                {tierColumns.map((t) => (
-                  <th key={t.name} className="px-4 py-5 text-center" style={{ fontWeight: 600 }}>
-                    <span className="block font-bold text-slate-900 text-sm">{t.name}</span>
-                    <span className="block text-micro text-slate-600 font-normal mt-0.5">{t.audience}</span>
-                    <span className="inline-block mt-1 text-[10px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-pill">
-                      {t.limit}
-                    </span>
+          <div className="mt-10 overflow-x-auto rounded-lg border border-hairline bg-white shadow-xs">
+            <table className="w-full min-w-[640px] border-collapse text-left text-[0.9rem]">
+              <thead>
+                <tr className="border-b border-hairline bg-surface">
+                  <th scope="col" className="px-6 py-5 w-[34%]" style={{ fontWeight: 600 }}>
+                    Capability
                   </th>
-                ))}
-              </tr>
-            </thead>
-            {serviceFeatures.map((group) => (
-              <tbody key={group.category} className="divide-y divide-hairline">
-                <tr className="bg-slate-50/80">
-                  <td
-                    colSpan={4}
-                    className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-600"
-                  >
-                    {group.category}
-                  </td>
+                  {tierColumns.map((t) => (
+                    <th scope="col" key={t.name} className="px-4 py-5 text-center" style={{ fontWeight: 600 }}>
+                      <span className="block font-bold text-slate-900 text-sm">{t.name}</span>
+                      <span className="block text-micro text-slate-600 font-normal mt-0.5">{t.audience}</span>
+                      <span className="inline-block mt-1 text-[10px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-pill">
+                        {t.limit}
+                      </span>
+                    </th>
+                  ))}
                 </tr>
-                {group.items.map((item) => (
-                  <tr key={item.name} className="hover:bg-slate-50/50 transition-colors">
-                    <td className="px-6 py-3.5 font-medium text-slate-800 text-sm">{item.name}</td>
-                    {item.tiers.map((supported, idx) => (
-                      <td key={idx} className="px-4 py-3.5 text-center align-middle">
-                        {supported ? (
-                          <Check className="mx-auto size-4 text-emerald-600" />
-                        ) : (
-                          <span className="text-slate-300 font-bold">&mdash;</span>
-                        )}
-                      </td>
-                    ))}
+              </thead>
+              {serviceFeatures.map((group) => (
+                <tbody key={group.category} className="divide-y divide-hairline">
+                  <tr className="bg-slate-50/80">
+                    <th
+                      scope="colgroup"
+                      colSpan={4}
+                      className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-600 text-left"
+                    >
+                      {group.category}
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            ))}
-          </table>
-        </div>
-
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl border border-hairline bg-surface p-6">
-          <div>
-            <h3 className="font-bold text-slate-900 text-base">Ready to set up your workspace?</h3>
-            <p className="text-sm text-ink/70 mt-1">Create an account to build your profile and start collaborating.</p>
+                  {group.items.map((item) => (
+                    <tr key={item.name} className="hover:bg-slate-50/50 transition-colors">
+                      <th scope="row" className="px-6 py-3.5 font-medium text-slate-800 text-sm text-left">{item.name}</th>
+                      {item.tiers.map((supported, idx) => (
+                        <td key={idx} className="px-4 py-3.5 text-center align-middle">
+                          {supported ? (
+                            <span className="inline-flex items-center justify-center">
+                              <span className="sr-only">Supported</span>
+                              <Check className="mx-auto size-4 text-emerald-600" aria-hidden="true" />
+                            </span>
+                          ) : (
+                            <span className="text-slate-300 font-bold">
+                              <span className="sr-only">Not supported</span>
+                              &mdash;
+                            </span>
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              ))}
+            </table>
           </div>
-          <Button href="/signup" size="md">
-            Get started <ArrowRight className="size-4 ml-1.5 inline" />
-          </Button>
-        </div>
-      </section>
+
+          <aside aria-label="Signup Callout" className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl border border-hairline bg-surface p-6">
+            <div>
+              <h2 className="font-bold text-slate-900 text-base">Ready to set up your workspace?</h2>
+              <p className="text-sm text-ink/70 mt-1">Create an account to build your profile and start collaborating.</p>
+            </div>
+            <Button href="/signup" size="md">
+              Get started <ArrowRight className="size-4 ml-1.5 inline" />
+            </Button>
+          </aside>
+        </section>
+      </main>
 
       <SiteFooter />
     </div>

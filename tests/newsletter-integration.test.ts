@@ -304,18 +304,35 @@ test("Consultation booking date validation rejects past dates and weekends", () 
   assert.equal(pastCheck.valid, false);
   assert.ok(pastCheck.error?.includes("past"));
 
-  // Weekend date rejected (2026-10-04 is Sunday)
-  const sundayCheck = validateConsultationDate("2026-10-04");
+  const toYMD = (d: Date) => {
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // Calculate upcoming weekend date dynamically using local calendar dates
+  const now = new Date();
+  const futureSunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + ((7 - now.getDay()) % 7 || 7));
+  const sundayStr = toYMD(futureSunday);
+
+  const sundayCheck = validateConsultationDate(sundayStr);
   assert.equal(sundayCheck.valid, false);
   assert.ok(sundayCheck.error?.includes("business days"));
 
-  // Weekend date rejected (2026-10-03 is Saturday)
-  const saturdayCheck = validateConsultationDate("2026-10-03");
+  const futureSaturday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + ((6 - now.getDay() + 7) % 7 || 7));
+  const saturdayStr = toYMD(futureSaturday);
+
+  const saturdayCheck = validateConsultationDate(saturdayStr);
   assert.equal(saturdayCheck.valid, false);
   assert.ok(saturdayCheck.error?.includes("business days"));
 
-  // Business day accepted (2026-10-06 is Tuesday)
-  const tuesdayCheck = validateConsultationDate("2026-10-06");
+  // Calculate upcoming Tuesday (business day)
+  const daysUntilTuesday = (2 - now.getDay() + 7) % 7 || 7;
+  const futureTuesday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilTuesday);
+  const tuesdayStr = toYMD(futureTuesday);
+
+  const tuesdayCheck = validateConsultationDate(tuesdayStr);
   assert.equal(tuesdayCheck.valid, true);
 });
 

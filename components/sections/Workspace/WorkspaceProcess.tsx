@@ -54,52 +54,53 @@ export function WorkspaceProcess() {
         </div>
 
         {/* Right Stepper Steps */}
-        <div className="lg:col-span-6 flex flex-col gap-12 sm:gap-16 py-4">
+        <ol className="lg:col-span-6 flex flex-col gap-12 sm:gap-16 py-4 list-none m-0 p-0">
           {steps.map((s, i) => (
-            <button
-              key={s.title}
-              ref={refs[i]}
-              type="button"
-              onClick={() => setActive(i)}
-              aria-label={`Step ${i + 1}: ${s.title}`}
-              aria-current={active === i ? "step" : undefined}
-              className="flex w-full text-left gap-5 cursor-pointer group rounded-lg p-1 transition-colors focus-ring"
-            >
-              {/* Stepper Node & Connecting Line */}
-              <div className="flex flex-col items-center">
-                <span
-                  className={cn(
-                    "grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 font-mono text-xs font-bold",
-                    active >= i
-                      ? "border-blue-600 bg-blue-600 text-white shadow-xs"
-                      : "border-slate-300 bg-white text-slate-600"
-                  )}
-                >
-                  {i + 1}
-                </span>
-                {i < steps.length - 1 && (
+            <li key={s.title}>
+              <button
+                ref={refs[i]}
+                type="button"
+                onClick={() => setActive(i)}
+                aria-label={`Step ${i + 1}: ${s.title}`}
+                aria-current={active === i ? "step" : undefined}
+                className="flex w-full text-left gap-5 cursor-pointer group rounded-lg p-1.5 transition-colors hover:bg-slate-50/70 focus-ring"
+              >
+                {/* Stepper Node & Connecting Line */}
+                <div className="flex flex-col items-center">
                   <span
                     className={cn(
-                      "mt-2 w-0.5 flex-1 transition-colors duration-300 min-h-[70px]",
-                      active > i ? "bg-blue-600" : "bg-slate-200"
+                      "grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 font-mono text-xs font-bold",
+                      active >= i
+                        ? "border-blue-600 bg-blue-600 text-white shadow-xs"
+                        : "border-slate-300 bg-white text-slate-600"
                     )}
-                  />
-                )}
-              </div>
-
-              {/* Step Details */}
-              <div className={cn("min-w-0 flex-1 pb-2 transition-all duration-300", active === i ? "opacity-100" : "opacity-80 hover:opacity-100")}>
-                <h4 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">{s.title}</h4>
-                <p className="mt-1 text-sm sm:text-base text-slate-600 leading-relaxed">{s.body}</p>
-                {s.mark && (
-                  <span className="mt-3 inline-flex items-center rounded-md bg-slate-950 px-2.5 py-1 text-xs font-bold text-white">
-                    {s.mark}
+                  >
+                    {i + 1}
                   </span>
-                )}
-              </div>
-            </button>
+                  {i < steps.length - 1 && (
+                    <span
+                      className={cn(
+                        "mt-2 w-0.5 flex-1 transition-colors duration-300 min-h-[70px]",
+                        active > i ? "bg-blue-600" : "bg-slate-200"
+                      )}
+                    />
+                  )}
+                </div>
+
+                {/* Step Details */}
+                <div className={cn("min-w-0 flex-1 pb-2 transition-all duration-300", active === i ? "opacity-100" : "opacity-80 hover:opacity-100")}>
+                  <h4 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">{s.title}</h4>
+                  <p className="mt-1 text-sm sm:text-base text-slate-600 leading-relaxed">{s.body}</p>
+                  {s.mark && (
+                    <span className="mt-3 inline-flex items-center rounded-md bg-slate-950 px-2.5 py-1 text-xs font-bold text-white">
+                      {s.mark}
+                    </span>
+                  )}
+                </div>
+              </button>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

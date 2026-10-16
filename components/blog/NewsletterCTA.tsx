@@ -52,7 +52,7 @@ export function NewsletterCTA() {
             </div>
 
             <h2 className="display mt-4 text-[clamp(2rem,4vw,3.2rem)] font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-              Stay ahead with verifiable market intelligence.
+              Stay ahead with verifiable market briefings.
             </h2>
 
             <p className="mx-auto mt-4 max-w-xl text-sm sm:text-base text-slate-600 leading-relaxed">
@@ -103,7 +103,7 @@ export function NewsletterCTA() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="btn-pill-primary px-7 py-3.5 disabled:opacity-70 cursor-pointer"
+                      className="btn-pill-primary px-7 py-3.5 hover:bg-blue-700 focus-ring disabled:opacity-70 cursor-pointer"
                     >
                       {loading ? (
                         <span>Subscribing...</span>

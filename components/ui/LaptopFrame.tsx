@@ -131,9 +131,9 @@ export function LaptopFrame({
     };
   }, [autoPlay, attemptPlay]);
 
-  const handleTogglePlay = (e: React.MouseEvent) => {
+  const handleTogglePlay = (e?: React.SyntheticEvent) => {
     // Prevent toggle if clicking on interactive children (like links or buttons)
-    if ((e.target as HTMLElement).closest("a, button, input, select")) {
+    if (e && (e.target as HTMLElement).closest("a, button, input, select")) {
       return;
     }
 
@@ -158,17 +158,28 @@ export function LaptopFrame({
     <div
       ref={containerRef}
       className={cn(
-        "relative mx-auto w-full max-w-[640px] flex flex-col items-center select-none overflow-hidden sm:overflow-visible cursor-pointer",
+        "relative mx-auto w-full max-w-[640px] flex flex-col items-center select-none overflow-hidden sm:overflow-visible cursor-pointer hover:opacity-95 focus-ring rounded-xl",
         className
       )}
       onClick={handleTogglePlay}
-      role="region"
-      aria-label={alt}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleTogglePlay();
+        }
+      }}
+      tabIndex={0}
+      role="button"
+      aria-label={isPlaying ? `Pause demonstration: ${alt}` : `Play demonstration: ${alt}`}
+      aria-pressed={isPlaying}
     >
+      <span className="sr-only">
+        {isPlaying ? `Pause video demonstration: ${alt}` : `Play video demonstration: ${alt}`}
+      </span>
       {/* Subtle ambient lighting behind laptop - clamped on mobile to prevent horizontal viewport overflow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 sm:-inset-4 lg:-inset-8 rounded-2xl sm:rounded-[32px] bg-gradient-to-tr from-blue-600/15 via-sky-400/10 to-blue-500/15 blur-xl sm:blur-2xl transition-opacity duration-700 opacity-80"
+        className="laptop-ambient-glow"
       />
 
       {/* Watermark Backdrop */}
@@ -230,7 +241,7 @@ export function LaptopFrame({
       </div>
 
       {/* Laptop Base / Keyboard Chassis Accent */}
-      <div className="relative -mt-px h-2 sm:h-3 w-full max-w-[94%] sm:max-w-[92%] rounded-b-lg sm:rounded-b-xl border-t border-slate-700/60 bg-gradient-to-b from-slate-800 via-slate-800 to-slate-900 shadow-md">
+      <div className="laptop-chassis-base">
         {/* Trackpad notch */}
         <div className="absolute left-1/2 top-0 h-0.5 sm:h-1 w-12 sm:w-16 -translate-x-1/2 rounded-b-md bg-slate-600/70" />
       </div>

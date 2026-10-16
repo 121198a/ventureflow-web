@@ -73,87 +73,89 @@ const dealTypes: RegPathway[] = [
 
 export default function ForFounders() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <SiteHeader />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-hairline">
-        <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-10 px-5 py-16 lg:grid-cols-[1fr_1.05fr] lg:py-20">
-          <div>
-            <Reveal as="h1" className="text-[38px] leading-[1.12] sm:text-[44px]">
-              <span className="text-brand" style={{ fontWeight: 800 }}>
-                Your startup workspace.
-              </span>
-              <br />
-              <span style={{ fontWeight: 800 }}>
-                Profiles, documents and introductions, in one place.
-              </span>
-            </Reveal>
-            <Reveal
-              as="p"
-              delay={100}
-              className="mt-6 max-w-[430px] text-[15px] leading-[1.65] text-ink/80"
-            >
-              Build your startup profile, share documents, request introductions and keep every conversation in one workspace.
-            </Reveal>
+      <main id="main-content" className="flex-1 w-full">
+        {/* Hero */}
+        <section className="relative overflow-hidden border-b border-hairline">
+          <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-10 px-5 py-16 lg:grid-cols-[1fr_1.05fr] lg:py-20">
+            <div>
+              <Reveal as="h1" className="text-[38px] leading-[1.12] sm:text-[44px]">
+                <span className="text-brand" style={{ fontWeight: 800 }}>
+                  Your startup workspace.
+                </span>
+                <br />
+                <span style={{ fontWeight: 800 }}>
+                  Profiles, documents and introductions, in one place.
+                </span>
+              </Reveal>
+              <Reveal
+                as="p"
+                delay={100}
+                className="mt-6 max-w-[430px] text-[15px] leading-[1.65] text-ink/80"
+              >
+                Build your startup profile, share documents, request introductions and keep every conversation in one workspace.
+              </Reveal>
 
-            <Reveal delay={180} className="mt-8 flex flex-wrap items-center gap-4">
-              <Button href="/services" variant="outline" size="md">
-                View Services
-              </Button>
-              <Button href="#journey" variant="primary" size="md" className="group">
-                Get Started{" "}
-                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </Button>
+              <Reveal delay={180} className="mt-8 flex flex-wrap items-center gap-4">
+                <Button href="/services" variant="outline" size="md">
+                  View Services
+                </Button>
+                <Button href="#journey" variant="primary" size="md" className="group">
+                  Get Started{" "}
+                  <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </Button>
+              </Reveal>
+              <p className="mt-4 text-[12px] text-muted-foreground">
+                Already a member?{" "}
+                <Link href="/issuer/login" className="text-brand underline">
+                  Log in
+                </Link>
+              </p>
+            </div>
+
+            <Reveal delay={120}>
+              <LaptopFrame
+                priority
+                alt="VentureFlow founder workspace shown on a laptop with a startup profile, documents and messages"
+              />
             </Reveal>
-            <p className="mt-4 text-[12px] text-muted-foreground">
-              Already a member?{" "}
-              <Link href="/issuer/login" className="text-brand underline">
-                Log in
-              </Link>
-            </p>
           </div>
+        </section>
 
-          <Reveal delay={120}>
-            <LaptopFrame
-              priority
-              alt="VentureFlow founder workspace shown on a laptop with a startup profile, documents and messages"
-            />
+        {/* Journey */}
+        <section id="journey" className="mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
+          <Reveal as="h2" className="text-[27px]">
+            <span style={{ fontWeight: 800 }}>From sign-up to first introduction on VentureFlow</span>
           </Reveal>
-        </div>
-      </section>
 
-      {/* Journey */}
-      <section id="journey" className="mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
-        <Reveal as="h2" className="text-[27px]">
-          <span style={{ fontWeight: 800 }}>From sign-up to first introduction on VentureFlow</span>
-        </Reveal>
+          <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1.75fr_1fr]">
+            <Stepper steps={steps} />
 
-        <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1.75fr_1fr]">
-          <Stepper steps={steps} />
-
-          <div className="card-fintech p-6 text-center">
-            <p className="text-[13.5px] leading-[1.6] text-ink/85">
-              With VentureFlow, collaboration is simple. You focus on your vision, we keep the workspace organised.
-            </p>
-            <Button href="/signup" variant="primary" size="md" className="mt-5 w-full rounded-md">
-              Get Started Now
-            </Button>
+            <aside className="rounded-2xl border border-slate-200/90 bg-white p-6 text-center shadow-xs">
+              <p className="text-[13.5px] leading-[1.6] text-ink/85">
+                With VentureFlow, collaboration is simple. You focus on your vision, we keep the workspace organised.
+              </p>
+              <Button href="/signup" variant="primary" size="md" className="mt-5 w-full rounded-md">
+                Get Started Now
+              </Button>
+            </aside>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Deal types */}
-      <section id="deal-types" className="mx-auto max-w-[1180px] px-5 pb-20">
-        <div className="flex flex-wrap items-baseline justify-between gap-4">
-          <h2 className="text-[27px]" style={{ fontWeight: 800 }}>
-            A workspace built around you
-          </h2>
-          <DealTypeModal />
-        </div>
+        {/* Deal types */}
+        <section id="deal-types" className="mx-auto max-w-[1180px] px-5 pb-20">
+          <div className="flex flex-wrap items-baseline justify-between gap-4">
+            <h2 className="text-[27px]" style={{ fontWeight: 800 }}>
+              A workspace built around you
+            </h2>
+            <DealTypeModal />
+          </div>
 
-        <RegPathwayGrid deals={dealTypes} />
-      </section>
+          <RegPathwayGrid deals={dealTypes} />
+        </section>
+      </main>
 
       <SiteFooter />
     </div>

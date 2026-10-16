@@ -1,6 +1,5 @@
 "use client";
 
-import { Fragment } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Bookmark, FileText } from "lucide-react";
 
@@ -19,8 +18,8 @@ export function TradeCompete() {
       {/* Notes block */}
       <div className="relative z-10 mx-auto grid max-w-[1100px] items-start gap-12 lg:grid-cols-2">
         <Reveal direction="left" className="order-2 lg:order-1 lg:pt-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-white/95 px-3.5 py-1 text-xs font-semibold text-blue-800 shadow-2xs">
-            <FileText size={14} className="text-blue-600" />
+          <span className="badge-fintech">
+            <FileText size={14} className="text-blue-700" />
             <span>Notes &amp; Documents</span>
           </span>
 
@@ -32,39 +31,42 @@ export function TradeCompete() {
           </p>
         </Reveal>
 
-        <Reveal direction="right" delay={0.1} className="card-fintech order-1 p-6 sm:p-8 lg:order-2">
-          <div className="flex items-center justify-between">
+        <Reveal as="article" aria-label="Sample workspace note" direction="right" delay={0.1} className="order-1 rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs lg:order-2">
+          <header className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-full bg-emerald-500" />
-              <p className="font-bold text-slate-900 text-base">Note on Novaforge Pvt. Ltd.</p>
+              <h4 className="font-bold text-slate-900 text-base">Note on Novaforge Pvt. Ltd.</h4>
             </div>
             <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200/80">
               Sample
             </span>
-          </div>
+          </header>
 
           <dl className="mt-5 space-y-3.5 border-t border-slate-100 pt-5 text-xs sm:text-sm">
             <div className="flex justify-between">
-              <dt className="text-slate-500 font-medium">Linked to</dt>
+              <dt className="text-slate-600 font-medium">Linked to</dt>
               <dd className="font-bold text-slate-900">Product overview</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-slate-500 font-medium">Next step</dt>
+              <dt className="text-slate-600 font-medium">Next step</dt>
               <dd className="font-bold text-slate-900">Request introduction</dd>
             </div>
             <div className="flex justify-between gap-3 sm:gap-6">
-              <dt className="shrink-0 text-slate-500 font-medium">Note</dt>
+              <dt className="shrink-0 text-slate-600 font-medium">Note</dt>
               <dd className="text-right font-medium text-slate-800 text-xs">
                 Ask for the latest product update before the next call
               </dd>
             </div>
           </dl>
 
-          <button type="button" className="btn-pill-primary mt-6 w-full py-3">
+          <button
+            type="button"
+            className="btn-pill-primary mt-6 w-full py-3"
+          >
             Save note
           </button>
 
-          <p className="mt-3.5 text-center text-xs text-slate-500 font-normal">
+          <p className="mt-3.5 text-center text-xs text-slate-600 font-normal">
             Sample data for demonstration only.
           </p>
         </Reveal>
@@ -72,35 +74,41 @@ export function TradeCompete() {
 
       {/* Saved lists block */}
       <div className="relative z-10 mx-auto mt-24 grid max-w-[1100px] items-center gap-12 lg:grid-cols-2">
-        <Reveal direction="left" className="card-fintech p-6 sm:p-8">
-          <p className="mb-5 flex items-center gap-2 font-bold text-slate-900 text-base">
-            <Bookmark size={18} className="text-blue-600" /> Saved startups
-          </p>
+        <Reveal as="article" aria-label="Saved startup list demonstration" direction="left" className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
+          <header className="mb-5 flex items-center gap-2 font-bold text-slate-900 text-base">
+            <Bookmark size={18} className="text-blue-600" />
+            <h4>Saved startups</h4>
+          </header>
 
-          <div className="grid grid-cols-[auto_1fr_auto] gap-x-3 sm:gap-x-6 gap-y-4 text-xs sm:text-sm border-t border-slate-100 pt-4">
-            <span className="text-micro font-bold uppercase tracking-wider text-slate-600">#</span>
-            <span className="text-micro font-bold uppercase tracking-wider text-slate-600">STARTUP</span>
-            <span className="text-micro font-bold uppercase tracking-wider text-slate-600 text-right">STAGE</span>
-
-            {savedList.map((row) => (
-              <Fragment key={row.rank}>
-                <span className={"font-bold tabular-numbers " + (row.active ? "text-blue-600 font-extrabold" : "text-slate-500")}>
-                  {row.rank}
-                </span>
-                <span className={"font-semibold " + (row.active ? "text-blue-600" : "text-slate-800")}>
-                  {row.name}
-                </span>
-                <span className={"text-right font-semibold " + (row.active ? "text-blue-600" : "text-slate-900")}>
-                  {row.stage}
-                </span>
-              </Fragment>
-            ))}
-          </div>
+          <table className="w-full text-xs sm:text-sm border-t border-slate-100 mt-4">
+            <thead>
+              <tr className="border-b border-slate-100 text-left">
+                <th scope="col" className="py-2.5 text-micro font-bold uppercase tracking-wider text-slate-600">#</th>
+                <th scope="col" className="py-2.5 text-micro font-bold uppercase tracking-wider text-slate-600">STARTUP</th>
+                <th scope="col" className="py-2.5 text-micro font-bold uppercase tracking-wider text-slate-600 text-right">STAGE</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {savedList.map((row) => (
+                <tr key={row.rank}>
+                  <td className={"py-2.5 font-bold tabular-numbers " + (row.active ? "text-blue-700 font-extrabold" : "text-slate-600")}>
+                    {row.rank}
+                  </td>
+                  <td className={"py-2.5 font-semibold " + (row.active ? "text-blue-700" : "text-slate-800")}>
+                    {row.name}
+                  </td>
+                  <td className={"py-2.5 text-right font-semibold " + (row.active ? "text-blue-700" : "text-slate-900")}>
+                    {row.stage}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </Reveal>
 
         <Reveal direction="right" delay={0.1}>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-white/95 px-3.5 py-1 text-xs font-semibold text-blue-800 shadow-2xs">
-            <Bookmark size={13} className="text-blue-600" />
+          <span className="badge-fintech">
+            <Bookmark size={13} className="text-blue-700" />
             <span>Discovery</span>
           </span>
           <h3 className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">

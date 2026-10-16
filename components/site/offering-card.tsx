@@ -24,7 +24,7 @@ export function OfferingCard({ o }: { o: Offering }) {
   return (
     <Link
       href={`/${o.slug}`}
-      className="card-fintech-interactive group block cursor-pointer p-5"
+      className="card-article-interactive group block cursor-pointer p-5"
     >
       <div
         className="relative grid aspect-[16/9] place-items-center overflow-hidden rounded-xl border border-slate-100 bg-slate-50"

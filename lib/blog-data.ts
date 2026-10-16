@@ -246,7 +246,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "callout",
         title: "How VentureFlow Eliminates the Friction",
-        text: "By maintaining real-time compliance rails, verified accredited accreditation checks, and automated document generation on VentureFlow, rounds close in days rather than month-long legal marathons.",
+        text: "By maintaining real-time compliance rails, verified accredited accreditation checks, and streamlined document execution on VentureFlow, rounds close in days rather than month-long legal marathons.",
         variant: "blue",
       },
     ],
@@ -436,7 +436,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "the-cost-of-jitter",
     title: "The Cost of Jitter: Building Sub-50ms Reactive Interfaces for Real-Time Cap Tables",
-    subtitle: "Behind the frontend engineering decisions powering VentureFlow's interactive ledgers.",
+    subtitle: "Behind the frontend engineering decisions supporting VentureFlow's interactive ledgers.",
     summary:
       "When users drag allocation sliders or model dilution scenarios, any UI lag erodes confidence in the underlying arithmetic. Here is how we engineered frictionless 60fps reactivity in Next.js and React 19.",
     category: "Craft & Culture",

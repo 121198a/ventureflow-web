@@ -14,7 +14,7 @@ export function DealTypeModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button type="button" className="text-[13px] text-brand underline">
+        <button type="button" className="text-[13px] text-brand underline hover:text-brand-strong focus-ring rounded cursor-pointer">
           Need something else?
         </button>
       </DialogTrigger>
@@ -29,14 +29,14 @@ export function DealTypeModal() {
         <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
           <Link
             href="/issuer/login"
-            className="w-full sm:w-auto text-center rounded-full border border-brand px-6 py-[10px] text-[0.9rem] text-brand transition-colors hover:bg-brand/5"
+            className="w-full sm:w-auto text-center rounded-full border border-brand px-6 py-[10px] text-[0.9rem] text-brand transition-colors hover:bg-brand/5 focus-ring cursor-pointer"
             style={{ fontWeight: 600 }}
           >
             Log In
           </Link>
           <a
             href="mailto:hello@ventureflow.example"
-            className="w-full sm:w-auto text-center rounded-full bg-brand px-6 py-[10px] text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong"
+            className="w-full sm:w-auto text-center rounded-full bg-brand px-6 py-[10px] text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong focus-ring cursor-pointer"
             style={{ fontWeight: 800 }}
           >
             Contact Us

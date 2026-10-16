@@ -30,10 +30,7 @@ export function CategoryFilter({
               key={cat}
               type="button"
               onClick={() => onSelectCategory(cat)}
-              className={cn(
-                "relative shrink-0 rounded-full px-4 py-2 text-xs sm:text-sm font-semibold transition-colors cursor-pointer",
-                isActive ? "text-white" : "text-slate-600 hover:text-slate-900 bg-slate-100"
-              )}
+              className={isActive ? "blog-category-pill-active" : "blog-category-pill"}
             >
               {isActive && (
                 <motion.span

@@ -40,7 +40,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
 }
 
 const exploreLinks = [
-  { label: "Market Intelligence", href: "/blog", desc: "Briefings, playbooks & theses" },
+  { label: "Market Briefings", href: "/blog", desc: "Briefings, playbooks & theses" },
   { label: "Careers & Culture", href: "/careers", desc: "Join our senior remote team" },
   { label: "Press Room", href: "/press", desc: "Official releases & media kit" },
   { label: "Private Markets Platform", href: "/platform", desc: "Browse active offerings & deals" },
@@ -183,14 +183,14 @@ export function SiteNav() {
           animate={{
             maxWidth: scrolled ? 940 : 1080,
             borderRadius: 9999,
-            backgroundColor: scrolled ? "rgba(255, 255, 255, 0.94)" : "rgba(255, 255, 255, 0.85)",
+            backgroundColor: scrolled ? "#ffffff" : "rgba(255, 255, 255, 0.98)",
             borderColor: scrolled ? "rgba(226, 232, 240, 0.95)" : "rgba(226, 232, 240, 0.75)",
             boxShadow: scrolled
               ? "0 12px 35px -8px rgba(15, 23, 42, 0.12)"
               : "0 4px 20px -4px rgba(15, 23, 42, 0.05)",
           }}
           transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1.0] }}
-          className="pointer-events-auto mx-auto flex h-[54px] sm:h-[58px] w-full max-w-[1080px] items-center justify-between px-4 sm:px-7 border backdrop-blur-md backdrop-saturate-[180%]"
+          className="nav-pill-bar"
         >
           {/* Brand Logo */}
           <TransitionLink href="/" aria-label={`${site.fullBrand} home`} className="flex items-center gap-2.5 font-display text-sm sm:text-base font-bold text-slate-900 group focus-ring rounded-full">
@@ -216,15 +216,15 @@ export function SiteNav() {
                   key={href}
                   href={href}
                   aria-current={isActive ? "page" : undefined}
-                  className={`relative py-1 transition-colors duration-200 hover:text-blue-600 focus-ring rounded-md ${
-                    isActive ? "text-blue-600 font-semibold" : "text-slate-600"
+                  className={`relative py-1 transition-colors duration-200 hover:text-blue-700 focus-ring rounded-md ${
+                    isActive ? "text-blue-700 font-semibold" : "text-slate-600"
                   }`}
                 >
                   {label}
                   {isActive && (
                     <motion.span
                       layoutId="activeNavTab"
-                      className="absolute inset-x-0 -bottom-1 h-[2px] rounded-pill bg-blue-600"
+                      className="absolute inset-x-0 -bottom-1 h-[2px] rounded-pill bg-blue-700"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -240,14 +240,12 @@ export function SiteNav() {
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
                 aria-label="Toggle explore navigation menu"
-                className={`inline-flex items-center gap-1 py-1 transition-colors duration-200 focus-ring rounded-md cursor-pointer ${
-                  dropdownOpen ? "text-blue-600 font-semibold" : "text-slate-600 hover:text-blue-600"
-                }`}
+                className={`nav-explore-btn ${dropdownOpen ? "text-blue-700 font-semibold" : ""}`}
               >
                 <span>Explore</span>
                 <ChevronDown
                   size={14}
-                  className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180 text-blue-600" : "text-slate-400"}`}
+                  className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180 text-blue-700" : "text-slate-500"}`}
                 />
               </button>
 
@@ -285,7 +283,7 @@ export function SiteNav() {
               flow="signup"
               icon={false}
               ariaLabel="Get started on VentureFlow"
-              className="hidden sm:inline-flex btn-pill-primary px-5 py-2.5 text-xs sm:text-sm"
+              className="hidden sm:inline-flex px-5 py-2.5 text-xs sm:text-sm"
             >
               <span>Get started</span>
               <ArrowRight size={14} />
@@ -296,7 +294,7 @@ export function SiteNav() {
               aria-label={open ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="grid h-10 w-10 place-items-center rounded-full border border-slate-200/90 bg-white/95 text-slate-800 transition-transform active:scale-95 sm:hidden cursor-pointer shadow-2xs focus-ring"
+              className="nav-toggle-btn"
             >
               {open ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -403,14 +401,15 @@ export function SiteFooter() {
       >
         {showRecordCard && (
         <div className="relative z-20 mx-auto px-4 -translate-y-10 sm:-translate-y-16 md:-translate-y-1/2 -mb-10 sm:-mb-16 md:-mb-24">
-          <motion.div
+          <motion.aside
+            aria-label="Workspace overview banner"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
-            className="card-fintech mx-auto flex max-w-[1120px] flex-col items-center gap-8 p-6 sm:p-8 md:p-10 shadow-lg md:flex-row md:justify-between"
+            className="banner-overlap-card"
           >
-            <div className="w-full max-w-[280px] shrink-0 rounded-xl border border-slate-200 bg-slate-50/80 p-5 shadow-xs">
+            <figure className="w-full max-w-[280px] shrink-0 rounded-xl border border-slate-200 bg-slate-50/80 p-5 shadow-xs m-0">
               <div className="flex items-center justify-between text-sm font-semibold text-slate-900">
                 <span>NVDA</span>
                 <span className="rounded-full bg-blue-50 border border-blue-200 px-2.5 py-0.5 text-micro font-bold text-blue-700">
@@ -441,7 +440,7 @@ export function SiteFooter() {
                 <span className="text-blue-600 font-semibold">Published</span>
                 <span className="text-slate-500">Settled</span>
               </div>
-            </div>
+            </figure>
 
             <div className="text-center md:text-left flex-1 max-w-lg">
               <h3 className="text-2xl font-bold text-slate-900 sm:text-3xl tracking-tight">
@@ -453,14 +452,14 @@ export function SiteFooter() {
               <AuthButton
                 flow="signup"
                 icon={false}
-                className="mt-5 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all duration-200 hover:bg-blue-700 active:scale-[0.98]"
+                className="mt-5 px-6 py-3"
               >
                 <span>Get started</span>
                 <ArrowRight size={15} />
               </AuthButton>
             </div>
 
-          </motion.div>
+          </motion.aside>
         </div>
         )}
 
@@ -572,7 +571,7 @@ export function SiteFooter() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.6, y: 10 }}
               transition={{ duration: 0.2 }}
-              className="fixed bottom-6 right-6 z-40 grid h-10 w-10 place-items-center rounded-pill bg-white text-slate-800 shadow-xl border border-slate-200/80 transition-transform hover:-translate-y-0.5 active:scale-95"
+              className="btn-scroll-top"
             >
               <ArrowUpRight size={16} className="-rotate-45" />
             </motion.a>

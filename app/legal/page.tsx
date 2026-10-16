@@ -5,12 +5,27 @@ import { TransitionLink } from "@/components/ui/TransitionLink";
 import { getNavigation } from "@/lib/cms/server";
 import type { NavGroup } from "@/lib/cms/types";
 
+import { site, SITE_URL } from "@/lib/constants";
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Legal Hub",
   description: "Terms, privacy and policies for the VentureFlow workspace.",
   alternates: { canonical: "/legal" },
+  openGraph: {
+    title: "Legal Hub — " + site.name,
+    description: "Terms, privacy and policies for the VentureFlow workspace.",
+    url: `${SITE_URL}/legal`,
+    type: "website",
+    images: ["/brand/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Legal Hub — " + site.name,
+    description: "Terms, privacy and policies for the VentureFlow workspace.",
+    images: ["/brand/og-image.png"],
+  },
 };
 
 export default async function LegalHubPage() {
@@ -27,12 +42,14 @@ export default async function LegalHubPage() {
       {failed ? (
         <CmsErrorState />
       ) : (
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">VentureFlow Legal Hub</h1>
-          <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600">
-            Terms, privacy and policies for the VentureFlow workspace. VentureFlow is a collaboration tool for founders and
-            investors. It does not provide financial services or advice.
-          </p>
+        <article className="space-y-6">
+          <header>
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">VentureFlow Legal Hub</h1>
+            <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600">
+              Terms, privacy and policies for the VentureFlow workspace. VentureFlow is a collaboration tool for founders and
+              investors. It does not provide financial services or advice.
+            </p>
+          </header>
           {groups.length === 0 && <p className="mt-8 text-sm text-slate-500">No documents have been published yet.</p>}
           {groups.map((g) => (
             <section key={g.category} className="mt-7">
@@ -48,7 +65,7 @@ export default async function LegalHubPage() {
               </ol>
             </section>
           ))}
-        </div>
+        </article>
       )}
     </LegalShell>
   );

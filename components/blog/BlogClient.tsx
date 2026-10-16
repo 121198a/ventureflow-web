@@ -13,6 +13,7 @@ import { CategoryFilter } from "@/components/blog/CategoryFilter";
 import { BlogSearch } from "@/components/blog/BlogSearch";
 import { NewsletterCTA } from "@/components/blog/NewsletterCTA";
 import { Reveal } from "@/components/motion/Reveal";
+import { useFormDraft } from "@/hooks/useFormDraft";
 import {
   blogPosts,
   blogCategories,
@@ -23,8 +24,16 @@ import {
 import type { BlogPost, BlogCategory } from "@/types/blog";
 
 export function BlogClient() {
-  const [activeCategory, setActiveCategory] = useState<BlogCategory>("All");
-  const [searchQuery, setSearchQuery] = useState("");
+  const { values, setValues, clearDraft } = useFormDraft("blog-search-filters", {
+    activeCategory: "All" as BlogCategory,
+    searchQuery: "",
+  });
+  const activeCategory = values.activeCategory;
+  const searchQuery = values.searchQuery;
+
+  const setActiveCategory = (c: BlogCategory) => setValues({ ...values, activeCategory: c });
+  const setSearchQuery = (q: string) => setValues({ ...values, searchQuery: q });
+
   const [isSearching, setIsSearching] = useState(false);
   const [apiPosts, setApiPosts] = useState<BlogPost[] | null>(null);
 
@@ -114,8 +123,7 @@ export function BlogClient() {
   const isFiltering = activeCategory !== "All" || searchQuery.trim() !== "";
 
   const handleResetFilters = () => {
-    setActiveCategory("All");
-    setSearchQuery("");
+    clearDraft();
     setApiPosts(null);
   };
 
@@ -164,7 +172,7 @@ export function BlogClient() {
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="text-xs font-semibold text-blue-600 hover:text-blue-700 underline cursor-pointer"
+                className="text-xs font-semibold text-blue-600 hover:text-blue-700 underline focus-ring rounded cursor-pointer"
               >
                 Clear all filters
               </button>

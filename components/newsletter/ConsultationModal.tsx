@@ -82,7 +82,7 @@ export function ConsultationModal({
             type="button"
             onClick={onClose}
             aria-label="Close dialog"
-            className="rounded-md p-1.5 text-muted-foreground hover:bg-surface hover:text-ink transition-colors"
+            className="rounded-md p-1.5 text-muted-foreground hover:bg-surface hover:text-ink transition-colors focus-ring cursor-pointer"
           >
             <X className="size-5" />
           </button>
@@ -185,7 +185,7 @@ export function ConsultationModal({
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-brand px-5 py-3 text-sm font-bold text-primary-foreground hover:bg-brand-strong transition-colors disabled:opacity-60"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-brand px-5 py-3 text-sm font-bold text-primary-foreground hover:bg-brand-strong focus-ring transition-colors disabled:opacity-60 cursor-pointer"
                   >
                     {loading ? "Scheduling..." : "Request Working Session"}
                     <ArrowRight className="size-4" />
@@ -212,7 +212,7 @@ export function ConsultationModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="mt-4 rounded-md border border-hairline bg-surface-alt px-6 py-2.5 text-xs font-semibold hover:border-brand"
+                className="mt-4 rounded-md border border-hairline bg-surface-alt px-6 py-2.5 text-xs font-semibold hover:border-brand focus-ring cursor-pointer"
               >
                 Close Window
               </button>

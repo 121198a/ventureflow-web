@@ -32,7 +32,7 @@ export function ArticleGrid({ posts, onResetSearch, className = "" }: ArticleGri
           <button
             type="button"
             onClick={onResetSearch}
-            className="mt-5 rounded-full bg-blue-600 px-5 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-blue-700 transition-all cursor-pointer"
+            className="mt-5 rounded-full bg-blue-600 px-5 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-blue-700 focus-ring transition-all cursor-pointer"
           >
             Reset all filters
           </button>

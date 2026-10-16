@@ -46,14 +46,12 @@ export function Growth() {
           </Reveal>
           <div className="mt-8 space-y-4">
             {items.map(([t, b], i) => (
-              <Reveal key={t} delay={i * 0.06}>
-                <div className="rounded-2xl border border-border bg-card p-5 transition-colors hover:border-brand/40">
-                  <h3 className="display flex items-center gap-2 text-base">
-                    <ArrowRight size={16} className="text-brand" aria-hidden />
-                    {t}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-text-secondary">{b}</p>
-                </div>
+              <Reveal as="article" key={t} delay={i * 0.06} className="rounded-2xl border border-border bg-card p-5 transition-colors hover:border-brand/40">
+                <h3 className="display flex items-center gap-2 text-base">
+                  <ArrowRight size={16} className="text-brand" aria-hidden />
+                  {t}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-text-secondary">{b}</p>
               </Reveal>
             ))}
           </div>

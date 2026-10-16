@@ -63,6 +63,7 @@ export function Hero() {
             <div className="flex flex-wrap gap-3 md:justify-end">
               <Magnetic>
                 <button
+                  type="button"
                   onClick={() => scrollToTarget("#roles")}
                   className="btn-pill-primary px-6 py-3.5"
                 >
@@ -72,6 +73,7 @@ export function Hero() {
               </Magnetic>
               <Magnetic>
                 <button
+                  type="button"
                   onClick={() => scrollToTarget("#life")}
                   className="btn-pill-secondary px-6 py-3.5"
                 >

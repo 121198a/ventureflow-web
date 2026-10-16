@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
+import { cn } from "@/lib/utils";
 
 const companies = [
   {
@@ -44,21 +45,34 @@ export function WorkspaceCohort() {
             Companies
           </p>
 
-          <div className="mt-2.5 flex flex-col gap-1.5">
+          <ul className="mt-2.5 flex flex-col gap-1.5 list-none p-0 m-0">
             {companies.map((c) => (
-              <div
+              <li
                 key={c.name}
+                role={c.popup ? "button" : undefined}
+                tabIndex={c.popup ? 0 : undefined}
+                aria-label={c.popup ? `Toggle workspace details for ${c.name}` : undefined}
+                aria-expanded={c.popup ? hovered === c.name : undefined}
                 onMouseEnter={() => c.popup && setHovered(c.name)}
                 onMouseLeave={() => c.popup && setHovered(null)}
                 onClick={() => c.popup && setHovered(hovered === c.name ? null : c.name)}
-                className={
-                  "relative flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 rounded-lg px-3.5 py-3 transition-colors " +
-                  (c.popup ? "cursor-pointer " : "") +
-                  (c.active
-                    ? "bg-blue-50/70 border border-blue-100"
-                    : "hover:bg-slate-50")
-                }
+                onKeyDown={(e) => {
+                  if (c.popup && (e.key === "Enter" || e.key === " ")) {
+                    e.preventDefault();
+                    setHovered(hovered === c.name ? null : c.name);
+                  }
+                }}
+                className={cn(
+                  "relative flex items-center justify-between gap-2 rounded-lg px-3.5 py-3 transition-colors",
+                  c.popup && "cursor-pointer focus-ring",
+                  c.active ? "bg-blue-50/70 border border-blue-100" : "hover:bg-slate-50"
+                )}
               >
+                {c.popup && (
+                  <span className="sr-only">
+                    {hovered === c.name ? `Collapse details for ${c.name}` : `Expand details for ${c.name}`}
+                  </span>
+                )}
                 <div className="flex min-w-0 flex-1 items-center gap-3">
                   <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-emerald-100 text-xs font-bold text-emerald-700">
                     {c.initials}
@@ -86,7 +100,7 @@ export function WorkspaceCohort() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 6, scale: 0.98 }}
                       transition={{ duration: 0.18, ease: "easeOut" }}
-                      className="card-fintech absolute left-0 sm:left-8 top-full z-20 mt-2 w-64 sm:w-72 max-w-[calc(100vw-3rem)] p-3.5 text-left shadow-lg"
+                      className="absolute left-0 sm:left-8 top-full z-20 mt-2 w-64 sm:w-72 max-w-[calc(100vw-3rem)] rounded-xl border border-slate-200 bg-white p-3.5 text-left shadow-lg"
                     >
                       <div className="flex items-center gap-2.5">
                         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-emerald-100 text-xs font-bold text-emerald-700">
@@ -107,9 +121,9 @@ export function WorkspaceCohort() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </Reveal>
 
         {/* Right Cohort Pitch */}

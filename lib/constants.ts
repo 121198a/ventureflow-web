@@ -38,7 +38,6 @@ export const WORKSPACE_SERVICES_URL = `${WORKSPACE_APP_URL}/services`;
 export const VXVERSE_SERVICES_URL = WORKSPACE_SERVICES_URL;
 export const VXVERSE_API_BASE_URL = WORKSPACE_API_BASE_URL;
 
-
 export const socialLinks = {
   x: process.env.NEXT_PUBLIC_SOCIAL_X || "",
   facebook: process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK || "",

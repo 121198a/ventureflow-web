@@ -26,7 +26,7 @@ export function BrandLogo({
         <VentureFlowBrand className="text-[1.05rem] sm:text-[1.15rem]" />
         {showParent && (
           <>
-            <span className="text-slate-400 text-xs font-normal">by</span>
+            <span className="text-slate-600 text-xs font-medium">by</span>
             <span className="text-slate-900 font-bold">{COMPANY_NAME}</span>
           </>
         )}

@@ -825,7 +825,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                 setOtpCode(e.target.value.replace(/\D/g, ""));
                 if (formError) setFormError(null);
               }}
-              className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-center text-xl tracking-[0.28em] font-mono font-bold text-slate-900 placeholder:tracking-normal placeholder:font-sans placeholder:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+              className="input-fintech h-11 text-center text-xl tracking-[0.28em] font-mono font-bold placeholder:tracking-normal placeholder:font-sans placeholder:text-sm"
             />
             <p className="mt-1 text-[11px] text-slate-500">
               Code sent to <span className="font-semibold text-slate-700">{otpDestination}</span>
@@ -1035,7 +1035,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-10 mt-2 inline-flex items-center justify-center rounded-full bg-[#1677ff] hover:bg-blue-600 text-white text-xs sm:text-sm font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            className="btn-pill-primary w-full h-10 mt-2 text-xs sm:text-sm font-semibold shadow-sm disabled:opacity-60 cursor-pointer"
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">
@@ -1157,7 +1157,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                 setOtpCode(e.target.value.replace(/\D/g, ""));
                 if (formError) setFormError(null);
               }}
-              className="w-full h-11 rounded-xl border border-slate-200/90 bg-white px-3.5 text-center text-xl tracking-[0.28em] font-mono font-bold text-slate-900 placeholder:tracking-normal placeholder:font-sans placeholder:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-60"
+              className="input-fintech h-11 text-center text-xl tracking-[0.28em] font-mono font-bold placeholder:tracking-normal placeholder:font-sans placeholder:text-sm"
             />
             <p className="mt-1 text-[11px] text-slate-500">
               Code sent to <span className="font-semibold text-slate-700">{otpDestination}</span>
@@ -1357,7 +1357,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-10 mt-2 inline-flex items-center justify-center rounded-full bg-[#1677ff] hover:bg-blue-600 text-white text-xs sm:text-sm font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            className="btn-pill-primary w-full h-10 mt-2 text-xs sm:text-sm font-semibold shadow-sm disabled:opacity-60 cursor-pointer"
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">
@@ -1416,7 +1416,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
   const showTopNavHeader = flow !== "login" || signupEmailMode;
 
   return (
-    <main className="min-h-dvh lg:h-dvh w-full bg-gradient-to-br from-[#fdf2fa] via-[#f3f7ff] to-[#eaf6ff] text-slate-900 flex flex-col justify-between px-4 py-3 sm:px-8 sm:py-4 relative overflow-x-hidden overflow-y-auto lg:overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden selection:bg-blue-100 selection:text-blue-900">
+    <main className="min-h-dvh w-full bg-gradient-to-br from-[#fdf2fa] via-[#f3f7ff] to-[#eaf6ff] text-slate-900 flex flex-col justify-between p-4 sm:p-6 relative overflow-x-hidden overflow-y-auto lg:overflow-hidden">
       {/* Background Soft Pastel Ambient Glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute left-1/2 top-[-140px] h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-white/70 blur-3xl" />
@@ -1460,7 +1460,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
               }
             }}
             aria-label="Go back"
-            className="h-9 w-9 sm:h-10 sm:w-10 rounded-full border border-slate-200 bg-white/95 shadow-2xs hover:bg-slate-50 flex items-center justify-center text-slate-500 hover:text-slate-800 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            className="size-9 sm:size-10 rounded-full border border-slate-200 bg-white shadow-2xs hover:bg-slate-50 grid place-items-center text-slate-600 hover:text-slate-900 transition-colors focus-ring cursor-pointer"
           >
             <ChevronLeft className="size-4 sm:size-5 stroke-[2.2]" />
           </button>
@@ -1569,7 +1569,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                           <button
                             type="button"
                             onClick={() => navigateFlow("signup")}
-                            className="mt-5 inline-flex items-center gap-2 rounded-full border-2 border-white bg-white/10 px-6 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-slate-900 cursor-pointer select-none active:scale-95"
+                            className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-2 text-sm font-bold text-white shadow-md hover:bg-white hover:text-slate-900 transition-colors active:scale-95"
                           >
                             <span>Let&apos;s Get Started</span>
                             <ArrowRight className="size-4" />
@@ -1623,7 +1623,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                           <button
                             type="button"
                             onClick={() => navigateFlow("login")}
-                            className="mt-5 inline-flex items-center gap-2 rounded-full border-2 border-white bg-white/10 px-6 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-slate-900 cursor-pointer select-none active:scale-95"
+                            className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-2 text-sm font-bold text-white shadow-md hover:bg-white hover:text-slate-900 transition-colors active:scale-95"
                           >
                             <span>Sign In to Account</span>
                             <ArrowRight className="size-4" />
@@ -1867,7 +1867,7 @@ export default function LoginPage({ initialFlow }: { initialFlow?: "signup" | "l
                   <button
                     type="button"
                     onClick={() => navigateFlow("support")}
-                    className="w-full h-10 mt-3 rounded-full border border-slate-200/90 bg-white hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-medium shadow-2xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+                    className="btn-pill-secondary w-full h-10 mt-3 text-xs sm:text-sm font-medium shadow-2xs gap-2 cursor-pointer"
                   >
                     <span>Contact our support team</span>
                     <Headphones className="size-4 text-blue-600" />

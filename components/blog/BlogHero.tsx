@@ -24,7 +24,7 @@ export function BlogHero({ totalArticles }: BlogHeroProps) {
         <Reveal>
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-200/90 bg-white/80 px-4 py-1.5 text-xs font-semibold tracking-wider text-slate-700 uppercase backdrop-blur-md shadow-2xs">
             <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
-            <span>VentureFlow Editorial · Market Intelligence</span>
+            <span>VentureFlow Editorial · Market Briefings</span>
           </div>
         </Reveal>
 

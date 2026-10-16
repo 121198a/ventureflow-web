@@ -8,7 +8,7 @@ export default function PlatformLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="theme-website2 min-h-screen flex flex-col font-sans overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+    <div className="platform-shell">
       <RevealInit />
       <PageTransition>{children}</PageTransition>
       <ChatLauncher />

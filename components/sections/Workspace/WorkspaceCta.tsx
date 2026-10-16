@@ -21,7 +21,7 @@ export function WorkspaceCta() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.05 }}
           transition={{ duration: 0.45 }}
-          className="card-fintech mx-auto flex w-full max-w-[1120px] flex-col items-start gap-8 p-6 md:p-10 shadow-lg md:flex-row md:items-center md:justify-between"
+          className="banner-overlap-card"
         >
           {/* Left Column */}
           <div className="max-w-xl text-left">

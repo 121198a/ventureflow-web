@@ -226,7 +226,7 @@ export function StartRecord() {
                 onClick={() =>
                   setActivePhoneIndex((prev) => (prev === 0 ? phones.length - 1 : prev - 1))
                 }
-                className="absolute left-0 sm:left-4 z-30 grid size-9 place-items-center rounded-full bg-white/90 border border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50 transition-colors focus-ring cursor-pointer"
+                className="icon-btn-round absolute left-0 sm:left-4 z-30"
                 aria-label="Previous phone preview"
               >
                 <ChevronLeft size={18} />
@@ -237,7 +237,7 @@ export function StartRecord() {
                 onClick={() =>
                   setActivePhoneIndex((prev) => (prev === phones.length - 1 ? 0 : prev + 1))
                 }
-                className="absolute right-0 sm:right-4 z-30 grid size-9 place-items-center rounded-full bg-white/90 border border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50 transition-colors focus-ring cursor-pointer"
+                className="icon-btn-round absolute right-0 sm:right-4 z-30"
                 aria-label="Next phone preview"
               >
                 <ChevronRight size={18} />
@@ -252,12 +252,7 @@ export function StartRecord() {
                     key={phone.id}
                     type="button"
                     onClick={() => setActivePhoneIndex(idx)}
-                    className={cn(
-                      "px-3 py-1 text-xs font-semibold rounded-full transition-all cursor-pointer",
-                      activePhoneIndex === idx
-                        ? "bg-white text-blue-700 shadow-2xs font-bold"
-                        : "text-slate-600 hover:text-slate-900"
-                    )}
+                    className={activePhoneIndex === idx ? "carousel-filter-btn-active" : "carousel-filter-btn"}
                   >
                     {phone.label}
                   </button>
@@ -272,11 +267,13 @@ export function StartRecord() {
                     type="button"
                     onClick={() => setActivePhoneIndex(idx)}
                     className={cn(
-                      "h-1.5 rounded-full transition-all cursor-pointer",
-                      activePhoneIndex === idx ? "w-6 bg-blue-600" : "w-1.5 bg-slate-300 hover:bg-slate-400"
+                      "carousel-indicator-dot",
+                      activePhoneIndex === idx ? "w-6 bg-blue-600 hover:bg-blue-700" : "w-1.5 bg-slate-300 hover:bg-slate-400"
                     )}
                     aria-label={`Go to ${phone.label}`}
-                  />
+                  >
+                    <span className="sr-only">Go to {phone.label}</span>
+                  </button>
                 ))}
               </div>
             </div>
@@ -285,15 +282,15 @@ export function StartRecord() {
 
         {/* Live Auto-Typing Dynamic Heading */}
         <Reveal direction="right" delay={0.1} className="order-1 text-center lg:order-2 lg:text-left">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-white/95 px-3.5 py-1 text-xs font-semibold text-blue-800 shadow-2xs mb-4">
-            <span>Instant Thesis Formulation</span>
+          <span className="badge-fintech mb-4">
+            <span>Structured Thesis Framework</span>
           </span>
 
           <h2 className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
             Your first thesis could be about <br />
-            <span className="inline-block text-blue-600 font-black min-h-[1.25em]">
+            <span className="inline-block text-blue-700 font-black min-h-[1.25em]">
               {text}
-              <span className="animate-pulse text-blue-600 font-normal">|</span>
+              <span className="animate-pulse text-blue-700 font-normal">|</span>
             </span>
           </h2>
 
@@ -307,7 +304,7 @@ export function StartRecord() {
                 flow="signup"
                 icon={false}
                 ariaLabel="Start your verified investment record"
-                className="btn-pill-primary px-8"
+                className="px-8"
               >
                 <span>Start your record</span>
                 <ArrowRight size={16} />
@@ -365,12 +362,12 @@ function FeedMini() {
         {/* Top App Header */}
         <div className="flex items-center justify-between px-3 pt-1 pb-1 border-b border-slate-100">
           <div className="flex items-center gap-2">
-            <Menu size={15} className="text-slate-800 cursor-pointer" />
+            <Menu size={15} className="text-slate-800" />
             <span className="text-xs font-bold text-slate-900 tracking-tight">Home</span>
           </div>
           <div className="flex items-center gap-2 text-slate-600">
-            <Search size={14} className="cursor-pointer hover:text-slate-900" />
-            <Bell size={14} className="cursor-pointer hover:text-slate-900" />
+            <Search size={14} className="hover:text-slate-900" />
+            <Bell size={14} className="hover:text-slate-900" />
           </div>
         </div>
 
@@ -388,7 +385,7 @@ function FeedMini() {
         </div>
 
         {/* Stories / User Avatars Ribbon */}
-        <div className="flex items-center gap-2 px-3 py-1.5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-b border-slate-100/60">
+        <div className="story-ribbon">
           {stories.map((story) => (
             <div key={story.id} className="flex shrink-0 flex-col items-center gap-0.5 text-center">
               {story.isAll ? (
@@ -424,10 +421,10 @@ function FeedMini() {
         </div>
 
         {/* Feed Posts */}
-        <div className="space-y-2 p-2.5">
+        <section aria-label="Recent theses" className="space-y-2 p-2.5">
           {/* Post 1 - Riley Morgan ($ETH Bullish / On track) */}
-          <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
-            <div className="flex items-center justify-between">
+          <article className="rounded-lg border border-slate-100 bg-white p-2 shadow-2xs">
+            <header className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
                   src="/image/about/3.jpg"
@@ -439,35 +436,35 @@ function FeedMini() {
                 />
                 <div>
                   <p className="text-[10px] font-bold text-slate-900 leading-tight">Riley Morgan</p>
-                  <p className="text-[8.5px] text-slate-500 leading-tight">@dineshpathak</p>
+                  <p className="text-[8.5px] text-slate-600 leading-tight">@dineshpathak</p>
                 </div>
               </div>
-              <div className="flex items-center gap-1 text-[9px] text-slate-400">
+              <div className="flex items-center gap-1 text-[9px] text-slate-600">
                 <span>2h</span>
-                <span className="text-slate-500">⋮</span>
+                <span className="text-slate-600">⋮</span>
               </div>
-            </div>
+            </header>
 
             <p className="mt-1 text-[10px] font-bold text-slate-900 leading-snug line-clamp-1">
               Ethereum layer-2 settlement velocity compounds protocol fee burn rates&hellip;
             </p>
-            <p className="mt-0.5 text-[8.5px] text-slate-600 leading-snug line-clamp-2">
+            <p className="mt-0.5 text-[8.5px] text-slate-700 leading-snug line-clamp-2">
               On-chain real-world asset issuance and rollup fee economics indicate sustained transaction growth through Q1&hellip;
             </p>
 
             {/* Target & Horizon Bar */}
-            <div className="mt-1.5 flex items-center justify-between rounded-lg bg-slate-50 px-2 py-1 border border-slate-100 text-[9px]">
-              <div className="flex items-center gap-2">
+            <figure className="mt-1.5 flex items-center justify-between rounded-lg bg-slate-50 px-2 py-1 border border-slate-100 text-[9px] m-0">
+              <div className="flex items-center gap-2 text-slate-700">
                 <span>Target <b className="text-slate-900 font-bold">$4,200</b></span>
-                <span className="text-slate-300">|</span>
+                <span className="text-slate-400">|</span>
                 <span>Horizon <b className="text-slate-900 font-bold">120d</b></span>
               </div>
-              <Compass size={11} className="text-blue-500" />
-            </div>
+              <Compass size={11} className="text-blue-700" />
+            </figure>
 
             {/* Stats Row */}
-            <div className="mt-1.5 flex items-center justify-between text-[9px]">
-              <div className="flex items-center gap-2 text-slate-500">
+            <footer className="mt-1.5 flex items-center justify-between text-[9px]">
+              <div className="flex items-center gap-2 text-slate-600">
                 <span className="flex items-center gap-0.5">
                   <ThumbsUp size={9} /> 120
                 </span>
@@ -476,22 +473,22 @@ function FeedMini() {
                 </span>
               </div>
               <div className="flex items-center gap-1">
-                <span className="flex items-center gap-0.5 text-[8.5px] font-semibold text-emerald-600">
-                  <span className="size-1 rounded-full bg-emerald-500" /> On track
+                <span className="flex items-center gap-0.5 text-[8.5px] font-semibold text-emerald-700">
+                  <span className="size-1 rounded-full bg-emerald-600" /> On track
                 </span>
-                <span className="rounded bg-slate-100 px-1 py-0.2 text-[8px] font-bold text-slate-700">
+                <span className="rounded bg-slate-100 px-1 py-0.2 text-[8px] font-bold text-slate-800">
                   $ETH
                 </span>
                 <span className="rounded bg-emerald-50 border border-emerald-200/80 px-1 py-0.2 text-[8px] font-bold text-emerald-700">
                   Bullish
                 </span>
               </div>
-            </div>
-          </div>
+            </footer>
+          </article>
 
           {/* Post 2 - Casey Nguyen ($CRM Bearish / Off track) */}
-          <div className="rounded-xl border border-slate-100 bg-white p-2 shadow-2xs">
-            <div className="flex items-center justify-between">
+          <article className="rounded-lg border border-slate-100 bg-white p-2 shadow-2xs">
+            <header className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <img
                   src="/image/about/1.jpg"
@@ -503,35 +500,35 @@ function FeedMini() {
                 />
                 <div>
                   <p className="text-[10px] font-bold text-slate-900 leading-tight">Casey Nguyen</p>
-                  <p className="text-[8.5px] text-slate-500 leading-tight">@ramarao</p>
+                  <p className="text-[8.5px] text-slate-600 leading-tight">@ramarao</p>
                 </div>
               </div>
-              <div className="flex items-center gap-1 text-[9px] text-slate-400">
+              <div className="flex items-center gap-1 text-[9px] text-slate-600">
                 <span>2h</span>
-                <span className="text-slate-500">⋮</span>
+                <span className="text-slate-600">⋮</span>
               </div>
-            </div>
+            </header>
 
             <p className="mt-1 text-[10px] font-bold text-slate-900 leading-snug line-clamp-1">
               Enterprise software multiples face contraction amid consumption pricing shift&hellip;
             </p>
-            <p className="mt-0.5 text-[8.5px] text-slate-600 leading-snug line-clamp-2">
+            <p className="mt-0.5 text-[8.5px] text-slate-700 leading-snug line-clamp-2">
               Customer net expansion rates show elongated procurement cycles across mid-market enterprise SaaS contracts&hellip;
             </p>
 
             {/* Target & Horizon Bar */}
-            <div className="mt-1.5 flex items-center justify-between rounded-lg bg-slate-50 px-2 py-1 border border-slate-100 text-[9px]">
-              <div className="flex items-center gap-2">
+            <figure className="mt-1.5 flex items-center justify-between rounded-lg bg-slate-50 px-2 py-1 border border-slate-100 text-[9px] m-0">
+              <div className="flex items-center gap-2 text-slate-700">
                 <span>Target <b className="text-slate-900 font-bold">$85</b></span>
-                <span className="text-slate-300">|</span>
+                <span className="text-slate-400">|</span>
                 <span>Horizon <b className="text-slate-900 font-bold">60d</b></span>
               </div>
-              <Compass size={11} className="text-blue-500" />
-            </div>
+              <Compass size={11} className="text-blue-700" />
+            </figure>
 
             {/* Stats Row */}
-            <div className="mt-1.5 flex items-center justify-between text-[9px]">
-              <div className="flex items-center gap-2 text-slate-500">
+            <footer className="mt-1.5 flex items-center justify-between text-[9px]">
+              <div className="flex items-center gap-2 text-slate-600">
                 <span className="flex items-center gap-0.5">
                   <ThumbsUp size={9} /> 76
                 </span>
@@ -540,27 +537,29 @@ function FeedMini() {
                 </span>
               </div>
               <div className="flex items-center gap-1">
-                <span className="flex items-center gap-0.5 text-[8.5px] font-semibold text-amber-600">
-                  <span className="size-1 rounded-full bg-amber-500" /> Off track
+                <span className="flex items-center gap-0.5 text-[8.5px] font-semibold text-amber-700">
+                  <span className="size-1 rounded-full bg-amber-600" /> Off track
                 </span>
-                <span className="rounded bg-slate-100 px-1 py-0.2 text-[8px] font-bold text-slate-700">
+                <span className="rounded bg-slate-100 px-1 py-0.2 text-[8px] font-bold text-slate-800">
                   $CRM
                 </span>
                 <span className="rounded bg-rose-50 border border-rose-200/80 px-1 py-0.2 text-[8px] font-bold text-rose-700">
                   Bearish
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
+            </footer>
+          </article>
+        </section>
       </div>
 
       {/* Floating Action Button (FAB) with gradient glow */}
-      <div className="absolute bottom-11 right-2.5 z-20">
-        <div className="relative flex size-8 items-center justify-center rounded-full bg-[#0a0f1d] text-white shadow-lg ring-2 ring-orange-500/80 shadow-orange-500/25 cursor-pointer">
-          <Plus size={15} strokeWidth={2.6} />
-        </div>
-      </div>
+      <button
+        type="button"
+        aria-label="Create new thesis"
+        className="fab-trigger hover:bg-slate-900 focus-ring"
+      >
+        <Plus size={15} strokeWidth={2.6} />
+      </button>
 
       {/* Bottom Phone Navigation */}
       <div className="relative z-10 shrink-0 border-t border-slate-100 bg-white py-1 px-2">
@@ -609,7 +608,7 @@ function InvestMini() {
 
         {/* Portfolio Value Card with Curve */}
         <div className="mt-2 rounded-xl border border-slate-100 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 p-2 shadow-xs">
-          <p className="text-[9px] text-slate-500 font-medium">Total Execution Value</p>
+          <p className="text-[9px] text-slate-600 font-medium">Total Execution Value</p>
           <div className="flex items-baseline justify-between mt-0.5">
             <p className="text-lg font-black text-slate-900 tracking-tight">$142,500.00</p>
             <span className="rounded-full bg-emerald-50 border border-emerald-200/80 px-1.5 py-0.2 text-[9px] font-bold text-emerald-700">
@@ -641,53 +640,53 @@ function InvestMini() {
         </div>
 
         {/* Active Positions */}
-        <div className="mt-2 space-y-1.5">
-          <div className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs">
+        <ul className="mt-2 space-y-1.5 list-none p-0 m-0">
+          <li className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs">
             <div className="flex items-center justify-between text-[9.5px]">
               <span className="font-bold text-slate-900">$AMD &middot; Advanced Micro</span>
-              <span className="font-bold text-emerald-600">+60.00%</span>
+              <span className="font-bold text-emerald-700">+60.00%</span>
             </div>
-            <div className="mt-1 flex items-center justify-between text-[8px] text-slate-500">
+            <div className="mt-1 flex items-center justify-between text-[8px] text-slate-600">
               <span>Entry $500.00 &rarr; Target $800.00</span>
               <span className="rounded bg-emerald-50 text-emerald-700 font-semibold px-1">Reached</span>
             </div>
             <div className="mt-1 h-1 w-full rounded-full bg-slate-100">
               <div className="h-full w-full rounded-full bg-emerald-500" />
             </div>
-          </div>
+          </li>
 
-          <div className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs">
+          <li className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs">
             <div className="flex items-center justify-between text-[9.5px]">
               <span className="font-bold text-slate-900">$NVDA &middot; NVIDIA</span>
-              <span className="font-bold text-emerald-600">+20.00%</span>
+              <span className="font-bold text-emerald-700">+20.00%</span>
             </div>
-            <div className="mt-1 flex items-center justify-between text-[8px] text-slate-500">
+            <div className="mt-1 flex items-center justify-between text-[8px] text-slate-600">
               <span>Entry $115.00 &rarr; Target $145.00</span>
               <span className="rounded bg-blue-50 text-blue-700 font-semibold px-1">On Track</span>
             </div>
             <div className="mt-1 h-1 w-full rounded-full bg-slate-100">
               <div className="h-full w-[72%] rounded-full bg-blue-600" />
             </div>
-          </div>
+          </li>
 
-          <div className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs">
+          <li className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs">
             <div className="flex items-center justify-between text-[9.5px]">
               <span className="font-bold text-slate-900">$BTC &middot; Bitcoin</span>
-              <span className="font-bold text-emerald-600">+10.32%</span>
+              <span className="font-bold text-emerald-700">+10.32%</span>
             </div>
-            <div className="mt-1 flex items-center justify-between text-[8px] text-slate-500">
+            <div className="mt-1 flex items-center justify-between text-[8px] text-slate-600">
               <span>Entry $62,000 &rarr; Target $75,000</span>
               <span className="rounded bg-blue-50 text-blue-700 font-semibold px-1">Active</span>
             </div>
             <div className="mt-1 h-1 w-full rounded-full bg-slate-100">
               <div className="h-full w-[50%] rounded-full bg-blue-600" />
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
 
-        {/* Smart Order Routing Seal */}
-        <div className="mt-2 rounded-lg bg-slate-50 border border-slate-100 px-2 py-1 flex items-center justify-between text-[8px] text-slate-500">
-          <span>Smart Order Routed</span>
+        {/* Direct Order Routing Seal */}
+        <div className="mt-2 rounded-lg bg-slate-50 border border-slate-100 px-2 py-1 flex items-center justify-between text-[8px] text-slate-600">
+          <span>Direct Order Routed</span>
           <span className="font-semibold text-slate-700">Zero Slippage</span>
         </div>
       </div>
@@ -695,19 +694,19 @@ function InvestMini() {
       {/* Bottom Phone Navigation */}
       <div className="relative z-10 shrink-0 border-t border-slate-100 bg-white py-1 px-2">
         <div className="grid grid-cols-4 text-center items-center">
-          <div className="flex flex-col items-center gap-[1px] text-slate-500">
+          <div className="flex flex-col items-center gap-[1px] text-slate-600">
             <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
             <span className="text-[9px] font-medium">Social</span>
           </div>
-          <div className="flex flex-col items-center gap-[1px] text-blue-600">
+          <div className="flex flex-col items-center gap-[1px] text-blue-700">
             <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 14v4"/><path d="M11 10v8"/><path d="M15 6v12"/></svg>
             <span className="text-[9px] font-bold">Invest</span>
           </div>
-          <div className="flex flex-col items-center gap-[1px] text-slate-500">
+          <div className="flex flex-col items-center gap-[1px] text-slate-600">
             <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34"/><path d="M18 4H6v7a6 6 0 0 0 12 0V4z"/></svg>
             <span className="text-[9px] font-medium">Compete</span>
           </div>
-          <div className="flex flex-col items-center gap-[1px] text-slate-500">
+          <div className="flex flex-col items-center gap-[1px] text-slate-600">
             <img
               src="/image/about/3.jpg"
               alt="Profile"
@@ -753,83 +752,83 @@ function VerdictMini() {
         </div>
 
         {/* Ledger Entries */}
-        <div className="mt-2 space-y-1.5">
-          <div className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs flex items-center justify-between">
+        <ul className="mt-2 space-y-1.5 list-none p-0 m-0">
+          <li className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <span className="grid size-4 place-items-center rounded-full bg-emerald-600 text-[8px] font-bold text-white shadow-2xs">
                 ✓
               </span>
               <div>
                 <p className="text-[9.5px] font-bold text-slate-900 leading-tight">$NVDA Call &middot; MV</p>
-                <p className="text-[8.5px] text-emerald-600 font-semibold">+24.8% Outcome</p>
+                <p className="text-[8.5px] text-emerald-700 font-semibold">+24.8% Outcome</p>
               </div>
             </div>
-            <span className="rounded bg-slate-100 px-1 py-0.5 text-[8px] font-medium text-slate-500">Locked</span>
-          </div>
+            <span className="rounded bg-slate-100 px-1 py-0.5 text-[8px] font-medium text-slate-600">Locked</span>
+          </li>
 
-          <div className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs flex items-center justify-between">
+          <li className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <span className="grid size-4 place-items-center rounded-full bg-emerald-600 text-[8px] font-bold text-white shadow-2xs">
                 ✓
               </span>
               <div>
                 <p className="text-[9.5px] font-bold text-slate-900 leading-tight">$AMD Cycle &middot; AA</p>
-                <p className="text-[8.5px] text-emerald-600 font-semibold">+60.0% Outcome</p>
+                <p className="text-[8.5px] text-emerald-700 font-semibold">+60.0% Outcome</p>
               </div>
             </div>
             <span className="rounded bg-emerald-50 px-1 py-0.5 text-[8px] font-bold text-emerald-700 border border-emerald-200/60">Audited</span>
-          </div>
+          </li>
 
-          <div className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs flex items-center justify-between">
+          <li className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <span className="grid size-4 place-items-center rounded-full bg-blue-600 text-[8px] font-bold text-white shadow-2xs">
                 ✓
               </span>
               <div>
                 <p className="text-[9.5px] font-bold text-slate-900 leading-tight">TSLA Thesis &middot; ER</p>
-                <p className="text-[8.5px] text-slate-500 font-semibold">Active &middot; 90d horizon</p>
+                <p className="text-[8.5px] text-slate-600 font-semibold">Active &middot; 90d horizon</p>
               </div>
             </div>
-            <span className="rounded bg-slate-100 px-1 py-0.5 text-[8px] font-medium text-slate-500">Tracking</span>
-          </div>
+            <span className="rounded bg-slate-100 px-1 py-0.5 text-[8px] font-medium text-slate-600">Tracking</span>
+          </li>
 
-          <div className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs flex items-center justify-between">
+          <li className="rounded-lg border border-slate-100 bg-white p-1.5 shadow-2xs flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <span className="grid size-4 place-items-center rounded-full bg-emerald-600 text-[8px] font-bold text-white shadow-2xs">
                 ✓
               </span>
               <div>
                 <p className="text-[9.5px] font-bold text-slate-900 leading-tight">$PLTR Cloud &middot; PP</p>
-                <p className="text-[8.5px] text-emerald-600 font-semibold">+22.4% Outcome</p>
+                <p className="text-[8.5px] text-emerald-700 font-semibold">+22.4% Outcome</p>
               </div>
             </div>
             <span className="rounded bg-emerald-50 px-1 py-0.5 text-[8px] font-bold text-emerald-700 border border-emerald-200/60">Audited</span>
-          </div>
-        </div>
+          </li>
+        </ul>
 
         {/* Cryptographic Ledger Seal */}
         <div className="mt-2 rounded-lg bg-blue-50/70 border border-blue-100 p-1 text-center">
           <p className="text-[8px] font-bold uppercase tracking-wider text-blue-800">SHA-256 Merkle Settlement</p>
-          <p className="text-[7.5px] font-mono text-slate-500">Root: 0x8f4c9b2...3e19a4</p>
+          <p className="text-[7.5px] font-mono text-slate-600">Root: 0x8f4c9b2...3e19a4</p>
         </div>
       </div>
 
       {/* Bottom Phone Navigation */}
       <div className="relative z-10 shrink-0 border-t border-slate-100 bg-white py-1 px-2">
         <div className="grid grid-cols-4 text-center items-center">
-          <div className="flex flex-col items-center gap-[1px] text-slate-500">
+          <div className="flex flex-col items-center gap-[1px] text-slate-600">
             <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
             <span className="text-[9px] font-medium">Social</span>
           </div>
-          <div className="flex flex-col items-center gap-[1px] text-blue-600">
+          <div className="flex flex-col items-center gap-[1px] text-blue-700">
             <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 14v4"/><path d="M11 10v8"/><path d="M15 6v12"/></svg>
             <span className="text-[9px] font-bold">Invest</span>
           </div>
-          <div className="flex flex-col items-center gap-[1px] text-slate-500">
+          <div className="flex flex-col items-center gap-[1px] text-slate-600">
             <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34"/><path d="M18 4H6v7a6 6 0 0 0 12 0V4z"/></svg>
             <span className="text-[9px] font-medium">Compete</span>
           </div>
-          <div className="flex flex-col items-center gap-[1px] text-slate-500">
+          <div className="flex flex-col items-center gap-[1px] text-slate-600">
             <img
               src="/image/about/3.jpg"
               alt="Profile"

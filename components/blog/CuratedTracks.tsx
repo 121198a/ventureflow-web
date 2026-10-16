@@ -51,7 +51,7 @@ export function CuratedTracks() {
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                  className={`card-fintech-interactive group relative flex flex-col justify-between p-6 ${
+                  className={`card-article-interactive group relative flex flex-col justify-between p-6 ${
                     isFirst
                       ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white border-blue-600"
                       : "bg-slate-50/70 hover:bg-white text-slate-900"

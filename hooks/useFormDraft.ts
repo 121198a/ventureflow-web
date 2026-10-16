@@ -6,13 +6,14 @@ export function useFormDraft<T extends Record<string, unknown>>(
   formId: string,
   initialValues: T
 ) {
-  const storageKey = `ubx:form:${formId}`;
+  const storageKey = `vf:form:${formId}`;
+  const legacyKey = `ubx:form:${formId}`;
 
   const [values, setValues] = useState<T>(() => {
     if (typeof window === "undefined") return initialValues;
 
     try {
-      const raw = window.localStorage.getItem(storageKey);
+      const raw = window.localStorage.getItem(storageKey) || window.localStorage.getItem(legacyKey);
       if (!raw) return initialValues;
       const parsed = JSON.parse(raw) as Partial<T>;
       return { ...initialValues, ...parsed } as T;

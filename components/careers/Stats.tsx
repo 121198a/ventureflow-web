@@ -13,16 +13,16 @@ const stats: [string, string][] = [
 export function Stats() {
   return (
     <section className="border-y border-border bg-card">
-      <div
-        className={`${section} grid divide-y divide-border sm:grid-cols-2 sm:divide-y-0 md:grid-cols-4 md:divide-x`}
+      <dl
+        className={`${section} grid divide-y divide-border sm:grid-cols-2 sm:divide-y-0 md:grid-cols-4 md:divide-x m-0`}
       >
         {stats.map(([n, label], i) => (
           <Reveal key={label} delay={i * 0.06} className="py-9 md:px-8 md:first:pl-0">
-            <p className="display text-3xl text-brand sm:text-4xl">{n}</p>
-            <p className="mt-2 text-sm text-text-secondary">{label}</p>
+            <dt className="display text-3xl text-brand sm:text-4xl">{n}</dt>
+            <dd className="mt-2 text-sm text-text-secondary m-0">{label}</dd>
           </Reveal>
         ))}
-      </div>
+      </dl>
     </section>
   );
 }

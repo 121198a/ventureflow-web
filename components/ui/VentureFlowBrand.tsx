@@ -26,7 +26,7 @@ export function VentureFlowFullBrand({
       className={`inline-flex items-baseline gap-1.5 font-display tracking-tight select-none text-slate-900 ${className}`}
     >
       <VentureFlowBrand />
-      <span className={`text-xs font-normal text-slate-400 ${byClassName}`}>by</span>
+      <span className={`text-xs font-medium text-slate-600 ${byClassName}`}>by</span>
       <span className={`font-bold text-slate-900 ${companyClassName}`}>{COMPANY_NAME}</span>
     </span>
   );

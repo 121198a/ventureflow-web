@@ -28,7 +28,7 @@ export function ArticleCard({
         whileHover={{ y: -3 }}
         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "card-fintech-interactive group relative flex flex-col sm:flex-row items-stretch gap-4 sm:gap-5 p-4 sm:p-5",
+          "card-article-interactive group relative flex flex-col sm:flex-row items-stretch gap-4 sm:gap-5 p-4 sm:p-5",
           className
         )}
       >
@@ -102,7 +102,7 @@ export function ArticleCard({
         whileHover={{ y: -4 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "card-fintech-interactive group relative flex flex-col justify-between overflow-hidden p-6 sm:p-7",
+          "card-article-interactive group relative flex flex-col justify-between overflow-hidden p-6 sm:p-7",
           className
         )}
       >
@@ -207,7 +207,7 @@ export function ArticleCard({
       whileHover={{ y: -4 }}
       transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "card-fintech-interactive group relative flex flex-col justify-between overflow-hidden p-0",
+        "card-article-interactive group relative flex flex-col justify-between overflow-hidden p-0",
         className
       )}
     >

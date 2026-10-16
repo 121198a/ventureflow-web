@@ -13,17 +13,17 @@ export function HiringProcess() {
             Four steps. Two weeks. No ghosting.
           </h2>
         </Reveal>
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 list-none m-0 p-0">
           {hiringSteps.map((s, i) => (
-            <Reveal key={s.step} delay={i * 0.06}>
-              <div className="lift h-full rounded-2xl border border-border bg-card p-6">
+            <Reveal as="li" key={s.step} delay={i * 0.06}>
+              <article className="lift h-full rounded-2xl border border-border bg-card p-6">
                 <p className="display text-sm text-brand">{s.step}</p>
                 <h3 className="display mt-5 text-lg">{s.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-text-secondary">{s.body}</p>
-              </div>
+              </article>
             </Reveal>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

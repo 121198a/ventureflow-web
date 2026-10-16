@@ -7,7 +7,7 @@ export type RegPathway = { title: string; cta: string; points: RegPathwayPoint[]
 
 function RegPathwayCard({ deal, delay }: { deal: RegPathway; delay: number }) {
   return (
-    <Reveal delay={delay} className="flex flex-col">
+    <Reveal as="article" delay={delay} className="flex flex-col">
       <h3 className="text-[19px] font-semibold text-ink">{deal.title}</h3>
       <ul className="mt-5 flex-1 space-y-4">
         {deal.points.map((p, i) => (
@@ -23,7 +23,7 @@ function RegPathwayCard({ deal, delay }: { deal: RegPathway; delay: number }) {
       </ul>
       <Link
         href="/signup"
-        className="mt-8 rounded-md border border-brand/60 px-5 py-2.5 text-center text-[13.5px] font-medium text-brand transition-colors hover:bg-brand/5"
+        className="mt-8 rounded-md border border-brand/60 px-5 py-2.5 text-center text-sm font-medium text-brand hover:bg-brand/5 focus-ring cursor-pointer"
       >
         {deal.cta}
       </Link>

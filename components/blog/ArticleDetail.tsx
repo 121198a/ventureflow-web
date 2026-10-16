@@ -51,7 +51,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
   };
 
   return (
-    <div className="relative">
+    <article aria-label={post.title} className="relative">
       {/* 1. Top Breadcrumbs & Back Bar */}
       <div className="mx-auto max-w-[1240px] px-5 sm:px-6 pt-6 sm:pt-8">
         <Reveal>
@@ -133,7 +133,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
                 type="button"
                 onClick={shareTwitter}
                 aria-label="Share on X"
-                className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-blue-600 transition-colors shadow-2xs cursor-pointer"
+                className="grid size-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-blue-600 transition-colors shadow-2xs focus-ring cursor-pointer"
               >
                 <FaTwitter size={12} />
               </button>
@@ -141,7 +141,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
                 type="button"
                 onClick={shareLinkedIn}
                 aria-label="Share on LinkedIn"
-                className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-blue-700 transition-colors shadow-2xs cursor-pointer"
+                className="grid size-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-blue-700 transition-colors shadow-2xs focus-ring cursor-pointer"
               >
                 <FaLinkedinIn size={12} />
               </button>
@@ -149,7 +149,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
                 type="button"
                 onClick={handleCopyLink}
                 aria-label="Copy article link"
-                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-2xs cursor-pointer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-2xs focus-ring cursor-pointer"
               >
                 {copied ? (
                   <>
@@ -205,7 +205,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
       )}
 
       {/* 5. Article Long-Form Body */}
-      <main className="mx-auto max-w-3xl px-5 sm:px-6 py-12">
+      <section aria-label="Article content" className="mx-auto max-w-3xl px-5 sm:px-6 py-12">
         <div className="space-y-6 sm:space-y-8 text-base sm:text-lg leading-[1.8] text-slate-800">
           {post.body.map((block, idx) => {
             switch (block.type) {
@@ -388,7 +388,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
         </div>
 
         {/* 7. Action CTA Box */}
-        <div className="card-fintech mt-8 bg-blue-600 border-blue-500 text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
+        <section aria-label="Call to action" className="mt-8 rounded-2xl bg-blue-600 border border-blue-500 text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
           <div className="max-w-md">
             <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
               Test your market thesis on VentureFlow
@@ -405,14 +405,14 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
             <span>Start your record</span>
             <ArrowRight size={14} />
           </AuthButton>
-        </div>
-      </main>
+        </section>
+      </section>
 
       {/* 8. Related Articles */}
       <RelatedArticles posts={relatedPosts} currentCategory={post.category} />
 
       {/* 9. Newsletter CTA */}
       <NewsletterCTA />
-    </div>
+    </article>
   );
 }

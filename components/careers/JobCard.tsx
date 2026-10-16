@@ -15,7 +15,7 @@ export function JobCard({ role }: { role: CareerRole }) {
     >
       <Link
         href={`/careers/${role.slug}`}
-        className="lift grid gap-4 rounded-2xl border border-border bg-background p-6 md:grid-cols-[1.4fr_1fr_auto] md:items-center"
+        className="card-article-interactive grid gap-4 p-5 sm:p-6 md:grid-cols-[1.4fr_1fr_auto] md:items-center"
       >
         <div>
           <h3 className="display text-xl transition-colors group-hover:text-brand md:text-2xl">
