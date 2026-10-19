@@ -119,7 +119,7 @@ export function NewsletterCTA() {
                 )}
               </AnimatePresence>
               {errorMessage && (
-                <p className="mt-2 text-center text-xs font-semibold text-red-600">
+                <p role="alert" className="mt-2 text-center text-xs font-semibold text-red-600">
                   {errorMessage}
                 </p>
               )}

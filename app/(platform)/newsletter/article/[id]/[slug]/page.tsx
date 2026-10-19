@@ -266,7 +266,7 @@ export default async function NewsletterArticlePage({ params }: PageProps) {
         <div className="mt-6 flex flex-wrap items-center gap-3 text-[0.8rem] text-muted-foreground">
           <Image
             src="/logo/vf-mark.png"
-            alt=""
+            alt="VentureFlow Research"
             width={28}
             height={28}
             className="size-7 shrink-0 rounded-full"

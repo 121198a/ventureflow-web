@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, Calendar, CheckCircle2, ArrowRight } from "lucide-react";
 
 interface ConsultationModalProps {
@@ -22,6 +22,14 @@ export function ConsultationModal({
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
 
   if (!isOpen) return null;
 
@@ -187,7 +195,7 @@ export function ConsultationModal({
                   </select>
                 </div>
 
-                {error && <p className="text-xs font-medium text-destructive">{error}</p>}
+                {error && <p role="alert" className="text-xs font-medium text-destructive">{error}</p>}
 
                 <div className="pt-2">
                   <button

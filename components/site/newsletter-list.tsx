@@ -86,7 +86,7 @@ function SubscribeForm() {
       >
         {loading ? "Subscribing..." : sent ? "Subscribed" : "Subscribe"}
       </button>
-      {error && <p className="text-xs text-destructive">{error}</p>}
+      {error && <p role="alert" className="text-xs text-destructive">{error}</p>}
       <p className="text-[0.75rem] text-muted-foreground">
         {sent
           ? "You're on the list — the next briefing lands weekly."

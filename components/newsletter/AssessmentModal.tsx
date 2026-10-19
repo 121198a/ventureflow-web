@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   NEWSLETTER_ASSESSMENTS,
   computeReadinessBriefing,
@@ -60,6 +60,14 @@ export function AssessmentModal({
   const email = draftValues.email;
   const setEmail = (val: string) => setDraftValues({ email: val });
   const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
 
   if (!isOpen) return null;
 
@@ -299,7 +307,7 @@ export function AssessmentModal({
               </div>
 
               {error && (
-                <p className="mt-4 text-xs font-semibold text-destructive">{error}</p>
+                <p role="alert" className="mt-4 text-xs font-semibold text-destructive">{error}</p>
               )}
 
               {/* Navigation Footer */}

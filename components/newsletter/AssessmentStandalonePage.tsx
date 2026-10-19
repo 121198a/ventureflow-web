@@ -225,7 +225,7 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
               </div>
 
               {error && (
-                <p className="mt-4 text-xs font-semibold text-destructive">{error}</p>
+                <p role="alert" className="mt-4 text-xs font-semibold text-destructive">{error}</p>
               )}
 
               {/* Navigation */}
