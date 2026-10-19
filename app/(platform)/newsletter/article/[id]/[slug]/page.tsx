@@ -237,7 +237,7 @@ export default async function NewsletterArticlePage({ params }: PageProps) {
       />
       <SiteHeader />
 
-      <main className="mx-auto max-w-[720px] px-5 py-10 sm:py-14">
+      <main id="main-content" className="mx-auto max-w-[720px] px-5 py-10 sm:py-14">
         {/* Breadcrumb back link */}
         <Link
           href="/newsletter"

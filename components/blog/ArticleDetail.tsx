@@ -133,7 +133,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
                 type="button"
                 onClick={shareTwitter}
                 aria-label="Share on X"
-                className="grid size-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-blue-600 transition-colors shadow-2xs focus-ring cursor-pointer"
+                className="btn-share-icon"
               >
                 <FaTwitter size={12} />
               </button>
@@ -141,7 +141,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
                 type="button"
                 onClick={shareLinkedIn}
                 aria-label="Share on LinkedIn"
-                className="grid size-8 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-blue-700 transition-colors shadow-2xs focus-ring cursor-pointer"
+                className="btn-share-icon hover:text-blue-700"
               >
                 <FaLinkedinIn size={12} />
               </button>
@@ -149,7 +149,7 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
                 type="button"
                 onClick={handleCopyLink}
                 aria-label="Copy article link"
-                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-2xs focus-ring cursor-pointer"
+                className="btn-copy-link"
               >
                 {copied ? (
                   <>
@@ -185,15 +185,15 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
         </Reveal>
       </div>
 
-      {/* 4. Optional Key Stats Strip */}
+      {/* 4. Optional Key Stats Strip — Clean Editorial Metric Rule */}
       {post.keyStats && post.keyStats.length > 0 && (
-        <div className="mx-auto max-w-3xl px-5 sm:px-6 mt-10">
+        <div className="mx-auto max-w-3xl px-5 sm:px-6 my-10">
           <Reveal>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-2xl border border-slate-200/90 bg-slate-50/70 p-5 shadow-xs">
+            <div className="border-y border-slate-200/90 py-6 grid grid-cols-1 sm:grid-cols-3 gap-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/70">
               {post.keyStats.map((stat) => (
-                <div key={stat.label} className="border-b sm:border-b-0 sm:border-r last:border-0 border-slate-200/70 pb-3 sm:pb-0 sm:pr-4">
-                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">{stat.label}</p>
-                  <p className="mt-1 text-2xl font-extrabold text-slate-900">{stat.value}</p>
+                <div key={stat.label} className="pt-3 sm:pt-0 sm:px-4 first:pl-0 last:pr-0">
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">{stat.label}</p>
+                  <p className="mt-1.5 text-2xl font-extrabold text-slate-900 tracking-tight">{stat.value}</p>
                   {stat.change && (
                     <p className="text-xs text-blue-600 font-semibold mt-0.5">{stat.change}</p>
                   )}
@@ -257,15 +257,16 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
               case "callout": {
                 const variantClasses =
                   block.variant === "dark"
-                    ? "bg-slate-900 text-white border-slate-800"
+                    ? "bg-slate-900 text-white border-slate-800 border-l-4 border-l-blue-400"
                     : block.variant === "signal"
-                    ? "bg-emerald-50 text-emerald-950 border-emerald-200"
-                    : "bg-blue-50/60 text-slate-900 border-blue-200";
+                    ? "bg-emerald-50/80 text-emerald-950 border-emerald-200 border-l-4 border-l-emerald-600"
+                    : "bg-blue-50/60 text-slate-900 border-blue-200 border-l-4 border-l-blue-600";
 
                 return (
-                  <div
+                  <aside
                     key={idx}
-                    className={`my-8 rounded-2xl border p-6 sm:p-7 shadow-xs ${variantClasses}`}
+                    aria-label={block.title}
+                    className={`my-8 rounded-r-xl border border-l-0 p-5 sm:p-6 shadow-2xs ${variantClasses}`}
                   >
                     <div className="flex items-center gap-2">
                       <ComplianceShieldIcon
@@ -278,24 +279,24 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
                             : "text-blue-600"
                         }
                       />
-                      <h4
-                        className={`text-sm font-bold uppercase tracking-wider ${
+                      <p
+                        className={`text-xs font-bold uppercase tracking-wider ${
                           block.variant === "dark" ? "text-blue-300" : "text-blue-700"
                         }`}
                       >
                         {block.title}
-                      </h4>
+                      </p>
                     </div>
                     <p className="mt-3 text-sm sm:text-base leading-relaxed whitespace-pre-line font-medium">
                       {block.text}
                     </p>
-                  </div>
+                  </aside>
                 );
               }
 
               case "table":
                 return (
-                  <div key={idx} className="my-8 overflow-hidden rounded-2xl border border-slate-200 shadow-xs">
+                  <div key={idx} className="my-8 overflow-hidden rounded-xl border border-slate-200/90 shadow-2xs">
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-xs sm:text-sm">
                         <thead className="bg-slate-100/80 border-b border-slate-200 text-slate-700">
@@ -319,8 +320,8 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
 
               case "recap":
                 return (
-                  <div key={idx} className="my-8 rounded-2xl border border-slate-200/90 bg-slate-50 p-6 sm:p-7">
-                    <h4 className="text-base font-bold text-slate-900">{block.heading}</h4>
+                  <div key={idx} className="my-8 rounded-xl border border-slate-200/90 bg-slate-50/70 p-6 sm:p-7">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900">{block.heading}</h3>
                     <ul className="mt-4 space-y-3">
                       {block.items.map((item, iIdx) => (
                         <li key={iIdx} className="flex items-start gap-2.5 text-sm sm:text-base">
@@ -337,8 +338,8 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
 
               case "checklist":
                 return (
-                  <div key={idx} className="my-8 rounded-2xl border border-blue-100 bg-blue-50/30 p-6 sm:p-7">
-                    <h4 className="text-base font-bold text-slate-900">{block.heading}</h4>
+                  <div key={idx} className="my-8 rounded-xl border border-blue-100 bg-blue-50/40 p-6 sm:p-7">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900">{block.heading}</h3>
                     <ul className="mt-4 space-y-2.5">
                       {block.items.map((item, cIdx) => (
                         <li key={cIdx} className="flex items-start gap-2.5 text-sm sm:text-base text-slate-700">
@@ -358,49 +359,49 @@ export function ArticleDetail({ post, relatedPosts }: ArticleDetailProps) {
           })}
         </div>
 
-        {/* 6. Author Bio Card */}
-        <div className="mt-14 rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs">
+        {/* 6. Author Signature Section — Clean Editorial Bylines */}
+        <section aria-label="Author information" className="mt-14 border-t border-slate-200/90 pt-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
-            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-slate-200 shadow-sm">
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border border-slate-200 shadow-2xs">
               <Image
                 src={post.author.avatar}
                 alt={post.author.name}
                 fill
-                sizes="64px"
+                sizes="56px"
                 className="object-cover"
               />
             </div>
             <div className="flex-1">
               <div className="flex flex-wrap items-center justify-center sm:justify-between gap-2">
                 <div>
-                  <h4 className="text-lg font-bold text-slate-900">{post.author.name}</h4>
+                  <p className="text-base font-bold text-slate-900">{post.author.name}</p>
                   <p className="text-xs font-semibold text-blue-600">{post.author.role} · VentureFlow</p>
                 </div>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                <span className="rounded-full bg-slate-100 px-3 py-0.5 text-xs font-medium text-slate-600">
                   Author Profile
                 </span>
               </div>
-              <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              <p className="mt-2.5 text-sm text-slate-600 leading-relaxed">
                 {post.author.bio}
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* 7. Action CTA Box */}
-        <section aria-label="Call to action" className="mt-8 rounded-2xl bg-blue-600 border border-blue-500 text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
+        <section aria-label="Call to action" className="mt-10 rounded-2xl bg-blue-600 text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
           <div className="max-w-md">
             <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
               Test your market thesis on VentureFlow
             </h3>
-            <p className="mt-1.5 text-xs sm:text-sm text-blue-100">
+            <p className="mt-1.5 text-xs sm:text-sm text-blue-100 leading-relaxed">
               Put your price targets and horizon settlement on the public ledger. Free, immutable, and verified.
             </p>
           </div>
           <AuthButton
             flow="signup"
             icon={false}
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-blue-700 hover:bg-slate-100 active:scale-98 shadow-md"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-blue-700 hover:bg-slate-100 active:scale-98 shadow-sm"
           >
             <span>Start your record</span>
             <ArrowRight size={14} />

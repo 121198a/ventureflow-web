@@ -80,7 +80,7 @@ export default function HowItWorksPage() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
 
-      <main className="mx-auto max-w-[840px] px-5 py-12 sm:py-16">
+      <main id="main-content" className="mx-auto max-w-[840px] px-5 py-12 sm:py-16">
         <Link
           href="/newsletter"
           className="inline-flex items-center gap-2 text-[0.85rem] text-brand hover:underline"

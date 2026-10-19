@@ -54,11 +54,11 @@ export default async function RolePage({
   if (!role) notFound();
 
   return (
-    <main className="pt-36 pb-28">
+    <main id="main-content" className="pt-36 pb-28">
       <div className={section}>
         <Reveal>
           <Link
-            href="/#roles"
+            href="/careers#roles"
             className="text-xs tracking-[0.2em] text-muted-foreground uppercase hover:text-foreground"
           >
             ← All open roles

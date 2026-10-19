@@ -217,13 +217,14 @@ export function ErrorView({
   const finalSecondary =
     secondaryAction === null ? null : (secondaryAction ?? defaults.secondaryAction);
   const BadgeIcon = defaults.badgeIcon;
+  const Tag = isEmbedded ? "section" : "main";
 
   return (
-    <main
+    <Tag
+      id={isEmbedded ? undefined : "main-content"}
       className={`w-full flex flex-col items-center justify-center text-center px-4 sm:px-6 py-12 sm:py-20 select-none ${
         isEmbedded ? "min-h-[420px]" : "min-h-[85vh] sm:min-h-screen"
       } ${className}`}
-      role="region"
       aria-label={`${code} ${finalTitle}`}
     >
       <div className="w-full max-w-2xl mx-auto flex flex-col items-center">
@@ -335,7 +336,7 @@ export function ErrorView({
           </nav>
         )}
       </div>
-    </main>
+    </Tag>
   );
 }
 

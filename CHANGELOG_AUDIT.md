@@ -119,3 +119,26 @@
   - `npm test`: 25 passed, 0 failed, 0 skipped.
   - `npm run build`: 111/111 static routes compiled cleanly in 6.0s.
 * **Verify:** Complete 22-point QA Matrix marked PASS. All preservation guardrails verified intact.
+
+---
+
+## 8. Autonomous Full-Website Audit, Root-Cause Remediation & Zero-Regression Hardening (Phases 1–9)
+* **Inspect:** Crawled all 104 application routes and dynamic templates; audited landmarks, heading hierarchy, navigation targets, draft form states, and Tailwind class density.
+* **Implement:**
+  - Added semantic `<main id="main-content">` landmark across 11 application routes and 4 loading skeletons (`/platform`, `/workspace/company`, `/workspace/ventures`, `/auth/callback`, `/careers/[slug]`, `/newsletter/*`, `[slug]`, etc.).
+  - Resolved ARIA landmark conflict in `ErrorView.tsx` by removing `role="region"` from `<main>`.
+  - Fixed sequential heading hierarchy (H1 &rarr; H2 &rarr; H3) in `ArticleDetail.tsx`.
+  - Corrected broken backlink on `/careers/[slug]` from `/#roles` to `/careers#roles`.
+  - Fixed draft state race condition in `ApplyForm.tsx` ensuring applicant name is preserved in the confirmation screen.
+  - Corrected offering link destination in `ArticleCTAHandler.tsx` from invalid `/offerings` to `/platform`.
+  - Added explicit `id`, `name`, and `autoComplete` attributes to newsletter subscription inputs.
+  - Replaced repetitive bento tiles in editorial views with clean financial metric dividers and left-accented callout blocks.
+  - Extracted `.btn-share-icon`, `.btn-copy-link`, and `.skip-to-content` component utilities in `globals.css`.
+* **Test:**
+  - `npm run typecheck`: 0 errors.
+  - `npm run lint`: 0 warnings, 0 errors.
+  - `npm test`: 74 passed, 2 skipped, 0 failed.
+  - `npm run build`: 134/134 routes successfully compiled into `.next/standalone`.
+  - Full automated regression crawler verified 95 unique routes with 100% pass rate.
+* **Verify:** Zero genuine defects across all 23 primary routes. All quality gates pass.
+

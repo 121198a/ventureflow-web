@@ -88,7 +88,10 @@ export function NewsletterCTA() {
                         <NewsletterSignalIcon size={17} />
                       </div>
                       <input
+                        id="blog-newsletter-email"
+                        name="email"
                         type="email"
+                        autoComplete="email"
                         required
                         aria-label="Work email address"
                         value={values.email}

@@ -178,7 +178,7 @@ function AuthCallbackInner() {
   };
 
   return (
-    <main className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-[#f4f7fb] to-sky-50/50 flex items-center justify-center p-6 text-slate-900">
+    <main id="main-content" className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-[#f4f7fb] to-sky-50/50 flex items-center justify-center p-6 text-slate-900">
       <div className="w-full max-w-md rounded-2xl border border-hairline bg-white/80 p-8 shadow-xl backdrop-blur-md text-center">
         {/* Logo */}
         <div className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-full overflow-hidden shadow-md border border-white">
@@ -328,9 +328,9 @@ export default function AuthCallbackPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen w-full flex items-center justify-center bg-[#fdf2fa]">
+        <main id="main-content" className="min-h-screen w-full flex items-center justify-center bg-[#fdf2fa]">
           <Loader2 className="size-8 animate-spin text-brand" />
-        </div>
+        </main>
       }
     >
       <AuthCallbackInner />

@@ -86,7 +86,7 @@ export function ArticleCTAHandler({
 
   // Determine standard, seamless destination route
   const getDestinationHref = (): string => {
-    if (isOfferingsLink) return "/offerings";
+    if (isOfferingsLink) return "/platform";
     if (isServicesLink) return "/services";
     if (isSpacesLink) return "/spaces";
 

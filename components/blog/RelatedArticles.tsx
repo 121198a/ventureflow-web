@@ -15,7 +15,7 @@ export function RelatedArticles({ posts, currentCategory }: RelatedArticlesProps
   if (posts.length === 0) return null;
 
   return (
-    <section className="relative border-t border-slate-200/80 bg-slate-50/70 py-16 sm:py-24">
+    <section aria-labelledby="related-insights-heading" className="relative border-t border-slate-200/80 bg-slate-50/70 py-16 sm:py-24">
       <div className="mx-auto max-w-[1240px] px-5 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <Reveal>
@@ -23,7 +23,7 @@ export function RelatedArticles({ posts, currentCategory }: RelatedArticlesProps
               <BookOpen size={12} />
               <span>Continue Reading</span>
             </div>
-            <h2 className="display mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+            <h2 id="related-insights-heading" className="display mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
               More Insights from {currentCategory}
             </h2>
           </Reveal>

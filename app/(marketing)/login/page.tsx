@@ -19,9 +19,9 @@ export default function LoginRoute() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#f4f7fb] flex items-center justify-center text-xs text-slate-400">
+        <main id="main-content" className="min-h-screen bg-[#f4f7fb] flex items-center justify-center text-xs text-slate-400">
           Loading VentureFlow authentication...
-        </div>
+        </main>
       }
     >
       <LoginFlowReader />

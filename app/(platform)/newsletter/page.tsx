@@ -61,7 +61,7 @@ export default function Newsletter() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <SiteHeader />
-      <main className="relative z-10 mx-auto max-w-[1180px] px-5">
+      <main id="main-content" className="relative z-10 mx-auto max-w-[1180px] px-5">
         <NewsletterList />
       </main>
       <div className="relative z-10 mt-16">

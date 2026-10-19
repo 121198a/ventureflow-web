@@ -78,11 +78,11 @@ export default async function OfferingDetailPage({
   if (!offering) notFound();
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
+    <div className="relative min-h-screen overflow-hidden bg-background flex flex-col">
       <SiteHeader />
-      <div className="relative z-10">
+      <main id="main-content" className="relative z-10 flex-1">
         <DealDetail offering={offering} />
-      </div>
+      </main>
       <SiteFooter />
     </div>
   );

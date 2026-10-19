@@ -1,6 +1,6 @@
 export default function CareersLoading() {
   return (
-    <div className="min-h-screen bg-slate-50/50 py-16 sm:py-24 animate-pulse">
+    <main id="main-content" className="min-h-screen bg-slate-50/50 py-16 sm:py-24 animate-pulse">
       <div className="mx-auto max-w-[1240px] px-5 sm:px-6">
         {/* Careers Hero Skeleton */}
         <div className="max-w-3xl space-y-4 mb-16">
@@ -30,6 +30,6 @@ export default function CareersLoading() {
           ))}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -23,13 +23,13 @@ export const metadata: Metadata = {
 
 export default function WorkspaceVenturesPage() {
   return (
-    <div className="pt-16 sm:pt-20">
+    <main id="main-content" className="pt-16 sm:pt-20">
       <WorkspaceRaising />
       <WorkspaceCohort />
       <WorkspaceMarketplace />
       <WorkspaceRails />
       <WorkspaceEconomics />
       <WorkspaceCta />
-    </div>
+    </main>
   );
 }

@@ -40,6 +40,7 @@ export function ApplyForm({
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  const [submittedName, setSubmittedName] = useState("");
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -92,6 +93,7 @@ export function ApplyForm({
         return;
       }
 
+      setSubmittedName(parsed.data.name);
       clearDraft();
       setStatus("success");
     } catch (err) {
@@ -110,7 +112,7 @@ export function ApplyForm({
           <CheckCircle2 size={24} />
         </div>
         <p className="text-xs font-bold uppercase tracking-wider text-emerald-800">Application received</p>
-        <p className="mt-2 text-2xl font-extrabold text-slate-900 tracking-tight">Thank you, {values.name.split(" ")[0] || "Applicant"}.</p>
+        <p className="mt-2 text-2xl font-extrabold text-slate-900 tracking-tight">Thank you, {submittedName.split(" ")[0] || "Applicant"}.</p>
         <p className="mt-2 text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
           We have received your application for <b className="text-slate-900">{roleTitle}</b>. Our talent team reviews every submission and responds within five business days.
         </p>

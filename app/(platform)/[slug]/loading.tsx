@@ -5,7 +5,7 @@ export default function LoadingOffering() {
   return (
     <div className="min-h-screen bg-background text-slate-900">
       <SiteHeader />
-      <main className="mx-auto max-w-[1180px] px-5 py-10 sm:py-16 animate-pulse">
+      <main id="main-content" className="mx-auto max-w-[1180px] px-5 py-10 sm:py-16 animate-pulse">
         {/* Breadcrumb skeleton */}
         <div className="h-4 w-40 rounded bg-slate-200/70 mb-8" />
 
