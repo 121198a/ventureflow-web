@@ -14,17 +14,17 @@ const fullAiResponse =
 
 export function BeyondFeed() {
   return (
-    <section id="beyond-the-feed" className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-slate-50/70 via-white to-slate-50/80 px-5 py-20 sm:py-28 border-b border-slate-200/80">
+    <section id="beyond-the-feed" aria-labelledby="beyond-feed-heading" className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-slate-50/70 via-white to-slate-50/80 px-5 py-20 sm:py-28 border-b border-slate-200/80">
       {/* Background ambient lighting */}
       <div className="pointer-events-none absolute left-1/4 top-1/3 h-72 w-72 rounded-full bg-blue-100/40 blur-3xl" />
       <div className="pointer-events-none absolute right-1/4 bottom-1/4 h-72 w-72 rounded-full bg-sky-100/30 blur-3xl" />
 
-      <Reveal className="relative z-10 mx-auto max-w-[900px] text-center">
+      <Reveal as="header" className="relative z-10 mx-auto max-w-[900px] text-center">
         <span className="badge-fintech">
           <GrowthChartIcon size={14} className="text-blue-700" />
           <span>Beyond Social Feeds</span>
         </span>
-        <h2 className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
+        <h2 id="beyond-feed-heading" className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
           Where investment theses <br />
           <span className="text-blue-700">
             stand on verifiable data.
@@ -36,13 +36,13 @@ export function BeyondFeed() {
       </Reveal>
 
       {/* Track Record Section */}
-      <div className="relative z-10 mx-auto mt-16 grid max-w-[1100px] items-stretch gap-10 lg:grid-cols-2">
+      <section aria-labelledby="track-record-title" className="relative z-10 mx-auto mt-16 grid max-w-[1100px] items-stretch gap-10 lg:grid-cols-2">
         <Reveal direction="left" className="flex flex-col justify-center">
           <div className="badge-fintech mb-3 self-start">
             <span className="size-1.5 rounded-full bg-blue-600 animate-pulse" />
             <span>Permanent Ledger</span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          <h3 id="track-record-title" className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Audited Track Record
           </h3>
           <p className="mt-3 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
@@ -104,10 +104,10 @@ export function BeyondFeed() {
             </ul>
           </div>
         </Reveal>
-      </div>
+      </section>
 
       {/* Catalyst & Research Section */}
-      <div className="relative z-10 mx-auto mt-20 grid max-w-[1100px] items-stretch gap-10 lg:grid-cols-2">
+      <section aria-labelledby="catalyst-analysis-title" className="relative z-10 mx-auto mt-20 grid max-w-[1100px] items-stretch gap-10 lg:grid-cols-2">
         <CatalystTypewriterCard className="flex flex-col justify-center w-full" />
 
         <Reveal direction="right" delay={0.1} className="flex flex-col justify-center">
@@ -115,14 +115,14 @@ export function BeyondFeed() {
             <GrowthChartIcon size={12} className="text-blue-600" />
             <span>Filing &amp; Catalyst Research</span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          <h3 id="catalyst-analysis-title" className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Catalyst &amp; Filing Analysis
           </h3>
           <p className="mt-3 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
             Correlate SEC filings, quarterly earnings disclosures, and operational catalysts with your valuation framework. Validate each core driver before committing your thesis to the permanent ledger.
           </p>
         </Reveal>
-      </div>
+      </section>
     </section>
   );
 }

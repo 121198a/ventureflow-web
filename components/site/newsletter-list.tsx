@@ -68,6 +68,7 @@ function SubscribeForm() {
       <input
         type="email"
         required
+        aria-label="Work email for newsletter"
         value={values.email}
         onChange={(e) => {
           setValues({ email: e.target.value });

@@ -468,6 +468,7 @@ export function AssessmentModal({
                     <input
                       type="email"
                       required
+                      aria-label="Email address for diagnostic summary"
                       placeholder="founder@company.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}

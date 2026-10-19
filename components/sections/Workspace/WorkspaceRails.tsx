@@ -26,7 +26,7 @@ const rails = [
 
 export function WorkspaceRails() {
   return (
-    <section className="border-t border-slate-100 bg-white px-5 py-20 sm:py-28">
+    <section aria-labelledby="workspace-rails-heading" className="border-t border-slate-100 bg-white px-5 py-20 sm:py-28">
       <div className="mx-auto grid max-w-[1100px] items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
         {/* Left List Card */}
@@ -40,9 +40,9 @@ export function WorkspaceRails() {
 
           <hr className="faded-line" />
 
-          <div className="mt-3 divide-y divide-slate-100">
+          <ol role="list" className="mt-3 divide-y divide-slate-100 list-none p-0 m-0">
             {rails.map((r) => (
-              <div
+              <li
                 key={r.num}
                 className="flex items-center gap-4 py-4"
               >
@@ -63,9 +63,9 @@ export function WorkspaceRails() {
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-pill bg-emerald-50 text-emerald-700">
                   <CheckCircle2 size={16} />
                 </span>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
 
           <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
             <div>
@@ -91,9 +91,9 @@ export function WorkspaceRails() {
 
         {/* Right Compliance Copy */}
         <Reveal direction="right" delay={0.1}>
-          <h3 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+          <h2 id="workspace-rails-heading" className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
             One workspace for the whole relationship.
-          </h3>
+          </h2>
 
           <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600 sm:text-base">
             Founders and investors keep profiles, introductions, messages, notes and documents together. Anyone can explore sample profiles freely, while each workspace owner decides who can see shared documents.

@@ -96,6 +96,7 @@ export function ShareDealModal({ slug }: { slug: string }) {
           <div className="mt-2 flex gap-2">
             <input
               readOnly
+              aria-label="Deal URL to share"
               value={url}
               className="w-full min-w-0 rounded-md border border-hairline bg-surface-alt px-3 py-2 text-[0.8rem] text-ink/70 outline-none"
             />

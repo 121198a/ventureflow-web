@@ -475,6 +475,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
           <span className="relative grid size-[clamp(1rem,1.2vw,1.25rem)] shrink-0 place-items-center">
             <input
               type="checkbox"
+              aria-label="Remember me on this device"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
               className="peer size-full cursor-pointer appearance-none rounded-[5px] border-[1.5px] border-slate-400 bg-white transition-colors checked:border-blue-600 checked:bg-blue-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600/15"

@@ -84,13 +84,13 @@ export function StartRecord() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-white px-5 pt-20 sm:pt-28 pb-28 sm:pb-36 lg:pb-44 border-t border-slate-200/80">
+    <section aria-labelledby="start-record-heading" className="relative overflow-hidden bg-white px-5 pt-20 sm:pt-28 pb-28 sm:pb-36 lg:pb-44 border-t border-slate-200/80">
       {/* Ambient background lighting */}
       <AmbientLight color="rgba(37, 99, 235, 0.07)" size={550} intensity={0.9} />
 
       <div className="relative z-10 mx-auto grid max-w-[1100px] items-center gap-10 lg:grid-cols-2 lg:gap-14">
         {/* Three-Phone Mockup Showcase (Balanced Row on Desktop, Real Carousel on Mobile/Tablet) */}
-        <Reveal direction="left" className="relative order-2 flex flex-col items-center py-6 lg:order-1">
+        <Reveal as="figure" aria-label="Interactive thesis showcase" direction="left" className="relative order-2 flex flex-col items-center py-6 lg:order-1 m-0">
           {/* Desktop Balanced 3-Phone Triptych (>= lg) */}
           <div
             className="relative hidden lg:flex items-center justify-center w-full h-[490px] xl:h-[515px]"
@@ -281,12 +281,12 @@ export function StartRecord() {
         </Reveal>
 
         {/* Live Auto-Typing Dynamic Heading */}
-        <Reveal direction="right" delay={0.1} className="order-1 text-center lg:order-2 lg:text-left">
+        <Reveal as="header" direction="right" delay={0.1} className="order-1 text-center lg:order-2 lg:text-left">
           <span className="badge-fintech mb-4">
             <span>Structured Thesis Framework</span>
           </span>
 
-          <h2 className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
+          <h2 id="start-record-heading" className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
             Your first thesis could be about <br />
             <span className="inline-block text-blue-700 font-black min-h-[1.25em]">
               {text}
@@ -298,7 +298,7 @@ export function StartRecord() {
             You do not need capital under management to build an institutional track record. You need an underlying argument, a target price, and a timeframe.
           </p>
 
-          <div className="mt-8 flex justify-center lg:justify-start">
+          <nav aria-label="Call to action" className="mt-8 flex justify-center lg:justify-start">
             <Magnetic strength={0.2}>
               <AuthButton
                 flow="signup"
@@ -310,7 +310,7 @@ export function StartRecord() {
                 <ArrowRight size={16} />
               </AuthButton>
             </Magnetic>
-          </div>
+          </nav>
         </Reveal>
       </div>
     </section>

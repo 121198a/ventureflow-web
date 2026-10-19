@@ -115,6 +115,7 @@ export function PhoneInput({
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
             <input
               type="text"
+              aria-label="Search country name or calling code"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search country, code (+91, +1)..."

@@ -14,7 +14,7 @@ export function WorkspaceCta() {
   }, []);
 
   return (
-    <div className="relative z-20 mt-14 sm:mt-24 md:mt-28 pb-8 sm:pb-0">
+    <aside aria-label="Company space invitation" className="relative z-20 mt-14 sm:mt-24 md:mt-28 pb-8 sm:pb-0">
       <div className="relative px-4 sm:absolute sm:inset-x-0 sm:top-0 sm:-translate-y-1/2">
         <motion.div
           initial={mounted && !reduce ? { opacity: 0, y: 20 } : false}
@@ -25,9 +25,9 @@ export function WorkspaceCta() {
         >
           {/* Left Column */}
           <div className="max-w-xl text-left">
-            <h3 className="text-2xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
               There is a place for your company here.
-            </h3>
+            </h2>
             <p className="mt-3 text-sm text-slate-600 leading-relaxed font-normal">
               Build your Company Space, share what you&apos;re working on, and
               give investors a place to follow your progress.
@@ -71,6 +71,6 @@ export function WorkspaceCta() {
           </div>
         </motion.div>
       </div>
-    </div>
+    </aside>
   );
 }

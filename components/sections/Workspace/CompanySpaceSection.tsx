@@ -211,12 +211,12 @@ export function CompanySpaceSection() {
                   NR
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-slate-900">Nadia Rahman</h4>
+                  <p className="text-xs font-bold text-slate-900">Nadia Rahman</p>
                   <p className="text-xs text-slate-600">Founder &middot; 2 weeks ago</p>
                 </div>
               </div>
 
-              <h5 className="mt-3.5 text-sm font-bold text-slate-900">{currentCard.title}</h5>
+              <h4 className="mt-3.5 text-sm font-bold text-slate-900">{currentCard.title}</h4>
               <p className="mt-1 text-xs text-slate-600 leading-relaxed font-normal">
                 {currentCard.desc}
               </p>

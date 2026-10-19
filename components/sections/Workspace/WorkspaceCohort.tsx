@@ -22,7 +22,7 @@ export function WorkspaceCohort() {
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
-    <section className="bg-white px-5 py-20 sm:py-28 border-t border-slate-100">
+    <section aria-labelledby="cohort-space-heading" className="bg-white px-5 py-20 sm:py-28 border-t border-slate-100">
       <div className="mx-auto grid max-w-[1100px] items-center gap-10 lg:grid-cols-2 lg:gap-14">
         {/* Left Cohort Card */}
         <Reveal
@@ -128,9 +128,9 @@ export function WorkspaceCohort() {
 
         {/* Right Cohort Pitch */}
         <Reveal direction="right" delay={0.1}>
-          <h3 className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
+          <h2 id="cohort-space-heading" className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
             Give every company a place to keep building.
-          </h3>
+          </h2>
           <p className="mt-4 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed">
             Each company in a university or accelerator program gets its own
             Space. When the program ends, that Space stays with the company,

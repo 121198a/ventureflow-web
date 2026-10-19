@@ -287,6 +287,7 @@ export function ForgotPasswordForm({ role = "investor" }: { role?: "founder" | "
                       <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
                       <input
                         type="text"
+                        aria-label="Search country name or code"
                         value={countrySearch}
                         onChange={(e) => setCountrySearch(e.target.value)}
                         placeholder="Search country"

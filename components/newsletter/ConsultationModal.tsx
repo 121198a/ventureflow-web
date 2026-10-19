@@ -108,10 +108,11 @@ export function ConsultationModal({
 
               <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+                  <label htmlFor="modal-name" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
                     Your Name
                   </label>
                   <input
+                    id="modal-name"
                     type="text"
                     required
                     placeholder="Alex Morgan"
@@ -122,10 +123,11 @@ export function ConsultationModal({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+                  <label htmlFor="modal-email" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
                     Work Email
                   </label>
                   <input
+                    id="modal-email"
                     type="email"
                     required
                     placeholder="alex@company.com"
@@ -137,10 +139,11 @@ export function ConsultationModal({
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+                    <label htmlFor="modal-company" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
                       Company Name
                     </label>
                     <input
+                      id="modal-company"
                       type="text"
                       placeholder="Acme Therapeutics"
                       value={company}
@@ -150,10 +153,11 @@ export function ConsultationModal({
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+                    <label htmlFor="modal-raise" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
                       Target Raise
                     </label>
                     <select
+                      id="modal-raise"
                       value={targetRaise}
                       onChange={(e) => setTargetRaise(e.target.value)}
                       className="mt-1.5 w-full rounded-md border border-hairline bg-surface px-3 py-2.5 text-sm outline-none focus:border-brand"
@@ -167,10 +171,11 @@ export function ConsultationModal({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+                  <label htmlFor="modal-timeframe" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
                     Target Close Timeline
                   </label>
                   <select
+                    id="modal-timeframe"
                     value={timeframe}
                     onChange={(e) => setTimeframe(e.target.value)}
                     className="mt-1.5 w-full rounded-md border border-hairline bg-surface px-3 py-2.5 text-sm outline-none focus:border-brand"

@@ -217,9 +217,9 @@ export function ThesisJourney() {
                       </motion.div>
                     </AnimatePresence>
 
-                    <h4 className="mt-0.5 text-xs font-bold leading-tight tracking-tight text-slate-900">
+                    <h3 className="mt-0.5 text-xs font-bold leading-tight tracking-tight text-slate-900">
                       The Monopoly Tax: Why the Biggest Buyers on Earth Are Funding AMD&apos;s Rise
-                    </h4>
+                    </h3>
 
                     <div className="mt-1 flex gap-1">
                       <span className="inline-flex items-center rounded-pill border border-slate-200 bg-white px-2 py-0.2 text-[10px] font-semibold text-slate-800">

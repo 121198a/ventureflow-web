@@ -7,18 +7,18 @@ import { CountUp } from "@/components/ui/CountUp";
 
 export function TrustCompare() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 border-y border-slate-200/80 px-5 py-20 sm:py-28">
+    <section aria-labelledby="trust-compare-heading" className="relative overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 border-y border-slate-200/80 px-5 py-20 sm:py-28">
       {/* Background ambient lighting */}
       <div className="pointer-events-none absolute left-1/4 top-1/2 -translate-y-1/2 h-72 w-72 rounded-full bg-blue-100/40 blur-3xl" />
       <div className="pointer-events-none absolute right-1/4 top-1/3 h-64 w-64 rounded-full bg-emerald-100/30 blur-3xl" />
 
-      <Reveal className="relative z-10 mx-auto max-w-[900px] text-center">
+      <Reveal as="header" className="relative z-10 mx-auto max-w-[900px] text-center">
         <span className="badge-fintech">
           <GrowthChartIcon size={14} className="text-blue-700" />
           <span>The Context Gap</span>
         </span>
 
-        <h2 className="mx-auto mt-5 max-w-2xl text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
+        <h2 id="trust-compare-heading" className="mx-auto mt-5 max-w-2xl text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
           <span className="text-blue-700">Scattered context</span>{" "}
           makes every follow-up harder than it needs to be.
         </h2>

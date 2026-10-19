@@ -545,10 +545,11 @@ END:VCALENDAR`;
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+            <label htmlFor="booking-name" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
               Full Name <span className="text-destructive">*</span>
             </label>
             <input
+              id="booking-name"
               type="text"
               required
               placeholder="e.g. Jordan Lee"
@@ -562,10 +563,11 @@ END:VCALENDAR`;
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+            <label htmlFor="booking-email" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
               Work Email <span className="text-destructive">*</span>
             </label>
             <input
+              id="booking-email"
               type="email"
               required
               placeholder="jordan@company.com"
@@ -580,10 +582,11 @@ END:VCALENDAR`;
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+              <label htmlFor="booking-company" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
                 Company Name <span className="text-destructive">*</span>
               </label>
               <input
+                id="booking-company"
                 type="text"
                 required
                 placeholder="Acme Therapeutics"
@@ -597,10 +600,11 @@ END:VCALENDAR`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+              <label htmlFor="booking-phone" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
                 Phone Number (Optional)
               </label>
               <input
+                id="booking-phone"
                 type="tel"
                 placeholder="+1 (555) 000-0000"
                 value={phone}
@@ -612,10 +616,11 @@ END:VCALENDAR`;
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+              <label htmlFor="booking-raise" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
                 Target Raise
               </label>
               <select
+                id="booking-raise"
                 value={targetRaise}
                 onChange={(e) => setTargetRaise(e.target.value)}
                 className="mt-1.5 w-full rounded-md border border-hairline bg-surface px-3 py-2.5 text-sm outline-none focus:border-brand"
@@ -628,10 +633,11 @@ END:VCALENDAR`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+              <label htmlFor="booking-instrument" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
                 Instrument
               </label>
               <select
+                id="booking-instrument"
                 value={instrument}
                 onChange={(e) => setInstrument(e.target.value)}
                 className="mt-1.5 w-full rounded-md border border-hairline bg-surface px-3 py-2.5 text-sm outline-none focus:border-brand"
@@ -646,10 +652,11 @@ END:VCALENDAR`;
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
+            <label htmlFor="booking-notes" className="block text-xs font-semibold uppercase tracking-wider text-ink/70">
               Specific Objectives (Optional)
             </label>
             <textarea
+              id="booking-notes"
               rows={2}
               placeholder="e.g. Pressure-testing our runway buffer and SAFE dilution before meeting lead investors."
               value={notes}

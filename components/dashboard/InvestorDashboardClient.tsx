@@ -826,10 +826,11 @@ export function InvestorDashboardClient() {
 
                       <form onSubmit={handleSaveThesis} className="mt-4 space-y-4 text-left">
                         <div>
-                          <label className="block text-xs font-semibold text-slate-700 mb-1">
+                          <label htmlFor="thesis-title" className="block text-xs font-semibold text-slate-700 mb-1">
                             Thesis Title
                           </label>
                           <input
+                            id="thesis-title"
                             type="text"
                             required
                             value={thesisTitle}
@@ -841,10 +842,11 @@ export function InvestorDashboardClient() {
 
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <label className="block text-xs font-semibold text-slate-700 mb-1">
+                            <label htmlFor="thesis-company" className="block text-xs font-semibold text-slate-700 mb-1">
                               Target Company / Sector
                             </label>
                             <input
+                              id="thesis-company"
                               type="text"
                               required
                               value={thesisCompany}
@@ -854,10 +856,11 @@ export function InvestorDashboardClient() {
                             />
                           </div>
                           <div>
-                            <label className="block text-xs font-semibold text-slate-700 mb-1">
+                            <label htmlFor="thesis-horizon" className="block text-xs font-semibold text-slate-700 mb-1">
                               Time Horizon
                             </label>
                             <select
+                              id="thesis-horizon"
                               value={thesisHorizon}
                               onChange={(e) => setThesisHorizon(e.target.value)}
                               className="w-full rounded-md border border-slate-200 px-3 py-2 text-xs outline-none focus:border-blue-600"
@@ -871,10 +874,11 @@ export function InvestorDashboardClient() {
                         </div>
 
                         <div>
-                          <label className="block text-xs font-semibold text-slate-700 mb-1">
+                          <label htmlFor="thesis-outcome" className="block text-xs font-semibold text-slate-700 mb-1">
                             Expected Target Outcome
                           </label>
                           <input
+                            id="thesis-outcome"
                             type="text"
                             value={thesisOutcome}
                             onChange={(e) => setThesisOutcome(e.target.value)}
@@ -884,10 +888,11 @@ export function InvestorDashboardClient() {
                         </div>
 
                         <div>
-                          <label className="block text-xs font-semibold text-slate-700 mb-1">
+                          <label htmlFor="thesis-reasoning" className="block text-xs font-semibold text-slate-700 mb-1">
                             Core Thesis & Reasoning
                           </label>
                           <textarea
+                            id="thesis-reasoning"
                             required
                             rows={3}
                             value={thesisReasoning}

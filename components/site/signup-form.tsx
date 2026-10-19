@@ -489,6 +489,7 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
         <span className="relative mt-[0.2em] grid size-[clamp(1.1rem,1.35vw,1.45rem)] shrink-0 place-items-center">
           <input
             type="checkbox"
+            aria-label="Agree to Terms of Use and Privacy Policy"
             checked={agreed}
             onChange={(e) => setAgreed(e.target.checked)}
             className="peer size-full cursor-pointer appearance-none rounded-[5px] border-[1.5px] border-slate-400 bg-white transition-colors checked:border-blue-600 checked:bg-blue-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600/15"

@@ -90,6 +90,7 @@ export function NewsletterCTA() {
                       <input
                         type="email"
                         required
+                        aria-label="Work email address"
                         value={values.email}
                         onChange={(e) => {
                           setValues({ email: e.target.value });

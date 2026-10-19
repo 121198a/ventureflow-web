@@ -43,18 +43,18 @@ export function Spaces() {
   const [activeSubTab, setActiveSubTab] = useState<"announcements" | "theses" | "portfolio">("theses");
 
   return (
-    <section id="spaces" className="relative scroll-mt-24 bg-gradient-to-b from-slate-50/60 via-white to-slate-50/80 border-t border-slate-200/80 px-5 py-20 sm:py-28 overflow-hidden">
+    <section id="spaces" aria-labelledby="spaces-heading" className="relative scroll-mt-24 bg-gradient-to-b from-slate-50/60 via-white to-slate-50/80 border-t border-slate-200/80 px-5 py-20 sm:py-28 overflow-hidden">
       {/* Background Ambient Glow */}
       <div className="pointer-events-none absolute left-1/3 top-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-sky-100/40 blur-3xl" />
       <div className="pointer-events-none absolute right-1/4 top-1/4 h-72 w-72 rounded-full bg-blue-100/40 blur-3xl" />
 
-      <Reveal className="relative z-10 mx-auto max-w-[900px] text-center">
+      <Reveal as="header" className="relative z-10 mx-auto max-w-[900px] text-center">
         <span className="badge-fintech">
           <PartnershipRingsIcon size={14} className="text-blue-700" />
           <span>Spaces &middot; Collaborative Analyst Hubs</span>
         </span>
 
-        <h2 className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
+        <h2 id="spaces-heading" className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
           Formulate, debate, and <br />
           <span className="text-blue-700">
             decide on theses together.
@@ -104,9 +104,11 @@ export function Spaces() {
         </header>
 
         {/* Submenu Tabs */}
-        <div className="flex flex-wrap gap-x-4 gap-y-1 border-b border-slate-100 px-4 sm:gap-x-6 sm:px-7 text-xs font-bold uppercase tracking-wider text-slate-500">
+        <nav aria-label="Space channels" role="tablist" className="flex flex-wrap gap-x-4 gap-y-1 border-b border-slate-100 px-4 sm:gap-x-6 sm:px-7 text-xs font-bold uppercase tracking-wider text-slate-500">
           <button
             type="button"
+            role="tab"
+            aria-selected={activeSubTab === "announcements"}
             onClick={() => setActiveSubTab("announcements")}
             className={activeSubTab === "announcements" ? "tab-subnav-btn-active" : "tab-subnav-btn"}
           >
@@ -114,6 +116,8 @@ export function Spaces() {
           </button>
           <button
             type="button"
+            role="tab"
+            aria-selected={activeSubTab === "theses"}
             onClick={() => setActiveSubTab("theses")}
             className={activeSubTab === "theses" ? "tab-subnav-btn-active" : "tab-subnav-btn"}
           >
@@ -121,12 +125,14 @@ export function Spaces() {
           </button>
           <button
             type="button"
+            role="tab"
+            aria-selected={activeSubTab === "portfolio"}
             onClick={() => setActiveSubTab("portfolio")}
             className={activeSubTab === "portfolio" ? "tab-subnav-btn-active" : "tab-subnav-btn"}
           >
             Portfolio
           </button>
-        </div>
+        </nav>
 
         {/* Approved Thesis Feature */}
         <section aria-labelledby="approved-thesis-heading" className="px-4 sm:px-7 pt-5">

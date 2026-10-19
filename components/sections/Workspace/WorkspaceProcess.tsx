@@ -39,14 +39,14 @@ export function WorkspaceProcess() {
   }, []);
 
   return (
-    <section id="how" className="bg-blue-50 px-5 py-20 sm:py-28 border-y border-slate-100">
+    <section id="how" aria-labelledby="how-it-works-heading" className="bg-blue-50 px-5 py-20 sm:py-28 border-y border-slate-100">
       <div className="mx-auto grid max-w-[1100px] gap-12 lg:grid-cols-12 lg:gap-16 items-start">
         {/* Left Sticky Column */}
         <div className="lg:col-span-6 min-[1061px]:sticky min-[1061px]:top-28">
           <Reveal>
-            <h3 className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
+            <h2 id="how-it-works-heading" className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
               Follow a startup before you reach out.
-            </h3>
+            </h2>
             <p className="mt-4 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed">
               Investors can follow startup updates and see how the business grows. When there is a fit, they can request an introduction and continue with messages, notes and shared documents.
             </p>
@@ -89,7 +89,7 @@ export function WorkspaceProcess() {
 
                 {/* Step Details */}
                 <div className={cn("min-w-0 flex-1 pb-2 transition-all duration-300", active === i ? "opacity-100" : "opacity-80 hover:opacity-100")}>
-                  <h4 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">{s.title}</h4>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">{s.title}</h3>
                   <p className="mt-1 text-sm sm:text-base text-slate-600 leading-relaxed">{s.body}</p>
                   {s.mark && (
                     <span className="mt-3 inline-flex items-center rounded-md bg-slate-950 px-2.5 py-1 text-xs font-bold text-white">

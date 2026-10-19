@@ -76,7 +76,7 @@ export default function AboutSection() {
   return (
     <main id="main-content" className="bg-slate-50/80 border-slate-100 font-sans text-slate-900 antialiased">
       {/* HERO */}
-      <section className={`relative flex min-h-[85vh] flex-col justify-center overflow-hidden to-blue-400 ${styles.dotGrid || ""}`}>
+      <section aria-label="About VentureFlow" className={`relative flex min-h-[85vh] flex-col justify-center overflow-hidden to-blue-400 ${styles.dotGrid || ""}`}>
         {HERO_AVATARS.map((a, i) => (
           <span
             key={a.src + i}
@@ -85,7 +85,7 @@ export default function AboutSection() {
             <Image src={a.src} alt={a.alt} width={64} height={64} className="h-full w-full object-cover" />
           </span>
         ))}
-        <Reveal className="relative mx-auto max-w-4xl px-6 pb-16 pt-24 text-center sm:pb-20 sm:pt-32">
+        <Reveal as="header" className="relative mx-auto max-w-4xl px-6 pb-16 pt-24 text-center sm:pb-20 sm:pt-32">
           <h1 className="font-about-display text-[clamp(2.1rem,5vw,3.4rem)] font-extrabold leading-[1.08] tracking-tight">
             A calmer way for founders <br />
             <span className="text-blue-600">and investors to work together.</span>
@@ -98,7 +98,7 @@ export default function AboutSection() {
             Keep profiles, messages, notes and documents together, so every conversation has the context it needs.
           </p>
 
-          <div className="mt-9 flex items-center justify-center">
+          <nav aria-label="Call to action" className="mt-9 flex items-center justify-center">
             <AuthButton
               flow="signup"
               className="btn-pill-primary px-7 py-3.5"
@@ -107,17 +107,14 @@ export default function AboutSection() {
               <span>Get started</span>
               <ArrowRight size={15} />
             </AuthButton>
-          </div>
+          </nav>
         </Reveal>
       </section>
-      {/*platform page ka jo login page hai wo bhi us mai bhi forget password and email  reset option is there ui will be same but there will
-      be only the to change password directly and i will provide you api that will fit for that you neeed to go through and  
-      work accordingly and rest you neede not to change */}
 
       {/* HARD TO KNOW */}
-      <section id="hard-to-know" className="bg-blue-50/70 py-24 border-y border-slate-200/80">
+      <section id="hard-to-know" aria-labelledby="scattered-tools-heading" className="bg-blue-50/70 py-24 border-y border-slate-200/80">
         <Reveal className="mx-auto max-w-4xl px-6 text-center">
-          <h2 className="font-about-display text-[clamp(1.6rem,3.4vw,2.3rem)] font-extrabold leading-tight tracking-tight">
+          <h2 id="scattered-tools-heading" className="font-about-display text-[clamp(1.6rem,3.4vw,2.3rem)] font-extrabold leading-tight tracking-tight">
             Why Relationships Get Scattered <br className="hidden sm:block" /> Across Too Many Tools
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base text-slate-600">
@@ -183,14 +180,14 @@ export default function AboutSection() {
 
       {/* APPROACH NOTE */}
       {/* APPROACH */}
-      <section className="pt-32 pb-24">
+      <section aria-labelledby="approach-heading" className="pt-32 pb-24">
         <div className="mx-auto max-w-4xl px-6">
           <Reveal>
             <span className="mb-4 block h-[3px] w-8 bg-blue-600 rounded-full" />
             <span className="font-mono text-xs font-semibold tracking-[0.02em] text-blue-600">
               Our approach
             </span>
-            <h2 className="font-about-display mt-4 text-[clamp(1.5rem,3vw,2rem)] font-extrabold leading-snug">
+            <h2 id="approach-heading" className="font-about-display mt-4 text-[clamp(1.5rem,3vw,2rem)] font-extrabold leading-snug">
               Good relationships need good context.
               <span className="mt-3 block text-[0.85em] font-semibold text-slate-600">
                 Profiles, conversations and documents belong in one place.
@@ -212,9 +209,9 @@ export default function AboutSection() {
       </section>
 
       {/* WHAT YOU ACTUALLY GET */}
-      <section className="py-24 bg-blue-50/70 border-y border-slate-200/80">
+      <section aria-labelledby="comparison-heading" className="py-24 bg-blue-50/70 border-y border-slate-200/80">
         <Reveal className="mx-auto max-w-4xl px-6 text-center">
-          <h2 className="font-about-display text-[clamp(1.6rem,3.4vw,2.3rem)] font-extrabold tracking-tight">
+          <h2 id="comparison-heading" className="font-about-display text-[clamp(1.6rem,3.4vw,2.3rem)] font-extrabold tracking-tight">
             What you actually get.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-slate-600">
@@ -259,9 +256,9 @@ export default function AboutSection() {
       </section>
 
       {/* PRINCIPLES */}
-      <section className="py-24 bg-white border-t border-slate-100">
+      <section aria-labelledby="principles-heading" className="py-24 bg-white border-t border-slate-100">
         <Reveal className="mx-auto max-w-4xl px-6 text-center">
-          <h2 className="font-about-display text-[clamp(1.6rem,3.4vw,2.3rem)] font-extrabold tracking-tight">
+          <h2 id="principles-heading" className="font-about-display text-[clamp(1.6rem,3.4vw,2.3rem)] font-extrabold tracking-tight">
             What VentureFlow is built around.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-slate-600">

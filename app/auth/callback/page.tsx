@@ -235,6 +235,7 @@ function AuthCallbackInner() {
                 <input
                   type="radio"
                   name="role"
+                  aria-label="Investor role"
                   checked={selectedRole === "investor"}
                   onChange={() => setSelectedRole("investor")}
                   className="mt-1 size-4 accent-[var(--color-brand)]"
@@ -258,6 +259,7 @@ function AuthCallbackInner() {
                 <input
                   type="radio"
                   name="role"
+                  aria-label="Founder or Issuer role"
                   checked={selectedRole === "founder"}
                   onChange={() => setSelectedRole("founder")}
                   className="mt-1 size-4 accent-[var(--color-brand)]"

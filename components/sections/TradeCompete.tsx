@@ -20,7 +20,7 @@ export function TradeCompete() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/50 via-white to-slate-50/70 px-5 py-20 sm:py-28 border-t border-slate-200/80">
+    <section aria-label="Notes, documents and saved startups" className="relative overflow-hidden bg-gradient-to-b from-slate-50/50 via-white to-slate-50/70 px-5 py-20 sm:py-28 border-t border-slate-200/80">
       <div className="pointer-events-none absolute right-1/3 top-1/4 h-72 w-72 rounded-full bg-blue-100/30 blur-3xl" />
       <div className="pointer-events-none absolute left-1/4 bottom-1/4 h-72 w-72 rounded-full bg-sky-100/30 blur-3xl" />
 
@@ -32,9 +32,9 @@ export function TradeCompete() {
             <span>Notes &amp; Documents</span>
           </span>
 
-          <h3 className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+          <h2 className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Keep notes next to the conversation
-          </h3>
+          </h2>
           <p className="mt-3 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
             Add notes to any profile or document, so the reasoning behind a follow-up is never lost between tools.
           </p>
@@ -44,7 +44,7 @@ export function TradeCompete() {
           <header className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-full bg-emerald-500" />
-              <h4 className="font-bold text-slate-900 text-base">Note on Novaforge Pvt. Ltd.</h4>
+              <h3 className="font-bold text-slate-900 text-base">Note on Novaforge Pvt. Ltd.</h3>
             </div>
             <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200/80">
               Sample
@@ -97,7 +97,7 @@ export function TradeCompete() {
         <Reveal as="article" aria-label="Saved startup list demonstration" direction="left" className="rounded-md border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
           <header className="mb-5 flex items-center gap-2 font-bold text-slate-900 text-base">
             <Bookmark size={18} className="text-blue-600" />
-            <h4>Saved startups</h4>
+            <h3>Saved startups</h3>
           </header>
 
           <table className="w-full text-xs sm:text-sm border-t border-slate-100 mt-4">
@@ -131,9 +131,9 @@ export function TradeCompete() {
             <Bookmark size={13} className="text-blue-700" />
             <span>Discovery</span>
           </span>
-          <h3 className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+          <h2 className="mt-4 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Save the startups you want to follow
-          </h3>
+          </h2>
           <p className="mt-3 max-w-md text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
             Build saved lists, track where each conversation stands, and come back to a profile with the full context.
           </p>
