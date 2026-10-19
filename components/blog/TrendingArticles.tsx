@@ -48,9 +48,9 @@ export function TrendingArticles({ posts }: TrendingArticlesProps) {
                       <TrendingUp size={18} />
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                      <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
                         Signal Meter
-                      </h4>
+                      </p>
                       <p className="text-sm font-bold text-slate-900">
                         Top Consensus Theses
                       </p>

@@ -112,7 +112,7 @@ export function FeaturedArticle({ post }: FeaturedArticleProps) {
                   />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">{post.author.name}</h4>
+                  <p className="text-sm font-bold text-slate-900">{post.author.name}</p>
                   <p className="text-xs text-slate-500">{post.author.role}</p>
                 </div>
               </div>

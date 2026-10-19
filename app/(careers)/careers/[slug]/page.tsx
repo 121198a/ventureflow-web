@@ -31,14 +31,14 @@ export async function generateMetadata({
       canonical: `/careers/${role.slug}`,
     },
     openGraph: {
-      title: `${role.title} — Careers — VentureFlow by Veyron X`,
+      title: `${role.title} — Careers`,
       description,
       type: "article",
       url: `/careers/${role.slug}`,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${role.title} — Careers — VentureFlow by Veyron X`,
+      title: `${role.title} — Careers`,
       description,
     },
   };

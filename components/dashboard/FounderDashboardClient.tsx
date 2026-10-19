@@ -613,7 +613,7 @@ export function FounderDashboardClient() {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-2xs space-y-3">
-                    <h3 className="text-sm font-bold text-slate-900">Security Details</h3>
+                    <h2 className="text-sm font-bold text-slate-900">Security Details</h2>
                     <div className="space-y-2 text-xs">
                       <div className="flex justify-between py-1 border-b border-slate-100">
                         <span className="text-slate-500">Security Type:</span>
@@ -641,7 +641,7 @@ export function FounderDashboardClient() {
                   </div>
 
                   <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-2xs space-y-3">
-                    <h3 className="text-sm font-bold text-slate-900">Share Issuance</h3>
+                    <h2 className="text-sm font-bold text-slate-900">Share Issuance</h2>
                     <div className="space-y-2 text-xs">
                       <div className="flex justify-between py-1 border-b border-slate-100">
                         <span className="text-slate-500">Price Per Share:</span>
@@ -707,7 +707,7 @@ export function FounderDashboardClient() {
               {availableCompanies.length === 0 ? (
                 <div className="rounded-xl border border-slate-200 bg-white p-10 text-center">
                   <Building2 className="mx-auto size-10 text-slate-400 mb-2" />
-                  <h3 className="text-sm font-bold text-slate-800">No registered deals found</h3>
+                  <h2 className="text-sm font-bold text-slate-800">No registered deals found</h2>
                   <p className="text-xs text-slate-500 mt-1">
                     Complete your company setup to list your primary offering.
                   </p>
@@ -759,9 +759,9 @@ export function FounderDashboardClient() {
                             <div className="flex items-start justify-between gap-3">
                               <div className="min-w-0 flex-1">
                                 <div className="flex items-center gap-2">
-                                  <h3 className="truncate text-base font-bold text-slate-900">
+                                  <h2 className="truncate text-base font-bold text-slate-900">
                                     {c.name}
-                                  </h3>
+                                  </h2>
                                   {isActive && (
                                     <span className="shrink-0 text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">
                                       Active Console
@@ -913,7 +913,7 @@ export function FounderDashboardClient() {
                 <div className="space-y-4">
                   <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-2xs space-y-4">
                     <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                      <h3 className="text-sm font-bold text-slate-900">Filing Checkpoints</h3>
+                      <h2 className="text-sm font-bold text-slate-900">Filing Checkpoints</h2>
                       <span className="text-xs text-slate-500">SEC EDGAR Alignment</span>
                     </div>
 
