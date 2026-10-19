@@ -355,7 +355,7 @@ textarea:focus-visible {
     @apply relative overflow-hidden bg-gradient-to-b from-slate-50/90 via-white to-slate-50/40 border-b border-slate-200/80 px-5 pb-16 pt-24 sm:pb-24 sm:pt-32 lg:pb-28 lg:pt-36;
   }
   .story-ribbon {
-    @apply flex items-center gap-2 px-3 py-1.5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-b border-slate-100/60;
+    @apply flex items-start justify-between px-2.5 py-2 overflow-x-hidden border-b border-slate-100/80;
   }
   .tab-subnav-btn {
     @apply py-3 transition-colors cursor-pointer focus-ring rounded-xs hover:text-slate-800;

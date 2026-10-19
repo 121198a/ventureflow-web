@@ -528,34 +528,34 @@ function FeedPreview() {
     {
       id: "all",
       name: "All",
-      time: "For you",
+      time: "Feed",
       isAll: true,
     },
     {
       id: "maneesh",
       name: "Alex",
-      time: "Just now",
+      time: "Now",
       badge: "1",
       image: "/image/about/1.jpg",
     },
     {
       id: "arnav",
       name: "Arnav",
-      time: "1m ago",
+      time: "1m",
       badge: "3",
       image: "/image/about/2.jpg",
     },
     {
       id: "gaurav",
       name: "Taylor",
-      time: "30m ago",
+      time: "30m",
       badge: "2",
       image: "/image/about/3.jpg",
     },
     {
       id: "dinesh",
       name: "Riley",
-      time: "1h ago",
+      time: "1h",
       badge: "1",
       image: "/image/about/3.jpg",
     },
@@ -593,11 +593,11 @@ function FeedPreview() {
         {/* Stories / User Avatars Ribbon */}
         <ul role="list" className="story-ribbon list-none p-0 m-0">
           {stories.map((story) => (
-            <li key={story.id} className="flex shrink-0 flex-col items-center gap-0.5 text-center">
+            <li key={story.id} className="flex flex-col items-center w-11 shrink-0 text-center">
               {story.isAll ? (
-                <div className="relative size-7 rounded-full p-[1.5px] ring-2 ring-blue-600">
+                <div className="relative size-8 rounded-full p-[1.5px] ring-2 ring-blue-600 flex items-center justify-center">
                   <div className="flex h-full w-full items-center justify-center rounded-full bg-[#0d2247] text-white">
-                    <svg viewBox="0 0 16 16" fill="currentColor" className="size-3">
+                    <svg viewBox="0 0 16 16" fill="currentColor" className="size-3.5">
                       <rect x="2" y="2" width="5" height="5" rx="1" />
                       <rect x="9" y="2" width="5" height="5" rx="1" />
                       <rect x="2" y="9" width="5" height="5" rx="1" />
@@ -606,7 +606,7 @@ function FeedPreview() {
                   </div>
                 </div>
               ) : (
-                <div className="relative size-7 rounded-full ring-1 ring-slate-200">
+                <div className="relative size-8 rounded-full ring-1 ring-slate-200">
                   <img
                     src={story.image}
                     alt={story.name}
@@ -620,8 +620,12 @@ function FeedPreview() {
                   )}
                 </div>
               )}
-              <span className="text-[10px] font-bold text-slate-900 leading-none">{story.name}</span>
-              <span className="text-[8.5px] text-slate-600 font-medium leading-none">{story.time}</span>
+              <span className="mt-1 text-[10px] font-bold text-slate-900 leading-none truncate max-w-full block">
+                {story.name}
+              </span>
+              <span className="mt-0.5 text-[8.5px] text-slate-500 font-medium leading-none block whitespace-nowrap">
+                {story.time}
+              </span>
             </li>
           ))}
         </ul>

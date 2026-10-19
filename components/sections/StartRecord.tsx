@@ -322,34 +322,34 @@ function FeedMini() {
     {
       id: "all",
       name: "All",
-      time: "For you",
+      time: "Feed",
       isAll: true,
     },
     {
       id: "gaurav",
       name: "Taylor",
-      time: "Just now",
+      time: "Now",
       badge: "1",
       image: "/image/about/3.jpg",
     },
     {
       id: "dinesh",
       name: "Riley",
-      time: "1m ago",
+      time: "1m",
       badge: "3",
       image: "/image/about/3.jpg",
     },
     {
       id: "rama",
       name: "Rama",
-      time: "30m ago",
+      time: "30m",
       badge: "2",
       image: "/image/about/3.jpg",
     },
     {
       id: "chetan",
       name: "Morgan",
-      time: "1h ago",
+      time: "1h",
       badge: "1",
       image: "/image/about/1.jpg",
     },
@@ -371,10 +371,10 @@ function FeedMini() {
           </div>
         </div>
 
-        {/* Tab Pills: For You, Spaces, Saved */}
+        {/* Tab Pills: Market Feed, Spaces, Saved */}
         <div className="flex items-center gap-1.5 px-3 py-1.5 border-b border-slate-100">
           <span className="rounded-full bg-blue-100/80 px-3 py-0.5 text-[10px] font-bold text-blue-700 shadow-2xs">
-            For You
+            Market Feed
           </span>
           <span className="rounded-full px-2 py-0.5 text-[10px] font-medium text-slate-600 hover:text-slate-900">
             Spaces
@@ -385,11 +385,11 @@ function FeedMini() {
         </div>
 
         {/* Stories / User Avatars Ribbon */}
-        <div className="story-ribbon">
+        <ul role="list" className="story-ribbon list-none p-0 m-0">
           {stories.map((story) => (
-            <div key={story.id} className="flex shrink-0 flex-col items-center gap-0.5 text-center">
+            <li key={story.id} className="flex flex-col items-center w-10 shrink-0 text-center">
               {story.isAll ? (
-                <div className="relative size-7 rounded-full p-[1.5px] ring-2 ring-blue-600">
+                <div className="relative size-7 rounded-full p-[1.5px] ring-2 ring-blue-600 flex items-center justify-center">
                   <div className="flex h-full w-full items-center justify-center rounded-full bg-[#0d2247] text-white">
                     <svg viewBox="0 0 16 16" fill="currentColor" className="size-3">
                       <rect x="2" y="2" width="5" height="5" rx="1" />
@@ -414,11 +414,11 @@ function FeedMini() {
                   )}
                 </div>
               )}
-              <span className="text-[9px] font-bold text-slate-900 leading-none">{story.name}</span>
-              <span className="text-[7.5px] text-slate-500 leading-none">{story.time}</span>
-            </div>
+              <span className="mt-1 text-[9px] font-bold text-slate-900 leading-none truncate max-w-full block">{story.name}</span>
+              <span className="mt-0.5 text-[7.5px] text-slate-500 leading-none block whitespace-nowrap">{story.time}</span>
+            </li>
           ))}
-        </div>
+        </ul>
 
         {/* Feed Posts */}
         <section aria-label="Recent theses" className="space-y-2 p-2.5">
