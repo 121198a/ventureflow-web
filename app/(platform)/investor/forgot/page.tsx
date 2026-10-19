@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "Forgot Password?",
   description:
     "We'll send you a 4-digit verification code to confirm your identity and help you set a new password.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function InvestorForgotPage() {

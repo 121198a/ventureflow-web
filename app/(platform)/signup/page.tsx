@@ -5,6 +5,10 @@ import { SignupForm } from "@/components/site/signup-form";
 export const metadata: Metadata = {
   title: "Apply as a Founder",
   description: "Complete your founder application to access investors and launch your raise.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function Signup() {

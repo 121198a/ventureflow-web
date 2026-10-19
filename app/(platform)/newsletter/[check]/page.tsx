@@ -33,18 +33,18 @@ export async function generateMetadata({
   const key = CHECK_SLUG_MAP[check];
   if (!key) {
     return {
-      title: "Assessment Not Found | VentureFlow",
+      title: "Assessment Not Found",
       robots: { index: false, follow: false },
     };
   }
 
   const meta = NEWSLETTER_ASSESSMENTS[key];
   return {
-    title: `${meta.title} — VentureFlow Newsletter`,
+    title: `${meta.title} — Readiness Assessment`,
     description: meta.subtitle,
     alternates: { canonical: `/newsletter/${check}` },
     openGraph: {
-      title: `${meta.title} — VentureFlow Newsletter`,
+      title: `${meta.title} — Readiness Assessment — VentureFlow by Veyron X`,
       description: meta.subtitle,
       url: `/newsletter/${check}`,
     },

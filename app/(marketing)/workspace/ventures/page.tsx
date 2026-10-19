@@ -10,6 +10,15 @@ export const metadata: Metadata = {
   title: "Ventures",
   description:
     "Explore regulated venture rounds, vetted startup cohorts, and high-growth venture opportunities.",
+  alternates: {
+    canonical: "/workspace/ventures",
+  },
+  openGraph: {
+    title: "Ventures — VentureFlow by Veyron X",
+    description:
+      "Explore regulated venture rounds, vetted startup cohorts, and high-growth venture opportunities.",
+    url: "/workspace/ventures",
+  },
 };
 
 export default function WorkspaceVenturesPage() {

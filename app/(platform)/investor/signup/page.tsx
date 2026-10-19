@@ -3,8 +3,12 @@ import { AuthLayout } from "@/components/site/auth-layout";
 import { SignupForm } from "@/components/site/signup-form";
 
 export const metadata: Metadata = {
-  title: "Let's Get Started | VentureFlow by Veyron X",
+  title: "Investor Sign Up",
   description: "Enter your email and create a secure password to begin. You'll finish setting up your profile in the next steps.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function InvestorSignup() {

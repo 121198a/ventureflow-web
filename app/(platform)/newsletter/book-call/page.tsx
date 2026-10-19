@@ -7,12 +7,12 @@ import { Reveal } from "@/components/site/reveal";
 import { ConsultationForm } from "./ConsultationForm";
 
 export const metadata: Metadata = {
-  title: "Book a Walkthrough — VentureFlow",
+  title: "Book a Walkthrough",
   description:
     "Book a twenty-minute walkthrough of the VentureFlow workspace: profiles, documents, introductions and notes.",
   alternates: { canonical: "/newsletter/book-call" },
   openGraph: {
-    title: "Book a Walkthrough — VentureFlow",
+    title: "Book a Walkthrough — VentureFlow by Veyron X",
     description: "20 minutes · Workspace walkthrough.",
     url: "/newsletter/book-call",
   },

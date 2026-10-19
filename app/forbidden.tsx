@@ -4,6 +4,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "403 — Access Forbidden",
   description: "You do not have permission to access this resource or page.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function Forbidden() {

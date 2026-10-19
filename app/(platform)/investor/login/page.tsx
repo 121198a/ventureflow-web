@@ -6,6 +6,10 @@ import { LoginForm } from "@/components/site/login-form";
 export const metadata: Metadata = {
   title: "Investor Login",
   description: "Your gateway to exclusive investment opportunities.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function InvestorLogin() {

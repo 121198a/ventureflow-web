@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) {
     return {
-      title: "Article Not Found — " + site.name,
+      title: "Article Not Found",
       robots: { index: false, follow: false },
     };
   }

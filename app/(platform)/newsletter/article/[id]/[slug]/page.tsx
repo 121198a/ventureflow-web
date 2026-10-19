@@ -14,6 +14,7 @@ import {
   getAllArticleConfigs,
 } from "@/lib/newsletter/api";
 import type { ArticleBlock } from "@/lib/newsletter-data";
+import { SITE_URL } from "@/lib/constants";
 
 interface PageProps {
   params: Promise<{ id: string; slug: string }>;
@@ -43,14 +44,14 @@ export async function generateMetadata({
 
   if (!result) {
     return {
-      title: "Article Not Found | VentureFlow Newsletter",
+      title: "Article Not Found",
       robots: { index: false, follow: false },
     };
   }
 
   const { article, config } = result;
   const canonicalPath = config.frontendPath;
-  const title = `${article.headline} — VentureFlow Newsletter`;
+  const title = article.headline;
 
   return {
     title,
@@ -210,17 +211,17 @@ export default async function NewsletterArticlePage({ params }: PageProps) {
     "@type": "Article",
     headline: article.headline,
     description: article.summary,
-    image: [`/brand/og-image.png`],
+    image: [`${SITE_URL}/brand/og-image.png`],
     author: { "@type": "Organization", name: "VentureFlow" },
-    mainEntityOfPage: { "@type": "WebPage", "@id": config.frontendPath },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}${config.frontendPath}` },
   };
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Newsletter", item: "/newsletter" },
-      { "@type": "ListItem", position: 2, name: article.headline, item: config.frontendPath },
+      { "@type": "ListItem", position: 1, name: "Newsletter", item: `${SITE_URL}/newsletter` },
+      { "@type": "ListItem", position: 2, name: article.headline, item: `${SITE_URL}${config.frontendPath}` },
     ],
   };
 

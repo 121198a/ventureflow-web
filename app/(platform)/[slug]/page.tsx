@@ -20,12 +20,12 @@ export async function generateMetadata({
   const offering = getOffering(slug) || (await getDynamicOffering(slug));
   if (!offering) {
     return {
-      title: "Profile Not Found | VentureFlow",
+      title: "Profile Not Found",
       robots: { index: false, follow: false },
     };
   }
 
-  const title = `${offering.name} — VentureFlow`;
+  const title = `${offering.name} — Venture Profile`;
   // Use the company's real long-form description when present so profiles do not share an identical meta description.
   const rawDescription = offering.description?.trim();
   const description = rawDescription

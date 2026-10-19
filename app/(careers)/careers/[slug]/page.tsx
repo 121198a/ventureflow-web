@@ -22,19 +22,23 @@ export async function generateMetadata({
   if (!role) {
     notFound();
   }
-  const title = `${role.title} — Careers at VentureFlow`;
+  const title = `${role.title} — Careers`;
   const description = role.description;
   return {
     title,
     description,
+    alternates: {
+      canonical: `/careers/${role.slug}`,
+    },
     openGraph: {
-      title,
+      title: `${role.title} — Careers — VentureFlow by Veyron X`,
       description,
       type: "article",
+      url: `/careers/${role.slug}`,
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: `${role.title} — Careers — VentureFlow by Veyron X`,
       description,
     },
   };

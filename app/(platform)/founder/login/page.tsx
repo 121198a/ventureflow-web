@@ -6,6 +6,10 @@ import { LoginForm } from "@/components/site/login-form";
 export const metadata: Metadata = {
   title: "Founder Login",
   description: "Access your fundraising dashboard to manage your deal, track investors, and monitor fundraising progress.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function FounderLoginPage() {

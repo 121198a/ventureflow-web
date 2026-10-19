@@ -6,12 +6,12 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { Reveal } from "@/components/site/reveal";
 
 export const metadata: Metadata = {
-  title: "How the Workspace Works — VentureFlow",
+  title: "How the Workspace Works",
   description:
     "Explore the five parts of the VentureFlow workspace: profiles, documents, pipeline, updates and introductions.",
   alternates: { canonical: "/newsletter/how-it-works" },
   openGraph: {
-    title: "How the Workspace Works — VentureFlow",
+    title: "How the Workspace Works — VentureFlow by Veyron X",
     description: "How founders and investors use profiles, documents, notes and messages together.",
     url: "/newsletter/how-it-works",
   },

@@ -5,6 +5,10 @@ import { ForgotPasswordForm } from "@/components/site/forgot-password-form";
 export const metadata: Metadata = {
   title: "Create a New Password",
   description: "Set a password for your account.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function IssuerForgotPage() {

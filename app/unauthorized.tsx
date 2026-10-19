@@ -4,6 +4,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "401 — Unauthorized",
   description: "Authentication is required to view or access this page.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function Unauthorized() {
