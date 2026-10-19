@@ -157,7 +157,7 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
                   type="button"
                   onClick={() => handleSelectAnswer("yes")}
                   className={cn(
-                    "flex flex-col items-center justify-center rounded-lg border-2 p-4 text-center transition-all cursor-pointer",
+                    "flex flex-col items-center justify-center rounded-lg border-2 p-4 text-center transition-all cursor-pointer focus-ring",
                     currentAns === "yes"
                       ? "border-emerald-600 bg-emerald-50 text-emerald-950 font-bold shadow-xs"
                       : "border-hairline bg-surface text-ink/80 hover:border-brand"
@@ -177,7 +177,7 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
                   type="button"
                   onClick={() => handleSelectAnswer("mid")}
                   className={cn(
-                    "flex flex-col items-center justify-center rounded-lg border-2 p-4 text-center transition-all cursor-pointer",
+                    "flex flex-col items-center justify-center rounded-lg border-2 p-4 text-center transition-all cursor-pointer focus-ring",
                     currentAns === "mid"
                       ? "border-amber-500 bg-amber-50 text-amber-950 font-bold shadow-xs"
                       : "border-hairline bg-surface text-ink/80 hover:border-brand"
@@ -197,7 +197,7 @@ export function AssessmentStandalonePage({ meta }: { meta: AssessmentMeta }) {
                   type="button"
                   onClick={() => handleSelectAnswer("no")}
                   className={cn(
-                    "flex flex-col items-center justify-center rounded-lg border-2 p-4 text-center transition-all cursor-pointer",
+                    "flex flex-col items-center justify-center rounded-lg border-2 p-4 text-center transition-all cursor-pointer focus-ring",
                     currentAns === "no"
                       ? "border-neutral-500 bg-neutral-100 text-neutral-900 font-bold shadow-xs"
                       : "border-hairline bg-surface text-ink/80 hover:border-brand"

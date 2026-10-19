@@ -19,7 +19,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
 <h2>What VentureFlow is not</h2>
 <p>VentureFlow is a collaboration tool. It does not provide investment, legal, tax or accounting advice, and it does not arrange, broker or execute financial transactions between users.</p>
 <h2>Content</h2>
-<p>Profiles, messages and documents are provided by their owners. VentureFlow does not verify or endorse them. Sample profiles shown on the site are fictional and are used for demonstration only.</p>
+<p>Profiles, messages and documents are provided by their owners. VentureFlow does not verify or endorse them. z shown on the site are fictional and are used for demonstration only.</p>
 <h2>Changes and contact</h2>
 <p>We may update these terms from time to time. Questions can be sent to ${CONTACT}.</p>`,
   },

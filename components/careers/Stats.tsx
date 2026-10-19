@@ -12,7 +12,7 @@ const stats: [string, string][] = [
 
 export function Stats() {
   return (
-    <section className="border-y border-border bg-card">
+    <section aria-label="Key company career statistics" className="border-y border-border bg-card">
       <dl
         className={`${section} grid divide-y divide-border sm:grid-cols-2 sm:divide-y-0 md:grid-cols-4 md:divide-x m-0`}
       >

@@ -132,7 +132,7 @@ export function ArticleCTAHandler({
       <Link
         href={href}
         prefetch={true}
-        className="group mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-[0.9rem] text-primary-foreground transition-all duration-200 hover:bg-brand-strong hover:shadow-md hover:shadow-blue-900/10 active:scale-[0.985]"
+        className="group mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-[0.9rem] text-primary-foreground transition-all duration-200 hover:bg-brand-strong hover:shadow-md hover:shadow-blue-900/10 active:scale-[0.985] focus-ring cursor-pointer"
         style={{ fontWeight: 700 }}
       >
         {buttonLabel}

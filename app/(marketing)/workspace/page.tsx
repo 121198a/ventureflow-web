@@ -9,7 +9,7 @@ import { WorkspaceRails } from "@/components/sections/Workspace/WorkspaceRails";
 import { WorkspaceEconomics } from "@/components/sections/Workspace/WorkspaceEconomics";
 import { WorkspaceMarketplace } from "@/components/sections/Workspace/WorkspaceMarketplace";
 import { WorkspaceCta } from "@/components/sections/Workspace/WorkspaceCta";
-import { site, SITE_URL } from "@/lib/constants";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "VentureFlow Private Markets",
@@ -19,16 +19,16 @@ export const metadata: Metadata = {
     canonical: "/workspace",
   },
   openGraph: {
-    title: "VentureFlow Private Markets — " + site.name,
+    title: "VentureFlow Private Markets | VentureFlow",
     description:
       "VentureFlow extends the VentureFlow verified thesis format into startup investing, institutional deal rooms, and Company Spaces.",
     url: `${SITE_URL}/workspace`,
     type: "website",
-    images: ["/brand/og-image.png"],
+    images: [{ url: "/brand/og-image.png", width: 1200, height: 630, alt: "VentureFlow Private Markets" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "VentureFlow Private Markets — " + site.name,
+    title: "VentureFlow Private Markets | VentureFlow",
     description:
       "VentureFlow extends the VentureFlow verified thesis format into startup investing, institutional deal rooms, and Company Spaces.",
     images: ["/brand/og-image.png"],

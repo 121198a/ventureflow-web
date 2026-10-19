@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Search } from "lucide-react";
 import { departments, locations, roles } from "@/data/careers";
 import { JobCard } from "@/components/careers/JobCard";
@@ -18,7 +18,22 @@ export function JobBoard() {
   const dept = values.dept;
   const loc = values.loc;
 
-  const setQuery = (q: string) => setValues({ ...values, query: q });
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("vf_careers_search");
+      if (saved && !query) {
+        setValues((v) => ({ ...v, query: saved }));
+      }
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const setQuery = (q: string) => {
+    setValues({ ...values, query: q });
+    try {
+      localStorage.setItem("vf_careers_search", q);
+    } catch {}
+  };
   const setDept = (d: string) => setValues({ ...values, dept: d });
   const setLoc = (l: string) => setValues({ ...values, loc: l });
 
@@ -43,14 +58,16 @@ export function JobBoard() {
   return (
     <div>
       <div className="flex flex-col gap-5 rounded-2xl border border-border bg-background p-5 md:flex-row md:items-center md:justify-between">
-        <label className="flex w-full items-center gap-3 rounded-full border border-border bg-card px-4 py-2.5 md:max-w-sm">
+        <label htmlFor="careers-search" className="flex w-full items-center gap-3 rounded-full border border-border bg-card px-4 py-2.5 md:max-w-sm">
           <Search size={16} className="shrink-0 text-muted-foreground" aria-hidden />
           <input
+            id="careers-search"
+            name="careers_search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search roles, teams, locations"
             aria-label="Search roles"
-            className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+            className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground focus-ring"
           />
         </label>
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">

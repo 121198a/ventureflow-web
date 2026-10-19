@@ -29,11 +29,11 @@ const images = [
 
 export function LifeAtCompany() {
   return (
-    <section id="life" className="scroll-mt-24 border-t border-border bg-card py-20 sm:py-28">
+    <section id="life" aria-labelledby="life-title" className="scroll-mt-24 border-t border-border bg-card py-20 sm:py-28">
       <div className={section}>
         <Reveal>
           <p className="eyebrow">Life here</p>
-          <h2 className="display mt-5 max-w-3xl text-3xl sm:text-4xl lg:text-5xl">
+          <h2 id="life-title" className="display mt-5 max-w-3xl text-3xl sm:text-4xl lg:text-5xl">
             Deep work, loud opinions, quiet calendars.
           </h2>
         </Reveal>
@@ -44,7 +44,7 @@ export function LifeAtCompany() {
               delay={i * 0.08}
               className={img.wide ? "md:col-span-2" : ""}
             >
-              <figure className="lift group h-full overflow-hidden rounded-3xl border border-border bg-background">
+              <figure className="lift group h-full overflow-hidden rounded-xl border border-border bg-background">
                 <div className={`relative ${img.wide ? "aspect-[21/9]" : "aspect-[16/9]"}`}>
                   <Image
                     src={img.src}

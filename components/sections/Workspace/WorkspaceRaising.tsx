@@ -49,7 +49,7 @@ const deals = [
 
 export function WorkspaceRaising() {
   return (
-    <section id="raising" className="scroll-mt-24 relative overflow-hidden bg-slate-50/70 px-5 py-20 text-slate-900 sm:py-28 border-y border-slate-200/80">
+    <section id="raising" aria-labelledby="raising-title" className="scroll-mt-24 relative overflow-hidden bg-slate-50/70 px-5 py-20 text-slate-900 sm:py-28 border-y border-slate-200/80">
       {/* Subtle Light Ambient Wash */}
       <div className="pointer-events-none absolute left-1/3 top-0 h-80 w-80 rounded-full bg-blue-100/50 blur-3xl" />
       <div className="pointer-events-none absolute right-1/4 bottom-0 h-80 w-80 rounded-full bg-sky-50/60 blur-3xl" />
@@ -59,7 +59,7 @@ export function WorkspaceRaising() {
           <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse" />
           Now on VentureFlow
         </span>
-        <h2 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+        <h2 id="raising-title" className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
           Startup profiles, ready to explore.
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-sm sm:text-base text-slate-600 leading-relaxed">
@@ -81,7 +81,7 @@ export function WorkspaceRaising() {
               <article>
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex min-w-0 flex-1 items-center gap-3">
-                    <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-xl overflow-hidden border border-slate-200/80 bg-white shadow-xs">
+                    <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-lg overflow-hidden border border-slate-200/80 bg-white shadow-xs">
                       {d.logo ? (
                         <Image
                           src={d.logo}

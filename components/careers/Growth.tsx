@@ -21,10 +21,10 @@ const items: [string, string][] = [
 
 export function Growth() {
   return (
-    <section id="growth" className="scroll-mt-24 border-t border-border py-20 sm:py-28">
+    <section id="growth" aria-labelledby="growth-title" className="scroll-mt-24 border-t border-border py-20 sm:py-28">
       <div className={`${section} grid items-center gap-12 md:grid-cols-2`}>
         <Reveal>
-          <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-soft">
+          <div className="overflow-hidden rounded-xl border border-border bg-card shadow-soft">
             <div className="relative aspect-[16/9]">
               <Image
                 src="/images/growth-session.jpg"
@@ -40,7 +40,7 @@ export function Growth() {
         <div>
           <Reveal>
             <p className="eyebrow">Growth</p>
-            <h2 className="display mt-5 text-3xl sm:text-4xl lg:text-5xl">
+            <h2 id="growth-title" className="display mt-5 text-3xl sm:text-4xl lg:text-5xl">
               We hire for the next two roles, not just this one.
             </h2>
           </Reveal>

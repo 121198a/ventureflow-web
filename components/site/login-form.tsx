@@ -496,7 +496,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
         </label>
         <Link
           href={role === "investor" ? "/investor/forgot" : "/issuer/forgot"}
-          className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-800"
+          className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-800 focus-ring rounded"
         >
           Forgot Password?
         </Link>
@@ -506,7 +506,7 @@ function LoginFormInner({ role = "founder" }: { role?: "founder" | "investor" })
       <button
         type="submit"
         disabled={!canSubmit}
-        className="inline-flex items-center justify-center h-11 w-full rounded-full bg-[#5b8ee8] hover:bg-[#4a7dd7] text-white font-semibold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+        className="inline-flex items-center justify-center h-11 w-full rounded-full bg-[#5b8ee8] hover:bg-[#4a7dd7] text-white font-semibold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm focus-ring cursor-pointer"
       >
         {loading ? (
           <span className="inline-flex items-center gap-2">

@@ -5,7 +5,7 @@ import SiteShell from "@/components/layout/SiteShell";
 import { VentureFlowBrand } from "@/components/ui/VentureFlowBrand";
 import { Mail, Download, ArrowUpRight, Newspaper } from "lucide-react";
 import { ComplianceShieldIcon } from "@/components/ui/CustomIcons";
-import { site, SITE_URL } from "@/lib/constants";
+import { SITE_URL } from "@/lib/constants";
 import {
   pressReleases,
   companyBoilerplate,
@@ -22,16 +22,16 @@ export const metadata: Metadata = {
     canonical: "/press",
   },
   openGraph: {
-    title: "Press & Media Kit — " + site.name,
+    title: "Press & Media Kit | VentureFlow",
     description:
       "Official press releases, brand assets, executive commentary, and announcements from VentureFlow.",
     url: `${SITE_URL}/press`,
     type: "website",
-    images: ["/brand/og-image.png"],
+    images: [{ url: "/brand/og-image.png", width: 1200, height: 630, alt: "VentureFlow Press Kit" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Press & Media Kit — " + site.name,
+    title: "Press & Media Kit | VentureFlow",
     description:
       "Official press releases, brand assets, executive commentary, and announcements from VentureFlow.",
     images: ["/brand/og-image.png"],
@@ -109,7 +109,7 @@ export default function PressPage() {
           </header>
 
           {/* Quick Contact Bar */}
-          <aside aria-label="Media inquiries" className="mt-10 rounded-2xl border border-slate-200 bg-slate-50/70 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <aside aria-label="Media inquiries" className="mt-10 rounded-md border border-slate-200 bg-slate-50/70 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
               <h2 className="text-base sm:text-lg font-bold text-slate-900">Media Inquiries</h2>
               <p className="mt-1 text-xs sm:text-sm text-slate-600">
@@ -160,7 +160,7 @@ export default function PressPage() {
 
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Asset 1 */}
-              <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
+              <article className="rounded-md border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-slate-500 tracking-[0.08em]">Primary mark</span>
                   <span className="rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold px-2.5 py-0.5">
@@ -191,7 +191,7 @@ export default function PressPage() {
               </article>
 
               {/* Asset 2 */}
-              <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
+              <article className="rounded-md border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-slate-500 tracking-[0.08em]">Full brand lockup</span>
                   <span className="rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold px-2.5 py-0.5">
@@ -223,7 +223,7 @@ export default function PressPage() {
             </div>
 
             {/* Brand Usage Rules */}
-            <div className="mt-6 rounded-xl border border-slate-200/80 bg-slate-50/60 p-5">
+            <div className="mt-6 rounded-md border border-slate-200/80 bg-slate-50/60 p-5">
               <h3 className="text-xs font-bold tracking-[0.08em] text-slate-600">
                 Asset usage &amp; spacing rules
               </h3>
@@ -262,14 +262,14 @@ export default function PressPage() {
             </div>
 
             {/* Boilerplate Text for Media Attribution */}
-            <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50/70 p-6">
+            <div className="mt-8 rounded-md border border-slate-200 bg-slate-50/70 p-6">
               <div className="flex items-center justify-between gap-4">
                 <h3 className="text-xs font-bold tracking-[0.08em] text-slate-500">
                   Boilerplate Description (About VentureFlow)
                 </h3>
                 <CopyBoilerplateButton text={companyBoilerplate} />
               </div>
-              <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-700 font-normal select-all bg-white p-4 rounded-xl border border-slate-200">
+              <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-700 font-normal select-all bg-white p-4 rounded-md border border-slate-200">
                 {companyBoilerplate}
               </p>
             </div>
@@ -280,7 +280,7 @@ export default function PressPage() {
             <h2 id="media-mentions-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
               Media Mentions &amp; Editorial Coverage
             </h2>
-            <div className="mt-4 rounded-2xl border border-dashed border-slate-300 bg-slate-50/50 p-8 text-center">
+            <div className="mt-4 rounded-md border border-dashed border-slate-300 bg-slate-50/50 p-8 text-center">
               <Newspaper className="mx-auto size-8 text-slate-400" />
               <h3 className="mt-2 text-sm font-bold text-slate-800">
                 No press mentions yet
@@ -296,11 +296,11 @@ export default function PressPage() {
             <h2 id="announcements-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
               Recent Announcements &amp; Briefings
             </h2>
-            <div className="mt-6 divide-y divide-slate-200/80 rounded-2xl border border-slate-200 bg-white p-2 sm:p-6 shadow-xs">
+            <div className="mt-6 divide-y divide-slate-200/80 rounded-md border border-slate-200 bg-white p-2 sm:p-6 shadow-xs">
               {pressReleases.map((pr) => (
                 <article
                   key={pr.title}
-                  className="py-6 first:pt-2 last:pb-2 px-3 transition-colors hover:bg-slate-50/50 rounded-xl"
+                  className="py-6 first:pt-2 last:pb-2 px-3 transition-colors hover:bg-slate-50/50 rounded-sm"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-700">
@@ -328,7 +328,7 @@ export default function PressPage() {
 
           {/* Media Contact Section */}
           <section id="media-contact" aria-labelledby="media-contact-title" className="mt-16 scroll-mt-28">
-            <div className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50/80 via-white to-sky-50/50 p-6 sm:p-10 shadow-xs">
+            <div className="rounded-md border border-blue-200 bg-gradient-to-br from-blue-50/80 via-white to-sky-50/50 p-6 sm:p-10 shadow-xs">
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/70 px-3 py-0.5 text-xs font-bold text-blue-800">
                   <ComplianceShieldIcon size={14} />

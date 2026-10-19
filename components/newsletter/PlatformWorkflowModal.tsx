@@ -151,7 +151,7 @@ export function PlatformWorkflowModal({
                 type="button"
                 disabled={activeStep === 0}
                 onClick={() => setActiveStep((i) => Math.max(0, i - 1))}
-                className="rounded-md border border-hairline px-3 py-2 text-xs font-semibold disabled:opacity-40"
+                className="rounded-md border border-hairline px-3 py-2 text-xs font-semibold disabled:opacity-40 hover:bg-surface-alt focus-ring cursor-pointer transition-colors"
               >
                 Previous Step
               </button>
@@ -159,7 +159,7 @@ export function PlatformWorkflowModal({
                 type="button"
                 disabled={activeStep === STEPS.length - 1}
                 onClick={() => setActiveStep((i) => Math.min(STEPS.length - 1, i + 1))}
-                className="rounded-md border border-hairline px-3 py-2 text-xs font-semibold disabled:opacity-40"
+                className="rounded-md border border-hairline px-3 py-2 text-xs font-semibold disabled:opacity-40 hover:bg-surface-alt focus-ring cursor-pointer transition-colors"
               >
                 Next Step
               </button>
@@ -172,7 +172,7 @@ export function PlatformWorkflowModal({
                   onClose();
                   onOpenConsultation();
                 }}
-                className="inline-flex items-center gap-2 rounded-md bg-brand px-5 py-2.5 text-[0.85rem] font-bold text-primary-foreground hover:bg-brand-strong transition-colors"
+                className="inline-flex items-center gap-2 rounded-md bg-brand px-5 py-2.5 text-[0.85rem] font-bold text-primary-foreground hover:bg-brand-strong focus-ring cursor-pointer transition-colors"
               >
                 <Calendar className="size-4" />
                 Schedule Working Session

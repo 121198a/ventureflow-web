@@ -10,12 +10,12 @@ const costs = [
 
 export function WorkspaceEconomics() {
   return (
-    <section className="bg-slate-50 px-5 py-16 sm:py-24">
+    <section aria-labelledby="economics-heading" className="bg-slate-50 px-5 py-16 sm:py-24">
       <Reveal className="mx-auto max-w-[820px] text-center">
         <span className="inline-flex items-center rounded-pill border border-slate-200 bg-white px-4 py-1.5 text-sm text-slate-600">
           The economics
         </span>
-        <h2 className="mt-6 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
+        <h2 id="economics-heading" className="mt-6 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
           You should not have to pay
           <br />
           <span className="text-blue-600">to be discovered.</span>

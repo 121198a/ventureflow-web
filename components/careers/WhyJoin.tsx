@@ -23,11 +23,11 @@ const reasons: [string, string][] = [
 
 export function WhyJoin() {
   return (
-    <section id="why" className="scroll-mt-24 py-20 sm:py-28">
+    <section id="why" aria-labelledby="why-title" className="scroll-mt-24 py-20 sm:py-28">
       <div className={`${section} grid gap-12 md:grid-cols-[0.85fr_1.15fr]`}>
         <Reveal>
           <p className="eyebrow">Why join</p>
-          <h2 className="display animated-rule mt-5 inline-block pb-3 text-3xl sm:text-4xl lg:text-5xl">
+          <h2 id="why-title" className="display animated-rule mt-5 inline-block pb-3 text-3xl sm:text-4xl lg:text-5xl">
             A place where the work is actually yours.
           </h2>
         </Reveal>

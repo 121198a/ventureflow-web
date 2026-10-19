@@ -6,15 +6,15 @@ const section = "mx-auto max-w-[1240px] px-5 sm:px-6";
 
 export function ClosingCTA() {
   return (
-    <section className="border-t border-border py-20 sm:py-28">
+    <section aria-labelledby="closing-cta-title" className="border-t border-border py-20 sm:py-28">
       <div className={section}>
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-14 text-center shadow-soft sm:px-12">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card px-6 py-14 text-center shadow-soft sm:px-12">
           <div
             className="gradient-blob absolute -bottom-24 left-1/2 h-[320px] w-[520px] -translate-x-1/2 rounded-full bg-brand"
             aria-hidden
           />
           <Reveal>
-            <h2 className="display text-[clamp(2rem,5.5vw,3.6rem)]">Nothing fits yet?</h2>
+            <h2 id="closing-cta-title" className="display text-[clamp(2rem,5.5vw,3.6rem)]">Nothing fits yet?</h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-5 max-w-lg text-text-secondary">
@@ -26,7 +26,7 @@ export function ClosingCTA() {
             <Magnetic>
               <a
                 href="mailto:careers@ventureflow.example"
-                className="btn-pill-primary mt-9"
+                className="btn-pill-primary mt-9 focus-ring"
               >
                 <Mail size={16} aria-hidden />
                 careers@ventureflow.example

@@ -76,7 +76,7 @@ export default function AboutSection() {
   return (
     <main id="main-content" className="bg-slate-50/80 border-slate-100 font-sans text-slate-900 antialiased">
       {/* HERO */}
-      <section aria-label="About VentureFlow" className={`relative flex min-h-[85vh] flex-col justify-center overflow-hidden to-blue-400 ${styles.dotGrid || ""}`}>
+      <section aria-labelledby="about-hero-title" className={`relative flex min-h-[85vh] flex-col justify-center overflow-hidden to-blue-400 ${styles.dotGrid || ""}`}>
         {HERO_AVATARS.map((a, i) => (
           <span
             key={a.src + i}
@@ -86,7 +86,7 @@ export default function AboutSection() {
           </span>
         ))}
         <Reveal as="header" className="relative mx-auto max-w-4xl px-6 pb-16 pt-24 text-center sm:pb-20 sm:pt-32">
-          <h1 className="font-about-display text-[clamp(2.1rem,5vw,3.4rem)] font-extrabold leading-[1.08] tracking-tight">
+          <h1 id="about-hero-title" className="font-about-display text-[clamp(2.1rem,5vw,3.4rem)] font-extrabold leading-[1.08] tracking-tight">
             A calmer way for founders <br />
             <span className="text-blue-600">and investors to work together.</span>
           </h1>
@@ -281,7 +281,7 @@ export default function AboutSection() {
         </div>
       </section>
 
-      <div className="relative z-20 mt-24 sm:mt-28">
+      <aside aria-label="Explore VentureFlow" className="relative z-20 mt-24 sm:mt-28">
         <div className="absolute inset-x-0 top-0 z-20 -translate-y-1/2 px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -310,7 +310,7 @@ export default function AboutSection() {
             </div>
           </motion.div>
         </div>
-      </div>
+      </aside>
     </main>
   );
 }

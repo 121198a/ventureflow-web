@@ -17,12 +17,18 @@ export function Reveal({
   delay = 0,
   as: Tag = "div",
   className,
+  id,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
 }: {
   children: ReactNode;
   /** stagger delay in ms */
   delay?: number;
   as?: ElementType;
   className?: string;
+  id?: string;
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
 }) {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -50,6 +56,9 @@ export function Reveal({
   return (
     <Component
       ref={ref}
+      id={id}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledby}
       data-reveal
       className={`${visible ? "is-visible" : ""}${className ? ` ${className}` : ""}`}
       style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}

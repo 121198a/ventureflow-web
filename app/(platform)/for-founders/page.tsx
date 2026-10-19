@@ -19,16 +19,18 @@ export const metadata: Metadata = {
     canonical: "/for-founders",
   },
   openGraph: {
-    title: "For Founders — Your Startup Workspace — VentureFlow by Veyron X",
-    description: "Startup profile, document sharing, introductions and messages in one workspace.",
+    title: "For Founders — Your Startup Workspace",
+    description:
+      "Build your startup profile on VentureFlow, share documents, request introductions and keep every conversation in one workspace.",
     url: `${SITE_URL}/for-founders`,
     type: "website",
     images: ["/brand/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "For Founders — Your Startup Workspace — VentureFlow by Veyron X",
-    description: "Startup profile, document sharing, introductions and messages in one workspace.",
+    title: "For Founders — Your Startup Workspace",
+    description:
+      "Build your startup profile on VentureFlow, share documents, request introductions and keep every conversation in one workspace.",
     images: ["/brand/og-image.png"],
   },
 };
@@ -78,10 +80,10 @@ export default function ForFounders() {
 
       <main id="main-content" className="flex-1 w-full">
         {/* Hero */}
-        <section className="relative overflow-hidden border-b border-hairline">
+        <section aria-labelledby="for-founders-heading" className="relative overflow-hidden border-b border-hairline">
           <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-10 px-5 py-16 lg:grid-cols-[1fr_1.05fr] lg:py-20">
             <div>
-              <Reveal as="h1" className="text-[38px] leading-[1.12] sm:text-[44px]">
+              <Reveal as="h1" id="for-founders-heading" className="text-[38px] leading-[1.12] sm:text-[44px]">
                 <span className="text-brand" style={{ fontWeight: 800 }}>
                   Your startup workspace.
                 </span>
@@ -125,15 +127,15 @@ export default function ForFounders() {
         </section>
 
         {/* Journey */}
-        <section id="journey" className="mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
-          <Reveal as="h2" className="text-[27px]">
+        <section id="journey" aria-labelledby="journey-heading" className="mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
+          <Reveal as="h2" id="journey-heading" className="text-[27px]">
             <span style={{ fontWeight: 800 }}>From sign-up to first introduction on VentureFlow</span>
           </Reveal>
 
           <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1.75fr_1fr]">
             <Stepper steps={steps} />
 
-            <aside className="rounded-2xl border border-slate-200/90 bg-white p-6 text-center shadow-xs">
+            <aside aria-label="Signup recommendation" className="rounded-2xl border border-slate-200/90 bg-white p-6 text-center shadow-xs">
               <p className="text-[13.5px] leading-[1.6] text-ink/85">
                 With VentureFlow, collaboration is simple. You focus on your vision, we keep the workspace organised.
               </p>
@@ -145,9 +147,9 @@ export default function ForFounders() {
         </section>
 
         {/* Deal types */}
-        <section id="deal-types" className="mx-auto max-w-[1180px] px-5 pb-20">
+        <section id="deal-types" aria-labelledby="deal-types-heading" className="mx-auto max-w-[1180px] px-5 pb-20">
           <div className="flex flex-wrap items-baseline justify-between gap-4">
-            <h2 className="text-[27px]" style={{ fontWeight: 800 }}>
+            <h2 id="deal-types-heading" className="text-[27px]" style={{ fontWeight: 800 }}>
               A workspace built around you
             </h2>
             <DealTypeModal />

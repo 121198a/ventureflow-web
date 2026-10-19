@@ -79,9 +79,6 @@ export default async function Home() {
 
       <section className="bg-background">
         <div className="mx-auto max-w-[1180px] px-5 py-14 sm:py-20">
-          <Reveal as="p" className="text-xs font-semibold text-brand tracking-wider text-center">
-            Sample Profiles
-          </Reveal>
           <Reveal
             as="h2"
             delay={80}

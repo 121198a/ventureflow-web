@@ -35,7 +35,7 @@ export async function LegalShell({
             {/* ================= RIGHT COLUMN ================= */}
             <div className="legal-shell-content-col">
               {/* ================= CONTENT ================= */}
-              <main className="legal-shell-main">
+              <main id="main-content" className="legal-shell-main">
                 <div className="min-h-full flex flex-col justify-between py-6 sm:py-8 lg:pl-10 lg:pr-8">
                   <div className="w-full max-w-4xl">{children}</div>
 

@@ -7,14 +7,7 @@ import { cn } from "@/lib/utils";
  * Shared field chrome for every VentureFlow authentication form.
  * (Figtree is inherited from the site — never set a font-family here.)
  */
-export const AUTH_INPUT_CLASS = cn(
-  "block w-full h-[clamp(2.4rem,4.4vh,3.1rem)] rounded-[clamp(10px,0.85vw,14px)]",
-  "border border-slate-200 bg-white px-[clamp(0.85rem,1.2vw,1.25rem)]",
-  "text-[length:clamp(0.88rem,1vw,1.05rem)] font-medium text-slate-900",
-  "placeholder:font-medium placeholder:text-slate-400",
-  "outline-none transition-all",
-  "focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
-);
+export const AUTH_INPUT_CLASS = "auth-input-field";
 
 export const AUTH_LABEL_CLASS =
   "block text-[length:clamp(0.82rem,0.95vw,1.05rem)] font-semibold leading-snug text-slate-900";

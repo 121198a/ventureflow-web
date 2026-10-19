@@ -7,7 +7,7 @@ import { TransitionLink } from "@/components/ui/TransitionLink";
 
 export function WorkspaceHero() {
   return (
-    <section className="relative min-h-[85vh] lg:min-h-[88vh] flex flex-col justify-center items-center pt-28 pb-14 lg:pt-36 lg:pb-20 overflow-hidden bg-blue-50">
+    <section aria-labelledby="workspace-hero-title" className="relative min-h-[85vh] lg:min-h-[88vh] flex flex-col justify-center items-center pt-28 pb-14 lg:pt-36 lg:pb-20 overflow-hidden bg-blue-50">
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.45]"
         style={{
@@ -38,6 +38,7 @@ export function WorkspaceHero() {
 
         {/* Main Heading */}
         <motion.h1
+          id="workspace-hero-title"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.08 }}

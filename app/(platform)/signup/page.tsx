@@ -9,6 +9,19 @@ export const metadata: Metadata = {
     index: false,
     follow: true,
   },
+  alternates: {
+    canonical: "/signup",
+  },
+  openGraph: {
+    title: "Apply as a Founder — VentureFlow by Veyron X",
+    description: "Complete your founder application to access investors and launch your raise.",
+    url: "/signup",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Apply as a Founder — VentureFlow by Veyron X",
+    description: "Complete your founder application to access investors and launch your raise.",
+  },
 };
 
 export default function Signup() {

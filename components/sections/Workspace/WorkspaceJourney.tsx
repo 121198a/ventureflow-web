@@ -56,7 +56,7 @@ export function WorkspaceJourney() {
   }, []);
 
   return (
-    <section id="beyond-the-raise" className="scroll-mt-24 bg-slate-100 px-5 py-20 sm:py-28 border-y border-slate-100">
+    <section id="beyond-the-raise" aria-labelledby="journey-title" className="scroll-mt-24 bg-slate-100 px-5 py-20 sm:py-28 border-y border-slate-100">
       <div className="mx-auto max-w-[1100px] text-center">
         <Reveal>
           <span className="inline-flex items-center rounded-pill border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-600 shadow-xs">
@@ -64,7 +64,7 @@ export function WorkspaceJourney() {
           </span>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
+          <h2 id="journey-title" className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
             Where a company <span className="text-blue-600">goes to work.</span>
           </h2>
         </Reveal>

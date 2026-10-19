@@ -81,7 +81,7 @@ function SubscribeForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-md bg-brand px-4 py-3 text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong disabled:opacity-60"
+        className="w-full rounded-md bg-brand px-4 py-3 text-[0.9rem] text-primary-foreground transition-colors hover:bg-brand-strong focus-ring cursor-pointer disabled:opacity-60"
         style={{ fontWeight: 800 }}
       >
         {loading ? "Subscribing..." : sent ? "Subscribed" : "Subscribe"}

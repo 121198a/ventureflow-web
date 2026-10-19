@@ -242,6 +242,10 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
       }
 
       setSubmitted(true);
+      try {
+        localStorage.removeItem("vf_signup_email");
+        localStorage.removeItem("vf_signup_phone");
+      } catch {}
       const verifiedRole = data.user?.role || role;
       const defaultDest =
         verifiedRole === "founder" ? "/founder/dashboard" : "/investor/dashboard";
@@ -437,6 +441,9 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
             onChange={(val, e164) => {
               setPhone(val);
               setPhoneE164(e164);
+              try {
+                localStorage.setItem("vf_signup_phone", val);
+              } catch {}
               if (errorMessage) setErrorMessage(null);
             }}
           />
@@ -551,14 +558,14 @@ function SignupFormInner({ role = "founder" }: { role?: "founder" | "investor" }
             href="/legal/workspace-disclaimer-for-ventureflow"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs sm:text-[13px] font-medium text-blue-600 underline underline-offset-2 hover:text-blue-700"
+            className="text-xs sm:text-[13px] font-medium text-blue-600 underline underline-offset-2 hover:text-blue-700 focus-ring rounded"
           >
             Disclaimers and Disclosures
           </Link>
           <button
             type="submit"
             disabled={!canContinue}
-            className="inline-flex items-center justify-center h-10 px-8 rounded-full bg-[#5b8ee8] hover:bg-[#4a7dd7] text-white text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+            className="inline-flex items-center justify-center h-10 px-8 rounded-full bg-[#5b8ee8] hover:bg-[#4a7dd7] text-white text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm focus-ring cursor-pointer"
           >
             {loading ? (
               <span className="inline-flex items-center gap-2">

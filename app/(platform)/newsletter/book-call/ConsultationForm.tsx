@@ -426,7 +426,7 @@ END:VCALENDAR`;
                   type="button"
                   onClick={handlePrevMonth}
                   aria-label="Previous month"
-                  className="rounded-md p-1.5 text-muted-foreground hover:bg-surface-alt hover:text-ink cursor-pointer transition-colors"
+                  className="rounded-md p-1.5 text-muted-foreground hover:bg-surface-alt hover:text-ink cursor-pointer focus-ring transition-colors"
                 >
                   <ChevronLeft className="size-4" />
                 </button>
@@ -434,7 +434,7 @@ END:VCALENDAR`;
                   type="button"
                   onClick={handleNextMonth}
                   aria-label="Next month"
-                  className="rounded-md p-1.5 text-muted-foreground hover:bg-surface-alt hover:text-ink cursor-pointer transition-colors"
+                  className="rounded-md p-1.5 text-muted-foreground hover:bg-surface-alt hover:text-ink cursor-pointer focus-ring transition-colors"
                 >
                   <ChevronRight className="size-4" />
                 </button>
@@ -470,7 +470,7 @@ END:VCALENDAR`;
                       if (error) setError(null);
                     }}
                     className={cn(
-                      "h-9 w-full rounded-md text-xs font-semibold transition-all flex items-center justify-center cursor-pointer",
+                      "h-9 w-full rounded-md text-xs font-semibold transition-all flex items-center justify-center cursor-pointer focus-ring",
                       isSelected && "bg-brand text-white shadow-xs font-bold",
                       !isSelected && !isDisabled && "text-ink hover:bg-surface-alt hover:border hover:border-brand/40",
                       isDisabled && "text-muted-foreground/30 cursor-not-allowed bg-transparent"
@@ -504,7 +504,7 @@ END:VCALENDAR`;
                       if (error) setError(null);
                     }}
                     className={cn(
-                      "rounded-lg border px-3 py-2 text-xs font-semibold transition-all cursor-pointer text-center",
+                      "rounded-lg border px-3 py-2 text-xs font-semibold transition-all cursor-pointer focus-ring text-center",
                       isSelected
                         ? "border-brand bg-brand/10 text-brand font-bold shadow-2xs"
                         : "border-hairline bg-surface text-ink/80 hover:border-brand/50 hover:bg-surface-alt"

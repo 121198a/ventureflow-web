@@ -5,11 +5,11 @@ const section = "mx-auto max-w-[1240px] px-5 sm:px-6";
 
 export function HiringProcess() {
   return (
-    <section id="process" className="scroll-mt-24 border-t border-border py-20 sm:py-28">
+    <section id="process" aria-labelledby="process-title" className="scroll-mt-24 border-t border-border py-20 sm:py-28">
       <div className={section}>
         <Reveal>
           <p className="eyebrow">Hiring process</p>
-          <h2 className="display mt-5 text-3xl sm:text-4xl lg:text-5xl">
+          <h2 id="process-title" className="display mt-5 text-3xl sm:text-4xl lg:text-5xl">
             Four steps. Two weeks. No ghosting.
           </h2>
         </Reveal>

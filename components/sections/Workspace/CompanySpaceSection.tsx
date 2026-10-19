@@ -75,7 +75,7 @@ export function CompanySpaceSection() {
   const currentCard = tabContentMap[activeTab] || tabContentMap.Updates;
 
   return (
-    <section id="the-company-space" className="scroll-mt-32 relative z-10 w-full bg-white pt-20 pb-10 lg:pt-28 lg:pb-14 overflow-hidden transition-all duration-300">
+    <section id="the-company-space" aria-labelledby="company-space-title" className="scroll-mt-32 relative z-10 w-full bg-white pt-20 pb-10 lg:pt-28 lg:pb-14 overflow-hidden transition-all duration-300">
       <div className="mx-auto max-w-[1140px] px-4 sm:px-6 text-center">
 
         {/* Eyebrow Pill */}
@@ -86,7 +86,7 @@ export function CompanySpaceSection() {
         </div>
 
         {/* Heading */}
-        <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl leading-[1.12]">
+        <h2 id="company-space-title" className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl leading-[1.12]">
           Give investors more than a pitch deck. <br />
           <span className="text-blue-600">Give them a company they can understand.</span>
         </h2>

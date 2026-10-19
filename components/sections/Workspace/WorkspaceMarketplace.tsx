@@ -21,11 +21,11 @@ export function WorkspaceMarketplace() {
   }, []);
 
   return (
-    <section className="bg-white px-5 py-20 sm:py-28 border-t border-slate-100 overflow-hidden">
+    <section aria-labelledby="marketplace-heading" className="bg-white px-5 py-20 sm:py-28 border-t border-slate-100 overflow-hidden">
       <div className="mx-auto max-w-[900px] text-center">
         {/* Clean Rotating Heading */}
         <Reveal delay={0.1}>
-          <h2 className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
+          <h2 id="marketplace-heading" className="mt-5 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
             The next company worth backing <br />
             could be built in{" "}
             <span className="inline-block text-blue-600 font-black min-w-[110px] sm:min-w-[140px] text-left">

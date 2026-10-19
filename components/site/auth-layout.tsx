@@ -167,14 +167,14 @@ export function AuthLayout({
         <AuthBrandPill />
       </header>
 
-      <main className="relative z-10 grid flex-1 grid-cols-1 gap-8 px-4 pb-8 pt-4 sm:px-8 lg:grid-cols-[48.8fr_51.2fr] lg:items-center lg:gap-0 lg:px-0 lg:py-2 lg:overflow-hidden">
+      <main id="main-content" className="relative z-10 grid flex-1 grid-cols-1 gap-8 px-4 pb-8 pt-4 sm:px-8 lg:grid-cols-[48.8fr_51.2fr] lg:items-center lg:gap-0 lg:px-0 lg:py-2 lg:overflow-hidden">
         {/* LEFT — role-specific heading & glowing network wave */}
-        <section className="relative flex flex-col text-left lg:pl-[min(6vw,100px)] lg:pr-10 z-10">
+        <section aria-labelledby="auth-portal-title" className="relative flex flex-col text-left lg:pl-[min(6vw,100px)] lg:pr-10 z-10">
           {eyebrow && (
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-600">{eyebrow}</p>
           )}
 
-          <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold leading-[1.15] tracking-tight text-slate-900">
+          <h1 id="auth-portal-title" className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold leading-[1.15] tracking-tight text-slate-900">
             {title}
           </h1>
 
@@ -227,7 +227,7 @@ export function AuthLayout({
         </section>
 
         {/* RIGHT — white authentication card */}
-        <section className="lg:self-center lg:pr-[min(6vw,100px)] lg:pl-10 flex justify-center lg:justify-end z-10">
+        <section aria-label="Authentication form card" className="lg:self-center lg:pr-[min(6vw,100px)] lg:pl-10 flex justify-center lg:justify-end z-10">
           <div className="relative w-full max-w-[550px]">
             <AuthCard>{children}</AuthCard>
           </div>

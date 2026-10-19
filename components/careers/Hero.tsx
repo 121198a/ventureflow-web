@@ -22,6 +22,7 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
+      aria-labelledby="careers-hero-title"
       className="relative overflow-hidden pt-32 pb-16 sm:pt-40 md:pt-48 md:pb-24"
     >
       <div className="subtle-grid absolute inset-0 -z-20" aria-hidden />
@@ -44,7 +45,7 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <h1 className="display mt-7 max-w-4xl text-[clamp(2.1rem,7.5vw,5.5rem)]">
+          <h1 id="careers-hero-title" className="display mt-7 max-w-4xl text-[clamp(2.1rem,7.5vw,5.5rem)]">
             Build what
             <br />
             comes <span className="text-brand">next.</span>

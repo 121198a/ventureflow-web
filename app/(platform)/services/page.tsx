@@ -12,15 +12,15 @@ export const metadata: Metadata = {
     canonical: "/services",
   },
   openGraph: {
-    title: "Workspace Capabilities — VentureFlow by Veyron X",
+    title: "Workspace Capabilities | VentureFlow",
     description: "See what founders and investors can do in a VentureFlow workspace: profiles, introductions, messages, notes and documents.",
     url: `${SITE_URL}/services`,
     type: "website",
-    images: ["/brand/og-image.png"],
+    images: [{ url: "/brand/og-image.png", width: 1200, height: 630, alt: "Workspace Capabilities" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Workspace Capabilities — VentureFlow by Veyron X",
+    title: "Workspace Capabilities | VentureFlow",
     description: "See what founders and investors can do in a VentureFlow workspace: profiles, introductions, messages, notes and documents.",
     images: ["/brand/og-image.png"],
   },
@@ -65,9 +65,9 @@ export default function Services() {
       <SiteHeader />
 
       <main id="main-content" className="flex-1">
-        <section className="relative z-10 mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
+        <section aria-labelledby="services-heading" className="relative z-10 mx-auto max-w-[1180px] px-5 py-12 sm:py-16">
           <p className="eyebrow">Workspace Capabilities</p>
-          <h1 className="mt-4 text-[2rem] sm:text-[2.4rem] text-slate-900" style={{ fontWeight: 800 }}>
+          <h1 id="services-heading" className="mt-4 text-[2rem] sm:text-[2.4rem] text-slate-900" style={{ fontWeight: 800 }}>
             What each role can do
           </h1>
           <p className="mt-4 max-w-[620px] text-[0.95rem] leading-[1.75] text-ink/70">
